@@ -213,7 +213,8 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                       // showRecycleWithDataFilled(response);
+                        latestListAdapter.addAll(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }

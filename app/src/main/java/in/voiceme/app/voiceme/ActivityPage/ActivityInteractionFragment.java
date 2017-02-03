@@ -212,7 +212,8 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
 
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                    //    showRecycleWithDataFilled(response);
+                        latestListAdapter.addAll(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
