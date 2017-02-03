@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
@@ -55,12 +54,13 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         User loggedInUser = VoicemeApplication.getAuth().getUser();
         displayNameText.setText(loggedInUser.getUserNickName());
 
-        Picasso.with(activity).load(loggedInUser.getAvatarPics()).into(avatarImage);
+        // Todo Nav Drawer Avatar
+     //   Picasso.with(activity).load(loggedInUser.getAvatarPics()).into(avatarImage);
     }
 
     @Subscribe
     public void onUserDetailsUpdated(Account.UserDetailsUpdatedEvent event) {
-        Picasso.with(activity).load(event.User.getAvatarPics()).into(avatarImage);
+   //     Picasso.with(activity).load(event.User.getAvatarPics()).into(avatarImage);
         displayNameText.setText(event.User.getUserNickName());
     }
 

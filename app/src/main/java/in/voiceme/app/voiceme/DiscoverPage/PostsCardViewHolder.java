@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
@@ -30,7 +31,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected int sameCounter;
     //Imageview for avatar and play pause button
 
-    protected ImageView user_avatar;
+    protected SimpleDraweeView  user_avatar;
     protected ImageView more_button;
     protected FabButton play_button;
 
@@ -72,7 +73,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     public PostsCardViewHolder(View itemView) {
         super(itemView);
         //Imageview for avatar and play pause button
-        user_avatar = (ImageView) itemView.findViewById(R.id.list_item_posts_avatar);
+        user_avatar = (SimpleDraweeView) itemView.findViewById(R.id.list_item_posts_avatar);
         play_button = (FabButton) itemView.findViewById(R.id.list_item_posts_play_button);
         more_button = (ImageView) itemView.findViewById(R.id.status_more);
 
@@ -279,8 +280,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         hug_counter.setText(String.valueOf(dataItem.getHug()));
         same_counter.setText(String.valueOf(dataItem.getSame()));
 
+        user_avatar.setImageURI(dataItem.getAvatarPics());
 
-     /*   if (!dataItem.getAvatarPics().equals("") || dataItem.getAvatarPics() != null) {
+       /* if (!dataItem.getAvatarPics().equals("") || dataItem.getAvatarPics() != null) {
             Picasso.with(itemView.getContext())
                     .load(dataItem.getAvatarPics())
                     .resize(75, 75)

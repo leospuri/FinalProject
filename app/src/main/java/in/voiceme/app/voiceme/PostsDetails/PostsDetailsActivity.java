@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -54,7 +54,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private boolean doDislike;
 
-    private ImageView user_avatar;
+    private SimpleDraweeView user_avatar;
     private ImageView play_button;
 
     private TextView user_name;
@@ -121,7 +121,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
         //Imageview for avatar and play pause button
-        user_avatar = (ImageView) findViewById(detail_list_item_posts_avatar);
+        user_avatar = (SimpleDraweeView) findViewById(detail_list_item_posts_avatar);
         play_button = (ImageView) findViewById(R.id.detail_list_item_posts_play_button);
 
         //username, feeling and category
@@ -406,13 +406,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         hugCounter = myList.get(0).getHug();
         sameCounter = myList.get(0).getSame();
 
-        if (!myList.get(0).getAvatarPics().equals("")) {
-            Picasso.with(this)
-                    .load(myList.get(0).getAvatarPics())
-                    .resize(75, 75)
-                    .centerInside()
-                    .into(user_avatar);
-        }
+        user_avatar.setImageURI(myList.get(0).getAvatarPics());
 
         if (myList.get(0).getUserLike() != null){
             if (myList.get(0).getUserLike()){

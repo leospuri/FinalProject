@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import in.voiceme.app.voiceme.PostsDetails.UserHugCounterActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserLikeCounterActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserListenCounterActivity;
@@ -22,7 +24,7 @@ import mbanje.kurt.fabbutton.FabButton;
  */
 public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, WasLoggedInInterface {
 
-    ImageView user_avatar;
+    SimpleDraweeView  user_avatar;
     FabButton play_button;
     TextView user_name;
     TextView isPost;
@@ -64,7 +66,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         timeStamp = (TextView) itemView.findViewById(R.id.list_item_posts_timeStamp);
         postMessage = (TextView) itemView.findViewById(R.id.list_item_posts_message);
         postReadMore = (TextView) itemView.findViewById(R.id.list_item_posts_read_more);
-        user_avatar = (ImageView) itemView.findViewById(R.id.list_item_posts_avatar);
+        user_avatar = (SimpleDraweeView) itemView.findViewById(R.id.list_item_posts_avatar);
         play_button = (FabButton) itemView.findViewById(R.id.list_item_posts_play_button);
 
         itemView.setOnClickListener(this);

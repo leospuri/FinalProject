@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.otto.Bus;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
@@ -41,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         manager = AccountManager.getInstance();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
 
+        Fresco.initialize(getApplicationContext());
         bus.register(this);
         isRegisterdWithBus = true;
 

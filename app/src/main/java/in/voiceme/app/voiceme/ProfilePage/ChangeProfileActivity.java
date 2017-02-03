@@ -16,14 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emmasuzuki.easyform.EasyTextInputLayout;
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -52,7 +51,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private String currentGender;
     CharSequence[] values = {" Male "," Female "," Transgender "};
 
-    private CircleImageView avatarView;
+    private SimpleDraweeView avatarView;
     private View avatarProgressFrame;
     private File tempOutputFile; //storing the profile_image temporarily while we crop it.
 
@@ -76,7 +75,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         genderSelection = (TextView) findViewById(R.id.user_gender_text_box);
         genderSelectionTitle = (TextView) findViewById(R.id.user_gender);
 
-        avatarView = (CircleImageView) findViewById(R.id.changeimage);
+        avatarView = (SimpleDraweeView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
         tempOutputFile = new File(getExternalCacheDir(), "temp-profile_image.jpg");
 
@@ -324,13 +323,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         userAge.getEditText().setText(response.getData().getUserDateOfBirth());
         genderSelection.setText(response.getData().getGender());
 
-        if (!response.getData().getAvatarPics().equals("")) {
-            Picasso.with(this)
-                    .load(response.getData().getAvatarPics())
-                    .resize(75, 75)
-                    .centerInside()
-                    .into(avatarView);
-        }
+        avatarView.setImageURI(response.getData().getAvatarPics());
 
     }
 

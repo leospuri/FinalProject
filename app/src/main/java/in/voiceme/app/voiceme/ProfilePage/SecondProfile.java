@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -30,6 +32,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView followers;
     private TextView following;
     private Button followMe;
+
+    private SimpleDraweeView image;
 
     private TextView followersCount;
     private TextView followingCount;
@@ -62,6 +66,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         Toast.makeText(this, "user ID: " + profileUserId, Toast.LENGTH_SHORT).show();
 
         username = (TextView) findViewById(R.id.second_name);
+        image = (SimpleDraweeView) findViewById(R.id.second_image);
         followers = (TextView) findViewById(R.id.second_profile_followers);
         following = (TextView) findViewById(R.id.second_profile_following);
         about = (TextView) findViewById(R.id.second_about);
@@ -239,6 +244,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         } else {
             followMe.setText("Follow");
         }
+        image.setImageURI(response.getData().getAvatarPics());
 
     }
 

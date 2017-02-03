@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import in.voiceme.app.voiceme.R;
 
 public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -43,9 +42,8 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
               ((VHItem) holder).notificationMessage.getContext(), data.get(position).getSentTime(),
               true)));
 
-      Picasso.with(item.itemView.getContext())
-          .load(data.get(position).getSenderAvatar())
-          .into(item.imgProfilePicture);
+      item.imgProfilePicture.setImageURI(data.get(position).getSenderAvatar());
+
     }
   }
 
@@ -68,14 +66,14 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     private View itemView;
     private TextView notificationMessage;
     private TextView notificationTime;
-    private CircleImageView imgProfilePicture;
+    private SimpleDraweeView imgProfilePicture;
 
     VHItem(View itemView) {
       super(itemView);
       this.itemView = itemView;
       notificationMessage = (TextView) itemView.findViewById(R.id.txt_notification_message);
       notificationTime = (TextView) itemView.findViewById(R.id.txt_notification_time);
-      imgProfilePicture = (CircleImageView) itemView.findViewById(R.id.img_profile_pic);
+      imgProfilePicture = (SimpleDraweeView) itemView.findViewById(R.id.img_profile_pic);
     }
   }
 }

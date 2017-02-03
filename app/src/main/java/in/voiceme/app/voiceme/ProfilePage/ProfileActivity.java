@@ -10,9 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -34,7 +33,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private TextView followers_counter;
     private TextView following_counter;
     private TextView following;
-    private CircleImageView image;
+    private SimpleDraweeView image;
     private LinearLayout followerLayout;
     private LinearLayout followingLayout;
     private LinearLayout totalPostLayout;
@@ -58,7 +57,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         avatarProgressFrame = findViewById(R.id.activity_profile_avatarProgressFrame);
 
-        image = (CircleImageView) findViewById(R.id.profile_image);
+        image = (SimpleDraweeView) findViewById(R.id.profile_image);
         username = (TextView) findViewById(R.id.name);
         followers = (TextView) findViewById(R.id.profile_followers);
         followers_counter = (TextView) findViewById(R.id.action_followers);
@@ -164,13 +163,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         gender.setText(response.getData().getGender());
         location.setText(response.getData().getLocation());
 
-        if (!response.getData().getAvatarPics().equals("")) {
-            Picasso.with(this)
-                    .load(response.getData().getAvatarPics())
-                    .resize(75, 75)
-                    .centerInside()
-                    .into(image);
-        }
+        image.setImageURI(response.getData().getAvatarPics());
     }
 
 

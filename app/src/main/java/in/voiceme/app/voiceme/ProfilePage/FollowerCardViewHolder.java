@@ -2,10 +2,9 @@ package in.voiceme.app.voiceme.ProfilePage;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import in.voiceme.app.voiceme.R;
 import timber.log.Timber;
@@ -17,12 +16,12 @@ import timber.log.Timber;
 public class FollowerCardViewHolder extends RecyclerView.ViewHolder {
     protected FollowerUserModel dataItem;
     TextView personName;
-    ImageView personPhoto;
+    SimpleDraweeView personPhoto;
 
     public FollowerCardViewHolder(View itemView) {
         super(itemView);
         personName = (TextView) itemView.findViewById(R.id.person_name);
-        personPhoto = (ImageView) itemView.findViewById(R.id.person_photo);
+        personPhoto = (SimpleDraweeView) itemView.findViewById(R.id.person_photo);
 
         personName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,12 +56,6 @@ public class FollowerCardViewHolder extends RecyclerView.ViewHolder {
         }
         personName.setText(dataItem.getName());
 
-        if (!dataItem.getAvatarPics().equals("")) {
-            Picasso.with(itemView.getContext())
-                    .load(dataItem.getAvatarPics())
-                    .resize(75, 75)
-                    .centerInside()
-                    .into(personPhoto);
-        }
+        personPhoto.setImageURI(dataItem.getAvatarPics());
     }
 }
