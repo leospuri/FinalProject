@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "345616717721",
+    "firebase_url": "https://voiceme-fc7c5.firebaseio.com",
+    "project_id": "voiceme-fc7c5",
+    "storage_bucket": "voiceme-fc7c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345616717721:android:268c5d9808895ad4",
+        "android_client_info": {
+          "package_name": "in.voiceme.app.voiceme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345616717721-sg5a4p88os963csgokc01c8vin8ek5ui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.voiceme.app.voiceme",
+            "certificate_hash": "2DFED157D489FA89D03820CA0ACB8F2611F2843D"
+          }
+        },
+        {
+          "client_id": "345616717721-d1ege0ithbp2q9975fl2lsa65472prs5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqRFsnUz4fzfGHJNdGIfFA6eQPhuxZZuc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345616717721-d1ege0ithbp2q9975fl2lsa65472prs5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

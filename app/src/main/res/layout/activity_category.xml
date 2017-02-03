@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar3" />
+        <GridView
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:columnWidth="140dp"
+            android:gravity="center"
+            android:horizontalSpacing="8dp"
+            android:numColumns="auto_fit"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp" >
+        </GridView>
+    </LinearLayout>
+
+    <include layout="@layout/include_main_nav_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

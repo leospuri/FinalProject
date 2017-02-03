@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_anonymous_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/md_cyan_100"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="in.voiceme.app.voiceme.login.AnonymousLogin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:text="Anonymous Login"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/headerLogin"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"/>
+    
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerLogin"
+        android:id="@+id/headerContent"
+        android:text="You have entered into Anonymous \n zone, where you can view \n the contents of the app \n without login. "
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerContent"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="You are greanted limited Access \n Permissions"
+        android:gravity="center_horizontal"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="ENTER"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:padding="15dp"/>
+
+
+
+</RelativeLayout>

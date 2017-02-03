@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit text status"
+                android:textSize="24sp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="top"
+                android:id="@+id/remove_edit_posts"
+                android:hint="Please enter new status"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click below to remove Audio"
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/remove_audio"
+
+                android:text="remove audio"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/remove_audio_confirm"
+                android:layout_height="wrap_content"
+                android:text="Audio will be removed after clicking the submit button"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="submit"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/include_main_nav_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

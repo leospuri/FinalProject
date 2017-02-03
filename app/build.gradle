@@ -1,0 +1,143 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'realm-android'
+apply plugin: 'me.tatarka.retrolambda'
+
+//Load API Key information in from property file
+Properties props = new Properties()
+try {
+    props.load(file('fabric.properties.sample').newDataInputStream())
+} catch (Exception ex) {
+    throw new GradleException("Missing fabric.properties, check the fabric.properties.sample file.");
+}
+
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+// Uncomment if you want to use Java 8 syntax without switching to the Jack+Jill compilers
+ apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    signingConfigs {
+        config {
+            storeFile file('C:/Users/harish/Desktop/VoicemeKeyStore.jks')
+            keyAlias 'VoicemeAlias'
+            keyPassword 'hemlata1'
+            storePassword 'shambhavi12345'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "in.voiceme.app.voiceme"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 2
+        versionName "1.1"
+        multiDexEnabled true
+        buildConfigField "String", "BASE_URL", "\"http://34.193.8.53/\""
+        signingConfig signingConfigs.config
+    }
+    // If you want to use Java 8 syntax, you will need to first enable Retrolambda, then
+    //  change these values.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "CONSUMER_KEY", "\"${props.getProperty("twitterConsumerKey")}\""
+            buildConfigField "String", "CONSUMER_SECRET", "\"${props.getProperty("twitterConsumerSecret")}\""
+            buildConfigField "String", "PARTNER_KEY", "\"${props.getProperty("twitterPartnerKey")}\""
+            /*
+            Commented for now can't find config file
+             */
+            //signingConfig signingConfigs.config
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "CONSUMER_KEY", "\"${props.getProperty("twitterConsumerKey")}\""
+            buildConfigField "String", "CONSUMER_SECRET", "\"${props.getProperty("twitterConsumerSecret")}\""
+            buildConfigField "String", "PARTNER_KEY", "\"${props.getProperty("twitterPartnerKey")}\""
+            /*
+            Commented for now can't find config file
+             */
+            //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
+        }
+        packagingOptions {
+            exclude 'LICENSE.txt'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile project(':licenseLib')
+    compile project(':materialanimatedswitch')
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+    compile 'com.emmasuzuki:easyform:1.0.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
+    compile 'com.android.support:cardview-v7:25.1.0'
+    compile 'com.squareup:otto:1.3.8'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.github.jd-alexander:LikeButton:0.2.0'
+    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile 'com.amazonaws:aws-android-sdk-cognito:2.3.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.18.0'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.android.gms:play-services-plus:10.0.1'
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.github.IntruderShanky:Frisson:2.1.1'
+    compile 'com.yalantis:ucrop:2.2.0'
+    compile 'me.grantland:autofittextview:0.2.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support:support-v4:25.1.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.evernote:android-job:1.1.3'
+    // Digits Kit
+    compile('com.digits.sdk.android:digits:2.0.4@aar') {
+        transitive = true;
+    }
+    // compile 'com.writingminds:FFmpegAndroid:0.3.2' library to compress audio
+    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    compile 'com.redbooth:WelcomeCoordinator:1.0.1'
+    compile 'com.google.android.gms:play-services-analytics:10.0.1'
+    compile 'mbanje.kurt:fabbutton:1.2.2@aar'
+}
+// ADD THIS AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'
+
+
+
+

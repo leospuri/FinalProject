@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="animation_duration">400</integer>
+  <integer name="alpha_animation_duration">200</integer>
+  <integer name="animation_curvature_compensation">14</integer>
+  <integer name="exitAnimator">200</integer>
+
+  **** request codes ****
+  <integer name="pick_image_request">1000</integer>
+  <integer name="camera_request">2000</integer>
+  <integer name="storage_request">3000</integer>
+  <integer name="contacts_request">4000</integer>
+  <integer name="recorder_request">5000</integer>
+  <integer name="read_external_storage_request">6000</integer>
+</resources>
