@@ -94,6 +94,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
             isRegisterdWithBus = false;
         }
 
+        Fresco.shutDown();
+
         if (navDrawer != null) navDrawer.destroy();
     }
 

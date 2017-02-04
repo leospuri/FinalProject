@@ -263,7 +263,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     private void readContacts() {
         if (ActivityUtils.isContactsPermission(this)) {
-            getContacts();
+            startService(new Intent(ContactsActivity.this, ContactService.class));
         }
     }
 

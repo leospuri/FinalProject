@@ -202,7 +202,12 @@
         <activity android:name=".contactPage.BaseContact" />
         <activity android:name=".login.AnonymousLogin" />
         <activity android:name=".userpost.EditPost" />
-        <activity android:name=".userpost.ReportAbuseActivity"></activity>
+        <activity android:name=".userpost.ReportAbuseActivity" />
+
+        <service
+            android:name=".contactPage.ContactService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
