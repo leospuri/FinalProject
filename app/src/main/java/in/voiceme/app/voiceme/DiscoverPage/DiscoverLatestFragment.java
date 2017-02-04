@@ -106,10 +106,18 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
+                int totalItemCount = linearLayoutManager.getItemCount();
                 isLoading = true;
                 currentPage += 1;
 
-                loadNextPage();
+                if (totalItemCount < 25){
+                    return;
+                } else {
+                    loadNextPage();
+                }
+
+
+
             }
 
             @Override

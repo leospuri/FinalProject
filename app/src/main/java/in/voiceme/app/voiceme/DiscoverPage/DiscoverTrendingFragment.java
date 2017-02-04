@@ -181,8 +181,8 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                     //   showRecycleWithDataFilled(response);
-                        latestListAdapter.addAll(response);
+                       showRecycleWithDataFilled(response);
+                   //     latestListAdapter.addAll(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
@@ -210,7 +210,8 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
 
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                        latestListAdapter.addAll(response);
+                     //   showRecycleWithDataFilled(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }

@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
+import in.voiceme.app.voiceme.utils.CurrentTime;
 import mbanje.kurt.fabbutton.FabButton;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -273,7 +274,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         user_name.setText(dataItem.getUserNicName());
         feeling.setText(dataItem.getEmotions());
         category.setText(dataItem.getCategory());
-        timeStamp.setText(dataItem.getPostTime());
+
+        timeStamp.setText(CurrentTime.getCurrentTime(dataItem.getPostTime(), itemView.getContext()));
         postMessage.setText(dataItem.getTextStatus());
         post_comments.setText(String.valueOf(dataItem.getComments()));
         like_counter.setText(String.valueOf(dataItem.getLikes()));

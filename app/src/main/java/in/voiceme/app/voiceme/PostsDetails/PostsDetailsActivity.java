@@ -391,10 +391,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         postMessage.setText(myList.get(0).getTextStatus());
         feeling.setText(myList.get(0).getEmotions());
         category.setText(myList.get(0).getCategory());
-        post_comments.setText(myList.get(0).getComments());
-        like_counter.setText(myList.get(0).getLikes());
-        same_counter.setText(myList.get(0).getSame());
-        hug_counter.setText(myList.get(0).getHug());
+        post_comments.setText(String.valueOf(myList.get(0).getComments()));
+        like_counter.setText(String.valueOf(myList.get(0).getLikes()));
+        same_counter.setText(String.valueOf(myList.get(0).getSame()));
+        hug_counter.setText(String.valueOf(myList.get(0).getHug()));
 
 
         if (myList.get(0).getAudioDuration() != null){
@@ -402,9 +402,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             post_listen.setText(myList.get(0).getListen());
         }
 
-        likeCounter = myList.get(0).getLikes();
-        hugCounter = myList.get(0).getHug();
-        sameCounter = myList.get(0).getSame();
+      //  likeCounter = myList.get(0).getLikes();
+      //  hugCounter = myList.get(0).getHug();
+     //   sameCounter = myList.get(0).getSame();
 
         user_avatar.setImageURI(myList.get(0).getAvatarPics());
 

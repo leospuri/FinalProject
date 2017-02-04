@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView followers;
     private TextView following;
     private Button followMe;
+    private LinearLayout totalPost;
+    private LinearLayout followerPost;
+    private LinearLayout followingPost;
 
     private SimpleDraweeView image;
 
@@ -66,6 +70,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         Toast.makeText(this, "user ID: " + profileUserId, Toast.LENGTH_SHORT).show();
 
         username = (TextView) findViewById(R.id.second_name);
+        totalPost = (LinearLayout) findViewById(R.id.layout_second_user_profile_textview);
+        followerPost = (LinearLayout) findViewById(R.id.layout_second_profile_followers);
+        followingPost = (LinearLayout) findViewById(R.id.layout_second_profile_following);
         image = (SimpleDraweeView) findViewById(R.id.second_image);
         followers = (TextView) findViewById(R.id.second_profile_followers);
         following = (TextView) findViewById(R.id.second_profile_following);
@@ -87,6 +94,10 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         followingCount.setOnClickListener(this);
 
         age.setOnClickListener(this);
+        followerPost.setOnClickListener(this);
+        followingPost.setOnClickListener(this);
+        total_posts_counter.setOnClickListener(this);
+        totalPost.setOnClickListener(this);
         gender.setOnClickListener(this);
         location.setOnClickListener(this);
         total_posts.setOnClickListener(this);
@@ -106,15 +117,15 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             return;
         int viewId = view.getId();
 
-        if (viewId == R.id.second_user_profile_textview) {
+        if (viewId == R.id.second_user_profile_textview || viewId == R.id.layout_second_user_profile_textview || viewId == R.id.second_total_posts_counter) {
             Intent intent = new Intent(this, TotalPostsActivity.class);
             intent.putExtra(Constants.TOTAL_POST, profileUserId);
             startActivity(intent);
-        } else if (viewId == R.id.second_profile_followers || viewId == R.id.second_action_followers) {
+        } else if (viewId == R.id.second_profile_followers || viewId == R.id.second_action_followers || viewId == R.id.layout_second_profile_followers) {
             Intent intent = new Intent(this, FollowersActivity.class);
             intent.putExtra(Constants.USER_FOLLOW, profileUserId);
             startActivity(intent);
-        } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following) {
+        } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following || viewId == R.id.layout_second_profile_following) {
             Intent intent = new Intent(this, FollowingActivity.class);
             intent.putExtra(Constants.USER_FOLLOWING, profileUserId);
             startActivity(intent);

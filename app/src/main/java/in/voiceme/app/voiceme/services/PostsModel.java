@@ -5,36 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
 public class PostsModel {
-    @SerializedName("id_posts")
-    @Expose
-    private String idPosts;
-    @SerializedName("id_user_name")
-    @Expose
-    private String idUserName;
-    @SerializedName("post_time")
-    @Expose
-    private String postTime;
-    @SerializedName("text_status")
-    @Expose
-    private String textStatus;
-    @SerializedName("audio_duration")
-    @Expose
-    private String audioDuration;
-    @SerializedName("audio_file_link")
-    @Expose
-    private String audioFileLink;
-    @SerializedName("user_nic_name")
-    @Expose
-    private String userNicName;
-    @SerializedName("avatar_pics")
-    @Expose
-    private String avatarPics;
-    @SerializedName("emotions")
-    @Expose
-    private String emotions;
-    @SerializedName("category")
-    @Expose
-    private String category;
+
+    @SerializedName("id_posts") @Expose private String idPosts;
+    @SerializedName("id_user_name") @Expose private String idUserName;
+    @SerializedName("post_time") @Expose private String postTime;
+    @SerializedName("text_status") @Expose private String textStatus;
+    @SerializedName("audio_duration") @Expose private String audioDuration;
+    @SerializedName("audio_file_link") @Expose private String audioFileLink;
+    @SerializedName("user_nic_name") @Expose private String userNicName;
+    @SerializedName("avatar_pics") @Expose private String avatarPics;
+    @SerializedName("emotions") @Expose private String emotions;
+    @SerializedName("category") @Expose private String category;
     @SerializedName("likes")
     @Expose
     private Integer likes;
