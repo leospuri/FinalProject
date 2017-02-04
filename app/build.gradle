@@ -134,6 +134,7 @@ dependencies {
     compile 'mbanje.kurt:fabbutton:1.2.2@aar'
     compile 'com.facebook.fresco:fresco:1.0.1'
     compile 'net.danlew:android.joda:2.9.5.1'
+    compile 'com.github.developer-shivam:Diagonalify:1.1'
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'

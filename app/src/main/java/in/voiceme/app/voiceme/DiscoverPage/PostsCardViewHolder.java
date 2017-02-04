@@ -275,14 +275,24 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         feeling.setText(dataItem.getEmotions());
         category.setText(dataItem.getCategory());
 
-        timeStamp.setText(CurrentTime.getCurrentTime(dataItem.getPostTime(), itemView.getContext()));
+        if (dataItem.getPostTime() == null){
+            return;
+        } else {
+            timeStamp.setText(CurrentTime.getCurrentTime(dataItem.getPostTime(), itemView.getContext()));
+        }
+
+
+
         postMessage.setText(dataItem.getTextStatus());
         post_comments.setText(String.valueOf(dataItem.getComments()));
         like_counter.setText(String.valueOf(dataItem.getLikes()));
         hug_counter.setText(String.valueOf(dataItem.getHug()));
         same_counter.setText(String.valueOf(dataItem.getSame()));
 
-        user_avatar.setImageURI(dataItem.getAvatarPics());
+
+            user_avatar.setImageURI(dataItem.getAvatarPics());
+
+
 
        /* if (!dataItem.getAvatarPics().equals("") || dataItem.getAvatarPics() != null) {
             Picasso.with(itemView.getContext())

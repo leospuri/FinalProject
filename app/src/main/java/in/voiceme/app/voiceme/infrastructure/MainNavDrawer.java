@@ -3,8 +3,6 @@ package in.voiceme.app.voiceme.infrastructure;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
@@ -21,8 +19,8 @@ import in.voiceme.app.voiceme.l;
 
 
 public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
-    private final TextView displayNameText;
-    private final ImageView avatarImage;
+   // private final TextView displayNameText;
+   // private final ImageView avatarImage;
     private SharedPreferences prefs;
 
     public MainNavDrawer(final BaseActivity activity) {
@@ -48,11 +46,11 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
             }
         });
 
-        displayNameText = (TextView) navDrawerView.findViewById(R.id.include_main_nav_drawer_displayName);
-        avatarImage = (ImageView) navDrawerView.findViewById(R.id.include_main_nav_drawer_avatar);
+   //     displayNameText = (TextView) navDrawerView.findViewById(R.id.include_main_nav_drawer_displayName);
+   //     avatarImage = (ImageView) navDrawerView.findViewById(R.id.include_main_nav_drawer_avatar);
 
         User loggedInUser = VoicemeApplication.getAuth().getUser();
-        displayNameText.setText(loggedInUser.getUserNickName());
+     //   displayNameText.setText(loggedInUser.getUserNickName());
 
         // Todo Nav Drawer Avatar
      //   Picasso.with(activity).load(loggedInUser.getAvatarPics()).into(avatarImage);
@@ -61,7 +59,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
     @Subscribe
     public void onUserDetailsUpdated(Account.UserDetailsUpdatedEvent event) {
    //     Picasso.with(activity).load(event.User.getAvatarPics()).into(avatarImage);
-        displayNameText.setText(event.User.getUserNickName());
+  //      displayNameText.setText(event.User.getUserNickName());
     }
 
     @Override

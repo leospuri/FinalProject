@@ -12,16 +12,17 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="180dp"
-        android:background="@drawable/drawer">
+        android:background="@drawable/navdrawer"
+        >
 
-        <ImageView
+     <!--   <ImageView
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="16dp"
             android:id="@+id/include_main_nav_drawer_avatar"
-            android:src="@mipmap/ic_action_unread"/>
+            android:src="@mipmap/ic_action_unread"/> -->
 
-        <TextView
+     <!--   <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -29,7 +30,7 @@
             android:id="@+id/include_main_nav_drawer_displayName"
             android:text="Nelson LaQuet"
             android:textStyle="bold"
-            android:textColor="#fff"/>
+            android:textColor="#fff"/> -->
     </RelativeLayout>
     
     <ScrollView

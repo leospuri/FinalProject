@@ -110,13 +110,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 isLoading = true;
                 currentPage += 1;
 
-                if (totalItemCount < 25){
-                    return;
-                } else {
-                    loadNextPage();
-                }
-
-
+                loadNextPage();
 
             }
 
