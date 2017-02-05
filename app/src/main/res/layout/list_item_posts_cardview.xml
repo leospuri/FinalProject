@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,11 +23,11 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/list_item_posts_avatar"
-            android:scaleType="fitXY"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:scaleType="fitXY"
             fresco:placeholderImage="@drawable/user" />
 
         <TextView
@@ -90,26 +91,25 @@
             android:orientation="vertical">
 
             <view
-                android:clickable="true"
+                android:id="@+id/list_item_posts_play_button"
+                class="mbanje.kurt.fabbutton.FabButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                class="mbanje.kurt.fabbutton.FabButton"
-                android:id="@+id/list_item_posts_play_button"
-                android:color="?attr/colorPrimaryDark"
-                app:fbb_showShadow="true"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/play_button"
+                android:clickable="true"
+                android:color="?attr/colorPrimaryDark"
                 android:indeterminate="true"
                 android:max="100"
+                android:src="@drawable/play_button"
                 app:fbb_autoStart="true"
+                app:fbb_endBitmap="@drawable/stop_button"
+                app:fbb_hideProgressOnComplete="true"
                 app:fbb_progressColor="?attr/colorAccent"
                 app:fbb_progressWidthRatio="0.1"
-                app:fbb_endBitmap="@drawable/stop_button"
                 app:fbb_showEndBitmap="true"
-                app:fbb_hideProgressOnComplete="true"
-                />
+                app:fbb_showShadow="true" />
 
 
             <TextView
@@ -302,11 +302,11 @@
             android:id="@+id/status_more"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_toRightOf="@+id/list_item_same_button"
             android:layout_below="@id/number_of_likes"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/list_item_same_button"
+            android:layout_toRightOf="@+id/list_item_same_button"
             android:src="@drawable/ic_more_grey" />
 
 

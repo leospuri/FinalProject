@@ -232,11 +232,11 @@ public class RegisterActivity extends BaseActivity
 
 
     private void UserData(LoginResponse response) {
-        MySharedPreferences.registerUserId(preferences, response.info.id);
-        MySharedPreferences.registerEmail(preferences, response.info.email);
-        MySharedPreferences.registerSocialID(preferences, response.info.userId);
+        MySharedPreferences.registerUserId(preferences, response.info.getId());
+        MySharedPreferences.registerEmail(preferences, response.info.getEmail());
+        MySharedPreferences.registerSocialID(preferences, response.info.getUserId());
 
-        Timber.d("the user ID is " + response.info.id);
+        Timber.d("the user ID is " + response.info.getId());
 
         Timber.e("Successfully entered the value inside SharedPreferences");
     }

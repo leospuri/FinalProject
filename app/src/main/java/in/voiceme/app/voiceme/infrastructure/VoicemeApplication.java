@@ -17,6 +17,8 @@ import com.squareup.otto.Bus;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import in.voiceme.app.voiceme.BuildConfig;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
@@ -74,7 +76,9 @@ public class VoicemeApplication extends Application {
             }
         });
 
-        Fresco.initialize(getApplicationContext());
+        JodaTimeAndroid.init(this);
+        FacebookSdk.sdkInitialize(this);
+        Fresco.initialize(this);
 
         sAnalytics = GoogleAnalytics.getInstance(this);
         /******************************************/

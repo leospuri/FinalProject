@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.otto.Bus;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
@@ -42,11 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         manager = AccountManager.getInstance();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
 
+
         bus.register(this);
         isRegisterdWithBus = true;
 
-        givenContact = preferences.getString(Constants.GET_CONTACT_NUMBER, null);
 
+        givenContact = preferences.getString(Constants.GET_CONTACT_NUMBER, null);
+    //    Fresco.initialize(this);
         /**
          * Initialize Facebook SDK
 
@@ -82,7 +83,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected void onPause() {
         super.onPause();
         scheduler.onPause();
-        Fresco.shutDown();
     }
 
     @Override
@@ -93,6 +93,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
             bus.unregister(this);
             isRegisterdWithBus = false;
         }
+
+
 
 
         if (navDrawer != null) navDrawer.destroy();

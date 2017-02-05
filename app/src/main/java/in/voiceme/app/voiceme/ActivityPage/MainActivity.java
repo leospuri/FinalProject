@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.common.ConnectionResult;
@@ -68,10 +67,6 @@ public class MainActivity extends BaseActivity
 
         applicationContext = this.getApplicationContext();
 
-        Timber.v("Configuration");
-        Timber.v("  > Amazon Identity Pool:          " + getString(R.string.aws_identity_pool));
-        Timber.v("  > Google Service ID:             " + getString(R.string.google_server_client_id));
-        Timber.v("  > Facebook Application ID:       " + getString(R.string.facebook_app_id));
         prefs = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
         isDemoMode = prefs.getBoolean("is this demo mode", false);
         if (!isDemoMode)
@@ -106,7 +101,7 @@ public class MainActivity extends BaseActivity
         /**
          * Initialize Facebook SDK
          */
-        FacebookSdk.sdkInitialize(getApplicationContext());
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_main_activity);
         this.addPages(viewPager);

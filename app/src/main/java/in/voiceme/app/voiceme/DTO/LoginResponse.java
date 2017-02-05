@@ -19,5 +19,45 @@ public class LoginResponse extends AbstractResponse {
         @SerializedName("imageurl")
         String imageUrl;
         String rrr;
+
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getDateOfBirth() {
+            return dateOfBirth;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public String getRrr() {
+            return rrr;
+        }
     }
 }
