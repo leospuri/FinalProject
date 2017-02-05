@@ -10,17 +10,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by harish on 1/17/2017.
  */
 
-public class UserCommentModel implements Parcelable {
+public class PostUserCommentModel implements Parcelable {
 
-    public static final Creator<UserCommentModel> CREATOR = new Creator<UserCommentModel>() {
+    public static final Creator<PostUserCommentModel> CREATOR = new Creator<PostUserCommentModel>() {
         @Override
-        public UserCommentModel createFromParcel(Parcel in) {
-            return new UserCommentModel(in);
+        public PostUserCommentModel createFromParcel(Parcel in) {
+            return new PostUserCommentModel(in);
         }
 
         @Override
-        public UserCommentModel[] newArray(int size) {
-            return new UserCommentModel[size];
+        public PostUserCommentModel[] newArray(int size) {
+            return new PostUserCommentModel[size];
         }
     };
 
@@ -45,7 +45,7 @@ public class UserCommentModel implements Parcelable {
         return commentTime;
     }
 
-    public UserCommentModel(String message, String imageUri, String userName) {
+    public PostUserCommentModel(String message, String imageUri, String userName) {
         this.comment = message;
         this.avatar = imageUri;
         this.userName = userName;
@@ -53,7 +53,7 @@ public class UserCommentModel implements Parcelable {
 
 
 
-    protected UserCommentModel(Parcel in) {
+    protected PostUserCommentModel(Parcel in) {
         userName = in.readString();
         avatar = in.readString();
         comment = in.readString();

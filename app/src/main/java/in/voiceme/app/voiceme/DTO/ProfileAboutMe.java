@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by harish on 1/21/2017.
  */
 
-public class AboutmeResponse extends AbstractResponse {
+public class ProfileAboutMe extends AbstractResponse {
     private Info info;
 
     public class Info {

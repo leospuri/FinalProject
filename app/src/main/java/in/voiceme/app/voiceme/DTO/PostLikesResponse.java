@@ -1,6 +1,6 @@
 package in.voiceme.app.voiceme.DTO;
 
-public class LikesResponse extends AbstractResponse {
+public class PostLikesResponse extends AbstractResponse {
     public String message;
 
 

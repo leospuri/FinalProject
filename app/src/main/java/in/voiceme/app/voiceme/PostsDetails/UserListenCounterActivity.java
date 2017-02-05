@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import in.voiceme.app.voiceme.DTO.UserSuperList;
+import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -50,15 +50,15 @@ public class UserListenCounterActivity extends BaseActivity {
         application.getWebService()
                 .getInteractionPosts(likeCounter)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<UserSuperList>() {
+                .subscribe(new BaseSubscriber<PostSuperUserListModel>() {
                     @Override
-                    public void onNext(UserSuperList response) {
+                    public void onNext(PostSuperUserListModel response) {
                         showRecycleWithDataFilled(response);
                     }
                 });
     }
 
-    private void showRecycleWithDataFilled(final UserSuperList myList) {
+    private void showRecycleWithDataFilled(final PostSuperUserListModel myList) {
         RVAdapter adapter = new RVAdapter(myList.getListen());
         rv.setAdapter(adapter);
     }

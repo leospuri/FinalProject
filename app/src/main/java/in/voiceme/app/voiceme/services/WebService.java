@@ -4,14 +4,14 @@ import android.net.Uri;
 
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.LikesResponse;
+import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostsModel;
-import in.voiceme.app.voiceme.DTO.UserCommentModel;
-import in.voiceme.app.voiceme.DTO.UserSuperList;
-import in.voiceme.app.voiceme.DTO.FollowerUserList;
+import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
+import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
+import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
-import in.voiceme.app.voiceme.DTO.AddContactResponse;
-import in.voiceme.app.voiceme.DTO.AboutmeResponse;
+import in.voiceme.app.voiceme.DTO.ContactAddResponse;
+import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
@@ -72,7 +72,7 @@ public interface WebService {
                                                   @Query("contacts") String contacts);
 
     @GET("get_comments.php")
-    Observable<List<UserCommentModel>> getUserComments(
+    Observable<List<PostUserCommentModel>> getUserComments(
             @Query("id_posts") String id_posts);
 
 
@@ -88,29 +88,29 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("likes.php")
-    Observable<LikesResponse> likes(@Field("user_id") String userId,
-                                    @Field("post_id") String postId,
-                                    @Field("like") int like,
-                                    @Field("hug") int hug,
-                                    @Field("same") int same,
-                                    @Field("listen") int listen);
+    Observable<PostLikesResponse> likes(@Field("user_id") String userId,
+                                        @Field("post_id") String postId,
+                                        @Field("like") int like,
+                                        @Field("hug") int hug,
+                                        @Field("same") int same,
+                                        @Field("listen") int listen);
 
     @FormUrlEncoded
     @POST("aboutme.php")
-    Observable<AboutmeResponse> LoginUserName(@Field("user_id") String userId,
-                                              @Field("username") String username,
-                                              @Field("about_me") String about_me,
-                                              @Field("token") String token);
+    Observable<ProfileAboutMe> LoginUserName(@Field("user_id") String userId,
+                                             @Field("username") String username,
+                                             @Field("about_me") String about_me,
+                                             @Field("token") String token);
 
 
     @FormUrlEncoded
     @POST("unlike.php")
-    Observable<LikesResponse> unlikes(@Field("user_id") String userId,
-                                      @Field("post_id") String postId,
-                                      @Field("like") int like,
-                                      @Field("hug") int hug,
-                                      @Field("same") int same,
-                                      @Field("audio") int listen);
+    Observable<PostLikesResponse> unlikes(@Field("user_id") String userId,
+                                          @Field("post_id") String postId,
+                                          @Field("like") int like,
+                                          @Field("hug") int hug,
+                                          @Field("same") int same,
+                                          @Field("audio") int listen);
 
     @FormUrlEncoded
     @POST("login_new.php")
@@ -155,7 +155,7 @@ public interface WebService {
 
 
     @GET("get_likers.php")
-    Observable<UserSuperList> getInteractionPosts(
+    Observable<PostSuperUserListModel> getInteractionPosts(
             @Query("id_posts") String id_posts);
 
     @FormUrlEncoded
@@ -168,7 +168,7 @@ public interface WebService {
     // Todo adding all contacts mobile left
     @FormUrlEncoded
     @POST("register_user_contacts.php")
-    Observable<AddContactResponse> addAllContacts(
+    Observable<ContactAddResponse> addAllContacts(
             @Field("id_user_name") String user_id,
             @Field("contacts") String contacts
     );
@@ -183,10 +183,10 @@ public interface WebService {
 
 
     @GET("follower.php")
-    Observable<FollowerUserList> getUserFollow(@Query("user_id") String user_id);
+    Observable<ProfileFollowerUserList> getUserFollow(@Query("user_id") String user_id);
 
     @GET("follower.php")
-    Observable<FollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
+    Observable<ProfileFollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
 
     @GET("get_user.php")
     Observable<ProfileUserList> getUserProfile(

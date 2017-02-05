@@ -16,21 +16,11 @@ public class PostsModel {
     @SerializedName("avatar_pics") @Expose private String avatarPics;
     @SerializedName("emotions") @Expose private String emotions;
     @SerializedName("category") @Expose private String category;
-    @SerializedName("likes")
-    @Expose
-    private Integer likes;
-    @SerializedName("same")
-    @Expose
-    private Integer same;
-    @SerializedName("hug")
-    @Expose
-    private Integer hug;
-    @SerializedName("listen")
-    @Expose
-    private Integer listen;
-    @SerializedName("comments")
-    @Expose
-    private Integer comments;
+    @SerializedName("likes") @Expose private Integer likes;
+    @SerializedName("same") @Expose private Integer same;
+    @SerializedName("hug") @Expose private Integer hug;
+    @SerializedName("listen") @Expose private Integer listen;
+    @SerializedName("comments") @Expose private Integer comments;
     @SerializedName("user_like") @Expose private Boolean userLike;
     @SerializedName("user_Same") @Expose private Boolean userSame;
     @SerializedName("user_Huge") @Expose private Boolean userHuge;
@@ -186,5 +176,13 @@ public class PostsModel {
 
     public void setComments(Integer comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return idPosts + " " + idUserName + " " + postTime + " " + textStatus + " " + audioDuration + " " + audioFileLink
+                + " " + userNicName + " " + avatarPics + " " + emotions + " " + category + " " + likes + " " +
+                same + " " + hug + " " + listen + " " + comments + " " + userLike + " " + userSame + " " + userHuge + " " +
+                userListen;
     }
 }

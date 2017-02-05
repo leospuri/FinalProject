@@ -10,7 +10,7 @@ import com.emmasuzuki.easyform.EasyTextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
-import in.voiceme.app.voiceme.DTO.AboutmeResponse;
+import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -55,9 +55,9 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
                 .LoginUserName(MySharedPreferences.getSocialID(preferences), username.getEditText().getText().toString(),
                        "", token)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<AboutmeResponse>() {
+                .subscribe(new BaseSubscriber<ProfileAboutMe>() {
                     @Override
-                    public void onNext(AboutmeResponse response) {
+                    public void onNext(ProfileAboutMe response) {
 
                         Toast.makeText(LoginUserDetails.this,
                                 "result from update profile " + response.status, Toast.LENGTH_SHORT).show();

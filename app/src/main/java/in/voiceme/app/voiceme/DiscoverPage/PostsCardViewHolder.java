@@ -17,7 +17,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
-import in.voiceme.app.voiceme.DTO.LikesResponse;
+import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.utils.CurrentTime;
 import mbanje.kurt.fabbutton.FabButton;
@@ -351,9 +351,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         String postId = dataItem.getIdPosts();
         application.getWebService().likes(userId, postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<LikesResponse>() {
+                .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
-                    public void onNext(LikesResponse likesResponse) {
+                    public void onNext(PostLikesResponse postLikesResponse) {
                         Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -365,9 +365,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         String postId = dataItem.getIdPosts();
         application.getWebService().unlikes(userId, postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<LikesResponse>() {
+                .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
-                    public void onNext(LikesResponse likesResponse) {
+                    public void onNext(PostLikesResponse postLikesResponse) {
                         Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });

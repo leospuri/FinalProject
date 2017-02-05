@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.UserListModel;
+import in.voiceme.app.voiceme.DTO.PostUserListModel;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -22,22 +22,22 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
-    public List<UserListModel> dataSet;
+    public List<PostUserListModel> dataSet;
 
-    public RVAdapter(List<UserListModel> persons) {
+    public RVAdapter(List<PostUserListModel> persons) {
         this.dataSet = persons;
     }
 
-    public void animateTo(List<UserListModel> models) {
+    public void animateTo(List<PostUserListModel> models) {
         applyAndAnimateRemovals(models);
         applyAndAnimateAdditions(models);
         applyAndAnimateMovedItems(models);
     }
 
 
-    private void applyAndAnimateRemovals(List<UserListModel> newModels) {
+    private void applyAndAnimateRemovals(List<PostUserListModel> newModels) {
         for (int i = dataSet.size() - 1; i >= 0; i--) {
-            final UserListModel model = dataSet.get(i);
+            final PostUserListModel model = dataSet.get(i);
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
@@ -45,9 +45,9 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    private void applyAndAnimateAdditions(List<UserListModel> newModels) {
+    private void applyAndAnimateAdditions(List<PostUserListModel> newModels) {
         for (int i = 0, count = newModels.size(); i < count; i++) {
-            final UserListModel model = newModels.get(i);
+            final PostUserListModel model = newModels.get(i);
             if (!dataSet.contains(model)) {
                 addItem(i, model);
             }
@@ -55,9 +55,9 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    private void applyAndAnimateMovedItems(List<UserListModel> newModels) {
+    private void applyAndAnimateMovedItems(List<PostUserListModel> newModels) {
         for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
-            final UserListModel model = newModels.get(toPosition);
+            final PostUserListModel model = newModels.get(toPosition);
             final int fromPosition = dataSet.indexOf(model);
             if (fromPosition >= 0 && fromPosition != toPosition) {
                 moveItem(fromPosition, toPosition);
@@ -65,19 +65,19 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public void addItem(UserListModel item) {
+    public void addItem(PostUserListModel item) {
         if (!dataSet.contains(item)) {
             dataSet.add(item);
             notifyItemInserted(dataSet.size() - 1);
         }
     }
 
-    public void addItem(int position, UserListModel model) {
+    public void addItem(int position, PostUserListModel model) {
         dataSet.add(position, model);
         notifyItemInserted(position);
     }
 
-    public void removeItem(UserListModel item) {
+    public void removeItem(PostUserListModel item) {
         int indexOfItem = dataSet.indexOf(item);
         if (indexOfItem != -1) {
             this.dataSet.remove(indexOfItem);
@@ -85,8 +85,8 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public UserListModel removeItem(int position) {
-        final UserListModel model = dataSet.remove(position);
+    public PostUserListModel removeItem(int position) {
+        final PostUserListModel model = dataSet.remove(position);
         notifyItemRemoved(position);
         return model;
     }
@@ -97,7 +97,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void moveItem(int fromPosition, int toPosition) {
-        final UserListModel model = dataSet.remove(fromPosition);
+        final PostUserListModel model = dataSet.remove(fromPosition);
         dataSet.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
@@ -107,7 +107,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
-    public UserListModel getItem(int index) {
+    public PostUserListModel getItem(int index) {
         if (dataSet != null && dataSet.get(index) != null) {
             return dataSet.get(index);
         } else {
@@ -145,7 +145,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder personViewHolder, int position) {
 
         if (personViewHolder instanceof RVAdapter.PersonViewHolder) {
-            UserListModel dataItem = dataSet.get(position);
+            PostUserListModel dataItem = dataSet.get(position);
             ((RVAdapter.PersonViewHolder) personViewHolder).bind(dataItem);
         } else {
             ((RVAdapter.ProgressViewHolder) personViewHolder).progressBar.setIndeterminate(true);

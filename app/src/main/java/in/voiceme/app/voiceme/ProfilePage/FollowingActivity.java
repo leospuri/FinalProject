@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import in.voiceme.app.voiceme.DTO.FollowerUserList;
+import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -49,15 +49,15 @@ public class FollowingActivity extends BaseActivity {
         application.getWebService()
                 .getUserFollowing(userId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<FollowerUserList>() {
+                .subscribe(new BaseSubscriber<ProfileFollowerUserList>() {
                     @Override
-                    public void onNext(FollowerUserList response) {
+                    public void onNext(ProfileFollowerUserList response) {
                         showRecycleWithDataFilled(response);
                     }
                 });
     }
 
-    private void showRecycleWithDataFilled(final FollowerUserList myList) {
+    private void showRecycleWithDataFilled(final ProfileFollowerUserList myList) {
         FollowerDataAdapter adapter = new FollowerDataAdapter(myList.getFollower());
         rv.setAdapter(adapter);
     }

@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Toast;
 
-import in.voiceme.app.voiceme.DTO.AddContactResponse;
+import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
@@ -92,9 +92,9 @@ public class ContactService extends Service {
         ((VoicemeApplication)getApplication()).getWebService()
                 .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<AddContactResponse>() {
+                .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override
-                    public void onNext(AddContactResponse response) {
+                    public void onNext(ContactAddResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
                         Toast.makeText(ContactService.this, "Sent All Contacts", Toast.LENGTH_SHORT).show();
                     }

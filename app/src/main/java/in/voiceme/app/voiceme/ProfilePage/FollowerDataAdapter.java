@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.FollowerUserModel;
+import in.voiceme.app.voiceme.DTO.ProfileFollowerUserModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 
@@ -22,22 +22,22 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
-    public List<FollowerUserModel> dataSet;
+    public List<ProfileFollowerUserModel> dataSet;
 
-    public FollowerDataAdapter(List<FollowerUserModel> persons) {
+    public FollowerDataAdapter(List<ProfileFollowerUserModel> persons) {
         this.dataSet = persons;
     }
 
-    public void animateTo(List<FollowerUserModel> models) {
+    public void animateTo(List<ProfileFollowerUserModel> models) {
         applyAndAnimateRemovals(models);
         applyAndAnimateAdditions(models);
         applyAndAnimateMovedItems(models);
     }
 
 
-    private void applyAndAnimateRemovals(List<FollowerUserModel> newModels) {
+    private void applyAndAnimateRemovals(List<ProfileFollowerUserModel> newModels) {
         for (int i = dataSet.size() - 1; i >= 0; i--) {
-            final FollowerUserModel model = dataSet.get(i);
+            final ProfileFollowerUserModel model = dataSet.get(i);
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
@@ -45,9 +45,9 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    private void applyAndAnimateAdditions(List<FollowerUserModel> newModels) {
+    private void applyAndAnimateAdditions(List<ProfileFollowerUserModel> newModels) {
         for (int i = 0, count = newModels.size(); i < count; i++) {
-            final FollowerUserModel model = newModels.get(i);
+            final ProfileFollowerUserModel model = newModels.get(i);
             if (!dataSet.contains(model)) {
                 addItem(i, model);
             }
@@ -55,9 +55,9 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    private void applyAndAnimateMovedItems(List<FollowerUserModel> newModels) {
+    private void applyAndAnimateMovedItems(List<ProfileFollowerUserModel> newModels) {
         for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
-            final FollowerUserModel model = newModels.get(toPosition);
+            final ProfileFollowerUserModel model = newModels.get(toPosition);
             final int fromPosition = dataSet.indexOf(model);
             if (fromPosition >= 0 && fromPosition != toPosition) {
                 moveItem(fromPosition, toPosition);
@@ -65,19 +65,19 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public void addItem(FollowerUserModel item) {
+    public void addItem(ProfileFollowerUserModel item) {
         if (!dataSet.contains(item)) {
             dataSet.add(item);
             notifyItemInserted(dataSet.size() - 1);
         }
     }
 
-    public void addItem(int position, FollowerUserModel model) {
+    public void addItem(int position, ProfileFollowerUserModel model) {
         dataSet.add(position, model);
         notifyItemInserted(position);
     }
 
-    public void removeItem(FollowerUserModel item) {
+    public void removeItem(ProfileFollowerUserModel item) {
         int indexOfItem = dataSet.indexOf(item);
         if (indexOfItem != -1) {
             this.dataSet.remove(indexOfItem);
@@ -85,8 +85,8 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public FollowerUserModel removeItem(int position) {
-        final FollowerUserModel model = dataSet.remove(position);
+    public ProfileFollowerUserModel removeItem(int position) {
+        final ProfileFollowerUserModel model = dataSet.remove(position);
         notifyItemRemoved(position);
         return model;
     }
@@ -97,7 +97,7 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void moveItem(int fromPosition, int toPosition) {
-        final FollowerUserModel model = dataSet.remove(fromPosition);
+        final ProfileFollowerUserModel model = dataSet.remove(fromPosition);
         dataSet.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
@@ -107,7 +107,7 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
-    public FollowerUserModel getItem(int index) {
+    public ProfileFollowerUserModel getItem(int index) {
         if (dataSet != null && dataSet.get(index) != null) {
             return dataSet.get(index);
         } else {
@@ -145,7 +145,7 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder personViewHolder, int position) {
 
         if (personViewHolder instanceof FollowerDataAdapter.PersonViewHolder) {
-            FollowerUserModel dataItem = dataSet.get(position);
+            ProfileFollowerUserModel dataItem = dataSet.get(position);
             ((FollowerDataAdapter.PersonViewHolder) personViewHolder).bind(dataItem);
         } else {
             ((FollowerDataAdapter.ProgressViewHolder) personViewHolder).progressBar.setIndeterminate(true);

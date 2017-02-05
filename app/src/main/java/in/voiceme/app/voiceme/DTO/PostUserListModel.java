@@ -9,17 +9,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by harish on 1/3/2017.
  */
 
-public class UserListModel extends AbstractResponse implements Parcelable {
+public class PostUserListModel extends AbstractResponse implements Parcelable {
 
-    public static final Creator<UserListModel> CREATOR = new Creator<UserListModel>() {
+    public static final Creator<PostUserListModel> CREATOR = new Creator<PostUserListModel>() {
         @Override
-        public UserListModel createFromParcel(Parcel in) {
-            return new UserListModel(in);
+        public PostUserListModel createFromParcel(Parcel in) {
+            return new PostUserListModel(in);
         }
 
         @Override
-        public UserListModel[] newArray(int size) {
-            return new UserListModel[size];
+        public PostUserListModel[] newArray(int size) {
+            return new PostUserListModel[size];
         }
     };
 
@@ -27,7 +27,7 @@ public class UserListModel extends AbstractResponse implements Parcelable {
     @SerializedName("avatar") private String avatar;
     @SerializedName("id_user_name") private String idUserName;
 
-    protected UserListModel(Parcel in) {
+    protected PostUserListModel(Parcel in) {
         name = in.readString();
         avatar = in.readString();
         idUserName = in.readString();

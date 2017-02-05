@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.UserCommentModel;
+import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
@@ -33,7 +33,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.LikesResponse;
+import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import rx.android.schedulers.AndroidSchedulers;
@@ -50,7 +50,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private LinearLayoutManager mLinearLayoutManager;
     private String postId;
     private List<PostsModel> myList;
-    List<UserCommentModel> myCommentList;
+    List<PostUserCommentModel> myCommentList;
     private static LikeUnlikeClickListener myClickListener;
 
     private boolean doDislike;
@@ -326,7 +326,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            mMessageAdapter.addMessage(new UserCommentModel(message,
+            mMessageAdapter.addMessage(new PostUserCommentModel(message,
                     MySharedPreferences.getImageUrl(preferences),
                     MySharedPreferences.getUsername(preferences)));
             mMessageEditText.setText("");
@@ -339,16 +339,16 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .getUserComments(postId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<List<UserCommentModel>>() {
+                .subscribe(new BaseSubscriber<List<PostUserCommentModel>>() {
                     @Override
-                    public void onNext(List<UserCommentModel> response) {
+                    public void onNext(List<PostUserCommentModel> response) {
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showComments(response);
                     }
                 });
     }
 
-    private void showComments(final List<UserCommentModel> myList) {
+    private void showComments(final List<PostUserCommentModel> myList) {
         this.myCommentList = myList;
         mMessageAdapter = new MessageAdapter(this, myList, mInsertMessageListener);
         mMessageRecyclerView.setAdapter(mMessageAdapter);
@@ -548,9 +548,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
         application.getWebService().likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<LikesResponse>() {
+                .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
-                    public void onNext(LikesResponse likesResponse) {
+                    public void onNext(PostLikesResponse postLikesResponse) {
                         Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -574,9 +574,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected void sendUnlikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
         application.getWebService().unlikes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<LikesResponse>() {
+                .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
-                    public void onNext(LikesResponse likesResponse) {
+                    public void onNext(PostLikesResponse postLikesResponse) {
                         Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });

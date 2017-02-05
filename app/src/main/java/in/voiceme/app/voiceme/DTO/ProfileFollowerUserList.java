@@ -9,16 +9,16 @@ import java.util.List;
  * Created by harish on 1/4/2017.
  */
 
-public class FollowerUserList {
+public class ProfileFollowerUserList {
 
     @SerializedName("status") @Expose private Integer status;
-    @SerializedName("data") @Expose private List<FollowerUserModel> follower = null;
+    @SerializedName("data") @Expose private List<ProfileFollowerUserModel> follower = null;
 
     public Integer getStatus() {
         return status;
     }
 
-    public List<FollowerUserModel> getFollower() {
+    public List<ProfileFollowerUserModel> getFollower() {
         return follower;
     }
 }

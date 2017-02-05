@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.UserCommentModel;
+import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.R;
 
 /**
@@ -27,10 +27,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     private final Context mContext;
     private InsertMessageListener mInsertMessageListener;
-    private List<UserCommentModel> mMessageList;
+    private List<PostUserCommentModel> mMessageList;
     private List<MessageViewHolder> mMessageHolderList = new ArrayList<>();
 
-    public MessageAdapter(Context context, List<UserCommentModel> mMessageList,  InsertMessageListener insertMessageListener) {
+    public MessageAdapter(Context context, List<PostUserCommentModel> mMessageList, InsertMessageListener insertMessageListener) {
         mContext = context;
         mInsertMessageListener = insertMessageListener;
         this.mMessageList = mMessageList;
@@ -61,7 +61,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     }
 
-    public void addMessage(UserCommentModel messageItem) {
+    public void addMessage(PostUserCommentModel messageItem) {
         mMessageList.add(messageItem);
 
         int position = mMessageList.size() - 1;
@@ -132,7 +132,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             mFadeOutAnimation.setAnimationListener(mFadeOutAnimationListener);
         }
 
-        public void onBind(int position, UserCommentModel messageItem) {
+        public void onBind(int position, PostUserCommentModel messageItem) {
             mPosition = position;
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;

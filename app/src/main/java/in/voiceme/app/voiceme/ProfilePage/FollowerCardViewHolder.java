@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import in.voiceme.app.voiceme.DTO.FollowerUserModel;
+import in.voiceme.app.voiceme.DTO.ProfileFollowerUserModel;
 import in.voiceme.app.voiceme.R;
 import timber.log.Timber;
 
@@ -15,7 +15,7 @@ import timber.log.Timber;
  */
 
 public class FollowerCardViewHolder extends RecyclerView.ViewHolder {
-    protected FollowerUserModel dataItem;
+    protected ProfileFollowerUserModel dataItem;
     TextView personName;
     SimpleDraweeView personPhoto;
 
@@ -49,7 +49,7 @@ public class FollowerCardViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void bind(FollowerUserModel dataItem) {
+    public void bind(ProfileFollowerUserModel dataItem) {
         this.dataItem = dataItem;
 
         if (dataItem.getName() == null){

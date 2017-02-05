@@ -23,7 +23,7 @@ import com.digits.sdk.android.DigitsSession;
 import com.redbooth.WelcomeCoordinatorLayout;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
-import in.voiceme.app.voiceme.DTO.AddContactResponse;
+import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
 import in.voiceme.app.voiceme.contactPage.animators.InSyncAnimator;
@@ -302,9 +302,9 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         application.getWebService()
                 .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<AddContactResponse>() {
+                .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override
-                    public void onNext(AddContactResponse response) {
+                    public void onNext(ContactAddResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
                         application.getAuth().getUser().setAllContacts(true);
                         givenAllPersonalContact = true;

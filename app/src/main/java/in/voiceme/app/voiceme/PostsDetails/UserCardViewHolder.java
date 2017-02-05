@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import in.voiceme.app.voiceme.DTO.UserListModel;
+import in.voiceme.app.voiceme.DTO.PostUserListModel;
 import in.voiceme.app.voiceme.R;
 
 /**
@@ -14,7 +14,7 @@ import in.voiceme.app.voiceme.R;
  */
 
 public class UserCardViewHolder extends RecyclerView.ViewHolder {
-    protected UserListModel dataItem;
+    protected PostUserListModel dataItem;
     TextView personName;
     SimpleDraweeView personPhoto;
 
@@ -48,7 +48,7 @@ public class UserCardViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void bind(UserListModel dataItem) {
+    public void bind(PostUserListModel dataItem) {
         this.dataItem = dataItem;
 
         personName.setText(dataItem.getName());

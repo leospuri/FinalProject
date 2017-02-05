@@ -10,17 +10,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by harish on 1/4/2017.
  */
 
-public class FollowerUserModel implements Parcelable {
+public class ProfileFollowerUserModel implements Parcelable {
 
-    public static final Creator<FollowerUserModel> CREATOR = new Creator<FollowerUserModel>() {
+    public static final Creator<ProfileFollowerUserModel> CREATOR = new Creator<ProfileFollowerUserModel>() {
         @Override
-        public FollowerUserModel createFromParcel(Parcel in) {
-            return new FollowerUserModel(in);
+        public ProfileFollowerUserModel createFromParcel(Parcel in) {
+            return new ProfileFollowerUserModel(in);
         }
 
         @Override
-        public FollowerUserModel[] newArray(int size) {
-            return new FollowerUserModel[size];
+        public ProfileFollowerUserModel[] newArray(int size) {
+            return new ProfileFollowerUserModel[size];
         }
     };
 
@@ -28,7 +28,7 @@ public class FollowerUserModel implements Parcelable {
     @SerializedName("name") @Expose private String name;
     @SerializedName("avatar_pics") @Expose private String avatarPics;
 
-    protected FollowerUserModel(Parcel in) {
+    protected ProfileFollowerUserModel(Parcel in) {
         idUserName = in.readString();
         name = in.readString();
         avatarPics = in.readString();
