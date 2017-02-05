@@ -31,7 +31,7 @@ import in.voiceme.app.voiceme.userpost.TextStatus;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
-        implements GoogleApiClient.OnConnectionFailedListener, Constants {
+        implements GoogleApiClient.OnConnectionFailedListener, Constants, View.OnClickListener {
     private static Context applicationContext;
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
@@ -76,27 +76,9 @@ public class MainActivity extends BaseActivity
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
         play_button = (ImageView) findViewById(R.id.list_item_posts_play_button);
 
-        textStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                Toast.makeText(MainActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, TextStatus.class));
-                rightLabels.toggle();
+        textStatus.setOnClickListener(this);
 
-            }
-        });
-
-
-        audioStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                Toast.makeText(MainActivity.this, "button 02", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, AudioStatus.class));
-                rightLabels.toggle();
-            }
-        });
+        audioStatus.setOnClickListener(this);
 
         /**
          * Initialize Facebook SDK
@@ -200,5 +182,20 @@ public class MainActivity extends BaseActivity
         }
         return false;
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.action_a){
+            processLoggedState(view);
+            Toast.makeText(MainActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, TextStatus.class));
+            rightLabels.toggle();
+        } else if (view.getId() == R.id.action_b){
+            processLoggedState(view);
+            Toast.makeText(MainActivity.this, "button 02", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, AudioStatus.class));
+            rightLabels.toggle();
+        }
     }
 }

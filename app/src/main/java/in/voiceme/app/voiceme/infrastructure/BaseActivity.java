@@ -47,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
 
         givenContact = preferences.getString(Constants.GET_CONTACT_NUMBER, null);
-    //    Fresco.initialize(this);
+
         /**
          * Initialize Facebook SDK
 

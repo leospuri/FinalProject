@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 
 import in.voiceme.app.voiceme.R;
@@ -29,6 +30,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private String time;
     public boolean isContinue = true;
     private int maxDuration = 120 * 1000;
+    private File file1;
 
     private static final String filePath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
     private int currentDuration = 0;
@@ -161,25 +163,18 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.play) {
-            play.setVisibility(View.GONE);
-            done.setVisibility(View.VISIBLE);
-            cancel.setVisibility(View.VISIBLE);
-            pause.setVisibility(View.VISIBLE);
+
             readFromStorage();
         } else if(v.getId() == R.id.record){
-            record.setVisibility(View.GONE);
-            stop.setVisibility(View.VISIBLE);
             recordActivity();
         } else if (v.getId() == R.id.stop){
-            stop.setVisibility(View.GONE);
-            play.setVisibility(View.VISIBLE);
+
             stopRecording();
         } else if (v.getId() == R.id.done){
             readAudioFileStorage();
         } else if (v.getId() == R.id.pause){
             listenStop();
-            done.setVisibility(View.VISIBLE);
-            cancel.setVisibility(View.VISIBLE);
+
         } else if(v.getId() == R.id.cancel_recording){
             Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
             setResult(Activity.RESULT_CANCELED, intent);
@@ -190,13 +185,18 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     public void start() {
         // startChange();
+        File file = new File(filePath);
+
+        record.setVisibility(View.GONE);
+        stop.setVisibility(View.VISIBLE);
+
         final long start = System.currentTimeMillis();
         final Handler handler = new Handler();
         myAudioRecorder = new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.DEFAULT);
-        myAudioRecorder.setOutputFile(filePath);
+        myAudioRecorder.setOutputFile(String.valueOf(file));
         myAudioRecorder.setMaxDuration(maxDuration);
 
         try {
@@ -237,6 +237,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     }
 
     private void listenPlay() {
+        play.setVisibility(View.GONE);
+        done.setVisibility(View.VISIBLE);
+        cancel.setVisibility(View.VISIBLE);
+        pause.setVisibility(View.VISIBLE);
         isListen = true;
         mMediaPlayer = new MediaPlayer();
         try {
@@ -267,6 +271,8 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     private void listenStop() {
         isListen = false;
+        done.setVisibility(View.VISIBLE);
+        cancel.setVisibility(View.VISIBLE);
         play.setVisibility(View.VISIBLE);
         pause.setVisibility(View.GONE);
         mMediaPlayer.stop();
