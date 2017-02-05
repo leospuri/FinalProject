@@ -5,7 +5,7 @@ import android.net.Uri;
 import java.util.List;
 
 import in.voiceme.app.voiceme.PostsDetails.UserCommentModel;
-import in.voiceme.app.voiceme.PostsDetails.UserSuperList;
+import in.voiceme.app.voiceme.DTO.UserSuperList;
 import in.voiceme.app.voiceme.ProfilePage.FollowerUserList;
 import in.voiceme.app.voiceme.ProfilePage.ProfileUserList;
 import in.voiceme.app.voiceme.contactPage.AddContactResponse;

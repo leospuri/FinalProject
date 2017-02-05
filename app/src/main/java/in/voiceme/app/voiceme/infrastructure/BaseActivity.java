@@ -42,7 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         manager = AccountManager.getInstance();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
 
-        Fresco.initialize(getApplicationContext());
         bus.register(this);
         isRegisterdWithBus = true;
 
@@ -83,6 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected void onPause() {
         super.onPause();
         scheduler.onPause();
+        Fresco.shutDown();
     }
 
     @Override
@@ -94,7 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
             isRegisterdWithBus = false;
         }
 
-        Fresco.shutDown();
 
         if (navDrawer != null) navDrawer.destroy();
     }
@@ -107,6 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
             bus.unregister(this);
             isRegisterdWithBus = false;
         }
+
     }
 
     @Override

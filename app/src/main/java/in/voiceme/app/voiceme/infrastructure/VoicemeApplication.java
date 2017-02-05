@@ -10,6 +10,7 @@ import com.crashlytics.android.answers.Answers;
 import com.digits.sdk.android.Digits;
 import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Bus;
@@ -72,6 +73,8 @@ public class VoicemeApplication extends Application {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
+
+        Fresco.initialize(getApplicationContext());
 
         sAnalytics = GoogleAnalytics.getInstance(this);
         /******************************************/
