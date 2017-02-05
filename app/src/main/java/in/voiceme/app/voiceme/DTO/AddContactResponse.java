@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.contactPage;
+package in.voiceme.app.voiceme.DTO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

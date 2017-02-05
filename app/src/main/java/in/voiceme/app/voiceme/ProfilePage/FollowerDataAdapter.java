@@ -9,6 +9,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
+
+import in.voiceme.app.voiceme.DTO.FollowerUserModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 

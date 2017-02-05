@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;

@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import in.voiceme.app.voiceme.login.AbstractResponse;
-
 /**
  * Created by harish on 1/3/2017.
  */

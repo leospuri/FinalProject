@@ -23,6 +23,7 @@ import com.digits.sdk.android.DigitsSession;
 import com.redbooth.WelcomeCoordinatorLayout;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.DTO.AddContactResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
 import in.voiceme.app.voiceme.contactPage.animators.InSyncAnimator;
@@ -31,7 +32,7 @@ import in.voiceme.app.voiceme.contactPage.animators.RocketFlightAwayAnimator;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
-import in.voiceme.app.voiceme.userpost.BaseResponse;
+import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import in.voiceme.app.voiceme.utils.ContactsHelper;
 import rx.Observable;

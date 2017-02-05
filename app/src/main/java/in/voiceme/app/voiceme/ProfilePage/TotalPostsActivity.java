@@ -18,7 +18,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.services.PostsModel;
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class TotalPostsActivity extends BaseActivity {

@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.PostsDetails;
+package in.voiceme.app.voiceme.DTO;
 
 import android.os.Parcel;
 import android.os.Parcelable;

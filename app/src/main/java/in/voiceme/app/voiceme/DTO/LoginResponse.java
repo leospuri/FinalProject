@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.login;
+package in.voiceme.app.voiceme.DTO;
 
 import com.google.gson.annotations.SerializedName;
 

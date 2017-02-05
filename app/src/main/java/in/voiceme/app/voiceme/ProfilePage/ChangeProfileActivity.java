@@ -23,12 +23,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.LoginResponse;
+import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

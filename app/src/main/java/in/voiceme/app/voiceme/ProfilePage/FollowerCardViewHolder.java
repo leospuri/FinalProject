@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import in.voiceme.app.voiceme.DTO.FollowerUserModel;
 import in.voiceme.app.voiceme.R;
 import timber.log.Timber;
 

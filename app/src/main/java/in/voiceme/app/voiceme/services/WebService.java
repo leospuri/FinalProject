@@ -4,15 +4,17 @@ import android.net.Uri;
 
 import java.util.List;
 
-import in.voiceme.app.voiceme.PostsDetails.UserCommentModel;
+import in.voiceme.app.voiceme.DTO.LikesResponse;
+import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DTO.UserCommentModel;
 import in.voiceme.app.voiceme.DTO.UserSuperList;
-import in.voiceme.app.voiceme.ProfilePage.FollowerUserList;
-import in.voiceme.app.voiceme.ProfilePage.ProfileUserList;
-import in.voiceme.app.voiceme.contactPage.AddContactResponse;
-import in.voiceme.app.voiceme.login.AboutmeResponse;
-import in.voiceme.app.voiceme.login.LoginResponse;
-import in.voiceme.app.voiceme.userpost.BaseResponse;
-import in.voiceme.app.voiceme.userpost.UserResponse;
+import in.voiceme.app.voiceme.DTO.FollowerUserList;
+import in.voiceme.app.voiceme.DTO.ProfileUserList;
+import in.voiceme.app.voiceme.DTO.AddContactResponse;
+import in.voiceme.app.voiceme.DTO.AboutmeResponse;
+import in.voiceme.app.voiceme.DTO.LoginResponse;
+import in.voiceme.app.voiceme.DTO.BaseResponse;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -27,7 +29,7 @@ import rx.Observable;
 public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
-                                           @Query("page") int page);
+                                               @Query("page") int page);
 
     // Todo donot know about this call
     @GET("posts.php")

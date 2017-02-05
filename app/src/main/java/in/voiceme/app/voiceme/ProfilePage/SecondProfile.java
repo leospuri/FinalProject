@@ -14,13 +14,14 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.userpost.UserResponse;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 

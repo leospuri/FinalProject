@@ -19,7 +19,7 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.services.PostsModel;
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class ContactListActivity extends BaseContact {

@@ -10,6 +10,7 @@ import com.emmasuzuki.easyform.EasyTextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.DTO.AboutmeResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;

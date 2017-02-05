@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.UserCommentModel;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
@@ -32,9 +33,9 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.services.LikesResponse;
-import in.voiceme.app.voiceme.services.PostsModel;
-import in.voiceme.app.voiceme.userpost.UserResponse;
+import in.voiceme.app.voiceme.DTO.LikesResponse;
+import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 

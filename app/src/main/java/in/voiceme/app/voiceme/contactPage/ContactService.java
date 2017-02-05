@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Toast;
 
+import in.voiceme.app.voiceme.DTO.AddContactResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
