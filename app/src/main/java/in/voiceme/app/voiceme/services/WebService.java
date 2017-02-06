@@ -69,7 +69,8 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getContactPosts(@Query("id_user_name") String id_user_name,
                                                   @Query("user_id") String user_id,
-                                                  @Query("contacts") String contacts);
+                                                  @Query("contacts") String contacts,
+                                                 @Query("page") int page);
 
     @GET("get_comments.php")
     Observable<List<PostUserCommentModel>> getUserComments(
@@ -79,11 +80,13 @@ public interface WebService {
 
     @GET("posts.php")
     Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id,
-                                                 @Query("user_id") String userID);
+                                                 @Query("user_id") String userID,
+                                                 @Query("page") int page);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getCategoryPosts(@Query("category_id") String category_id,
-                                                  @Query("user_id") String userID);
+                                                  @Query("user_id") String userID,
+                                                  @Query("page") int page);
 
 
     @FormUrlEncoded

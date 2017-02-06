@@ -198,6 +198,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    public void setOnItemClickListener(LikeUnlikeClickListener myClickListener) {
+        this.myClickListener = myClickListener;
+    }
+
     private void initRecyclerView() {
         mMessageAdapter = new MessageAdapter(PostsDetailsActivity.this, myCommentList, mInsertMessageListener);
 

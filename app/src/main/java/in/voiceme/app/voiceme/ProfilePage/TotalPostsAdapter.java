@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -21,6 +26,7 @@ import java.util.List;
 
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.DiscoverPage.PostsCardViewHolder;
+import in.voiceme.app.voiceme.PostsDetails.PostsDetailsActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserCategoryActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserFeelingActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserHugCounterActivity;
@@ -34,6 +40,9 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.userpost.EditPost;
+import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
+import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -49,6 +58,46 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context mContext;
     private int mLastPosition = 5;
     private double current_lat, current_long;
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+    private String errorMsg;
+    private PaginationAdapterCallback mCallback;
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = dataSet.size() - 1;
+        PostsModel result = getItem(position);
+
+        if (result != null) {
+            dataSet.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void add(PostsModel r) {
+        dataSet.add(r);
+        notifyItemInserted(dataSet.size() - 1);
+    }
+
+    public void addAll(List<PostsModel> moveResults) {
+        for (PostsModel result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        addItem(dataSet.size(), new PostsModel() );
+    }
+
+
+    public void showRetry(boolean show, @Nullable String errorMsg) {
+        retryPageLoad = show;
+        notifyItemChanged(dataSet.size() - 1);
+
+        if (errorMsg != null) this.errorMsg = errorMsg;
+    }
 
     public TotalPostsAdapter(List<PostsModel> productLists, Context mContext) {
         this.mContext = mContext;
@@ -190,7 +239,10 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     // you provide access to all the views for a data item in a view holder
     public static class EventViewHolder extends PostsCardViewHolder implements View.OnClickListener, OnLikeListener, WasLoggedInInterface {
 
+        boolean isPlaying = false;
         private boolean doDislike;
+        private PopupMenu popupMenu;
+        private Menu menu;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -210,9 +262,10 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+
         protected void secondUserProfileClicked(View view){
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }
@@ -223,6 +276,8 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (mediaPlayer != null){
                     try {
                         mediaPlayer.stop();
+                        mediaPlayer.reset();
+                        mediaPlayer.release();
                     } catch (Exception e){
 
                     }
@@ -238,8 +293,8 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         @Override
                         public void onPrepared(MediaPlayer mediaPlayer) {
                             try {
-                                play_button.showProgress(false);
                                 mediaPlayer.start();
+                                play_button.showProgress(false);
                                 flipPlayPauseButton(true);
                             } catch (Exception e){
                                 e.printStackTrace();
@@ -249,7 +304,9 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mediaPlayer) {
+                            play_button.showProgress(false);
                             flipPlayPauseButton(false);
+                            mediaPlayer.stop();
                         }
                     });
                     mediaPlayer.prepareAsync();
@@ -275,15 +332,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        @Override
-        protected void likeCounterClicked(View v) {
-            if (processLoggedState(v))
-                return;
-            Intent intent = new Intent(v.getContext(), UserLikeCounterActivity.class);
-            Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
-            intent.putExtra(Constants.LIKE_FEELING, dataItem.getIdPosts());
-            v.getContext().startActivity(intent);
-        }
 
         @Override
         protected void listenCounterClicked(View v) {
@@ -297,11 +345,84 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         protected void categoryClicked(View v) {
-            processLoggedState(v);
             Intent intent = new Intent(v.getContext(), UserCategoryActivity.class);
             intent.putExtra(Constants.CATEGORY, getCategory().getText().toString());
-            Toast.makeText(v.getContext(), "category ID is " + getCategory().getText().toString(), Toast.LENGTH_SHORT).show();
             v.getContext().startActivity(intent);
+        }
+
+        @Override
+        protected void cardBackground(View view) {
+            if (processLoggedState(view))
+                return;
+            Intent intent = new Intent(view.getContext(), PostsDetailsActivity.class);
+            intent.putExtra(Constants.POST_BACKGROUND, dataItem.getIdPosts());
+            view.getContext().startActivity(intent);
+        }
+
+        @Override
+        protected void feelingClicked(View v) {
+            processLoggedState(v);
+            // add feeling ID to get feeling Posts from current pojo
+
+            Intent intent = new Intent(v.getContext(), UserFeelingActivity.class);
+            intent.putExtra(Constants.EMOTION, getFeeling().getText().toString());
+            v.getContext().startActivity(intent);
+        }
+
+        @Override
+        protected void likeCounterClicked(View v) {
+            if (processLoggedState(v))
+                return;
+            Intent intent = new Intent(v.getContext(), UserLikeCounterActivity.class);
+            Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.LIKE_FEELING, dataItem.getIdPosts());
+            v.getContext().startActivity(intent);
+        }
+
+        protected void moreClick(View view){
+            popupMenu = new PopupMenu(view.getContext(), view);
+            MenuInflater inflater = popupMenu.getMenuInflater();
+            inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+            //    this.menu = popupMenu.getMenu();
+
+            SharedPreferences preferences;
+            preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+
+            if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                if(popupMenu.getMenu() == null)
+                    return;
+                popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
+            } else {
+                popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
+            }
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.edit_post:
+
+                            Intent editIntent = new Intent(itemView.getContext(), EditPost.class);
+                            editIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
+                            editIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
+                            itemView.getContext().startActivity(editIntent);
+                            return true;
+
+                        case R.id.report_post:
+                            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
+
+                            Intent reportIntent = new Intent(itemView.getContext(), ReportAbuseActivity.class);
+                            reportIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
+                            reportIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
+                            itemView.getContext().startActivity(reportIntent);
+                            return true;
+
+                        default:
+                            return false;
+
+                    }
+                }
+            });
+            popupMenu.show();
         }
 
         @Override
@@ -311,15 +432,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Intent intent = new Intent(v.getContext(), UserHugCounterActivity.class);
             Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.HUG_FEELING, dataItem.getIdPosts());
-            v.getContext().startActivity(intent);
-        }
-
-        @Override
-        protected void feelingClicked(View v) {
-            processLoggedState(v);
-            Intent intent = new Intent(v.getContext(), UserFeelingActivity.class);
-            intent.putExtra(Constants.EMOTION, getFeeling().getText().toString());
-            Toast.makeText(v.getContext(), "Feeling ID is " + getFeeling().getText().toString(), Toast.LENGTH_SHORT).show();
             v.getContext().startActivity(intent);
         }
 
@@ -364,22 +476,24 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             if (doDislike)
                 return;
-
             if (likeButton == likeButtonMain) {
                 likeCounter++;
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
-                        dataItem.getIdUserName()  + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
+                        dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
 
-
-                sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
                     Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
+
+
+                sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
+
+
 
             } else if (likeButton == HugButtonMain) {
                 hugCounter++;
@@ -387,7 +501,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
-                        dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
+                        dataItem.getIdUserName() + "_postId" + dataItem.getIdPosts()  + "_click" + "2";
 
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
@@ -435,19 +549,21 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             if (likeButton == likeButtonMain) {
-                --likeCounter;
+                likeCounter--;
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
             } else if (likeButton == HugButtonMain) {
-                --hugCounter;
+                hugCounter--;
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
             } else if (likeButton == SameButtonMain) {
-                --sameCounter;
+                sameCounter--;
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
         }
+
 
 
         @Override

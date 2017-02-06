@@ -9,8 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:mtf_openKeyboardOnFocus="false">
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,9 +93,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/user_gender"
-                    android:drawableLeft="@drawable/ic_mail"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:textSize="18sp"
                     android:text="Gender"
                     android:textColor="#880E4F" />
@@ -104,6 +104,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/user_gender_text_box"
                     android:gravity="center"
@@ -143,6 +144,7 @@
         <Button
             android:id="@+id/submit_button_profile"
             android:layout_width="match_parent"
+            android:layout_margin="26dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/edittext_profile_aboutme"
@@ -160,9 +162,11 @@
             android:layout_width="match_parent"
             android:layout_height="60dp" />
 
-        <View
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:src="@drawable/profile_change"
+            android:scaleType="fitCenter"
+            android:layout_height="70dp" />
 
 
     </LinearLayout>

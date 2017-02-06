@@ -16,6 +16,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 public class LoginUserDetails extends BaseActivity implements View.OnClickListener {
     private Button button;
@@ -41,6 +42,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
         token = FirebaseInstanceId.getInstance().getToken();
 
+        Timber.d("token frpm fcm: " + token);
         // Log.d("Id Generated", token);
         Toast.makeText(LoginUserDetails.this, token, Toast.LENGTH_SHORT).show();
 

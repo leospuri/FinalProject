@@ -32,7 +32,7 @@
                 android:id="@+id/wave_head"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:src="@drawable/round"
+                android:src="@drawable/profile22"
                 android:scaleType="centerCrop"
                 diagonal:diagonalColor="#FFFFFF"
                 diagonal:backgroundColor="#00F44336"
@@ -111,7 +111,6 @@
                 android:layout_toRightOf="@+id/profile_image"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Intruder Shanky"
-                android:textColor="#ccffffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -123,8 +122,7 @@
                 android:textSize="18sp"
                 android:layout_marginLeft="28dp"
                 android:layout_toRightOf="@+id/profile_image"
-                android:text="UI/UX Desig"
-                android:textColor="#aaffffff" />
+                android:text="UI/UX Desig" />
 
 
 

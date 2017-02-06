@@ -1,16 +1,23 @@
 package in.voiceme.app.voiceme.ProfilePage;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.like.LikeButton;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -18,14 +25,28 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
+import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class TotalPostsActivity extends BaseActivity {
+import static com.facebook.GraphRequest.TAG;
+
+public class TotalPostsActivity extends BaseActivity implements PaginationAdapterCallback {
     private int mPage;
     private RecyclerView recyclerView;
     private TotalPostsAdapter activityInteractionAdapter;
     private String userId;
+
+    private static final int PAGE_START = 1;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
+    private int TOTAL_PAGES = 5;
+    private int currentPage = PAGE_START;
+
+    ProgressBar progressBar;
+    LinearLayout errorLayout;
+    TextView txtError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +63,155 @@ public class TotalPostsActivity extends BaseActivity {
                 finish();
             }
         });
+
+        progressBar = (ProgressBar) findViewById(R.id.main_progress);
+        errorLayout = (LinearLayout) findViewById(R.id.error_layout);
+        txtError = (TextView) findViewById(R.id.error_txt_cause);
+        try {
+            initUiView();
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void initUiView() {
         recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
 
-        try {
-            getData();
-        } catch (Exception e) {
-            e.printStackTrace();
+        recyclerView.addOnScrollListener(new PaginationScrollListener(llm) {
+            @Override
+            protected void loadMoreItems() {
+                int totalItemCount = llm.getItemCount();
+                isLoading = true;
+                currentPage += 1;
+
+                loadNextPage();
+
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+
+    }
+
+    private void showErrorView(Throwable throwable) {
+
+        if (errorLayout.getVisibility() == View.GONE) {
+            errorLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+
+            txtError.setText(fetchErrorMessage(throwable));
         }
     }
+
+    private void hideErrorView() {
+        if (errorLayout.getVisibility() == View.VISIBLE) {
+            errorLayout.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    /**
+     * @param throwable to identify the type of error
+     * @return appropriate error message
+     */
+    private String fetchErrorMessage(Throwable throwable) {
+        String errorMsg = getResources().getString(R.string.error_msg_unknown);
+
+        if (!isNetworkConnected()) {
+            errorMsg = getResources().getString(R.string.error_msg_no_internet);
+        } else if (throwable instanceof TimeoutException) {
+            errorMsg = getResources().getString(R.string.error_msg_timeout);
+        }
+
+        return errorMsg;
+    }
+
+    private void loadFirstPage() throws Exception {
+        Log.d(TAG, "loadFirstPage: ");
+        hideErrorView();
+
+        application.getWebService()
+                .getSingleUserPosts(userId, userId, currentPage)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<List<PostsModel>>() {
+                    @Override
+                    public void onNext(List<PostsModel> response) {
+                        progressBar.setVisibility(View.GONE);
+                        hideErrorView();
+                        Log.e("RESPONSE:::", "Size===" + response.size());
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
+                        showRecycleWithDataFilled(response);
+                        if (currentPage <= TOTAL_PAGES) activityInteractionAdapter.addLoadingFooter();
+                        else isLastPage = true;
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        showErrorView(e);
+                    }
+                });
+    }
+
+    private void loadNextPage() {
+        Log.d(TAG, "loadNextPage: " + currentPage);
+        hideErrorView();
+
+        application.getWebService()
+                .getSingleUserPosts(userId, userId, currentPage)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<List<PostsModel>>() {
+                    @Override
+                    public void onNext(List<PostsModel> response) {
+                        hideErrorView();
+                        activityInteractionAdapter.removeLoadingFooter();
+                        isLoading = false;
+
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
+
+                        Log.e("RESPONSE:::", "Size===" + response.size());
+                        activityInteractionAdapter.addAll(response);
+                        // showRecycleWithDataFilled(response);
+                        if (currentPage != TOTAL_PAGES) activityInteractionAdapter.addLoadingFooter();
+                        else isLastPage = true;
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        activityInteractionAdapter.showRetry(true, fetchErrorMessage(e));
+                    }
+                });
+
+    }
+
 
     @Override
     public String toString() {
@@ -97,6 +255,11 @@ public class TotalPostsActivity extends BaseActivity {
             return true;
         }
         return false;
+
+    }
+
+    @Override
+    public void retryPageLoad() {
 
     }
 }
