@@ -2,9 +2,7 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.StrictMode;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.crashlytics.android.answers.Answers;
 import com.digits.sdk.android.Digits;
@@ -27,8 +25,6 @@ import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import timber.log.Timber;
-
-import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by Harish on 7/20/2016.
@@ -94,7 +90,7 @@ public class VoicemeApplication extends Application {
 
      //   LeakCanary.install(this);
 
-        Log.d(TAG, "Setting up StrictMode policy checking.");
+/*        Log.d(TAG, "Setting up StrictMode policy checking.");
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
@@ -103,7 +99,7 @@ public class VoicemeApplication extends Application {
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
-                .build());
+                .build()); */
 
         final TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.CONSUMER_KEY,
                 BuildConfig.CONSUMER_SECRET);

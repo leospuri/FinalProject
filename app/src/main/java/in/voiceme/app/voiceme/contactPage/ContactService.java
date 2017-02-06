@@ -1,18 +1,13 @@
 package in.voiceme.app.voiceme.contactPage;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
+import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
@@ -27,9 +22,14 @@ import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
-public class ContactService extends Service {
+public class ContactService extends IntentService {
+
+    public static final String BROADCAST=
+            "in.voiceme.app.voiceme.contactPage.ContactService.BROADCAST";
+    private static Intent broadcast=new Intent(BROADCAST);
+
+
     SharedPreferences preferences;
-    MediaPlayer mediaPlayer = new MediaPlayer();
     private final IBinder mBinder = new MyBinder();
 
 
@@ -40,7 +40,15 @@ public class ContactService extends Service {
         }
     }
 
+    @Override
+    protected void onHandleIntent(Intent intent) {
+
+       // SystemClock.sleep(5000);
+
+    }
+
     public ContactService() {
+        super("ContactService");
     }
 
     @Override
@@ -102,27 +110,12 @@ public class ContactService extends Service {
                     public void onNext(ContactAddResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
                         Toast.makeText(ContactService.this, "Sent All Contacts", Toast.LENGTH_SHORT).show();
-                        ((VoicemeApplication)getApplication()).getAuth().getUser().setAllContacts(true);
-                        showNotification();
+                        LocalBroadcastManager.getInstance(ContactService.this).sendBroadcast(broadcast);
                     }
                 });
     }
 
-    public void showNotification() {
-        PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, ContactListActivity.class), 0);
-        Resources r = getResources();
-        Notification notification = new NotificationCompat.Builder(this)
-                .setTicker("Your Anonymous Page is ready")
-                .setSmallIcon(android.R.drawable.ic_menu_report_image)
-                .setContentTitle("Your Page is ready")
-                .setContentText("Click to enter")
-                .setContentIntent(pi)
-                .setAutoCancel(true)
-                .build();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notification);
-    }
 
     @Override
     public void onDestroy() {

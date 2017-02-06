@@ -2,10 +2,19 @@ package in.voiceme.app.voiceme.contactPage;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -242,7 +251,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 if (givenAllPersonalContact){
                     enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
                     //  MySharedPreferences.checkContactSent(preferences, "Sent");
-                    setAuthToken("token");
+
                     startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
                     finish();
                     return;
@@ -259,9 +268,35 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     private void readContacts() {
         if (ActivityUtils.isContactsPermission(this)) {
          //   getContacts();
+            application.getAuth().getUser().setAllContacts(true);
+            setAuthToken("token");
             startService(new Intent(this, ContactService.class));
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        IntentFilter filter=new IntentFilter(ContactService.BROADCAST);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(onNotice, filter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(onNotice);
+    }
+
+    private BroadcastReceiver onNotice=new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent i) {
+            showNotification();
+        }
+    };
+
+
 
   /*  private void getContacts() {
 
@@ -290,6 +325,23 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     Timber.d("comma separated contacts array %s", contacts.toString().replace("[", "").replace("]", ""));
                 });
     } */
+
+    public void showNotification() {
+        PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, ContactListActivity.class), 0);
+        Resources r = getResources();
+        Notification notification = new NotificationCompat.Builder(this)
+                .setTicker("Your Anonymous Page is ready")
+                .setSmallIcon(android.R.drawable.ic_menu_report_image)
+                .setContentTitle("Your Page is ready")
+                .setContentText("Click to enter")
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pi)
+                .setAutoCancel(true)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+    }
 
     private void sendAllContacts(String contacts) throws Exception {
         application.getWebService()
