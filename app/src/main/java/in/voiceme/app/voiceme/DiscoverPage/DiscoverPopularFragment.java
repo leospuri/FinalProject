@@ -185,6 +185,9 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
                         showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;

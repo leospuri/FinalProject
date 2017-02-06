@@ -189,6 +189,9 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
                         showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
@@ -215,6 +218,9 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;
 
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         latestListAdapter.addAll(response);

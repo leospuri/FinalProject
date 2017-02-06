@@ -2,12 +2,9 @@ package in.voiceme.app.voiceme.contactPage;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +20,7 @@ import com.digits.sdk.android.DigitsSession;
 import com.redbooth.WelcomeCoordinatorLayout;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
@@ -32,12 +30,8 @@ import in.voiceme.app.voiceme.contactPage.animators.RocketFlightAwayAnimator;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
-import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
-import in.voiceme.app.voiceme.utils.ContactsHelper;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ContactsActivity extends BaseActivity implements View.OnClickListener {
@@ -264,11 +258,12 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     private void readContacts() {
         if (ActivityUtils.isContactsPermission(this)) {
-            startService(new Intent(ContactsActivity.this, ContactService.class));
+         //   getContacts();
+            startService(new Intent(this, ContactService.class));
         }
     }
 
-    private void getContacts() {
+  /*  private void getContacts() {
 
         ProgressDialog dialog = new ProgressDialog(ContactsActivity.this);
         dialog.setCancelable(true);
@@ -285,8 +280,6 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contacts -> {
-                    contacts.remove(0);
-                    contacts.remove(contacts.size() - 1);
                     try {
                         sendAllContacts(contacts.toString().replace("[", "").replace("]", "").replace(" ", ""));
                         dialog.dismiss();
@@ -296,7 +289,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     // showContactsCompletedDialog(contacts);
                     Timber.d("comma separated contacts array %s", contacts.toString().replace("[", "").replace("]", ""));
                 });
-    }
+    } */
 
     private void sendAllContacts(String contacts) throws Exception {
         application.getWebService()
@@ -313,6 +306,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 });
     }
 
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -323,7 +317,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 getContacts();
             }
         }
-    }
+    } */
 
     private void sendContact(String phoneNumber) throws Exception {
         application.getWebService()

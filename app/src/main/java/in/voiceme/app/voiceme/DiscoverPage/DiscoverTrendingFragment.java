@@ -181,6 +181,9 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
                        showRecycleWithDataFilled(response);
                    //     latestListAdapter.addAll(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
