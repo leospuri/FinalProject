@@ -255,48 +255,43 @@
 
         </LinearLayout>
 
-        <com.like.LikeButton
+        <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/list_item_like_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
-            app:circle_end_color="@android:color/holo_blue_dark"
-            app:circle_start_color="@android:color/holo_blue_bright"
-            app:dots_primary_color="@android:color/holo_blue_light"
-            app:dots_secondary_color="@android:color/holo_blue_dark"
-            app:icon_size="28dp"
-            app:like_drawable="@drawable/like_after"
-            app:unlike_drawable="@drawable/like_before" />
+            app:mfb_rotation_duration="400"
+            app:mfb_favorite_image="@drawable/like_after"
+            app:mfb_not_favorite_image="@drawable/like_before"
+            app:mfb_rotation_angle="360"
+            app:mfb_bounce_duration="700" />
 
-        <com.like.LikeButton
+        <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/list_item_hug_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
             android:layout_toEndOf="@+id/list_item_like_button"
             android:layout_toRightOf="@+id/list_item_like_button"
-            app:circle_end_color="@android:color/holo_blue_dark"
-            app:circle_start_color="@android:color/holo_blue_bright"
-            app:dots_primary_color="@android:color/holo_blue_light"
-            app:dots_secondary_color="@android:color/holo_blue_dark"
-            app:icon_size="28dp"
-            app:like_drawable="@drawable/hug_after"
-            app:unlike_drawable="@drawable/status_before" />
+            app:mfb_rotation_duration="400"
+            app:mfb_favorite_image="@drawable/hug_after"
+            app:mfb_not_favorite_image="@drawable/status_before"
+            app:mfb_rotation_angle="360"
+            app:mfb_bounce_duration="700" />
 
-        <com.like.LikeButton
+        <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/list_item_same_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
             android:layout_toEndOf="@+id/list_item_hug_button"
             android:layout_toRightOf="@+id/list_item_hug_button"
-            app:circle_end_color="@android:color/holo_blue_dark"
-            app:circle_start_color="@android:color/holo_blue_bright"
-            app:dots_primary_color="@android:color/holo_blue_light"
-            app:dots_secondary_color="@android:color/holo_blue_dark"
-            app:icon_size="28dp"
-            app:like_drawable="@drawable/sad"
-            app:unlike_drawable="@drawable/status_before" />
+            app:mfb_rotation_duration="400"
+            app:mfb_favorite_image="@drawable/sad"
+            app:mfb_not_favorite_image="@drawable/status_before"
+            app:mfb_rotation_angle="360"
+            app:mfb_bounce_duration="700" />
+
 
         <ImageView
             android:id="@+id/status_more"

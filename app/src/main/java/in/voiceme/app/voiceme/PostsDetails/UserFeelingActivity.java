@@ -15,12 +15,11 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.like.LikeButton;
 
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -28,7 +27,6 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
@@ -269,7 +267,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
         activityInteractionAdapter = new TotalPostsAdapter(myList, this);
-        activityInteractionAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
+   /*     activityInteractionAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {
                 String name = model.getIdUserName();
@@ -279,7 +277,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
             public void onLikeUnlikeClick(PostsModel model, LikeButton v) {
 
             }
-        });
+        }); */
         recyclerView.setAdapter(activityInteractionAdapter);
     }
 

@@ -42,7 +42,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
         token = FirebaseInstanceId.getInstance().getToken();
 
-        Timber.d("token frpm fcm: " + token);
+        Timber.d("token from fcm: " + token);
         // Log.d("Id Generated", token);
         Toast.makeText(LoginUserDetails.this, token, Toast.LENGTH_SHORT).show();
 

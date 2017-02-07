@@ -12,13 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.like.LikeButton;
-
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
-import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -233,7 +230,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
         activityInteractionAdapter = new TotalPostsAdapter(myList, this);
-        activityInteractionAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
+    /*    activityInteractionAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {
                 String name = model.getIdUserName();
@@ -243,7 +240,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
             public void onLikeUnlikeClick(PostsModel model, LikeButton v) {
 
             }
-        });
+        }); */
         recyclerView.setAdapter(activityInteractionAdapter);
     }
 

@@ -10,15 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
+import in.voiceme.app.voiceme.DTO.PostLikesResponse;
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
-import in.voiceme.app.voiceme.DTO.PostLikesResponse;
-import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.utils.CurrentTime;
 import mbanje.kurt.fabbutton.FabButton;
 import rx.android.schedulers.AndroidSchedulers;
@@ -26,7 +25,7 @@ import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
-public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnLikeListener {
+public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     protected int likeCounter;
     protected int hugCounter;
     protected int sameCounter;
@@ -65,7 +64,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
 
     //animated buttons
-    protected LikeButton likeButtonMain, HugButtonMain, SameButtonMain;
+    protected MaterialFavoriteButton likeButtonMain, HugButtonMain, SameButtonMain;
 
     protected View parent_row;
 
@@ -105,16 +104,35 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         listenCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_listen);
 
         //animated buttons
-        likeButtonMain = (LikeButton) itemView.findViewById(R.id.list_item_like_button);
-        HugButtonMain = (LikeButton) itemView.findViewById(R.id.list_item_hug_button);
-        SameButtonMain = (LikeButton) itemView.findViewById(R.id.list_item_same_button);
+        likeButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_like_button);
+        HugButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_hug_button);
+        SameButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_same_button);
 
         parent_row = (View) itemView.findViewById(R.id.parent_row);
 
         //OnClickListeners
-        likeButtonMain.setOnLikeListener(this);
-        HugButtonMain.setOnLikeListener(this);
-        SameButtonMain.setOnLikeListener(this);
+        likeButtonMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                likeButtonMethod(view);
+            }
+        });
+
+        HugButtonMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hugButtonMethod(view);
+            }
+        });
+
+        SameButtonMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sameButtonMethod(view);
+            }
+        });
+
+
 
         like_counter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +243,18 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         });
     }
 
+    protected void likeButtonMethod(View view) {
+
+    }
+
+    protected void hugButtonMethod(View view) {
+
+    }
+
+    protected void sameButtonMethod(View view) {
+
+    }
+
     protected void moreClick(View view){
 
     }
@@ -309,23 +339,29 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
         if (dataItem.getUserLike() != null){
             if (dataItem.getUserLike()){
-                likeButtonMain.setLiked(true);
+                likeButtonMain.setFavorite(true);
+             //   likeButtonMain.setFavoriteResource(like_after);
             } else {
-                likeButtonMain.setLiked(false);
+                likeButtonMain.setFavorite(false);
+             //   likeButtonMain.setFavoriteResource(like_before);
             }
 
 
             if (dataItem.getUserHuge()){
-                HugButtonMain.setLiked(true);
+            //    HugButtonMain.setFavoriteResource(hug_after);
+                HugButtonMain.setFavorite(true);
             } else {
-                HugButtonMain.setLiked(false);
+                HugButtonMain.setFavorite(false);
+           //     HugButtonMain.setFavoriteResource(status_before);
             }
 
 
             if (dataItem.getUserSame()){
-                SameButtonMain.setLiked(true);
+                SameButtonMain.setFavorite(true);
+          //      SameButtonMain.setFavoriteResource(sad);
             } else {
-                SameButtonMain.setLiked(false);
+                SameButtonMain.setFavorite(false);
+              //  SameButtonMain.setFavoriteResource(status_before);
             }
         }
 
@@ -395,4 +431,5 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     public TextView getCategory() {
         return category;
     }
+
 }

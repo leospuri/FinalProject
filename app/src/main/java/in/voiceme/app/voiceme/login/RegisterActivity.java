@@ -112,7 +112,7 @@ public class RegisterActivity extends BaseActivity
         // The Facebook application ID must be defined in res/values/configuration_strings.xml
         if (facebookAppId.isEmpty()) {
             facebookSignInBtn.setVisibility(View.GONE);
-            findViewById(R.id.signin_no_facebook_signin_txt).setVisibility(View.VISIBLE);
+       //     findViewById(R.id.signin_no_facebook_signin_txt).setVisibility(View.VISIBLE);
             return;
         }
 

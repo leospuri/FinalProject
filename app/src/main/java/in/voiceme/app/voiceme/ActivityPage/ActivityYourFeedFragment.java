@@ -15,19 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.like.LikeButton;
-
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DiscoverPage.LatestListAdapter;
-import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
@@ -268,7 +265,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
         latestListAdapter = new LatestListAdapter(myList, getActivity());
 
-        latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
+    /*    latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {
                 String name = model.getIdUserName();
@@ -278,7 +275,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
             public void onLikeUnlikeClick(PostsModel model, LikeButton v) {
 
             }
-        });
+        }); */
         recyclerView.setAdapter(latestListAdapter);
     }
 

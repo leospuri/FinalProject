@@ -16,14 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
+import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
@@ -33,15 +35,12 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostLikesResponse;
-import in.voiceme.app.voiceme.DTO.PostsModel;
-import in.voiceme.app.voiceme.DTO.UserResponse;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.R.id.detail_list_item_posts_avatar;
 
-public class PostsDetailsActivity extends BaseActivity implements View.OnClickListener, OnLikeListener {
+public class PostsDetailsActivity extends BaseActivity implements View.OnClickListener, MaterialFavoriteButton.OnFavoriteChangeListener {
 
     EditText mMessageEditText;
     ImageButton mSendMessageImageButton;
@@ -90,7 +89,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
     //animated buttons
-    private LikeButton likeButtonMain, HugButtonMain, SameButtonMain;
+    private MaterialFavoriteButton likeButtonMain, HugButtonMain, SameButtonMain;
 
 
 
@@ -152,9 +151,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         listenCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_listen);
 
         //animated buttons
-        likeButtonMain = (LikeButton) findViewById(R.id.detail_list_item_like_button);
-        HugButtonMain = (LikeButton) findViewById(R.id.detail_list_item_hug_button);
-        SameButtonMain = (LikeButton) findViewById(R.id.detail_list_item_same_button);
+        likeButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_like_button);
+        HugButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_hug_button);
+        SameButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_same_button);
 
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
@@ -165,9 +164,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         mSendMessageImageButton.setOnClickListener(this);
         //OnClickListeners
-        likeButtonMain.setOnLikeListener(this);
-        HugButtonMain.setOnLikeListener(this);
-        SameButtonMain.setOnLikeListener(this);
+        likeButtonMain.setOnFavoriteChangeListener(this);
+        HugButtonMain.setOnFavoriteChangeListener(this);
+        SameButtonMain.setOnFavoriteChangeListener(this);
 
         like_counter.setOnClickListener(this);
         hug_counter.setOnClickListener(this);
@@ -415,23 +414,23 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         if (myList.get(0).getUserLike() != null){
             if (myList.get(0).getUserLike()){
-                likeButtonMain.setLiked(true);
+                likeButtonMain.setFavorite(true);
             } else {
-                likeButtonMain.setLiked(false);
+                likeButtonMain.setFavorite(false);
             }
 
 
             if (myList.get(0).getUserHuge()){
-                HugButtonMain.setLiked(true);
+                HugButtonMain.setFavorite(true);
             } else {
-                HugButtonMain.setLiked(false);
+                HugButtonMain.setFavorite(false);
             }
 
 
             if (myList.get(0).getUserSame()){
-                SameButtonMain.setLiked(true);
+                SameButtonMain.setFavorite(true);
             } else {
-                SameButtonMain.setLiked(false);
+                SameButtonMain.setFavorite(false);
             }
         }
 
@@ -449,13 +448,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void liked(LikeButton likeButton) {
-        processLoggedState(likeButton);
+    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {  //LikeButton likeButton
+      //  processLoggedState(buttonView.);
 
-        try {
+    /*    try {
             if (myClickListener != null) {
-                myClickListener.onLikeUnlikeClick(myList.get(0), likeButton);
-                final LikeButton likeButtonLcl = likeButton;
+                myClickListener.onLikeUnlikeClick(myList.get(0), buttonView);
+                final MaterialFavoriteButton likeButtonLcl = buttonView;
                 if (doDislike) new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -463,20 +462,21 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         likeButtonLcl.post(new Runnable() {
                             @Override
                             public void run() {
-                                likeButtonLcl.setLiked(false);
+                                likeButtonLcl.setFavorite(false, false);
                             }
                         });
                     }
                 }).start();
             } else {
-                Toast.makeText(likeButton.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
+                Toast.makeText(buttonView.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
             }
         } catch (NullPointerException e) {
-            Toast.makeText(likeButton.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
+            Toast.makeText(buttonView.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
         }
         if (doDislike)
-            return;
-        if (likeButton == likeButtonMain) {
+            return; */
+
+        if (buttonView == likeButtonMain) {
             likeCounter++;
             like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
 
@@ -492,7 +492,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 sendLikeNotification(application, sendLike);
             }
 
-        } else if (likeButton == HugButtonMain) {
+        } else if (buttonView == HugButtonMain) {
             hugCounter++;
             hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + myList.get(0).getIdUserName()
@@ -504,7 +504,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             } else {
                 sendLikeNotification(application, sendLike);
             }
-        } else if (likeButton == SameButtonMain) {
+        } else if (buttonView == SameButtonMain) {
             sameCounter++;
             same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
@@ -518,9 +518,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    @Override
-    public void unLiked(LikeButton likeButton) {
-        processLoggedState(likeButton);
+  /*  @Override
+    public void unLiked(MaterialFavoriteButton buttonView, boolean favorite likeButton) {
+     //   processLoggedState(buttonView);
 
         if (doDislike)
             return;
@@ -528,26 +528,28 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (myClickListener != null) {
                 return;
             } else {
-                Toast.makeText(likeButton.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
+                Toast.makeText(buttonView.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
             }
         } catch (NullPointerException e) {
-            Toast.makeText(likeButton.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
+            Toast.makeText(buttonView.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
         }
 
-        if (likeButton == likeButtonMain) {
+
+
+        if (buttonView == likeButtonMain) {
             likeCounter--;
             like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-        } else if (likeButton == HugButtonMain) {
+        } else if (buttonView == HugButtonMain) {
             hugCounter--;
             hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             sendUnlikeToServer(application, 1, 0, 1, 1, "clicked unlike button");
-        } else if (likeButton == SameButtonMain) {
+        } else if (buttonView == SameButtonMain) {
             sameCounter--;
             same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
         }
-    }
+    } */
 
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
         application.getWebService().likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
@@ -599,5 +601,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         return false;
 
     }
+
 
 }

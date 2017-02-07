@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/licenseLib" />
             <option value="$PROJECT_DIR$/materialanimatedswitch" />
+            <option value="$PROJECT_DIR$/materialfavoritebutton" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -17,13 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.like.LikeButton;
-import com.like.OnLikeListener;
-
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.DiscoverPage.PostsCardViewHolder;
 import in.voiceme.app.voiceme.PostsDetails.PostsDetailsActivity;
@@ -39,7 +37,6 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
@@ -237,7 +234,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class EventViewHolder extends PostsCardViewHolder implements View.OnClickListener, OnLikeListener, WasLoggedInInterface {
+    public static class EventViewHolder extends PostsCardViewHolder implements  View.OnClickListener, WasLoggedInInterface { //MaterialFavoriteButton.OnFavoriteChangeListener,
 
         boolean isPlaying = false;
         private boolean doDislike;
@@ -445,7 +442,57 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             v.getContext().startActivity(intent);
         }
 
-        @Override
+        protected void likeButtonMethod(View view) {
+            likeCounter = Integer.parseInt(like_counter.getText().toString());
+
+            if (likeButtonMain.isFavorite()){
+                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
+                likeButtonMain.setFavorite(false);
+                likeCounter--;
+                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+            } else {
+                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
+                likeButtonMain.setFavorite(true);
+                likeCounter++;
+                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+            }
+
+            // if (favorite){
+
+            //     }
+        }
+
+        protected void hugButtonMethod(View view) {
+            hugCounter = Integer.parseInt(hug_counter.getText().toString());
+
+            if (HugButtonMain.isFavorite()){
+                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
+                HugButtonMain.setFavorite(false);
+                hugCounter--;
+                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            } else {
+                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
+                HugButtonMain.setFavorite(true);
+                hugCounter++;
+                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            }
+        }
+
+        protected void sameButtonMethod(View view) {
+            sameCounter = Integer.parseInt(same_counter.getText().toString());
+            if (SameButtonMain.isFavorite()){
+                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
+                SameButtonMain.setFavorite(false);
+                sameCounter--;
+                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            } else {
+                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
+                SameButtonMain.setFavorite(true);
+                sameCounter++;
+                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            }
+        }
+   /*     @Override
         public void liked(LikeButton likeButton) {
             processLoggedState(likeButton);
 
@@ -562,7 +609,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
-        }
+        } */
 
 
 

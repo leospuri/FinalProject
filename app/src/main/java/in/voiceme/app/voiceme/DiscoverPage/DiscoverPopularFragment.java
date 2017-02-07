@@ -16,17 +16,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.like.LikeButton;
-
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
@@ -233,7 +231,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
         latestListAdapter = new LatestListAdapter(myList, getActivity());
-        latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
+  /*      latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {
                 String name = model.getIdUserName();
@@ -243,7 +241,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
             public void onLikeUnlikeClick(PostsModel model, LikeButton v) {
 
             }
-        });
+        }); */
         recyclerView.setAdapter(latestListAdapter);
     }
 
