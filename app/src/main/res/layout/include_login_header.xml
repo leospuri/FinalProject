@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/login_background">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="55dp"
+        android:src="@drawable/login_header_logo"
+        android:id="@+id/layout_login_logo"
+        android:layout_alignParentRight="true"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_icon"
-        android:paddingTop="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/layout_login_logo"
+        android:src="@drawable/login_header"
         android:id="@+id/layout_login_header"
         android:layout_centerHorizontal="true"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voice Me"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:paddingTop="15dp"
-        android:id="@+id/login_logo"
-        android:layout_below="@+id/layout_login_header"
-        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Just Say it"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:paddingTop="15dp"
-        android:layout_below="@+id/login_logo"
-        android:layout_centerHorizontal="true" />
+
 
 
 
