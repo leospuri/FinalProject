@@ -42,7 +42,10 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
               ((VHItem) holder).notificationMessage.getContext(), data.get(position).getSentTime(),
               true)));
 
-      item.imgProfilePicture.setImageURI(data.get(position).getSenderAvatar());
+      if (data.get(position).getSenderAvatar() != null || !data.get(position).getSenderAvatar().isEmpty()){
+        item.imgProfilePicture.setImageURI(data.get(position).getSenderAvatar());
+      }
+
 
     }
   }

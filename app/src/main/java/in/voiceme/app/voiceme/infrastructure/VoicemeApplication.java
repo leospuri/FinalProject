@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.crashlytics.android.answers.Answers;
@@ -90,7 +91,7 @@ public class VoicemeApplication extends Application {
 
      //   LeakCanary.install(this);
 
-/*        Log.d(TAG, "Setting up StrictMode policy checking.");
+        Timber.d("Setting up StrictMode policy checking.");
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
@@ -99,7 +100,7 @@ public class VoicemeApplication extends Application {
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
-                .build()); */
+                .build());
 
         final TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.CONSUMER_KEY,
                 BuildConfig.CONSUMER_SECRET);

@@ -419,7 +419,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                         Timber.d("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                        //  Timber.d("Message from server" + response);
+                          Timber.d("Message from server" + response);
                     }
                 });
     }
