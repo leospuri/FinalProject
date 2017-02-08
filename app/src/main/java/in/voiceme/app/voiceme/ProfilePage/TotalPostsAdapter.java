@@ -413,6 +413,20 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             itemView.getContext().startActivity(reportIntent);
                             return true;
 
+                        case R.id.menu_item_share:
+                            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
+                     /*       mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+                            if (mShareActionProvider != null) {
+                                mShareActionProvider.setShareIntent(sharedIntentMaker());
+                            } else {
+                                Toast.makeText(itemView.getContext(), "Share Action Provider is null", Toast.LENGTH_SHORT).show();
+                                //  Log.d(LOG_TAG, "Share Action Provider is null?");
+                            } */
+
+                            itemView.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+
+                            return true;
+
                         default:
                             return false;
 
@@ -420,6 +434,16 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             });
             popupMenu.show();
+        }
+
+        private Intent sharedIntentMaker(){
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, dataItem.getTextStatus() + " " + "Voiceme");
+            return shareIntent;
         }
 
         @Override

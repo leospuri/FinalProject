@@ -40,6 +40,7 @@ public interface Constants {
     String SENT_CONTACT = "SENT_CONTACT";
     String IDUSERNAME = "IDUSERNAME";
     String IDPOST = "IDPOST";
+    String STATUS_POST = "STATUS_POST";
 
     String ADD = "add";
     String REMOVE = "remove";

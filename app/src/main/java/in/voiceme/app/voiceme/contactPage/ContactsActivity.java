@@ -7,13 +7,17 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +52,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     //   private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
     private Button getAllContacts;
     private Button enterButton;
+    private AlertDialog.Builder builder1;
     // private DigitsAuthButton digitsButton;
 
     //  private AuthCallback callback;
@@ -267,11 +272,16 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     private void readContacts() {
         if (ActivityUtils.isContactsPermission(this)) {
-         //   getContacts();
-            application.getAuth().getUser().setAllContacts(true);
-            setAuthToken("token");
-            startService(new Intent(this, ContactService.class));
+            contactMethod();
+
         }
+    }
+
+    public void contactMethod(){
+        application.getAuth().getUser().setAllContacts(true);
+        dialogBox();
+        setAuthToken("token");
+        startService(new Intent(this, ContactService.class));
     }
 
     @Override
@@ -358,7 +368,31 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 });
     }
 
-    /*
+    public void dialogBox(){
+        builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Write your message here.");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -366,10 +400,10 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (requestCode == getResources().getInteger(R.integer.contacts_request)) {
-                getContacts();
+                contactMethod();
             }
         }
-    } */
+    }
 
     private void sendContact(String phoneNumber) throws Exception {
         application.getWebService()
