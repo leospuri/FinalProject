@@ -64,13 +64,25 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
         noPostLayout = (LinearLayout) findViewById(R.id.no_post_layout);
         txtError = (TextView) findViewById(R.id.error_txt_cause);
+
+
+        if (!secondPage()){
+            noPostLayout.setVisibility(View.VISIBLE);
+        } else {
+            loadDesign();
+        }
+
+
+    }
+
+    void loadDesign(){
+        noPostLayout.setVisibility(View.INVISIBLE);
         try {
             initUiView();
             loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void initUiView() {
@@ -119,6 +131,9 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     private BroadcastReceiver onNotice=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent i) {
          //   showNotification(); Remove still syncing
+            setSecondPage("Contact Page Added");
+            loadDesign();
+
         }
     };
 

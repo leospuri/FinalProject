@@ -41,6 +41,7 @@ public interface Constants {
     String IDUSERNAME = "IDUSERNAME";
     String IDPOST = "IDPOST";
     String STATUS_POST = "STATUS_POST";
+    String FIRST_RUN_CONTACT = "FIRST_RUN_CONTACT";
 
     String ADD = "add";
     String REMOVE = "remove";
