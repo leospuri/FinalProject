@@ -35,7 +35,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void tryDemoOnClick(View viewPrm) {
         SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
         prefsLcl.edit().putBoolean("is this demo mode", true).apply();
-        startActivity(new Intent(this, LoginUserDetails.class));
+        startActivity(new Intent(this, AnonymousLogin.class));
         finish();
     }
 

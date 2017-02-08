@@ -111,6 +111,7 @@ public class ContactService extends IntentService {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
                         Toast.makeText(ContactService.this, "Sent All Contacts", Toast.LENGTH_SHORT).show();
                         LocalBroadcastManager.getInstance(ContactService.this).sendBroadcast(broadcast);
+
                     }
                 });
     }

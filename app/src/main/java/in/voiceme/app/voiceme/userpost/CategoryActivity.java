@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.l;
 
 public class CategoryActivity extends BaseActivity {
     private GridView gridView = null;
@@ -34,6 +36,7 @@ public class CategoryActivity extends BaseActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View view, int position, long id) {
+                processLoggedState(view);
                 Intent returnIntent = new Intent();
                 if (gridView.getPositionForView(view) == 0) {
                     returnIntent.putExtra("resultFromCategory", "1");
@@ -68,8 +71,14 @@ public class CategoryActivity extends BaseActivity {
 
     }
 
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+
+    }
 }

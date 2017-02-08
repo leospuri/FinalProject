@@ -339,28 +339,28 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
         if (dataItem.getUserLike() != null){
             if (dataItem.getUserLike()){
-                likeButtonMain.setFavorite(true);
+                likeButtonMain.setFavorite(true, false);
              //   likeButtonMain.setFavoriteResource(like_after);
             } else {
-                likeButtonMain.setFavorite(false);
+                likeButtonMain.setFavorite(false, false);
              //   likeButtonMain.setFavoriteResource(like_before);
             }
 
 
             if (dataItem.getUserHuge()){
             //    HugButtonMain.setFavoriteResource(hug_after);
-                HugButtonMain.setFavorite(true);
+                HugButtonMain.setFavorite(true, false);
             } else {
-                HugButtonMain.setFavorite(false);
+                HugButtonMain.setFavorite(false, false);
            //     HugButtonMain.setFavoriteResource(status_before);
             }
 
 
             if (dataItem.getUserSame()){
-                SameButtonMain.setFavorite(true);
+                SameButtonMain.setFavorite(true, false);
           //      SameButtonMain.setFavoriteResource(sad);
             } else {
-                SameButtonMain.setFavorite(false);
+                SameButtonMain.setFavorite(false, false);
               //  SameButtonMain.setFavoriteResource(status_before);
             }
         }

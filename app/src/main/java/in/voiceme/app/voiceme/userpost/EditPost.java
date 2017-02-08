@@ -9,12 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
-import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.l;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -46,11 +47,9 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
         remove_audio = (Button) findViewById(R.id.remove_audio);
         confirm = (TextView) findViewById(R.id.remove_audio_confirm);
 
-
         Intent intent = getIntent();
         id_username = intent.getStringExtra(Constants.IDUSERNAME);
         id_posts = intent.getStringExtra(Constants.IDPOST);
-
 
         remove_edit_posts.setOnClickListener(this);
         remove_audio.setOnClickListener(this);
@@ -61,22 +60,24 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.remove_audio){
+            processLoggedState(view);
             doNothingToAudio = null;
         } else  if(view.getId() == R.id.remove_edit_posts){
+            processLoggedState(view);
 
             if (id_username == MySharedPreferences.getUserId(preferences)){
                 Toast.makeText(this, "You cannot edit this post page", Toast.LENGTH_SHORT).show();
             } else {
-                if (doNothingToAudio != null){
+                if (doNothingToAudio == null){
                     try {
-                        application.getWebService().EditPosts(idPosts,
-                                remove_edit_posts.getText().toString(), null)
+                        application.getWebService()
+                                .EditPosts(idPosts, remove_edit_posts.getText().toString(), null)
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new BaseSubscriber<UserResponse>() {
+                                .subscribe(new BaseSubscriber<ReportResponse>() {
                                     @Override
-                                    public void onNext(UserResponse userResponse) {
-                                        Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
-                                        if (userResponse.getMsg() == "true") {
+                                    public void onNext(ReportResponse userResponse) {
+                                        Timber.e("UserResponse " + userResponse.getSuccess());
+                                        if (userResponse.getSuccess()) {
                                             Toast.makeText(EditPost.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
                                             confirm.setVisibility(View.VISIBLE);
                                             startActivity(new Intent(EditPost.this, MainActivity.class));
@@ -88,14 +89,14 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                     }
                 } else {
                     try {
-                        application.getWebService().updatePostWithoutAudio(idPosts,
-                                remove_edit_posts.getText().toString())
+                        application.getWebService()
+                                .updatePostWithoutAudio(idPosts, remove_edit_posts.getText().toString())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new BaseSubscriber<UserResponse>() {
+                                .subscribe(new BaseSubscriber<ReportResponse>() {
                                     @Override
-                                    public void onNext(UserResponse userResponse) {
-                                        Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
-                                        if (userResponse.getMsg() == "true") {
+                                    public void onNext(ReportResponse userResponse) {
+                                        Timber.e("UserResponse " + userResponse.getSuccess());
+                                        if (userResponse.getSuccess()) {
                                             Toast.makeText(EditPost.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(EditPost.this, MainActivity.class));
                                             confirm.setVisibility(View.VISIBLE);
@@ -111,5 +112,16 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
 
 
         }
+    }
+
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+
     }
 }

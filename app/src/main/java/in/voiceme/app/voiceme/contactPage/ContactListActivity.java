@@ -1,8 +1,12 @@
 package in.voiceme.app.voiceme.contactPage;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +40,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     private TotalPostsAdapter activityInteractionAdapter;
     private String check;
 
+
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
     private boolean isLastPage = false;
@@ -45,6 +50,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
     ProgressBar progressBar;
     LinearLayout errorLayout;
+    LinearLayout noPostLayout;
     TextView txtError;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
+        noPostLayout = (LinearLayout) findViewById(R.id.no_post_layout);
         txtError = (TextView) findViewById(R.id.error_txt_cause);
         try {
             initUiView();
@@ -102,6 +109,28 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(onNotice);
+    }
+
+    private BroadcastReceiver onNotice=new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent i) {
+         //   showNotification(); Remove still syncing
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        IntentFilter filter=new IntentFilter(ContactService.BROADCAST);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(onNotice, filter);
+    }
+
     private void showErrorView(Throwable throwable) {
 
         if (errorLayout.getVisibility() == View.GONE) {
@@ -110,6 +139,28 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
             txtError.setText(fetchErrorMessage(throwable));
         }
+    }
+
+    private void showNoPost() {
+
+        if (errorLayout.getVisibility() == View.GONE) {
+            errorLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+
+            txtError.setText(fetchNoMessage());
+        }
+    }
+
+    private String fetchNoMessage() {
+        String errorMsg;
+
+        if (isNetworkConnected()) {
+            errorMsg = getResources().getString(R.string.msg_no_contacts);
+        } else  {
+           errorMsg = getResources().getString(R.string.error_msg_timeout);
+        }
+
+        return errorMsg;
     }
 
     private void hideErrorView() {
@@ -156,6 +207,10 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         if(response.size() < 25){
                             isLastPage = true;
+                        }
+
+                        if (response.size() == 0){
+                            showNoPost();
                         }
                         showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) activityInteractionAdapter.addLoadingFooter();
@@ -232,11 +287,12 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
     @Override
     public void retryPageLoad() {
-
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
+
 }

@@ -30,8 +30,6 @@ import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import in.voiceme.app.voiceme.R;
-
 
 public class RocketFlightAwayAnimator {
     private AnimatorSet animator;
@@ -39,9 +37,10 @@ public class RocketFlightAwayAnimator {
 
     public RocketFlightAwayAnimator(View rootView) {
         this.rootView = rootView;
-        initializeAnimator();
+     //   initializeAnimator();
     }
 
+    /*
     private void initializeAnimator() {
         final View rocket = rootView.findViewById(R.id.rocket_page4);
         Animator rocketScaleAnimator = getScaleAndVisibilityAnimator(rocket);
@@ -50,7 +49,7 @@ public class RocketFlightAwayAnimator {
         animator = new AnimatorSet();
         animator.setStartDelay(600);
         animator.playTogether(rocketScaleAnimator, rocketRotationAnimator, rocketTranslationAnimator);
-    }
+    } */
 
     private AnimatorSet getScaleAndVisibilityAnimator(final View targetView) {
         AnimatorSet animator = new AnimatorSet();

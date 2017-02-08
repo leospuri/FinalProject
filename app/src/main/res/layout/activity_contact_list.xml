@@ -24,6 +24,8 @@
 
         <include layout="@layout/error_layout"/>
 
+        <include layout="@layout/no_post_layout"/>
+
     </LinearLayout>
 
     <include layout="@layout/include_main_nav_drawer" />

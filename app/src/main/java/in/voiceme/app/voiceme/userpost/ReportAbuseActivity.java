@@ -8,12 +8,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
-import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.l;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -53,16 +54,17 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.submit_report){
-            if (submitProblem.getText().toString() != null){
+            processLoggedState(view);
+            if (enteredProblems.getText().toString() != null && !(enteredProblems.getText().length() == 0)){
                 try {
-                    application.getWebService().reportAbuse(MySharedPreferences.getUserId(preferences),
-                            id_username, id_posts)
+                    application.getWebService()
+                            .reportAbuse(id_posts, id_username, MySharedPreferences.getUserId(preferences), enteredProblems.getText().toString() )
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new BaseSubscriber<UserResponse>() {
+                            .subscribe(new BaseSubscriber<ReportResponse>() {
                                 @Override
-                                public void onNext(UserResponse userResponse) {
-                                    Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
-                                    if (userResponse.getMsg() == "true") {
+                                public void onNext(ReportResponse userResponse) {
+                                    Timber.e("UserResponse " + userResponse.getSuccess());
+                                    if (userResponse.getSuccess()) {
                                         Toast.makeText(ReportAbuseActivity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(ReportAbuseActivity.this, MainActivity.class));
                                     }
@@ -73,5 +75,16 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                 }
             }
         }
+    }
+
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+
     }
 }

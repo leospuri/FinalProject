@@ -30,8 +30,7 @@ import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity
-        implements GoogleApiClient.OnConnectionFailedListener, Constants, View.OnClickListener {
+public class MainActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, Constants, View.OnClickListener {
     private static Context applicationContext;
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
@@ -118,8 +117,7 @@ public class MainActivity extends BaseActivity
 
     //add all pages
     private void addPages(ViewPager pager) {
-        MainActivityFragmentPagerAdapter adapter =
-                new MainActivityFragmentPagerAdapter(getSupportFragmentManager());
+        MainActivityFragmentPagerAdapter adapter = new MainActivityFragmentPagerAdapter(getSupportFragmentManager());
         adapter.addPage(new ActivityYourFeedFragment());
         adapter.addPage(new ActivityInteractionFragment());
 
@@ -181,7 +179,6 @@ public class MainActivity extends BaseActivity
             return true;
         }
         return false;
-
     }
 
     @Override

@@ -14,6 +14,7 @@ import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.BaseResponse;
+import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
@@ -234,15 +235,16 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("report_abuse.php")
-    Observable<UserResponse> reportAbuse(
-            @Field("id_user_name") String user_id,
+    Observable<ReportResponse> reportAbuse(
             @Field("id_posts") String id_posts,
+            @Field("id_user_name") String id_user_name,
+            @Field("sender_user_id") String sender_user_id,
             @Field("abuse_message") String message
     );
 
     @FormUrlEncoded
     @POST("updatePosts.php")
-    Observable<UserResponse> EditPosts(
+    Observable<ReportResponse> EditPosts(
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts,
             @Field("audio_file_link") String audio_file_link
@@ -250,7 +252,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("updatePostWithoutAudio.php")
-    Observable<UserResponse> updatePostWithoutAudio(
+    Observable<ReportResponse> updatePostWithoutAudio(
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts
     );

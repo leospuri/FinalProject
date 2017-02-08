@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 
 public class AudioRecordingActivity extends BaseActivity implements View.OnClickListener {
@@ -163,19 +165,25 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.play) {
+            processLoggedState(v);
 
             readFromStorage();
         } else if(v.getId() == R.id.record){
+            processLoggedState(v);
             recordActivity();
         } else if (v.getId() == R.id.stop){
+            processLoggedState(v);
 
             stopRecording();
         } else if (v.getId() == R.id.done){
+            processLoggedState(v);
             readAudioFileStorage();
         } else if (v.getId() == R.id.pause){
+            processLoggedState(v);
             listenStop();
 
         } else if(v.getId() == R.id.cancel_recording){
+            processLoggedState(v);
             Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
             setResult(Activity.RESULT_CANCELED, intent);
             finish();
@@ -316,5 +324,16 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();
+    }
+
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+
     }
 }

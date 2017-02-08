@@ -1,5 +1,7 @@
 package in.voiceme.app.voiceme.userpost;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.login.LoginActivity;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -131,8 +135,23 @@ public class TextStatus extends BaseActivity {
     }
 
 
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Reminder");
+            alertDialog.setMessage("You cannot interact\nunless you logged in");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(TextStatus.this, LoginActivity.class));
+                }
+            });
+            alertDialog.show();
+            return true;
+        }
+        return false;
+
+    }
+
 }

@@ -1,6 +1,8 @@
 package in.voiceme.app.voiceme.userpost;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.login.LoginActivity;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -235,7 +238,15 @@ public class AudioStatus extends BaseActivity {
     public boolean processLoggedState(View viewPrm) {
         if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
             l.a(666);
-            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Reminder");
+            alertDialog.setMessage("You cannot interact\nunless you logged in");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(AudioStatus.this, LoginActivity.class));
+                }
+            });
+            alertDialog.show();
             return true;
         }
         return false;

@@ -23,7 +23,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.AuthConfig;
@@ -39,7 +38,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
 import in.voiceme.app.voiceme.contactPage.animators.InSyncAnimator;
 import in.voiceme.app.voiceme.contactPage.animators.RocketAvatarsAnimator;
-import in.voiceme.app.voiceme.contactPage.animators.RocketFlightAwayAnimator;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
@@ -51,7 +49,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     //   private static final String TWITTER_KEY = "I6Zt8s6wSZzMtnPqun18Raw0T";
     //   private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
     private Button getAllContacts;
-    private Button enterButton;
+  //  private Button enterButton;
     private AlertDialog.Builder builder1;
     // private DigitsAuthButton digitsButton;
 
@@ -69,7 +67,6 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     WelcomeCoordinatorLayout coordinatorLayout;
     private RocketAvatarsAnimator rocketAvatarsAnimator;
     private ChatAvatarsAnimator chatAvatarsAnimator;
-    private RocketFlightAwayAnimator rocketFlightAwayAnimator;
     private InSyncAnimator inSyncAnimator;
 
 
@@ -90,7 +87,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         skip = (ImageView) findViewById(R.id.skip);
 
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
-        enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
+     //   enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
 
 //        personalContact = (TextView) findViewById(R.id.person_contact_verified);
         allPersonalContact = (TextView) findViewById(R.id.all_person_contact_verified);
@@ -98,7 +95,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         //      personalContact.setVisibility(View.GONE);
         allPersonalContact.setVisibility(View.GONE);
 
-        enterButton.setOnClickListener(this);
+      //  enterButton.setOnClickListener(this);
         getAllContacts.setOnClickListener(this);
         skip.setOnClickListener(this);
         // Create a digits button and callback
@@ -145,7 +142,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        enterButton.setBackgroundColor(getResources().getColor(R.color.material_red_500));
+       // enterButton.setBackgroundColor(getResources().getColor(R.color.material_red_500));
 
     }
 
@@ -163,8 +160,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 R.layout.welcome_page_2,
                 R.layout.welcome_page_3,
                 R.layout.welcome_page_5,
-                R.layout.welcome_page_6,
-                R.layout.welcome_page_4);
+                R.layout.welcome_page_6);
     }
 
     private void initializeListeners() {
@@ -208,12 +204,6 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                         }
 
                         break;
-                    case 5:
-                        if (rocketFlightAwayAnimator == null) {
-                            rocketFlightAwayAnimator = new RocketFlightAwayAnimator(coordinatorLayout);
-                            rocketFlightAwayAnimator.play();
-                        }
-                        break;
                 }
             }
         });
@@ -250,7 +240,9 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             startActivity(new Intent(this, MainActivity.class));
             finish();
             return;
-        } else if (view.getId() == R.id.enter_contacts_main_page){
+        }
+
+        /* else if (view.getId() == R.id.enter_contacts_main_page){
 
             if (givenPersonalContact) {
                 if (givenAllPersonalContact){
@@ -267,21 +259,18 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(this, "You have not given your phone number", Toast.LENGTH_SHORT).show();
             }
 
-        }
+        } */
     }
 
     private void readContacts() {
         if (ActivityUtils.isContactsPermission(this)) {
             contactMethod();
-
         }
     }
 
     public void contactMethod(){
-        application.getAuth().getUser().setAllContacts(true);
-        dialogBox();
-        setAuthToken("token");
         startService(new Intent(this, ContactService.class));
+        dialogBox();
     }
 
     @Override
@@ -370,13 +359,16 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     public void dialogBox(){
         builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Write your message here.");
+        builder1.setMessage("Welcome to anonymous page.");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        application.getAuth().getUser().setAllContacts(true);
+                        setAuthToken("token");
+                        startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
                         dialog.cancel();
                     }
                 });
@@ -413,6 +405,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onNext(BaseResponse response) {
                         Timber.e("Successfully logged in" + response.getStatus());
+
+                        coordinatorLayout.setCurrentPage(R.layout.welcome_page_6, true);
 
                     }
                 });

@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.l;
 
 public class FeelingActivity extends BaseActivity {
     private MaterialAnimatedSwitch happy_switch_button;
@@ -150,8 +152,14 @@ public class FeelingActivity extends BaseActivity {
         current_feeling = feelingName;
     }
 
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+
+    }
 }
