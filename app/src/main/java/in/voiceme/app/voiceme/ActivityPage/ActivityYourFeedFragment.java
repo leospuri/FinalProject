@@ -189,8 +189,11 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
                      //   showRecycleWithDataFilled(response);
                      //   latestListAdapter.addAll(myModelList);
-                        if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
+                        if (response.size() < 25){
+                            isLastPage = true;
+                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
+
                     }
                     @Override
                     public void onError(Throwable e){
@@ -239,7 +242,9 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         latestListAdapter.addAll(response);
 
                       //  showRecycleWithDataFilled(response);
-                        if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
+                        if (response.size() < 25){
+                            isLastPage = true;
+                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
                     @Override
