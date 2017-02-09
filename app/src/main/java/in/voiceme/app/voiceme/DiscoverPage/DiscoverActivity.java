@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.android.gms.analytics.HitBuilders;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import in.voiceme.app.voiceme.R;
@@ -41,6 +42,14 @@ public class DiscoverActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("PostStatus")
+                        .setAction("Text Post Clicked")
+                        .build());
+                // [END custom_event]
+
                 Toast.makeText(DiscoverActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DiscoverActivity.this, TextStatus.class));
                 rightLabels.toggle();
@@ -53,6 +62,14 @@ public class DiscoverActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("PostStatus")
+                        .setAction("Audio Post Clicked")
+                        .build());
+                // [END custom_event]
+
                 Toast.makeText(DiscoverActivity.this, "button 02", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DiscoverActivity.this, AudioStatus.class));
                 rightLabels.toggle();

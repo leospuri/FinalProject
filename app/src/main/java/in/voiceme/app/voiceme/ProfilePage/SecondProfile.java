@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.gms.analytics.HitBuilders;
 
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.UserResponse;
@@ -116,14 +117,36 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         int viewId = view.getId();
 
         if (viewId == R.id.second_user_profile_textview || viewId == R.id.layout_second_user_profile_textview || viewId == R.id.second_total_posts_counter) {
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("SecondProfile")
+                    .setAction("Second Profile Posts Clicked")
+                    .build());
+            // [END custom_event]
+
             Intent intent = new Intent(this, TotalPostsActivity.class);
             intent.putExtra(Constants.TOTAL_POST, profileUserId);
             startActivity(intent);
         } else if (viewId == R.id.second_profile_followers || viewId == R.id.second_action_followers || viewId == R.id.layout_second_profile_followers) {
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("SecondProfile")
+                    .setAction("Second followers Clicked")
+                    .build());
+            // [END custom_event]
+
             Intent intent = new Intent(this, FollowersActivity.class);
             intent.putExtra(Constants.USER_FOLLOW, profileUserId);
             startActivity(intent);
         } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following || viewId == R.id.layout_second_profile_following) {
+
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("SecondProfile")
+                    .setAction("Second following Clicked")
+                    .build());
+            // [END custom_event]
+
             Intent intent = new Intent(this, FollowingActivity.class);
             intent.putExtra(Constants.USER_FOLLOWING, profileUserId);
             startActivity(intent);
@@ -131,6 +154,15 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         } else if (viewId == R.id.second_profile_follow_me){
             if (currentFollowing){
                 try {
+
+                    // [START custom_event]
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("SecondProfile")
+                            .setAction("Remove following Clicked")
+                            .build());
+                    // [END custom_event]
+
+
                     removeFollower(profileUserId, Constants.REMOVE);
                     sendUnFollowNotification();
                     followMe.setText("Follow");
@@ -141,6 +173,12 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             } else{
                 try {
                     addFollower(profileUserId, Constants.ADD);
+                    // [START custom_event]
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("SecondProfile")
+                            .setAction("Add following Clicked")
+                            .build());
+                    // [END custom_event]
                     sendFollowNotification();
                     // follow
                     followMe.setText("Following");

@@ -61,7 +61,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 
 
     <TextView
-        android:id="@+id/person_contact_verified"
+        android:id="@+id/person_contact_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -73,12 +73,13 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 
 
     <TextView
-        android:id="@+id/privacy_policy"
+        android:id="@+id/verfied_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/person_contact_verified"
+        android:layout_below="@+id/person_contact_single"
         android:text="Verified"
+        android:visibility="gone"
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 
     <Button
@@ -86,7 +87,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:layout_width="wrap_content"
         android:text="Allow Access 1 of 2"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/privacy_policy"
+        android:layout_below="@+id/verfied_single"
         android:layout_centerHorizontal="true" />
 
 </com.redbooth.WelcomePageLayout>

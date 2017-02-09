@@ -44,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         manager = AccountManager.getInstance();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
 
+        mTracker = application.getDefaultTracker();
 
 
         bus.register(this);

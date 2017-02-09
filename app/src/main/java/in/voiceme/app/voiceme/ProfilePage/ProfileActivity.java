@@ -41,7 +41,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     private TextView age;
     private TextView gender;
-    private TextView location;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -73,13 +72,11 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         age = (TextView) findViewById(R.id.age_value);
         gender = (TextView) findViewById(R.id.gender_value);
-        location = (TextView) findViewById(R.id.location_value);
 
         followers.setOnClickListener(this);
         following.setOnClickListener(this);
         age.setOnClickListener(this);
         gender.setOnClickListener(this);
-        location.setOnClickListener(this);
         total_posts.setOnClickListener(this);
         followers_counter.setOnClickListener(this);
         following_counter.setOnClickListener(this);
@@ -162,7 +159,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         following_counter.setText(response.getData().getFollowing());
         age.setText(response.getData().getUserDateOfBirth());
         gender.setText(response.getData().getGender());
-        location.setText(response.getData().getLocation());
 
         image.setImageURI(response.getData().getAvatarPics());
     }

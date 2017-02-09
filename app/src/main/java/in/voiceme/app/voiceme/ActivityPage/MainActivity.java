@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
          * Initialize Facebook SDK
          */
 
-        mTracker = application.getDefaultTracker();
+
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_main_activity);
@@ -195,8 +195,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
             // [START custom_event]
             mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("EnterTextStatus")
-                    .setAction("EnterButton")
+                    .setCategory("PostStatus")
+                    .setAction("Text Post Clicked")
                     .build());
             // [END custom_event]
 
@@ -205,6 +205,15 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             rightLabels.toggle();
         } else if (view.getId() == R.id.action_b){
             processLoggedState(view);
+
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("PostStatus")
+                    .setAction("Audio Post Clicked")
+                    .build());
+            // [END custom_event]
+
+
             Toast.makeText(MainActivity.this, "button 02", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, AudioStatus.class));
             rightLabels.toggle();

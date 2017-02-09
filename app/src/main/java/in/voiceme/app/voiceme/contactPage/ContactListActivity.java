@@ -66,11 +66,11 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         txtError = (TextView) findViewById(R.id.error_txt_cause);
 
 
-        if (!secondPage()){
-            noPostLayout.setVisibility(View.VISIBLE);
-        } else {
+  //      if (!secondPage()){
+    //        noPostLayout.setVisibility(View.VISIBLE);
+      //  } else {
             loadDesign();
-        }
+//        }
 
 
     }
@@ -224,9 +224,9 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                             isLastPage = true;
                         }
 
-                        if (response.isEmpty()){
-                            showNoPost();
-                        }
+                    //    if (response.isEmpty()){
+                      //      showNoPost();
+                     //   }
                         showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) activityInteractionAdapter.addLoadingFooter();
                         else isLastPage = true;

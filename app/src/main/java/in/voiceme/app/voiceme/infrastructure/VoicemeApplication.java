@@ -65,6 +65,8 @@ public class VoicemeApplication extends Application {
         FacebookSdk.sdkInitialize(this);
         webService = ServiceFactory.createRetrofitService(WebService.class);
 
+
+
         /*****************************************/
        Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
