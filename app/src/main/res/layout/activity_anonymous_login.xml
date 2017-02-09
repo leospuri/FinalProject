@@ -42,7 +42,7 @@
         android:layout_below="@+id/headerContent"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:text="You are greanted limited Access \n Permissions"
+        android:text="You are granted limited Access \n Permissions"
         android:gravity="center_horizontal"
         android:textSize="20sp" />
 

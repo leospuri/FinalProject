@@ -79,6 +79,7 @@ public class AudioStatus extends BaseActivity {
         textView_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                processLoggedState(view);
                 Intent categoryIntent = new Intent(AudioStatus.this, CategoryActivity.class);
                 startActivityForResult(categoryIntent, 1);
             }
@@ -100,16 +101,21 @@ public class AudioStatus extends BaseActivity {
             }
         });
 
-        post_status.setOnClickListener(new View.OnClickListener() {
+
+            post_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                processLoggedState(view);
-                if (category == null || feeling == null || textStatus == null) {
-                    Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
-                }
 
-                // network call from retrofit
-                readAudioFileStorage();
+                if (processLoggedState(view)){
+                    return;
+                } else {
+                    if (category == null || feeling == null || textStatus == null) {
+                        Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
+                    }
+
+                    // network call from retrofit
+                    readAudioFileStorage();
+                }
             }
         });
 

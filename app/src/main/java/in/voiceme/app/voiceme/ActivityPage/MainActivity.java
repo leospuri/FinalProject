@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -125,6 +123,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         pager.setAdapter(adapter);
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -146,6 +145,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
         return super.onOptionsItemSelected(item);
     }
+
+    */
 
     /* Implements GoogleApiClient.OnConnectionFailedListener */
     @Override

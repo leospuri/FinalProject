@@ -41,6 +41,8 @@ import in.voiceme.app.voiceme.contactPage.animators.RocketAvatarsAnimator;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.login.LoginActivity;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -134,11 +136,17 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
 
-                AuthConfig.Builder digitsAuthConfigBuilder = new AuthConfig.Builder()
-                        .withAuthCallBack(callback)
-                        .withPhoneNumber("");
+                if (processLoggedState(v)) {
+                    return;
+                } else {
+                    AuthConfig.Builder digitsAuthConfigBuilder = new AuthConfig.Builder()
+                            .withAuthCallBack(callback)
+                            .withPhoneNumber("");
 
-                Digits.authenticate(digitsAuthConfigBuilder.build());
+                    Digits.authenticate(digitsAuthConfigBuilder.build());
+                }
+
+
             }
         });
 
@@ -232,11 +240,16 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        processLoggedState(view);
-        if (view.getId() == R.id.button_get_all_contacts){
-            readContacts();
+        if (processLoggedState(view)) {
+            return;
+        } else {
+            if (view.getId() == R.id.button_get_all_contacts){
+                readContacts();
 
-        } else if (view.getId() == R.id.skip){
+            }
+        }
+
+        if (view.getId() == R.id.skip){
             startActivity(new Intent(this, MainActivity.class));
             finish();
             return;
@@ -413,8 +426,22 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(this);
+            alertDialog.setTitle("Reminder");
+            alertDialog.setMessage("You cannot interact\nunless you logged in");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(ContactsActivity.this, LoginActivity.class));
+                }
+            });
+            alertDialog.show();
+            return true;
+        }
+        return false;
+
+    }
 }

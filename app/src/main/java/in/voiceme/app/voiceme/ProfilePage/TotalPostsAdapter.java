@@ -490,12 +490,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
-
-
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
-
-
-
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             }
 

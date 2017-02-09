@@ -81,28 +81,32 @@ public class TextStatus extends BaseActivity {
         button_post_text_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                processLoggedState(view);
-                if (category == null || feeling == null || textStatus == null) {
-                    Toast.makeText(TextStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
-                }
-                // network call from retrofit
-                try {
-                    application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
-                            textStatus, category, feeling, "", "")
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new BaseSubscriber<UserResponse>() {
-                                @Override
-                                public void onNext(UserResponse userResponse) {
-                                    Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
-                                    if (userResponse.getStatus() == 1) {
-                                        Toast.makeText(TextStatus.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(TextStatus.this, MainActivity.class));
+                if (processLoggedState(view)){
+                    return;
+                } else {
+                    if (category == null || feeling == null || textStatus == null) {
+                        Toast.makeText(TextStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
+                    }
+                    // network call from retrofit
+                    try {
+                        application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
+                                textStatus, category, feeling, "", "")
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new BaseSubscriber<UserResponse>() {
+                                    @Override
+                                    public void onNext(UserResponse userResponse) {
+                                        Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
+                                        if (userResponse.getStatus() == 1) {
+                                            Toast.makeText(TextStatus.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(TextStatus.this, MainActivity.class));
+                                        }
                                     }
-                                }
-                            });
-                } catch (Exception e) {
-                    e.printStackTrace();
+                                });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
         });
     }
