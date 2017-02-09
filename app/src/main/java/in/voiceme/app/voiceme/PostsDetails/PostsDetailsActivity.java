@@ -697,7 +697,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {
-                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -723,7 +722,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {
-                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -68,7 +67,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             }
         });
 
-        Toast.makeText(this, "user ID: " + profileUserId, Toast.LENGTH_SHORT).show();
 
         username = (TextView) findViewById(R.id.second_name);
         totalPost = (LinearLayout) findViewById(R.id.layout_second_user_profile_textview);
@@ -246,7 +244,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
-                        Toast.makeText(SecondProfile.this, "UserResponse from server: " + userResponse.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -258,7 +255,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
-                        Toast.makeText(SecondProfile.this, "UserResponse from server: " + userResponse.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -272,7 +268,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     public void onNext(ProfileUserList response) {
                         currentFollowing = response.getFollower();
                         secondProfileData(response);
-                        Toast.makeText(SecondProfile.this, "Value of follow " + response.getFollower().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

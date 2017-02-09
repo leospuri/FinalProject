@@ -31,7 +31,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.mipmap.ic_action_group, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
+     //    addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         prefs = activity.getSharedPreferences("Logged in or not", Context.MODE_WORLD_WRITEABLE);
         String sLcl = "Logout";
         if (prefs.getBoolean("is this demo mode", false)) sLcl = "Quit";

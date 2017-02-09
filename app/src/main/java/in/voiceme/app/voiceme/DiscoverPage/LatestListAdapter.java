@@ -198,20 +198,13 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        if (dataSet.size() == 0){
-            return 0;
-        }else {
-            return dataSet.size();
-        }
+        return dataSet == null ? 0 : dataSet.size();
     }
 
     @Override
     public int getItemViewType(int position) {
      //   return (position == dataSet.size() - 1) ? VIEW_ITEM : VIEW_PROG;
      // current   return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
-        if (dataSet.size() == 0){
-            return 0;
-        }
         return dataSet.get((dataSet.size() - 1)) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
@@ -279,7 +272,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         protected void secondUserProfileClicked(View view){
             processLoggedState(view);
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }
@@ -409,8 +401,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
 
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    if(popupMenu.getMenu() == null)
-                        return;
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
                 } else {
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);

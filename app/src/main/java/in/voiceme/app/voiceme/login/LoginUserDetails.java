@@ -43,8 +43,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
         Timber.d("token from fcm: " + token);
         // Log.d("Id Generated", token);
-        Toast.makeText(LoginUserDetails.this, token, Toast.LENGTH_SHORT).show();
-
         username = (EasyTextInputLayout) findViewById(R.id.login_start_username);
 
         button = (Button) findViewById(R.id.submit_user_data_button);
@@ -60,8 +58,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onNext(ProfileAboutMe response) {
 
-                        Toast.makeText(LoginUserDetails.this,
-                                "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
                         //Todo add network call for uploading profile_image file
                         startActivity(new Intent(LoginUserDetails.this, MainActivity.class));

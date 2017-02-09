@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.infrastructure;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import in.voiceme.app.voiceme.ProfilePage.User;
 import in.voiceme.app.voiceme.login.LoginActivity;
@@ -47,7 +48,8 @@ public class Auth {
     public void logout() {
         setAuthToken(null);
 
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
         editor.commit();
 

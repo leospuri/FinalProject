@@ -70,19 +70,20 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:text="Read our privacy policy"
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 <TextView
-        android:id="@+id/privacy_policy"
+        android:id="@+id/privacy_policy_other"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
         android:layout_below="@+id/all_person_contact_verified"
         android:text="verified"
+    android:visibility="gone"
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_get_all_contacts"
-        android:layout_below="@+id/privacy_policy"
+        android:layout_below="@+id/privacy_policy_other"
         android:layout_centerHorizontal="true"
         android:text="Allow Access 2 of 2"/>
 

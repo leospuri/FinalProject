@@ -38,7 +38,7 @@
             android:layout_toEndOf="@id/list_item_posts_avatar"
             android:layout_toRightOf="@id/list_item_posts_avatar"
             android:paddingRight="5dp"
-            android:text="Username"
+            android:text=""
             android:textColor="#de000000"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -66,7 +66,7 @@
             android:layout_toRightOf="@id/list_item_post_is"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="Sad"
+            android:text=""
             android:textColor="#de000000"
             android:textSize="14sp" />
 
@@ -78,7 +78,7 @@
             android:layout_marginBottom="3dp"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
-            android:text="Family"
+            android:text=""
             android:textColor="#de000000"
             android:textSize="14sp" />
 
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="1:40" />
+                android:text="" />
 
 
         </LinearLayout>
@@ -131,7 +131,7 @@
             android:layout_marginBottom="3dp"
             android:layout_toEndOf="@id/list_item_posts_avatar"
             android:layout_toRightOf="@id/list_item_posts_avatar"
-            android:text="07/21/2016"
+            android:text=""
             android:textColor="#444"
             android:textSize="12sp" />
 
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_posts_timeStamp"
             android:layout_marginTop="3dp"
-            android:text="@string/posts_text"
+            android:text=""
             android:textSize="12sp" />
 
         <TextView
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_posts_message"
             android:paddingTop="2dp"
-            android:text="Read More"
+            android:text=""
             android:textSize="12sp" />
 
         <LinearLayout

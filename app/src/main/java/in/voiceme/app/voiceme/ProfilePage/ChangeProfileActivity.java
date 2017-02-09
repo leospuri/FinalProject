@@ -161,8 +161,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 avatarView.setImageResource(0);
 
                 avatarView.setImageURI(Uri.fromFile(tempOutputFile));
-                Toast.makeText(this, String.valueOf(Uri.fromFile(tempOutputFile)), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, String.valueOf(tempOutputFile.getAbsolutePath()), Toast.LENGTH_SHORT).show();
 
                 // avatarProgressFrame.setVisibility(View.VISIBLE);
                 // bus.post(new Account.ChangeAvatarRequest(Uri.fromFile(tempOutputFile)));
@@ -232,19 +230,16 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 {
                     case 0:
 
-                        Toast.makeText(ChangeProfileActivity.this, "Male clicked", Toast.LENGTH_LONG).show();
                         setCurrentGender("Male");
                         genderSelection.setText("Male");
                         break;
                     case 1:
 
-                        Toast.makeText(ChangeProfileActivity.this, "Female Clicked", Toast.LENGTH_LONG).show();
                         setCurrentGender("Female");
                         genderSelection.setText("Female");
                         break;
                     case 2:
 
-                        Toast.makeText(ChangeProfileActivity.this, "Transgender Clicked", Toast.LENGTH_LONG).show();
                         setCurrentGender("Transgender");
                         genderSelection.setText("Transgender");
                         break;
@@ -274,8 +269,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        Toast.makeText(ChangeProfileActivity.this,
-                                "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
                         changedImage = false;
                         //Todo add network call for uploading profile_image file
@@ -295,8 +288,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        Toast.makeText(ChangeProfileActivity.this,
-                                "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
                         //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
@@ -348,7 +339,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         @Override
                         public void onNext(String response) {
                             Timber.d("file url " + response);
-                            Toast.makeText(ChangeProfileActivity.this, "file url " + response, Toast.LENGTH_SHORT).show();
                             setImageFileUrl(response);
                             MySharedPreferences.registerImageUrl(preferences, response);
 

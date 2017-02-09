@@ -159,13 +159,21 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        if(response.size() < 25){
-                            isLastPage = true;
-                        }
+                        //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
+
+                        //   List<PostsModel> model = fetchResults(response);
+                        //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
-                        if (currentPage <= TOTAL_PAGES) activityInteractionAdapter.addLoadingFooter();
+
+
+                        //   showRecycleWithDataFilled(response);
+                        //   latestListAdapter.addAll(myModelList);
+                        if (response.size() < 25){
+                            isLastPage = true;
+                        } else if (currentPage <= TOTAL_PAGES ) activityInteractionAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
                     @Override
