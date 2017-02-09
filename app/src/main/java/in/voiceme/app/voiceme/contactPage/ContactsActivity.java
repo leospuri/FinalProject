@@ -283,7 +283,10 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     public void contactMethod(){
         startService(new Intent(this, ContactService.class));
-        dialogBox();
+      //  dialogBox();
+        application.getAuth().getUser().setAllContacts(true);
+        setAuthToken("token");
+        startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
     }
 
     @Override
@@ -386,13 +389,13 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
 
-        builder1.setNegativeButton(
+     /*   builder1.setNegativeButton(
                 "No",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
-                });
+                }); */
 
         AlertDialog alert11 = builder1.create();
         alert11.show();

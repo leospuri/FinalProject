@@ -81,10 +81,23 @@
                 app:minValue="12"
                 app:maxValue="100" />
 
+
+            <com.emmasuzuki.easyform.EasyTextInputLayout
+                android:id="@+id/edittext_profile_aboutme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edittext_profile_age"
+                android:layout_marginTop="8dp"
+                android:hint="About me"
+                app:errorMessage="About me should not be more than 50 chars"
+                app:maxChars="50"
+                app:minChars="6" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:weightSum="2"
-                android:layout_below="@+id/edittext_profile_age"
+                android:layout_below="@+id/edittext_profile_aboutme"
                 android:id="@+id/gender_change_profile"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -113,30 +126,6 @@
 
 
             </LinearLayout>
-
-            <com.emmasuzuki.easyform.EasyTextInputLayout
-                android:id="@+id/edittext_profile_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/gender_change_profile"
-                android:layout_marginTop="8dp"
-                android:hint="Location"
-                app:errorMessage="Location should not be more than 50 chars"
-                app:maxChars="50"
-                app:minChars="6" />
-
-            <com.emmasuzuki.easyform.EasyTextInputLayout
-                android:id="@+id/edittext_profile_aboutme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edittext_profile_location"
-                android:layout_marginTop="8dp"
-                android:hint="About me"
-                app:errorMessage="About me should not be more than 50 chars"
-                app:maxChars="50"
-                app:minChars="6" />
-
-
 
 
         </com.emmasuzuki.easyform.EasyForm>

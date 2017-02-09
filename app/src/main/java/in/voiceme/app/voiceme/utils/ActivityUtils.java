@@ -26,6 +26,7 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import timber.log.Timber;
 
 import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.google.gdata.util.common.base.Preconditions.checkNotNull;
@@ -155,7 +156,7 @@ public class ActivityUtils {
             return true;
         } else {
             ActivityCompat.requestPermissions(activity,
-                    new String[]{WRITE_EXTERNAL_STORAGE},
+                    new String[]{READ_CONTACTS},
                     activity.getResources().getInteger(R.integer.contacts_request));
         }
 
@@ -234,7 +235,7 @@ public class ActivityUtils {
 
     private static boolean isContactsPermissionGranted(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (activity.checkSelfPermission(Manifest.permission.READ_CONTACTS)
+            if (activity.checkSelfPermission(READ_CONTACTS)
                     == PackageManager.PERMISSION_GRANTED) {
                 Timber.d("Permission is granted");
                 return true;
@@ -242,7 +243,7 @@ public class ActivityUtils {
 
                 Timber.d("Permission is revoked");
                 ActivityCompat.requestPermissions(activity,
-                        new String[]{Manifest.permission.READ_CONTACTS},
+                        new String[]{READ_CONTACTS},
                         activity.getResources().getInteger(R.integer.contacts_request));
                 return false;
             }

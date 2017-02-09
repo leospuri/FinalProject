@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         private TextView username;
         private TextView messageCard;
-        private ImageView userImage;
+        private SimpleDraweeView userImage;
 
         private Animation.AnimationListener mFadeOutAnimationListener = new Animation.AnimationListener() {
             @Override
@@ -123,7 +124,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             username = (TextView) itemView.findViewById(R.id.tv_user_name);
             messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
-            userImage = (ImageView) itemView.findViewById(R.id.iv_user_image);
+            userImage = (SimpleDraweeView) itemView.findViewById(R.id.iv_user_image);
 
 
             mHolderView = itemView;
@@ -143,7 +144,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             messageCard.setText(message);
             username.setText(userName);
-            userImage.setImageResource(R.drawable.ic_done);
+            userImage.setImageURI(imageUri);
         }
 
         public int getBoundPosition() {

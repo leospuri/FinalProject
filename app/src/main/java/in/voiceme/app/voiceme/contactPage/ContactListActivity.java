@@ -66,8 +66,6 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         txtError = (TextView) findViewById(R.id.error_txt_cause);
 
 
-        noPostLayout.setVisibility(View.GONE);
-
         if (!secondPage()){
             noPostLayout.setVisibility(View.VISIBLE);
         } else {
@@ -160,8 +158,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
     private void showNoPost() {
 
-        if (noPostLayout.getVisibility() == View.GONE) {
-            noPostLayout.setVisibility(View.VISIBLE);
+        if (errorLayout.getVisibility() == View.GONE) {
+            errorLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
 
             txtError.setText(fetchNoMessage());

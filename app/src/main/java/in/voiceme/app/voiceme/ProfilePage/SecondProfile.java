@@ -15,13 +15,13 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.UserResponse;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -45,7 +45,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
     private TextView age;
     private TextView gender;
-    private TextView location;
     private String profileUserId;
     protected Boolean currentFollowing;
 
@@ -87,7 +86,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         age = (TextView) findViewById(R.id.second_age_value);
         gender = (TextView) findViewById(R.id.second_gender_value);
-        location = (TextView) findViewById(R.id.second_location_value);
 
         followers.setOnClickListener(this);
         following.setOnClickListener(this);
@@ -100,7 +98,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         total_posts_counter.setOnClickListener(this);
         totalPost.setOnClickListener(this);
         gender.setOnClickListener(this);
-        location.setOnClickListener(this);
         total_posts.setOnClickListener(this);
         total_posts_counter.setOnClickListener(this);
 
@@ -250,7 +247,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         followingCount.setText(response.getData().getFollowing());
         age.setText(response.getData().getUserDateOfBirth());
         gender.setText(response.getData().getGender());
-        location.setText(response.getData().getLocation());
         if (response.getFollower()){
             followMe.setText("Following");
         } else {

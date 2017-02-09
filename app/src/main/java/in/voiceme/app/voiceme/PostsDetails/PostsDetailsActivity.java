@@ -278,6 +278,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (processLoggedState(view)) {
                 return;
             } else {
+                hugCounter = Integer.parseInt(hug_counter.getText().toString());
                 if (HugButtonMain.isFavorite()){
                     Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
                     HugButtonMain.setFavorite(false);
@@ -310,6 +311,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (processLoggedState(view)) {
                 return;
             } else {
+                sameCounter = Integer.parseInt(same_counter.getText().toString());
 
                 if (SameButtonMain.isFavorite()){
                     Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();

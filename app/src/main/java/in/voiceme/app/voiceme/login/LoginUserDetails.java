@@ -24,7 +24,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     private EasyTextInputLayout username;
     private String token;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

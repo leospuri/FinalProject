@@ -295,38 +295,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:weightSum="2"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_margin="20dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location"
-                    android:drawableLeft="@drawable/ic_mail"
-                    android:drawablePadding="24dp"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:text="Location"
-                    android:textColor="#880E4F" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_margin="20dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location_value"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textColor="#880E4F" />
-
-
-            </LinearLayout>
-
 
 
         </LinearLayout>
