@@ -160,8 +160,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
     private void showNoPost() {
 
-        if (errorLayout.getVisibility() == View.GONE) {
-            errorLayout.setVisibility(View.VISIBLE);
+        if (noPostLayout.getVisibility() == View.GONE) {
+            noPostLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
 
             txtError.setText(fetchNoMessage());

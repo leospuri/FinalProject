@@ -392,6 +392,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             processLoggedState(v);
      //       if (processLoggedState(v))
      //           return;
+
             Intent intent = new Intent(v.getContext(), UserLikeCounterActivity.class);
             Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LIKE_FEELING, dataItem.getIdPosts());
