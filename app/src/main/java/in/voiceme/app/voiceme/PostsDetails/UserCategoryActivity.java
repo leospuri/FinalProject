@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -86,19 +85,14 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         categoryId = getIntent().getStringExtra(Constants.CATEGORY);
 
         if (categoryId.equals(family)) {
-            Toast.makeText(this, "emotion ID = 1", Toast.LENGTH_SHORT).show();
             setFeeling("1");
         } else if (categoryId.equals(health)) {
-            Toast.makeText(this, "emotion ID = 2", Toast.LENGTH_SHORT).show();
             setFeeling("2");
         } else if (categoryId.equals(work)) {
-            Toast.makeText(this, "emotion ID = 3", Toast.LENGTH_SHORT).show();
             setFeeling("3");
         } else if (categoryId.equals(social)) {
-            Toast.makeText(this, "emotion ID = 4", Toast.LENGTH_SHORT).show();
             setFeeling("4");
         } else if (categoryId.equals(others)) {
-            Toast.makeText(this, "emotion ID = 5", Toast.LENGTH_SHORT).show();
             setFeeling("5");
         }
 
@@ -292,7 +286,6 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     public boolean processLoggedState(View viewPrm) {
         if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
             l.a(666);
-            Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
@@ -308,12 +301,10 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     public void onClick(View view) {
         if (view.getId() == R.id.action_a) {
             processLoggedState(view);
-            Toast.makeText(UserCategoryActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserCategoryActivity.this, TextStatus.class));
             rightLabels.toggle();
         } else if (view.getId() == R.id.action_b) {
             processLoggedState(view);
-            Toast.makeText(UserCategoryActivity.this, "button 02", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserCategoryActivity.this, AudioStatus.class));
             rightLabels.toggle();
         }

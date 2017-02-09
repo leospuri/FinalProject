@@ -200,7 +200,6 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                     .build());
             // [END custom_event]
 
-            Toast.makeText(MainActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, TextStatus.class));
             rightLabels.toggle();
         } else if (view.getId() == R.id.action_b){
@@ -214,7 +213,6 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             // [END custom_event]
 
 
-            Toast.makeText(MainActivity.this, "button 02", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, AudioStatus.class));
             rightLabels.toggle();
         }

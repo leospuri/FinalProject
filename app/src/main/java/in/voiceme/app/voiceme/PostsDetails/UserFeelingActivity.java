@@ -84,19 +84,14 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         emotionId = getIntent().getStringExtra(Constants.EMOTION);
 
         if (emotionId.equals(angry)) {
-            Toast.makeText(this, "emotion ID = 1", Toast.LENGTH_SHORT).show();
             setFeeling("1");
         } else if (emotionId.equals(relaxed)) {
-            Toast.makeText(this, "emotion ID = 2", Toast.LENGTH_SHORT).show();
             setFeeling("2");
         } else if (emotionId.equals(happy)) {
-            Toast.makeText(this, "emotion ID = 3", Toast.LENGTH_SHORT).show();
             setFeeling("3");
         } else if (emotionId.equals(sad)) {
-            Toast.makeText(this, "emotion ID = 4", Toast.LENGTH_SHORT).show();
             setFeeling("4");
         } else if (emotionId.equals(bored)) {
-            Toast.makeText(this, "emotion ID = 5", Toast.LENGTH_SHORT).show();
             setFeeling("5");
         }
 
@@ -297,12 +292,10 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.action_a) {
             processLoggedState(view);
-            Toast.makeText(UserFeelingActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserFeelingActivity.this, TextStatus.class));
             rightLabels.toggle();
         } else if (view.getId() == R.id.action_b) {
             processLoggedState(view);
-            Toast.makeText(UserFeelingActivity.this, "button 02", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserFeelingActivity.this, AudioStatus.class));
             rightLabels.toggle();
         }

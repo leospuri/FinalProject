@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
@@ -205,7 +204,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         commentCounterImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commentsCounterClicked(v);
+                cardBackground(v);
             }
         });
         listenCounterImage.setOnClickListener(new View.OnClickListener() {
@@ -390,7 +389,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {
-                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -404,7 +402,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {
-                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

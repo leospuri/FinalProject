@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -50,7 +49,6 @@ public class DiscoverActivity extends BaseActivity {
                         .build());
                 // [END custom_event]
 
-                Toast.makeText(DiscoverActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DiscoverActivity.this, TextStatus.class));
                 rightLabels.toggle();
 
@@ -70,7 +68,8 @@ public class DiscoverActivity extends BaseActivity {
                         .build());
                 // [END custom_event]
 
-                Toast.makeText(DiscoverActivity.this, "button 02", Toast.LENGTH_SHORT).show();
+
+
                 startActivity(new Intent(DiscoverActivity.this, AudioStatus.class));
                 rightLabels.toggle();
             }

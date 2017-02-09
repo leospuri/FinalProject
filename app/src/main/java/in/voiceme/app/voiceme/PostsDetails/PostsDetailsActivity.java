@@ -199,7 +199,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         try {
             if (postId != null){
-                Toast.makeText(this, "post is not null: " + postId, Toast.LENGTH_SHORT).show();
             }
             getData(postId);
             getComments(postId);
@@ -249,14 +248,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 likeCounter = Integer.parseInt(like_counter.getText().toString());
 
                 if (likeButtonMain.isFavorite()){
-                    Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
                     likeButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                     sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
                     likeCounter--;
                     like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                 } else {
-                    Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
                     likeButtonMain.setFavorite(true);
                     likeCounter++;
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -265,7 +262,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                             myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
-                        Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
@@ -280,14 +276,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             } else {
                 hugCounter = Integer.parseInt(hug_counter.getText().toString());
                 if (HugButtonMain.isFavorite()){
-                    Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
                     HugButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                     sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
                     hugCounter--;
                     hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 } else {
-                    Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
                     HugButtonMain.setFavorite(true);
                     hugCounter++;
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -296,7 +290,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                             myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
-                        Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
@@ -314,14 +307,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 sameCounter = Integer.parseInt(same_counter.getText().toString());
 
                 if (SameButtonMain.isFavorite()){
-                    Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
                     SameButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                     sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
                     sameCounter--;
                     same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 } else {
-                    Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
                     SameButtonMain.setFavorite(true);
                     sameCounter++;
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -330,7 +321,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                             myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
-                        Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
@@ -375,7 +365,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                                 return true;
 
                             case R.id.report_post:
-                                Toast.makeText(PostsDetailsActivity.this, "Clicked report edit", Toast.LENGTH_SHORT).show();
 
                                 Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
                                 reportIntent.putExtra(Constants.IDPOST, postId);
@@ -416,7 +405,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 view.getId() == R.id.detail_list_item_posts_avatar){
 
             Intent intent = new Intent(this, SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + myList.get(0).getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, myList.get(0).getIdUserName());
             startActivity(intent);
         } else if (view.getId() == R.id.detail_list_item_posts_feeling){
@@ -430,23 +418,19 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         } else if (view.getId() == R.id.detail_post_likes_counter){
 
             Intent intent = new Intent(this, UserLikeCounterActivity.class);
-            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LIKE_FEELING, myList.get(0).getIdPosts());
             startActivity(intent);
         } else if(view.getId() == R.id.detail_post_hugs_counter){
             Intent intent = new Intent(this, UserHugCounterActivity.class);
-            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.HUG_FEELING, myList.get(0).getIdPosts());
             startActivity(intent);
         } else if(view.getId() == R.id.detail_post_same_counter){
             Intent intent = new Intent(this, UserSameCounterActivity.class);
-            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SAME_FEELING, myList.get(0).getIdPosts());
             startActivity(intent);
 
         } else if(view.getId() == R.id.detail_post_listen_counter){
             Intent intent = new Intent(this, UserListenCounterActivity.class);
-            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LISTEN_FEELING, myList.get(0).getIdPosts());
             startActivity(intent);
         } else if(view.getId() == R.id.detail_list_item_posts_play_button){
@@ -566,7 +550,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
-                        Toast.makeText(PostsDetailsActivity.this, "UserResponse for posting comments " + userResponse.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -579,7 +562,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onNext(List<PostsModel> response) {
                         String name = response.get(0).getIdUserName();
-                        Toast.makeText(PostsDetailsActivity.this, "response for details", Toast.LENGTH_SHORT).show();
 
                         showRecycleWithDataFilled(response);
                     }

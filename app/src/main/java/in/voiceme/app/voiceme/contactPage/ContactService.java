@@ -8,7 +8,6 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -60,7 +59,6 @@ public class ContactService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(ContactService.this, "Service createed", Toast.LENGTH_SHORT).show();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
     }
 
@@ -109,7 +107,6 @@ public class ContactService extends IntentService {
                     @Override
                     public void onNext(ContactAddResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
-                        Toast.makeText(ContactService.this, "Sent All Contacts", Toast.LENGTH_SHORT).show();
                         LocalBroadcastManager.getInstance(ContactService.this).sendBroadcast(broadcast);
 
                     }
@@ -121,6 +118,5 @@ public class ContactService extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(ContactService.this, "Service destroyed", Toast.LENGTH_SHORT).show();
     }
 }

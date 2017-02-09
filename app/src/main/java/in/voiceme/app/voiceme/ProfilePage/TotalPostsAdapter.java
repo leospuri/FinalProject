@@ -252,17 +252,14 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (myClickListener != null) {
                     myClickListener.onItemClick(dataItem, view);
                 } else {
-                    Toast.makeText(view.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
                 }
             } catch (NullPointerException e) {
-                Toast.makeText(view.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
             }
         }
 
 
         protected void secondUserProfileClicked(View view){
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }
@@ -335,7 +332,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (processLoggedState(v))
                 return;
             Intent intent = new Intent(v.getContext(), UserListenCounterActivity.class);
-            Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LISTEN_FEELING, dataItem.getIdPosts());
             v.getContext().startActivity(intent);
         }
@@ -371,7 +367,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (processLoggedState(v))
                 return;
             Intent intent = new Intent(v.getContext(), UserLikeCounterActivity.class);
-            Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LIKE_FEELING, dataItem.getIdPosts());
             v.getContext().startActivity(intent);
         }
@@ -405,7 +400,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             return true;
 
                         case R.id.report_post:
-                            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
 
                             Intent reportIntent = new Intent(itemView.getContext(), ReportAbuseActivity.class);
                             reportIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
@@ -414,7 +408,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             return true;
 
                         case R.id.menu_item_share:
-                            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
                      /*       mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
                             if (mShareActionProvider != null) {
                                 mShareActionProvider.setShareIntent(sharedIntentMaker());
@@ -451,7 +444,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (processLoggedState(v))
                 return;
             Intent intent = new Intent(v.getContext(), UserHugCounterActivity.class);
-            Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.HUG_FEELING, dataItem.getIdPosts());
             v.getContext().startActivity(intent);
         }
@@ -461,7 +453,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (processLoggedState(v))
                 return;
             Intent intent = new Intent(v.getContext(), UserSameCounterActivity.class);
-            Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SAME_FEELING, dataItem.getIdPosts());
             v.getContext().startActivity(intent);
         }
@@ -470,14 +461,12 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             likeCounter = Integer.parseInt(like_counter.getText().toString());
 
             if (likeButtonMain.isFavorite()){
-                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 likeButtonMain.setFavorite(false);
                 // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
                 likeCounter--;
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             } else {
-                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 likeButtonMain.setFavorite(true);
                 likeCounter++;
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -486,7 +475,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
 
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
@@ -503,13 +491,11 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             hugCounter = Integer.parseInt(hug_counter.getText().toString());
 
             if (HugButtonMain.isFavorite()){
-                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(false);
                 hugCounter--;
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             } else {
-                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(true);
                 hugCounter++;
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -520,7 +506,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
@@ -531,13 +516,11 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         protected void sameButtonMethod(View view) {
             sameCounter = Integer.parseInt(same_counter.getText().toString());
             if (SameButtonMain.isFavorite()){
-                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(false);
                 sameCounter--;
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             } else {
-                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(true);
                 sameCounter++;
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -547,7 +530,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
