@@ -27,21 +27,20 @@ import timber.log.Timber;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.RECORD_AUDIO;
-import static android.Manifest.permission.SET_TIME;
-import static android.Manifest.permission.SET_TIME_ZONE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.google.gdata.util.common.base.Preconditions.checkNotNull;
 
 public class ActivityUtils {
 
-    private static final int INT_TAKE_PICTURE_PERM = 1339;
+    private static final int INT_TAKE_PICTURE_PERM = 1340;
+
     private static final int INT_RECORD_AUDIO_PERM = 1339;
 
     // list of permission arrays
     // 1. For taking [picture and storing inside the external storage
     private static final String[] TAKE_PICTURE_PERM = {CAMERA, WRITE_EXTERNAL_STORAGE};
     // 2. recording audio and storing inside internal storage
-    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, SET_TIME, SET_TIME_ZONE};
+    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO};
 
 
 
@@ -92,8 +91,7 @@ public class ActivityUtils {
 
     public static boolean audio_perm (Context activity, int storageRequestId) {
 
-            if (ContextCompat.checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(activity, RECORD_AUDIO)
+            if (ContextCompat.checkSelfPermission(activity, RECORD_AUDIO)
                     == PackageManager.PERMISSION_GRANTED) {
                 Timber.d("Permission is granted");
                 return true;

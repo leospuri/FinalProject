@@ -1,13 +1,17 @@
 package in.voiceme.app.voiceme.userpost;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -18,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.contactPage.ContactListActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
@@ -26,14 +31,15 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private static final String TAG = "AudioFxActivity";
 
     private static final float VISUALIZER_HEIGHT_DIP = 360f;
+    public final static int PERM_REQUEST_CODE_DRAW_OVERLAYS = 1234;
     private MediaPlayer mMediaPlayer;
     private MediaRecorder myAudioRecorder;
     private TextView timer;
     private String time;
     public boolean isContinue = true;
     private int maxDuration = 120 * 1000;
-    private File file1;
 
+    private AlertDialog.Builder builder1;
     private static final String filePath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
     private int currentDuration = 0;
     private int second = 0;
@@ -70,6 +76,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             }
         });
 
+
         // filePath = Environment.getExternalStorageDirectory() + "/currentRecording.mp3";
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -100,9 +107,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     private void initialiseAudio() {
 
+        File file = new File(filePath);
         mMediaPlayer = new MediaPlayer();
         try {
-            mMediaPlayer.setDataSource(filePath);
+            mMediaPlayer.setDataSource(String.valueOf(file));
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
@@ -193,8 +201,8 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     public void start() {
         // startChange();
-        File file = new File(filePath);
 
+        File file = new File(filePath);
         record.setVisibility(View.GONE);
         stop.setVisibility(View.VISIBLE);
 
@@ -245,6 +253,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     }
 
     private void listenPlay() {
+        File file = new File(filePath);
         play.setVisibility(View.GONE);
         done.setVisibility(View.VISIBLE);
         cancel.setVisibility(View.VISIBLE);
@@ -252,7 +261,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         isListen = true;
         mMediaPlayer = new MediaPlayer();
         try {
-            mMediaPlayer.setDataSource(filePath);
+            mMediaPlayer.setDataSource(String.valueOf(file));
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
@@ -335,5 +344,55 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         }
         return false;
 
+    }
+
+    public void permissionToDrawOverlays() {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {   //Android M Or Over
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, PERM_REQUEST_CODE_DRAW_OVERLAYS);
+            }
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PERM_REQUEST_CODE_DRAW_OVERLAYS) {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {   //Android M Or Over
+                if (!Settings.canDrawOverlays(this)) {
+                    dialogBox();
+                    // ADD UI FOR USER TO KNOW THAT UI for SYSTEM_ALERT_WINDOW permission was not granted earlier...
+                }
+            }
+        }
+    }
+
+    public void dialogBox(){
+        builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Your Sytem Alert Window has not granted permission for System Overlay");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        application.getAuth().getUser().setAllContacts(true);
+                        setAuthToken("token");
+                        startActivity(new Intent(AudioRecordingActivity.this, ContactListActivity.class));
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 }

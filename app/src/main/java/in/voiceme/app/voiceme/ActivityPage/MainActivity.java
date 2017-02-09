@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -36,6 +37,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private AuthService authService;
     private RefreshTokenService refreshTokenService;
     private static ImageView play_button;
+
+
     /**
      * saves and shows state: if the user in demo mode or not .
      */
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         getSupportActionBar().setTitle("Activity Page");
         setNavDrawer(new MainNavDrawer(this));
 
+        mTracker = application.getDefaultTracker();
         applicationContext = this.getApplicationContext();
 
         prefs = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
@@ -80,6 +84,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         /**
          * Initialize Facebook SDK
          */
+
+        mTracker = application.getDefaultTracker();
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_main_activity);
@@ -186,6 +192,14 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     public void onClick(View view) {
         if (view.getId() == R.id.action_a){
             processLoggedState(view);
+
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("EnterTextStatus")
+                    .setAction("EnterButton")
+                    .build());
+            // [END custom_event]
+
             Toast.makeText(MainActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, TextStatus.class));
             rightLabels.toggle();

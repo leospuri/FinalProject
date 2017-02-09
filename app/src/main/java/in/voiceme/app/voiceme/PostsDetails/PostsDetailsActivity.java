@@ -45,7 +45,6 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginActivity;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
-import in.voiceme.app.voiceme.userpost.TextStatus;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -236,128 +235,155 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View view) {
         processLoggedState(view);
         if (view.getId() == R.id.detail_btn_send_message) {
-            sendMessage();
+            if (processLoggedState(view)) {
+                return;
+            } else {
+                sendMessage();
+            }
+
         }  else if(view.getId() == R.id.detail_list_item_like_button){
 
-
-            likeCounter = Integer.parseInt(like_counter.getText().toString());
-
-            if (likeButtonMain.isFavorite()){
-                Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
-                likeButtonMain.setFavorite(false);
-                // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-                likeCounter--;
-                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+            if (processLoggedState(view)) {
+                return;
             } else {
-                Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
-                likeButtonMain.setFavorite(true);
-                likeCounter++;
-                SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-                String userId = MySharedPreferences.getUserId(preferences);
-                String sendLike = "senderid@" + userId + "_contactId@" +
-                        userId + "_postId@" + userId  + "_click@" + "1";
+                likeCounter = Integer.parseInt(like_counter.getText().toString());
 
-                if (MySharedPreferences.getUserId(preferences).equals(userId)){
-                    Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
+                if (likeButtonMain.isFavorite()){
+                    Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
+                    likeButtonMain.setFavorite(false);
+                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                    sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+                    likeCounter--;
+                    like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                 } else {
-                    sendLikeNotification(application, sendLike);
+                    Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
+                    likeButtonMain.setFavorite(true);
+                    likeCounter++;
+                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                    String userId = MySharedPreferences.getUserId(preferences);
+                    String sendLike = "senderid@" + userId + "_contactId@" +
+                            myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+
+                    if (MySharedPreferences.getUserId(preferences).equals(userId)){
+                        Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendLikeNotification(application, sendLike);
+                    }
+                    sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+                    like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                 }
-                sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
-                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             }
+
         } else if(view.getId() == R.id.detail_list_item_hug_button){
-            if (HugButtonMain.isFavorite()){
-                Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
-                HugButtonMain.setFavorite(false);
-                // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-                hugCounter--;
-                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            if (processLoggedState(view)) {
+                return;
             } else {
-                Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
-                HugButtonMain.setFavorite(true);
-                hugCounter++;
-                SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-                String userId = MySharedPreferences.getUserId(preferences);
-                String sendLike = "senderid@" + userId + "_contactId@" +
-                        userId + "_postId@" + userId  + "_click@" + "1";
-
-                if (MySharedPreferences.getUserId(preferences).equals(userId)){
-                    Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
+                if (HugButtonMain.isFavorite()){
+                    Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
+                    HugButtonMain.setFavorite(false);
+                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                    sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+                    hugCounter--;
+                    hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 } else {
-                    sendLikeNotification(application, sendLike);
+                    Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
+                    HugButtonMain.setFavorite(true);
+                    hugCounter++;
+                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                    String userId = MySharedPreferences.getUserId(preferences);
+                    String sendLike = "senderid@" + userId + "_contactId@" +
+                            myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+
+                    if (MySharedPreferences.getUserId(preferences).equals(userId)){
+                        Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendLikeNotification(application, sendLike);
+                    }
+                    sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+                    hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 }
-                sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
-                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             }
+
+
+
         } else if(view.getId() == R.id.detail_list_item_same_button){
-            if (SameButtonMain.isFavorite()){
-                Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
-                SameButtonMain.setFavorite(false);
-                // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-                sameCounter--;
-                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            if (processLoggedState(view)) {
+                return;
             } else {
-                Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
-                SameButtonMain.setFavorite(true);
-                sameCounter++;
-                SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-                String userId = MySharedPreferences.getUserId(preferences);
-                String sendLike = "senderid@" + userId + "_contactId@" +
-                        userId + "_postId@" + userId  + "_click@" + "1";
 
-                if (MySharedPreferences.getUserId(preferences).equals(userId)){
-                    Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
+                if (SameButtonMain.isFavorite()){
+                    Toast.makeText(this, "unLiked", Toast.LENGTH_SHORT).show();
+                    SameButtonMain.setFavorite(false);
+                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                    sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+                    sameCounter--;
+                    same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 } else {
-                    sendLikeNotification(application, sendLike);
+                    Toast.makeText(this, "Liked", Toast.LENGTH_SHORT).show();
+                    SameButtonMain.setFavorite(true);
+                    sameCounter++;
+                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                    String userId = MySharedPreferences.getUserId(preferences);
+                    String sendLike = "senderid@" + userId + "_contactId@" +
+                            myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+
+                    if (MySharedPreferences.getUserId(preferences).equals(userId)){
+                        Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendLikeNotification(application, sendLike);
+                    }
+                    sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+                    same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 }
-                sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
-                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+
             }
+
         }
 
         else if(view.getId() == R.id.detail_status_more){
-            popupMenu = new PopupMenu(view.getContext(), view);
-            MenuInflater inflater = popupMenu.getMenuInflater();
-            inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
-            //    this.menu = popupMenu.getMenu();
 
-            SharedPreferences preferences;
-            preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-
-            if (MySharedPreferences.getUserId(preferences).equals(myList.get(0).getIdUserName())){
-                if(popupMenu.getMenu() == null)
-                    return;
-                popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
+            if (processLoggedState(view)) {
+                return;
             } else {
-                popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
-            }
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()){
-                        case R.id.edit_post:
+                popupMenu = new PopupMenu(view.getContext(), view);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+                //    this.menu = popupMenu.getMenu();
 
-                            Intent editIntent = new Intent(PostsDetailsActivity.this, EditPost.class);
-                            editIntent.putExtra(Constants.IDPOST, postId);
-                            editIntent.putExtra(Constants.IDUSERNAME, myList.get(0).getIdUserName());
-                            startActivity(editIntent);
-                            return true;
+                SharedPreferences preferences;
+                preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
 
-                        case R.id.report_post:
-                            Toast.makeText(PostsDetailsActivity.this, "Clicked report edit", Toast.LENGTH_SHORT).show();
+                if (MySharedPreferences.getUserId(preferences).equals(myList.get(0).getIdUserName())){
+                    if(popupMenu.getMenu() == null)
+                        return;
+                    popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
+                } else {
+                    popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
+                }
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.edit_post:
 
-                            Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
-                            reportIntent.putExtra(Constants.IDPOST, postId);
-                            reportIntent.putExtra(Constants.IDUSERNAME, myList.get(0).getIdUserName());
-                            startActivity(reportIntent);
-                            return true;
+                                Intent editIntent = new Intent(PostsDetailsActivity.this, EditPost.class);
+                                editIntent.putExtra(Constants.IDPOST, postId);
+                                editIntent.putExtra(Constants.IDUSERNAME, myList.get(0).getIdUserName());
+                                startActivity(editIntent);
+                                return true;
 
-                        case R.id.menu_item_share:
-                            //            MenuItem menuItem = popupMenu.getMenu().findItem(R.id.menu_item_share);
-                            //            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
+                            case R.id.report_post:
+                                Toast.makeText(PostsDetailsActivity.this, "Clicked report edit", Toast.LENGTH_SHORT).show();
+
+                                Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
+                                reportIntent.putExtra(Constants.IDPOST, postId);
+                                reportIntent.putExtra(Constants.IDUSERNAME, myList.get(0).getIdUserName());
+                                startActivity(reportIntent);
+                                return true;
+
+                            case R.id.menu_item_share:
+                                //            MenuItem menuItem = popupMenu.getMenu().findItem(R.id.menu_item_share);
+                                //            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
 
                   /*          mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
                         //    int currentViewPagerItem = ((ViewPager) itemView.findViewById(R.id.viewpager)).getCurrentItem();
@@ -368,22 +394,25 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                                 Toast.makeText(itemView.getContext(), "Share Action Provider is null", Toast.LENGTH_SHORT).show();
                               //  Log.d(LOG_TAG, "Share Action Provider is null?");
                             } */
-                            startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+                                startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
 
 
-                            return true;
+                                return true;
 
-                        default:
-                            return false;
+                            default:
+                                return false;
 
+                        }
                     }
-                }
-            });
-            popupMenu.show();
+                });
+                popupMenu.show();
+
+            }
 
 
         } else if (view.getId() == R.id.detail_list_item_post_userNickName ||
                 view.getId() == R.id.detail_list_item_posts_avatar){
+
             Intent intent = new Intent(this, SecondProfile.class);
             Toast.makeText(view.getContext(), "Post ID is " + myList.get(0).getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, myList.get(0).getIdUserName());

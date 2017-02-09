@@ -66,6 +66,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         txtError = (TextView) findViewById(R.id.error_txt_cause);
 
 
+        noPostLayout.setVisibility(View.GONE);
+
         if (!secondPage()){
             noPostLayout.setVisibility(View.VISIBLE);
         } else {
@@ -224,7 +226,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                             isLastPage = true;
                         }
 
-                        if (response.size() == 0){
+                        if (response.isEmpty()){
                             showNoPost();
                         }
                         showRecycleWithDataFilled(response);

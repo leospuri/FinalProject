@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Bus;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
@@ -32,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     private boolean isRegisterdWithBus;
     protected String givenContact;
     protected String firstRun;
+    protected Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -41,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         scheduler = new ActionScheduler(application);
         manager = AccountManager.getInstance();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+
 
 
         bus.register(this);

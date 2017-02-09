@@ -19,6 +19,7 @@ import com.twitter.sdk.android.core.TwitterCore;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import in.voiceme.app.voiceme.BuildConfig;
+import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
@@ -116,11 +117,11 @@ public class VoicemeApplication extends Application {
     }
 
     synchronized public Tracker getDefaultTracker() {
+        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
         if (sTracker == null) {
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-        //    sTracker = analytics.newTracker(R.xml.global_tracker);
+            sTracker = sAnalytics.newTracker(R.xml.global_tracker);
         }
+
         return sTracker;
     }
 

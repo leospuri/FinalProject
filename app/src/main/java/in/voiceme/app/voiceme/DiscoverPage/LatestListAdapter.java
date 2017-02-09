@@ -399,9 +399,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         protected void moreClick(View view){
-            if (processLoggedState(view)){
-                return;
-            } else {
+             processLoggedState(view);
 
                 popupMenu = new PopupMenu(view.getContext(), view);
                 MenuInflater inflater = popupMenu.getMenuInflater();
@@ -467,7 +465,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-            }
 
         }
 
@@ -519,11 +516,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     });
                 }
             }).start();
-
-            if (doDislike){
-                return;
-            }
-
 
                 if (likeButtonMain.isFavorite()){
 

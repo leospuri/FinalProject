@@ -49,7 +49,7 @@
                         android:id="@+id/textView_category"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-                    <LinearLayout
+        <!--            <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -67,7 +67,7 @@
                             android:textSize="16sp"
                             android:text="Choose"/>
 
-                    </LinearLayout>
+                    </LinearLayout> -->
 
 
 
@@ -99,7 +99,7 @@
                         android:id="@+id/textView_feeling"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-                    <LinearLayout
+     <!--               <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -117,7 +117,7 @@
                             android:textSize="16sp"
                             android:text="Choose"/>
 
-                    </LinearLayout>
+                    </LinearLayout> -->
 
 
 
@@ -149,7 +149,7 @@
                         android:id="@+id/textView_status"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-                    <LinearLayout
+         <!--           <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -167,7 +167,7 @@
                             android:textSize="16sp"
                             android:text="Choose"/>
 
-                    </LinearLayout>
+                    </LinearLayout> -->
 
 
 
@@ -199,7 +199,7 @@
                         android:id="@+id/recording_start_button"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-                    <LinearLayout
+    <!--                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -217,7 +217,7 @@
                             android:textSize="16sp"
                             android:text="Choose"/>
 
-                    </LinearLayout>
+                    </LinearLayout> -->
 
 
 

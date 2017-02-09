@@ -74,7 +74,11 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         processLoggedState(view);
         if (view.getId() == R.id.submit_user_data_button) {
-            if (username.getEditText().getText().toString() != null){
+            String ed_text = username.getEditText().getText().toString().trim();
+            if (ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null) {
+                Toast.makeText(this, "Please Enter Username", Toast.LENGTH_SHORT).show();
+            } else {
+
                 try {
                     submitDataWithoutProfile();
                     startActivity(new Intent(this, MainActivity.class));
@@ -85,8 +89,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
             }
 
 
-        } else {
-            Toast.makeText(this, "Please Enter Username", Toast.LENGTH_SHORT).show();
         }
     }
 

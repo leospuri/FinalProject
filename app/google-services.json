@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "345616717721-sg5a4p88os963csgokc01c8vin8ek5ui.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.voiceme.app.voiceme",
-            "certificate_hash": "2DFED157D489FA89D03820CA0ACB8F2611F2843D"
-          }
-        },
-        {
           "client_id": "345616717721-d1ege0ithbp2q9975fl2lsa65472prs5.apps.googleusercontent.com",
           "client_type": 3
         }
