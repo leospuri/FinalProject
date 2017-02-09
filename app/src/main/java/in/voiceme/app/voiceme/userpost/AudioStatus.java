@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+
 import java.io.File;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
@@ -80,6 +82,12 @@ public class AudioStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("AudioStatusActivity")
+                        .setAction("Enter Category Page")
+                        .build());
+                // [END custom_event]
                 Intent categoryIntent = new Intent(AudioStatus.this, CategoryActivity.class);
                 startActivityForResult(categoryIntent, 1);
             }
@@ -88,6 +96,12 @@ public class AudioStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("AudioStatusActivity")
+                        .setAction("Enter Feeling Page")
+                        .build());
+                // [END custom_event]
                 Intent feelingIntent = new Intent(AudioStatus.this, FeelingActivity.class);
                 startActivityForResult(feelingIntent, 2);
             }
@@ -96,6 +110,12 @@ public class AudioStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("AudioStatusActivity")
+                        .setAction("Enter Text Status Page")
+                        .build());
+                // [END custom_event]
                 Intent statusIntent = new Intent(AudioStatus.this, StatusActivity.class);
                 startActivityForResult(statusIntent, 3);
             }
@@ -113,6 +133,12 @@ public class AudioStatus extends BaseActivity {
                         Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
                     }
 
+                    // [START custom_event]
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("AudioStatusActivity")
+                            .setAction("Post Audio Status Page")
+                            .build());
+                    // [END custom_event]
                     // network call from retrofit
                     readAudioFileStorage();
                 }

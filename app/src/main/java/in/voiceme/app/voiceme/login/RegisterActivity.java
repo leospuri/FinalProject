@@ -17,6 +17,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -182,6 +183,12 @@ public class RegisterActivity extends BaseActivity
 
         if (result.isSuccess()) {
 
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RegisterActivity")
+                    .setAction("Successful google login")
+                    .build());
+            // [END custom_event]
+
             Log.v(TAG, "Successfully logged in with Google...");
             // We can request some Cognito Credentials
             GoogleSignInAccount acct = result.getSignInAccount();
@@ -261,6 +268,12 @@ public class RegisterActivity extends BaseActivity
     private void handleFacebookLogin(LoginResult loginResult) {
 
         Log.v(TAG, "Successfully logged in with Facebook...");
+
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("RegisterActivity")
+                .setAction("Successful facebook login")
+                .build());
+        // [END custom_event]
 
         final Map<String, String> logins = new HashMap<>();
         logins.put(FACEBOOK_LOGIN, AccessToken.getCurrentAccessToken().getToken());

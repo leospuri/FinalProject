@@ -43,6 +43,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.userpost.PrivacyPolicy;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -59,6 +60,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     //  private Button digitsAuthButton;
     // private TextView personalContact;
     private TextView allPersonalContact;
+    private TextView verified;
+    private TextView singlePrivacyPolicy;
     private boolean givenPersonalContact = false;
     private boolean givenAllPersonalContact = false;
     private ImageView skip;
@@ -89,6 +92,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         skip = (ImageView) findViewById(R.id.skip);
 
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
+        singlePrivacyPolicy = (TextView) findViewById(R.id.person_contact_single);
+        verified = (TextView) findViewById(R.id.verfied_single);
      //   enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
 
 //        personalContact = (TextView) findViewById(R.id.person_contact_verified);
@@ -103,6 +108,13 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         // Create a digits button and callback
 
 
+        singlePrivacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ContactsActivity.this, PrivacyPolicy.class));
+            }
+        });
+
         final AuthCallback callback = new AuthCallback() {
             @Override
             public void success(DigitsSession session, String phoneNumber) {
@@ -110,6 +122,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 Timber.v("phone number: " + phoneNumber);
                 // application.getAuth().getUser().setPhoneNumber(true);
 
+                verified.setVisibility(View.VISIBLE);
                 givenPersonalContact = true;
 
                 String newPhoneNumber = removeSpecialCharacters(phoneNumber);

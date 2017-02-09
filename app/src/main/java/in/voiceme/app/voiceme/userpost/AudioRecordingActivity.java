@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -174,24 +176,60 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         if (v.getId() == R.id.play) {
             processLoggedState(v);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RecordingActivity")
+                    .setAction("Play Button")
+                    .build());
+            // [END custom_event]
 
             readFromStorage();
         } else if(v.getId() == R.id.record){
             processLoggedState(v);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RecordingActivity")
+                    .setAction("Record Button")
+                    .build());
+            // [END custom_event]
             recordActivity();
         } else if (v.getId() == R.id.stop){
             processLoggedState(v);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RecordingActivity")
+                    .setAction("Stop Button")
+                    .build());
+            // [END custom_event]
 
             stopRecording();
         } else if (v.getId() == R.id.done){
             processLoggedState(v);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RecordingActivity")
+                    .setAction("done Button")
+                    .build());
+            // [END custom_event]
             readAudioFileStorage();
         } else if (v.getId() == R.id.pause){
             processLoggedState(v);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RecordingActivity")
+                    .setAction("Pause Button")
+                    .build());
+            // [END custom_event]
             listenStop();
 
         } else if(v.getId() == R.id.cancel_recording){
             processLoggedState(v);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("RecordingActivity")
+                    .setAction("Cancel Button")
+                    .build());
+            // [END custom_event]
             Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
             setResult(Activity.RESULT_CANCELED, intent);
             finish();

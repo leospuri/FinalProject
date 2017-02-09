@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
@@ -57,6 +59,12 @@ public class TextStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("TextStatusPage")
+                        .setAction("Enter Category Page")
+                        .build());
+                // [END custom_event]
                 Intent categoryIntent = new Intent(TextStatus.this, CategoryActivity.class);
                 startActivityForResult(categoryIntent, 1);
             }
@@ -65,6 +73,12 @@ public class TextStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("TextStatusPage")
+                        .setAction("Enter Feeling Page")
+                        .build());
+                // [END custom_event]
                 Intent feelingIntent = new Intent(TextStatus.this, FeelingActivity.class);
                 startActivityForResult(feelingIntent, 2);
             }
@@ -73,6 +87,12 @@ public class TextStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+                // [START custom_event]
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("TextStatusPage")
+                        .setAction("Enter Status Page")
+                        .build());
+                // [END custom_event]
                 Intent statusIntent = new Intent(TextStatus.this, StatusActivity.class);
                 startActivityForResult(statusIntent, 3);
             }
@@ -87,6 +107,12 @@ public class TextStatus extends BaseActivity {
                     if (category == null || feeling == null || textStatus == null) {
                         Toast.makeText(TextStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
                     }
+                    // [START custom_event]
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("TextStatusPage")
+                            .setAction("Post Status")
+                            .build());
+                    // [END custom_event]
                     // network call from retrofit
                     try {
                         application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),

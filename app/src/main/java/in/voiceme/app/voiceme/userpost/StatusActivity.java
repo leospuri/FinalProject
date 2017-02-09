@@ -41,6 +41,8 @@ public class StatusActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 processLoggedState(view);
+
+
                 // get the Entered  message
                 String status = text_status.getText().toString();
                 Intent returnIntent = new Intent();

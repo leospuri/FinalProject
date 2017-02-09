@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.analytics.HitBuilders;
+
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
@@ -28,11 +30,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         processLoggedState(view);
         if (view == registerButton) {
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("LoginActivity")
+                    .setAction("Clicked Register Button")
+                    .build());
+            // [END custom_event]
+            // network call from retrofit
             startActivityForResult(new Intent(this, RegisterActivity.class), REQUEST_REGISTER);
         }
     }
 
     public void tryDemoOnClick(View viewPrm) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("LoginActivity")
+                .setAction("Clicked Skip Button")
+                .build());
+        // [END custom_event]
         SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
         prefsLcl.edit().putBoolean("is this demo mode", true).apply();
         startActivity(new Intent(this, AnonymousLogin.class));
