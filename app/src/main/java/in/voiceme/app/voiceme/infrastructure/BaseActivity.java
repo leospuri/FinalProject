@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.jackmiras.placeholderj.library.PlaceHolderJ;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Bus;
 
@@ -34,6 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected String givenContact;
     protected String firstRun;
     protected Tracker mTracker;
+
+    protected PlaceHolderJ placeHolderJ;
 
     @Override
     protected void onCreate(Bundle savedState) {

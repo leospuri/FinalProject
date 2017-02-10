@@ -31,6 +31,8 @@ import okhttp3.RequestBody;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
+import static in.voiceme.app.voiceme.utils.ActivityUtils.deleteAudioFile;
+
 public class AudioStatus extends BaseActivity {
     private static final int REQUEST_RECORD_AUDIO = 0;
     private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
@@ -129,18 +131,20 @@ public class AudioStatus extends BaseActivity {
                 if (processLoggedState(view)){
                     return;
                 } else {
-                    if (category == null || feeling == null || textStatus == null) {
+                    if (category == null || feeling == null || textStatus == null || audio_time == null) {
                         Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // [START custom_event]
+                        mTracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("AudioStatusActivity")
+                                .setAction("Post Audio Status Page")
+                                .build());
+                        // [END custom_event]
+                        // network call from retrofit
+                        readAudioFileStorage();
                     }
 
-                    // [START custom_event]
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("AudioStatusActivity")
-                            .setAction("Post Audio Status Page")
-                            .build());
-                    // [END custom_event]
-                    // network call from retrofit
-                    readAudioFileStorage();
+
                 }
             }
         });
@@ -250,11 +254,25 @@ public class AudioStatus extends BaseActivity {
                             Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
                             if (userResponse.getStatus() == 1) {
                                 startActivity(new Intent(AudioStatus.this, MainActivity.class));
+                                deleteAudio();
                             }
                         }
                     });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void deleteAudio(){
+        // check delete permissions for Android M
+        deleteAudioFile(this);
+        File fdelete = new File(filepath);
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                System.out.println("file Deleted :" + filepath);
+            } else {
+                System.out.println("file not Deleted :" + filepath);
+            }
         }
     }
 

@@ -38,11 +38,6 @@ public class NotificationsActivity extends BaseActivity {
 
     }
 
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
-
     private void initUI() {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -27,13 +27,17 @@ import timber.log.Timber;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.SET_TIME;
+import static android.Manifest.permission.SET_TIME_ZONE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.google.gdata.util.common.base.Preconditions.checkNotNull;
 
 public class ActivityUtils {
 
     private static final int INT_TAKE_PICTURE_PERM = 1340;
+    private static final int INT_DELETE_PICTURE_PERM = 1322;
 
     private static final int INT_RECORD_AUDIO_PERM = 1339;
 
@@ -41,11 +45,25 @@ public class ActivityUtils {
     // 1. For taking [picture and storing inside the external storage
     private static final String[] TAKE_PICTURE_PERM = {CAMERA, WRITE_EXTERNAL_STORAGE};
     // 2. recording audio and storing inside internal storage
-    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO};
+    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, SET_TIME, SET_TIME_ZONE};
+
+    private static final String[] WRITE_PERM = {WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
 
 
 
-    // 2. for
+
+
+    public static boolean deleteAudioFile(Context activity) {
+        if (delete_perm(activity, INT_DELETE_PICTURE_PERM)) {
+            return true;
+        } else {
+            ActivityCompat.requestPermissions((Activity) activity,
+                    WRITE_PERM,
+                    INT_DELETE_PICTURE_PERM);
+        }
+        return false;
+    }
+
 
 
     public static boolean cameraPermissionGranted(Context activity) {
@@ -73,6 +91,23 @@ public class ActivityUtils {
         return false;
     }
 
+    public static boolean delete_perm (Context activity, int storageRequestId) {
+
+        if (ContextCompat.checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(activity, READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            Timber.d("Permission is granted");
+            return true;
+        } else {
+
+            Timber.d("Permission is revoked");
+            ActivityCompat.requestPermissions((Activity) activity,
+                    WRITE_PERM, storageRequestId);
+            return false;
+        }
+    }
+
+
 
     public static boolean camera_perm (Context activity, int storageRequestId) {
 
@@ -92,17 +127,18 @@ public class ActivityUtils {
 
     public static boolean audio_perm (Context activity, int storageRequestId) {
 
-            if (ContextCompat.checkSelfPermission(activity, RECORD_AUDIO)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Timber.d("Permission is granted");
-                return true;
-            } else {
+        if (ContextCompat.checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(activity, RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED) {
+            Timber.d("Permission is granted");
+            return true;
+        } else {
 
-                Timber.d("Permission is revoked");
-                ActivityCompat.requestPermissions((Activity) activity,
-                        RECORD_AUDIO_PERM, storageRequestId);
-                return false;
-            }
+            Timber.d("Permission is revoked");
+            ActivityCompat.requestPermissions((Activity) activity,
+                    RECORD_AUDIO_PERM, storageRequestId);
+            return false;
+        }
     }
 
 

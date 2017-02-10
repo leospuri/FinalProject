@@ -38,9 +38,9 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
       item.notificationMessage.setText(data.get(position).initWithNotification());
 
       item.notificationTime.setText(((VHItem) holder).notificationMessage.getContext()
-          .getString(R.string.time_stamp, android.text.format.DateUtils.getRelativeTimeSpanString(
-              ((VHItem) holder).notificationMessage.getContext(), data.get(position).getSentTime(),
-              true)));
+              .getString(R.string.time_stamp, android.text.format.DateUtils.getRelativeTimeSpanString(
+                      ((VHItem) holder).notificationMessage.getContext(), data.get(position).getSentTime(),
+                      true)));
 
       if (data.get(position).getSenderAvatar() != null || !data.get(position).getSenderAvatar().isEmpty()){
         item.imgProfilePicture.setImageURI(data.get(position).getSenderAvatar());

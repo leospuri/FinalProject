@@ -19,6 +19,7 @@
             android:text="To Login, Select your Identity Provider"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_above="@+id/signin_with_google_btn"/>
 
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/signin_with_facebook_btn"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
             android:id="@+id/login_divider_or" />
 
         <com.facebook.login.widget.LoginButton
@@ -58,19 +60,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:id="@+id/disclaimer_login"
             android:layout_marginLeft="70dp"
             android:layout_marginBottom="75dp"
-            android:text="Disclaimer: We donot store your password."
-            android:layout_centerHorizontal="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="70dp"
-            android:layout_marginBottom="58dp"
-            android:text="Your identity is protected by Facebook and google"
+            android:text="Disclaimer: You are anonymous inside App."
             android:layout_centerHorizontal="true"
             />
 

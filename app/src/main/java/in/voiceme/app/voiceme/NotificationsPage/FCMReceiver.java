@@ -62,7 +62,7 @@ public class FCMReceiver extends FirebaseMessagingService {
       Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle());
 
       List<String> notificationData =
-          Arrays.asList(remoteMessage.getNotification().getBody().split(","));
+              Arrays.asList(remoteMessage.getNotification().getBody().split(","));
 
       saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
     }
@@ -102,26 +102,26 @@ public class FCMReceiver extends FirebaseMessagingService {
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     intent.putExtra("fromNotification", true);
     PendingIntent pendingIntent =
-        PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
     Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-        .setContentTitle(post.getSenderName())
-        .setContentText(messageBody)
-        .setAutoCancel(true)
-        .setSound(defaultSoundUri)
-        .setSmallIcon(R.drawable.ic_done)
-        .setContentIntent(pendingIntent);
+            .setContentTitle(post.getSenderName())
+            .setContentText(messageBody)
+            .setAutoCancel(true)
+            .setSound(defaultSoundUri)
+            .setSmallIcon(R.drawable.ic_done)
+            .setContentIntent(pendingIntent);
 
     NotificationManager notificationManager =
-        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     long time = System.currentTimeMillis();
     String tmpStr = String.valueOf(time);
     String last4Str = tmpStr.substring(tmpStr.length() - 5);
     int notificationId = Integer.valueOf(last4Str);
     Log.d("Notification Id", notificationId + "");
     notificationManager.notify(notificationId /* ID of notification */,
-        notificationBuilder.build());
+            notificationBuilder.build());
   }
 
   private String getJsonFromList(List<String> notificationData, RemoteMessage remoteMessage) {

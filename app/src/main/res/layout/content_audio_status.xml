@@ -232,6 +232,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/button_post_audio_status"
+                    android:padding="22dp"
+                    android:background="@color/md_blue_300"
                     android:text="POST STATUS"
                     android:layout_gravity="center_horizontal"/>
 

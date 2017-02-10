@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.digits.sdk.android.Digits;
 import com.evernote.android.job.JobManager;
@@ -66,7 +67,7 @@ public class VoicemeApplication extends Application {
 
 
 
-        /****************************************/
+        /*************************************** */
        Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
             @Override
@@ -77,6 +78,9 @@ public class VoicemeApplication extends Application {
 
 
 
+
+
+
         JodaTimeAndroid.init(this);
         FacebookSdk.sdkInitialize(this);
         Fresco.initialize(this);
@@ -84,7 +88,7 @@ public class VoicemeApplication extends Application {
         sAnalytics = GoogleAnalytics.getInstance(this);
         /******************************************/
    //     Fabric.with(this, new Crashlytics());
-     //   Timber.plant(new ReleaseTree());
+       // Timber.plant(new ReleaseTree());
 
 
         context = getApplicationContext();
@@ -111,7 +115,7 @@ public class VoicemeApplication extends Application {
                 BuildConfig.CONSUMER_SECRET);
 
         final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Answers(), new TwitterCore(authConfig), new Digits.Builder().build())
+                .kits(new Answers(), new Crashlytics(), new TwitterCore(authConfig), new Digits.Builder().build())
                 .debuggable(true)
                 .build();
 

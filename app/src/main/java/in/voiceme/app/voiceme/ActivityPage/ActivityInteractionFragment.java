@@ -178,21 +178,10 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
-
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
-
-                        //   List<PostsModel> model = fetchResults(response);
-                        //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
-
-
-                        //   showRecycleWithDataFilled(response);
-                        //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
-                            isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                        if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
                     @Override
@@ -220,7 +209,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
 
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                    //    showRecycleWithDataFilled(response);
+                        //    showRecycleWithDataFilled(response);
                         latestListAdapter.addAll(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;

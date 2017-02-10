@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.example.jackmiras.placeholderj.library.PlaceHolderJ;
 import com.squareup.otto.Bus;
 
 import in.voiceme.app.voiceme.WasLoggedInInterface;
@@ -17,6 +18,7 @@ public abstract class BaseFragment extends Fragment implements WasLoggedInInterf
     protected Bus bus;
     protected ActionScheduler scheduler;
     protected SharedPreferences preferences;
+    protected PlaceHolderJ placeHolderJ;
 
     @Override
     public void onCreate(Bundle savedState) {

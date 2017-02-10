@@ -364,7 +364,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             }
         }
 
-        if (dataItem.getAudioFileLink() == null){
+        if (dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
             play_button.setVisibility(View.GONE);
             post_audio_duration.setVisibility(View.GONE);
             post_listen.setVisibility(View.GONE);

@@ -395,85 +395,13 @@ public class RegisterActivity extends BaseActivity
     }
 
     /*
-    @Override
-    public void onFbSignInFail() {
-        Toast.makeText(this, "Facebook sign in failed.", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onFbSignInSuccess() {
-        Toast.makeText(this, "Facebook sign in success", Toast.LENGTH_SHORT).show();
-    }
-
-
-    @Override
-    public void onFbProfileReceived(FacebookUser facebookUser) {
-        Toast.makeText(this, "Facebook user data: name= " + facebookUser.name + " email= " + facebookUser.email, Toast.LENGTH_SHORT).show();
-
-        Log.d("Person name: ", facebookUser.name + "");
-        Log.d("Person gender: ", facebookUser.gender + "");
-        Log.d("Person email: ", facebookUser.email + "");
-        Log.d("Person profile_image: ", facebookUser.facebookID + "");
-
-        application.getAuth().setAuthToken("token");
+    public void loginQuick(View view) {
         application.getAuth().getUser().setLoggedIn(true);
         setResult(RESULT_OK);
         finish();
     }
+    */
 
 
 
-    @Subscribe
-    public void addFacebookLoginToCognito(Account.FacebookAccessTokenCognito facebookAccessToken) {
-        Timber.i( "addFacebookLoginToCognito");
-        Timber.i( "AccessToken: " + facebookAccessToken.fbToken);
-
-        addDataToSampleDataset("facebook_token", facebookAccessToken.fbToken); // please don't do this in a production app...
-
-        Map<String, String> logins = application.getmCredentialsProvider().getLogins();
-        logins.put("graph.facebook.com", facebookAccessToken.fbToken);
-        Timber.i( "logins: " + logins.toString());
-
-        application.getmCredentialsProvider().setLogins(logins);
-    }
-
-    @Override
-    public void onGSignInFail() {
-        Toast.makeText(this, "Google sign in failed.", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onGSignInSuccess(Person person) {
-        Toast.makeText(this, "Google sign in success", Toast.LENGTH_SHORT).show();
-
-        Log.d("Person display name: ", person.getDisplayName() + "");
-        Log.d("Person birth date: ", person.getBirthday() + "");
-        Log.d("Person gender: ", person.getGender() + "");
-        Log.d("Person name: ", person.getName() + "");
-        Log.d("Person id: ", person.getImage() + "");
-        application.getAuth().setAuthToken("token");
-        application.getAuth().getUser().setLoggedIn(true);
-        setResult(RESULT_OK);
-        finish();
-    }
-
-    @Override
-    public void onGoogleAuthSignIn(GoogleAuthUser user) {
-        Toast.makeText(this, "Google user data: name= " + user.name + " email= " + user.email, Toast.LENGTH_SHORT).show();
-        application.getAuth().setAuthToken("token");
-        application.getAuth().getUser().setLoggedIn(true);
-        setResult(RESULT_OK);
-        finish();
-    }
-
-    @Override
-    public void onGoogleAuthSignInFailed() {
-        Toast.makeText(this, "Google sign in failed.", Toast.LENGTH_SHORT).show();
-    }*/
-
-
-//    @Override
-//     public boolean processLoggedState(View viewPrm) {
-//
-//    }
 }

@@ -487,93 +487,51 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         protected void likeButtonMethod(View view) {
-            processLoggedState(view);
             likeCounter = Integer.parseInt(like_counter.getText().toString());
 
-            if (doDislike) new Thread(new Runnable() {
-                @Override
-                public void run() {
-                 //   l.pause(1000);
-                    likeButtonMain.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            likeButtonMain.setFavorite(false);
-                        }
-                    });
-                }
-            }).start();
+            if (likeButtonMain.isFavorite()){
+                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
+                likeButtonMain.setFavorite(false);
+                // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
+                likeCounter--;
+                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+            } else {
+                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
+                likeButtonMain.setFavorite(true);
+                likeCounter++;
+                SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                String userId = MySharedPreferences.getUserId(preferences);
+                String sendLike = "senderid@" + userId + "_contactId@" +
+                        dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
 
-                if (likeButtonMain.isFavorite()){
-
-
-                    likeButtonMain.setFavorite(false);
-                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
-                    likeCounter--;
-                    like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
-                    likeButtonMain.setFavorite(true);
-                    likeCounter++;
-                    SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-                    String userId = MySharedPreferences.getUserId(preferences);
-                    String sendLike = "senderid@" + userId + "_contactId@" +
-                            dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
-
-                    if (doDislike){
-                        return;
-                    } else {
-                        if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                        } else {
-                            sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
-                        }
+                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                }
 
 
-                        sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
-
-                    }
+                sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
 
 
 
-                    like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
-
-
-
+                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             }
 
-
-
-           // if (favorite){
-
-       //     }
         }
 
         protected void hugButtonMethod(View view) {
-            processLoggedState(view);
             hugCounter = Integer.parseInt(hug_counter.getText().toString());
 
-            if (doDislike) new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //   l.pause(1000);
-                    HugButtonMain.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            HugButtonMain.setFavorite(false);
-                        }
-                    });
-                }
-            }).start();
-
-            if (doDislike){
-                return;
-            }
-
             if (HugButtonMain.isFavorite()){
+                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(false);
                 hugCounter--;
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             } else {
+                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(true);
                 hugCounter++;
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -584,6 +542,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
@@ -592,33 +551,15 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         protected void sameButtonMethod(View view) {
-            processLoggedState(view);
-
             sameCounter = Integer.parseInt(same_counter.getText().toString());
-
-            if (doDislike) new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //   l.pause(1000);
-                    SameButtonMain.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            SameButtonMain.setFavorite(false);
-                        }
-                    });
-                }
-            }).start();
-
-            if (doDislike){
-                return;
-            }
-
             if (SameButtonMain.isFavorite()){
+                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(false);
                 sameCounter--;
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             } else {
+                Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(true);
                 sameCounter++;
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
@@ -628,6 +569,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                 }
