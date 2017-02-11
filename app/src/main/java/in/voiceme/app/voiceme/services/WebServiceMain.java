@@ -1,7 +1,9 @@
 package in.voiceme.app.voiceme.services;
 
 public interface WebServiceMain {
+
     /*
+
     @GET("posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
@@ -231,6 +233,6 @@ public interface WebServiceMain {
             @Field("text_status") String id_posts
     );
 
-    */
+*/
 
 }

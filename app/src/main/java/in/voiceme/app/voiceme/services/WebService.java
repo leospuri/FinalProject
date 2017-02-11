@@ -28,6 +28,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 public interface WebService {
+
     @GET("testing/server/posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
@@ -58,8 +59,8 @@ public interface WebService {
 
     @GET("testing/server/posts.php")
     Observable<List<PostsModel>> getUserFollowerPost(@Query("follower") String follower,
-                                                         @Query("user_id") String user_id,
-                                                         @Query("page") int page);
+                                                     @Query("user_id") String user_id,
+                                                     @Query("page") int page);
 
     @GET("testing/server/posts.php")
     Observable<List<PostsModel>> getActivityPosts(@Query("id_user") String id_user,
@@ -69,8 +70,8 @@ public interface WebService {
 
     @GET("testing/server/posts.php")
     Observable<List<PostsModel>> getContactPosts(@Query("id_user_name") String id_user_name,
-                                                  @Query("user_id") String user_id,
-                                                  @Query("contacts") String contacts,
+                                                 @Query("user_id") String user_id,
+                                                 @Query("contacts") String contacts,
                                                  @Query("page") int page);
 
     @GET("testing/server/get_comments.php")
@@ -256,5 +257,6 @@ public interface WebService {
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts
     );
+
 
 }

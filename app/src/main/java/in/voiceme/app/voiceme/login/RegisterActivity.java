@@ -108,7 +108,7 @@ public class RegisterActivity extends BaseActivity
      */
     private void setUpFacebookSignIn() {
 
-        String facebookAppId = getString(R.string.facebook_app_id);
+        String facebookAppId = getString(R.string.FACEBOOK_APP_ID);
 
         // The Facebook application ID must be defined in res/values/configuration_strings.xml
         if (facebookAppId.isEmpty()) {
