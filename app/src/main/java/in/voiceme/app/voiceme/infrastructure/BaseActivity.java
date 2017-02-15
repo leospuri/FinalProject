@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         bus = application.getBus();
         scheduler = new ActionScheduler(application);
         manager = AccountManager.getInstance();
-        preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
         mTracker = application.getDefaultTracker();
 

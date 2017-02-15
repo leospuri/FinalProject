@@ -13,6 +13,9 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private static final int REQUEST_REGISTER = 2;
 
+
+    private final String DEFAULT_SHAREDPREFERENCES_NAME = "com.amazonaws.android.auth";
+
     private View registerButton;
 
     @Override
@@ -47,7 +50,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 .setAction("Clicked Skip Button")
                 .build());
         // [END custom_event]
-        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
+        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         prefsLcl.edit().putBoolean("is this demo mode", true).apply();
         startActivity(new Intent(this, AnonymousLogin.class));
         finish();
@@ -63,11 +66,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void finishLogin() {
-        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
+        SharedPreferences cognitoPref = getSharedPreferences(DEFAULT_SHAREDPREFERENCES_NAME, MODE_PRIVATE);
+        if (cognitoPref != null){
+            cognitoPref.edit().clear().apply();
+        }
+
+        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
         startActivity(new Intent(this, LoginUserDetails.class));
         finish();
     }
+
+
 
 //  @Override
 //   public boolean processLoggedState(View viewPrm) {

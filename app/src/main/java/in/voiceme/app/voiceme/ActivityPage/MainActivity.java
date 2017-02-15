@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         mTracker = application.getDefaultTracker();
         applicationContext = this.getApplicationContext();
 
-        prefs = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
+        prefs = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         isDemoMode = prefs.getBoolean("is this demo mode", false);
         if (!isDemoMode)
             checkAuthStatus();

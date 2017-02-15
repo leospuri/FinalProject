@@ -39,7 +39,7 @@ public class AuthService {
 
     public AuthService(Context context) {
         this.context = context;
-        settings = context.getSharedPreferences(PREF_FILE, Activity.MODE_WORLD_WRITEABLE);
+        settings = context.getSharedPreferences(PREF_FILE, Activity.MODE_PRIVATE);
     }
 
     public void refreshToken(Runnable onCompletion) {

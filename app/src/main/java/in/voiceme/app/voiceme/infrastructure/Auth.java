@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.facebook.AccessToken;
+
 import in.voiceme.app.voiceme.ProfilePage.User;
 import in.voiceme.app.voiceme.login.LoginActivity;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Harish on 7/20/2016.
@@ -25,7 +29,7 @@ public class Auth {
     public Auth(Context context) {
         this.context = context;
         user = new User();
-        preferences = context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        preferences = context.getSharedPreferences(Constants.PREF_FILE, MODE_PRIVATE);
         authToken = preferences.getString(Constants.KEY_PROVIDER_TOKEN, null);
     }
 
@@ -47,6 +51,14 @@ public class Auth {
 
     public void logout() {
         setAuthToken(null);
+
+        if (AccessToken.getCurrentAccessToken().getToken() != null){
+            AccessToken.setCurrentAccessToken(null);
+        }
+        SharedPreferences cognitoPref = context.getSharedPreferences(DEFAULT_SHAREDPREFERENCES_NAME, MODE_PRIVATE);
+        if (cognitoPref != null){
+            cognitoPref.edit().clear().apply();
+        }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();

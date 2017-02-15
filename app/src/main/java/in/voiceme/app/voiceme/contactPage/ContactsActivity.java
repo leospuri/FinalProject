@@ -289,9 +289,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void readContacts() {
-        if (ActivityUtils.isContactsPermission(this)) {
-            contactMethod();
-        }
+        ActivityUtils.isContactsPermission(this);
     }
 
     public void contactMethod(){

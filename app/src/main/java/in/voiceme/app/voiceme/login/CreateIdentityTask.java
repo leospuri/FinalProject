@@ -34,7 +34,7 @@ class CreateIdentityTask extends AsyncTask<Map<String, String>, Integer, Boolean
             String provider = (String) logins[0].keySet().toArray()[0];
             String token = logins[0].get(provider);
             SharedPreferences settings =
-                    signInActivity.getSharedPreferences(Constants.PREF_FILE, Activity.MODE_WORLD_WRITEABLE);
+                    signInActivity.getSharedPreferences(Constants.PREF_FILE, Activity.MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString(Constants.KEY_LAST_USED_PROVIDER, provider);
             editor.putString(Constants.KEY_PROVIDER_TOKEN, token);

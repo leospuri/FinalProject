@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="support-core-ui-24.2.1">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/materialanimatedswitch/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/annotations.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/materialanimatedswitch/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/res" />
-      <root url="jar://$PROJECT_DIR$/materialanimatedswitch/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/materialanimatedswitch/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/3116f5a3294d112a6093c0fab860596730c850ea/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/3116f5a3294d112a6093c0fab860596730c850ea/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/3116f5a3294d112a6093c0fab860596730c850ea/output/jars/libs/internal_impl-24.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

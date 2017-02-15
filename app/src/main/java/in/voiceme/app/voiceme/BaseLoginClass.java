@@ -24,6 +24,6 @@ public class BaseLoginClass {
 
     public boolean isDemoMode(View viewPrm) {
         Context contextLcl = viewPrm.getContext();
-        return contextLcl.getSharedPreferences("Logged in or not", Context.MODE_WORLD_WRITEABLE).getBoolean("is this demo mode", false);
+        return contextLcl.getSharedPreferences("Logged in or not", Context.MODE_PRIVATE).getBoolean("is this demo mode", false);
     }
 }

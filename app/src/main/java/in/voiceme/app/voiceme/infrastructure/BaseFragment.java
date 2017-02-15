@@ -24,7 +24,7 @@ public abstract class BaseFragment extends Fragment implements WasLoggedInInterf
 
         application = (VoicemeApplication) getActivity().getApplication();
         scheduler = new ActionScheduler(application);
-        preferences = getActivity().getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        preferences = getActivity().getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
         bus = application.getBus();
         bus.register(this);
