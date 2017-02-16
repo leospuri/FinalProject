@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.facebook.AccessToken;
 
 import in.voiceme.app.voiceme.ProfilePage.User;
 import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.login.account.AccountManager;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -51,13 +53,14 @@ public class Auth {
 
     public void logout() {
         setAuthToken(null);
+        CognitoCachingCredentialsProvider cognitoCachingCredentialsProvider = AccountManager.getInstance().getCredentialsProvider();
 
         if (AccessToken.getCurrentAccessToken().getToken() != null){
             AccessToken.setCurrentAccessToken(null);
         }
-        SharedPreferences cognitoPref = context.getSharedPreferences(DEFAULT_SHAREDPREFERENCES_NAME, MODE_PRIVATE);
-        if (cognitoPref != null){
-            cognitoPref.edit().clear().apply();
+
+        if(cognitoCachingCredentialsProvider != null){
+            cognitoCachingCredentialsProvider.clear();
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

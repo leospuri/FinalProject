@@ -66,11 +66,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void finishLogin() {
-        SharedPreferences cognitoPref = getSharedPreferences(DEFAULT_SHAREDPREFERENCES_NAME, MODE_PRIVATE);
-        if (cognitoPref != null){
-            cognitoPref.edit().clear().apply();
-        }
-
         SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
         startActivity(new Intent(this, LoginUserDetails.class));
