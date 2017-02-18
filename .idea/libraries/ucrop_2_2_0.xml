@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="ucrop-2.2.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/1dccea12fb4938d11d3a3fb54c0f1576c624cca7/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/1dccea12fb4938d11d3a3fb54c0f1576c624cca7/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/edb5b0aa11cdcfb29161d74c4b267196a7577b9a/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/edb5b0aa11cdcfb29161d74c4b267196a7577b9a/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

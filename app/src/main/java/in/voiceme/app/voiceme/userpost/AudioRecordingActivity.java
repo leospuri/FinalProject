@@ -8,12 +8,10 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +19,6 @@ import java.io.IOException;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
-import timber.log.Timber;
 
 public class AudioRecordingActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "AudioFxActivity";
@@ -33,14 +30,11 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private String time;
     public boolean isContinue = true;
     private int maxDuration = 120 * 1000;
-    private File file;
+    private File file1;
 
-    private File direct;
-
-   // private static final String filePath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
+    private static final String filePath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
     private int currentDuration = 0;
     private int second = 0;
-
     private int minute = 0;
     private String timePlay;
     private boolean isListen = false;
@@ -51,6 +45,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private ImageView done;
     private ImageView pause;
     private ImageView cancel;
+
 
 
     Handler handler = new Handler();
@@ -73,7 +68,6 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             }
         });
 
-        createFilePerm();
         // filePath = Environment.getExternalStorageDirectory() + "/currentRecording.mp3";
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -85,7 +79,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         pause = (ImageView) findViewById(R.id.pause);
         cancel = (ImageView) findViewById(R.id.cancel_recording);
 
-          // IOException=- set data source failed.
+        initialiseAudio();  // IOException=- set data source failed.
 
         handler.post(updateThread);
 
@@ -106,7 +100,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
         mMediaPlayer = new MediaPlayer();
         try {
-            mMediaPlayer.setDataSource(file.getPath());
+            mMediaPlayer.setDataSource(filePath);
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,74 +119,20 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
                 });
     }
 
-    private void createFile(){
-
-        direct = new File(Environment.getExternalStorageDirectory() + "/Recording");
-        if (!direct.exists()) {
-            if (direct.mkdirs()) {
-                Timber.v("Directory created");
-            }
-            else {
-                Timber.v("Directory doesn't created");
-            }
-        }
-
-        file = new File(direct, "currentRecording.mp3");
-        if (!file.exists()){
-            try {
-                if(file.createNewFile()){
-                    Timber.v("File created");
-                }else {
-                    Timber.v("File doesn't created");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-    }
-
     private void recordActivity() {
-        if (!ActivityUtils.isMicrophoneAvailable(this)) {
-            Toast.makeText(this, "Microphone not available", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         if (ActivityUtils.recordPermissionGranted(this)) {
             start();
         }
     }
 
-    private void createFilePerm() {
-        if (ActivityUtils.deleteAudioFile(this)) {
-            createFile();
-        }
-    }
-
-
-
     private void readFromStorage() {
-        if (ActivityUtils.deleteAudioFile(this)) {
+        if (ActivityUtils.isReadStoragePermission(this)) {
             listenPlay();
         }
     }
 
-    private void pauseRecordPerm() {
-        if (ActivityUtils.deleteAudioFile(this)) {
-            listenStop();
-        }
-    }
-
-    private void stopRecordPerm() {
-        if (ActivityUtils.deleteAudioFile(this)) {
-            stopRecording();
-        }
-    }
-
     private void readAudioFileStorage() {
-        if (ActivityUtils.deleteAudioFile(this)) {
+        if (ActivityUtils.isReadStoragePermission(this)) {
             done();
         }
     }
@@ -229,11 +169,11 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             recordActivity();
         } else if (v.getId() == R.id.stop){
 
-            stopRecordPerm();
+            stopRecording();
         } else if (v.getId() == R.id.done){
             readAudioFileStorage();
         } else if (v.getId() == R.id.pause){
-            pauseRecordPerm();
+            listenStop();
 
         } else if(v.getId() == R.id.cancel_recording){
             Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
@@ -244,73 +184,42 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     }
 
     public void start() {
+        // startChange();
+        File file = new File(filePath);
 
-        if (isContinue) {
-            // BEGIN_INCLUDE(stop_release_media_recorder)
+        record.setVisibility(View.GONE);
+        stop.setVisibility(View.VISIBLE);
 
-            // stop recording and release camera
-            try {
-                myAudioRecorder.stop();  // stop the recording
-            } catch (RuntimeException e) {
-                // RuntimeException is thrown when stop() is called immediately after start().
-                // In this case the output file is not properly constructed ans should be deleted.
-                Log.d(TAG, "RuntimeException: stop() is called immediately after start()");
-                //noinspection ResultOfMethodCallIgnored
-                file.delete();
-            }
-            releaseMediaRecorder(); // release the MediaRecorder object
-           // mCamera.lock();         // take camera access back from MediaRecorder
+        final long start = System.currentTimeMillis();
+        final Handler handler = new Handler();
+        myAudioRecorder = new MediaRecorder();
+        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.DEFAULT);
+        myAudioRecorder.setOutputFile(String.valueOf(file));
+        myAudioRecorder.setMaxDuration(maxDuration);
 
-            // inform the user that recording has stopped
-         //   setCaptureButtonText("Capture");
-            isContinue = false;
-        //    releaseCamera();
-            // END_INCLUDE(stop_release_media_recorder)
-
-        } else {
-
-            // startChange();
-            //  File file = new File(filePath);
-
-            record.setVisibility(View.GONE);
-            stop.setVisibility(View.VISIBLE);
-
-            final long start = System.currentTimeMillis();
-            final Handler handler = new Handler();
-            myAudioRecorder = new MediaRecorder();
-            myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.DEFAULT);
-            myAudioRecorder.setOutputFile(file.getPath());
-            myAudioRecorder.setMaxDuration(maxDuration);
-
-            try {
-                myAudioRecorder.prepare();
-                myAudioRecorder.start();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            handler.post(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isContinue) {
-                                timerHandler();
-                                if (System.currentTimeMillis() - start >= maxDuration) {
-                                    stopRecording();
-                                }
-                                handler.postDelayed(this, 1000);
-                            }
-                        }
-                    });
-
-
-
+        try {
+            myAudioRecorder.prepare();
+            myAudioRecorder.start();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
+        handler.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isContinue) {
+                            timerHandler();
+                            if (System.currentTimeMillis() - start >= maxDuration) {
+                                stopRecording();
+                            }
+                            handler.postDelayed(this, 1000);
+                        }
+                    }
+                });
     }
 
     private void stopRecording() {
@@ -321,20 +230,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         play.setVisibility(View.VISIBLE);
         pause.setVisibility(View.GONE);
         stop.setVisibility(View.GONE);
-        releaseMediaRecorder();
+        myAudioRecorder.stop();
+        myAudioRecorder.release();
+        myAudioRecorder = null;
 
-    }
-
-    private void releaseMediaRecorder(){
-        if (myAudioRecorder != null) {
-            // clear recorder configuration
-            myAudioRecorder.reset();
-            // release the recorder object
-            myAudioRecorder.release();
-            myAudioRecorder = null;
-            // Lock camera for later use i.e taking it back from MediaRecorder.
-            // MediaRecorder doesn't need it anymore and we will release it if the activity pauses.
-        }
     }
 
     private void listenPlay() {
@@ -345,7 +244,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         isListen = true;
         mMediaPlayer = new MediaPlayer();
         try {
-            mMediaPlayer.setDataSource(file.getPath());
+            mMediaPlayer.setDataSource(filePath);
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
@@ -382,7 +281,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     private void done() {
         Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
-        intent.putExtra("path", file.getPath());
+        intent.putExtra("path", filePath);
         intent.putExtra("audioTime", time);
         setResult(Activity.RESULT_OK, intent);
         finish();
