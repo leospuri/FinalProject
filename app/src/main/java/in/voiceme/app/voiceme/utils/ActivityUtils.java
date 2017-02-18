@@ -45,12 +45,16 @@ public class ActivityUtils {
     // 1. For taking [picture and storing inside the external storage
     private static final String[] TAKE_PICTURE_PERM = {CAMERA, WRITE_EXTERNAL_STORAGE};
     // 2. recording audio and storing inside internal storage
-    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, SET_TIME, SET_TIME_ZONE};
+    private static final String[] RECORD_AUDIO_PERM = {WRITE_EXTERNAL_STORAGE, RECORD_AUDIO, SET_TIME, SET_TIME_ZONE};
 
     private static final String[] WRITE_PERM = {WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
 
 
 
+    public static boolean isMicrophoneAvailable(Context context) {
+        final PackageManager pm = context.getPackageManager();
+        return pm != null && pm.hasSystemFeature(PackageManager.FEATURE_MICROPHONE);
+    }
 
 
     public static boolean deleteAudioFile(Context activity) {
