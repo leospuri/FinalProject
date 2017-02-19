@@ -86,7 +86,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
         layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
-        layout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -75,7 +75,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         }
 
         layout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        layout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

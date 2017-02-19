@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -33,6 +35,7 @@ import static com.facebook.GraphRequest.TAG;
 
 public class ActivityInteractionFragment extends BaseFragment implements PaginationAdapterCallback {
     public static final String ARG_INTERACTION_PAGE = "ARG_INTERACTION_PAGE";
+    PullRefreshLayout layout;
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
@@ -75,6 +78,21 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
+
+        layout = (PullRefreshLayout) view.findViewById(R.id.interact_activity_swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
+
         try {
             initUiView(view);
             loadFirstPage();

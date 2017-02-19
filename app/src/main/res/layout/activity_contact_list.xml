@@ -11,10 +11,18 @@
         android:orientation="vertical">
 
         <include layout="@layout/include_toolbar3" />
-        <android.support.v7.widget.RecyclerView
-            android:layout_height="wrap_content"
+
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/contact_swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:id="@+id/personal_contact_recyclerview" />
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/personal_contact_recyclerview" />
+
+            </com.baoyz.widget.PullRefreshLayout>
+
 
         <ProgressBar
             android:id="@+id/main_progress"

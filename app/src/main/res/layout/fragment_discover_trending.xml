@@ -4,11 +4,18 @@
     android:layout_height="match_parent"
     tools:context="in.voiceme.app.voiceme.DiscoverPage.DiscoverTrendingFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_discover_trending_recyclerview"
-        class="android.supportv7.widget.RecyclerView"/>
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/discover_trending_swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_discover_trending_recyclerview"
+            class="android.supportv7.widget.RecyclerView"/>
+
+        </com.baoyz.widget.PullRefreshLayout>
+
 
     <ProgressBar
         android:id="@+id/main_progress"

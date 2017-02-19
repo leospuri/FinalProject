@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -52,6 +54,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     LinearLayout errorLayout;
     LinearLayout noPostLayout;
     TextView txtError;
+    PullRefreshLayout layout;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,19 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         noPostLayout = (LinearLayout) findViewById(R.id.no_post_layout);
         txtError = (TextView) findViewById(R.id.error_txt_cause);
 
+        layout = (PullRefreshLayout) findViewById(R.id.contact_swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
 
   //      if (!secondPage()){
     //        noPostLayout.setVisibility(View.VISIBLE);

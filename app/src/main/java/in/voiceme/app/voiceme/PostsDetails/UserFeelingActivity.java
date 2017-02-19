@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -63,6 +64,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
+    PullRefreshLayout layout;
 
     private String feelingID;
 
@@ -98,6 +100,20 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
+
+        layout = (PullRefreshLayout) findViewById(R.id.feeling_swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
 
         textStatus.setOnClickListener(this);
         audioStatus.setOnClickListener(this);

@@ -5,11 +5,19 @@
     android:orientation="vertical"
     tools:context="in.voiceme.app.voiceme.ActivityPage.ActivityInteractionFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_main_interaction_recyclerview"
-        class="android.supportv7.widget.RecyclerView"/>
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/interact_activity_swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_main_interaction_recyclerview"
+            class="android.supportv7.widget.RecyclerView"/>
+
+        </com.baoyz.widget.PullRefreshLayout>
+
 
     <ProgressBar
         android:id="@+id/main_progress"

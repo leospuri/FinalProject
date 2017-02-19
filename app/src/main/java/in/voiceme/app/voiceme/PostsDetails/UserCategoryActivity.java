@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -64,6 +65,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
 
+    PullRefreshLayout layout;
 
     private String currentCategoryID;
 
@@ -111,6 +113,22 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
         txtError = (TextView) findViewById(R.id.error_txt_cause);
+
+        layout = (PullRefreshLayout) findViewById(R.id.category_swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
+
+
         try {
             initUiView();
             loadFirstPage();
