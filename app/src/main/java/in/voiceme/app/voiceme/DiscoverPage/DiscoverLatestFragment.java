@@ -16,16 +16,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
@@ -52,6 +54,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     LinearLayout errorLayout;
     TextView txtError;
     private LatestListAdapter latestListAdapter;
+    PullRefreshLayout layout;
 
 
     public DiscoverLatestFragment() {
@@ -81,6 +84,21 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
+
+        layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
+
         try {
             initUiView(view);
             loadFirstPage();

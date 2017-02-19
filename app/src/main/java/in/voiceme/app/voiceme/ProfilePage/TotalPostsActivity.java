@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -30,6 +32,7 @@ import static com.facebook.GraphRequest.TAG;
 
 public class TotalPostsActivity extends BaseActivity implements PaginationAdapterCallback {
     private int mPage;
+    PullRefreshLayout layout;
     private RecyclerView recyclerView;
     private TotalPostsAdapter activityInteractionAdapter;
     private String userId;
@@ -70,6 +73,20 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        layout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
 
     }
 

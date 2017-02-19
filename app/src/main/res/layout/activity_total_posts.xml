@@ -14,11 +14,20 @@
 
         <include layout="@layout/include_toolbar3"
             android:background="#efefef"/>
-        <android.support.v7.widget.RecyclerView
-            android:layout_height="wrap_content"
+
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:background="@color/body_Color"
-            android:id="@+id/user_category_recyclerview" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@color/body_Color"
+                android:id="@+id/user_category_recyclerview" />
+
+            </com.baoyz.widget.PullRefreshLayout>
+
 
         <ProgressBar
             android:id="@+id/main_progress"
