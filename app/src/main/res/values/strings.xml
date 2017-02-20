@@ -18,11 +18,7 @@
     <!--   ******************  -->
 
 
-
-
-
-
-      <!--  <string name="google_server_client_id">454460603852-giqs3geaer8jovq7br88bengkeetbfnr.apps.googleusercontent.com</string> -->
+    <!--  <string name="google_server_client_id">454460603852-giqs3geaer8jovq7br88bengkeetbfnr.apps.googleusercontent.com</string> -->
     <string name="google_server_client_id">345616717721-d1ege0ithbp2q9975fl2lsa65472prs5.apps.googleusercontent.com</string>
 
     <string name="error_msg_no_internet">Not connected to internet</string>

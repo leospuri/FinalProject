@@ -65,7 +65,8 @@ public class TextStatus extends BaseActivity {
                         .setAction("Enter Category Page")
                         .build());
                 // [END custom_event]
-                Intent categoryIntent = new Intent(TextStatus.this, CategoryActivity.class);
+             //   Intent categoryIntent = new Intent(TextStatus.this, CategoryActivity.class);
+                Intent categoryIntent = new Intent(TextStatus.this, Category2Activity.class);
                 startActivityForResult(categoryIntent, 1);
             }
         });

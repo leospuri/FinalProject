@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar3" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/editText"
+            android:hint="Enter text for category"
+            android:layout_alignRight="@+id/tags_laoyut"
+            android:layout_alignEnd="@+id/tags_laoyut"
+            android:layout_alignLeft="@+id/tags_laoyut"
+            android:layout_alignStart="@+id/tags_laoyut" />
+
+        <ScrollView
+            android:id="@+id/tags_laoyut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:background="@android:color/white"
+            android:visibility="visible"
+            android:layout_below="@+id/editText">
+
+            <com.cunoraz.tagview.TagView
+                android:id="@+id/tag_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp" />
+
+        </ScrollView>
+    </LinearLayout>
+
+    <include layout="@layout/include_main_nav_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

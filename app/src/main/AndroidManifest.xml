@@ -3,8 +3,8 @@
     package="in.voiceme.app.voiceme">
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:maxSdkVersion="25" />
+        android:maxSdkVersion="25"
+        android:minSdkVersion="16" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,6 +23,8 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".infrastructure.VoicemeApplication"
@@ -212,7 +214,9 @@
         <service
             android:name=".contactPage.ContactService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".userpost.Category2Activity"></activity>
     </application>
 
 </manifest>
