@@ -82,18 +82,19 @@ public class VoicemeApplication extends Application {
 
 
 
+
         JodaTimeAndroid.init(this);
         FacebookSdk.sdkInitialize(this);
         Fresco.initialize(this);
 
         sAnalytics = GoogleAnalytics.getInstance(this);
-        /******************************************/
+        /* *****************************************/
    //     Fabric.with(this, new Crashlytics());
-    //    Timber.plant(new ReleaseTree());
+     //   Timber.plant(new ReleaseTree());
 
 
         context = getApplicationContext();
-        /**
+        /*
          *Creates a periodic job to refresh token
          */
         JobManager.create(this).addJobCreator(new RefreshTokenJobCreator());

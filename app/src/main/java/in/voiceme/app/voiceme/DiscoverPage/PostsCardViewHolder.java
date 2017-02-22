@@ -381,7 +381,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
 
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         String userId = MySharedPreferences.getUserId(preferences);
         String postId = dataItem.getIdPosts();
         application.getWebService().likes(userId, postId, like, hug, same, listen)
@@ -394,7 +394,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     }
 
     protected void sendUnlikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         String userId = MySharedPreferences.getUserId(preferences);
         String postId = dataItem.getIdPosts();
         application.getWebService().unlikes(userId, postId, like, hug, same, listen)

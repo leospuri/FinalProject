@@ -258,5 +258,4 @@ public interface WebService {
             @Field("text_status") String id_posts
     );
 
-
 }

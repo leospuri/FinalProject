@@ -256,7 +256,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     likeButtonMain.setFavorite(true);
                     likeCounter++;
-                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
                     String sendLike = "senderid@" + userId + "_contactId@" +
                             myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
@@ -284,7 +284,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     HugButtonMain.setFavorite(true);
                     hugCounter++;
-                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
                     String sendLike = "senderid@" + userId + "_contactId@" +
                             myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
@@ -315,7 +315,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     SameButtonMain.setFavorite(true);
                     sameCounter++;
-                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
                     String sendLike = "senderid@" + userId + "_contactId@" +
                             myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
@@ -343,7 +343,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 //    this.menu = popupMenu.getMenu();
 
                 SharedPreferences preferences;
-                preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
                 if (MySharedPreferences.getUserId(preferences).equals(myList.get(0).getIdUserName())){
                     if(popupMenu.getMenu() == null)

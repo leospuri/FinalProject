@@ -398,7 +398,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //    this.menu = popupMenu.getMenu();
 
                 SharedPreferences preferences;
-                preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
@@ -534,7 +534,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(true);
                 hugCounter++;
-                SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId" + dataItem.getIdPosts()  + "_click" + "2";

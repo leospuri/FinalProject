@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/category_menu"
+        android:icon="@mipmap/ic_action_edit"
+        android:orderInCategory="100"
+        android:title="OK"
+        app:showAsAction="always" />
+
+
+</menu>
