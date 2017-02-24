@@ -406,7 +406,13 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 });
     }
 
+
+
+
+
     protected void sendLikeNotification(final VoicemeApplication application, String likeUrl) {
+
+
         application.getWebService()
                 .sendLikeNotification(likeUrl)
                 .observeOn(AndroidSchedulers.mainThread())

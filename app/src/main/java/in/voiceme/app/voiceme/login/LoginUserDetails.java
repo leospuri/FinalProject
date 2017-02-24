@@ -41,7 +41,8 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
         token = FirebaseInstanceId.getInstance().getToken();
 
-        Timber.d("token from fcm: " + token);
+        Toast.makeText(this, "Token " + token, Toast.LENGTH_SHORT).show();
+        Timber.d(String.valueOf("token from fcm: " + token));
         // Log.d("Id Generated", token);
         username = (EasyTextInputLayout) findViewById(R.id.login_start_username);
 
@@ -60,7 +61,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
                         //Todo add network call for uploading profile_image file
-                        startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
+                   //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
                     }
                 });
     }

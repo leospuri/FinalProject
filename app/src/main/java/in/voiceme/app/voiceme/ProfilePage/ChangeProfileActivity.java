@@ -23,13 +23,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -184,6 +184,37 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         uCrop.start(ChangeProfileActivity.this);
     }
 
+    protected void getChat() {
+        application.getWebService()
+                .getResponse("senderid@1_contactId@1_chat@yes_chatText@mychatTtttttext")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        Timber.d("Message from server" + response);
+                    }
+                });
+
+
+    }
+
+    protected void sendlike() {
+        application.getWebService()
+                .sendLikeNotification("senderid@1_contactId@1_postId@1_click@2")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        Timber.d("Message from server" + response);
+                    }
+                });
+    }
 
     @Override
     public void onClick(View view) {
@@ -191,7 +222,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         int viewId = view.getId();
 
         if (viewId == R.id.changeimage) {
-            changeProfileRequest();
+           // changeProfileRequest();
+            getChat();
         } else if (viewId == R.id.submit_button_profile) {
 
             if (changedImage){

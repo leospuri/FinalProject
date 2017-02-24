@@ -216,7 +216,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".userpost.Category2Activity"></activity>
+        <activity android:name=".userpost.Category2Activity" />
+        <activity android:name=".login.account.AfterLoginScreen"></activity>
     </application>
 
 </manifest>

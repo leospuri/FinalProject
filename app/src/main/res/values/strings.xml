@@ -4,7 +4,7 @@
     <!-- Testing AWS and facebook ID -->
 
 
-    <string name="FACEBOOK_APP_ID">582316801966874</string>
+    <string name="FACEBOOK_APP_ID">595451247320096</string>
     <string name="aws_identity_pool">us-east-1:6526d88c-8ae8-415d-b8f3-4cf95c191843</string>
 
     <!--   ******************  -->

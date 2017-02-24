@@ -537,7 +537,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
-                        dataItem.getIdUserName() + "_postId" + dataItem.getIdPosts()  + "_click" + "2";
+                        dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
 
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");

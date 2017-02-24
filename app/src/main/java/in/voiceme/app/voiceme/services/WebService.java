@@ -29,70 +29,70 @@ import rx.Observable;
 
 public interface WebService {
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
 
     // Todo donot know about this call
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getFollowers(@Query("user_id") String userID,
                                               @Query("follower") String user_id);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getPopulars(@Query("user_id") String userID,
                                              @Query("popular") String booleann,
                                              @Query("page") int page);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getTrending(@Query("user_id") String userID,
                                              @Query("trending") String booleann,
                                              @Query("page") int page);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann,
                                                @Query("user_id") String user_id);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getSingleUserPosts(@Query("id_user") String id_user,
                                                     @Query("user_id") String user_id,
                                                     @Query("page") int page);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getUserFollowerPost(@Query("follower") String follower,
                                                      @Query("user_id") String user_id,
                                                      @Query("page") int page);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getActivityPosts(@Query("id_user") String id_user,
                                                   @Query("filtered") String filtered,
                                                   @Query("user_id") String user_id,
                                                   @Query("page") int page);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getContactPosts(@Query("id_user_name") String id_user_name,
                                                  @Query("user_id") String user_id,
                                                  @Query("contacts") String contacts,
                                                  @Query("page") int page);
 
-    @GET("testing/server/get_comments.php")
+    @GET("get_comments.php")
     Observable<List<PostUserCommentModel>> getUserComments(
             @Query("id_posts") String id_posts);
 
 
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id,
                                                  @Query("user_id") String userID,
                                                  @Query("page") int page);
 
-    @GET("testing/server/posts.php")
+    @GET("posts.php")
     Observable<List<PostsModel>> getCategoryPosts(@Query("category_id") String category_id,
                                                   @Query("user_id") String userID,
                                                   @Query("page") int page);
 
 
     @FormUrlEncoded
-    @POST("testing/server/likes.php")
+    @POST("likes.php")
     Observable<PostLikesResponse> likes(@Field("user_id") String userId,
                                         @Field("post_id") String postId,
                                         @Field("like") int like,
@@ -101,7 +101,7 @@ public interface WebService {
                                         @Field("listen") int listen);
 
     @FormUrlEncoded
-    @POST("testing/server/aboutme.php")
+    @POST("aboutme.php")
     Observable<ProfileAboutMe> LoginUserName(@Field("user_id") String userId,
                                              @Field("username") String username,
                                              @Field("about_me") String about_me,
@@ -109,7 +109,7 @@ public interface WebService {
 
 
     @FormUrlEncoded
-    @POST("testing/server/unlike.php")
+    @POST("unlike.php")
     Observable<PostLikesResponse> unlikes(@Field("user_id") String userId,
                                           @Field("post_id") String postId,
                                           @Field("like") int like,
@@ -118,7 +118,7 @@ public interface WebService {
                                           @Field("audio") int listen);
 
     @FormUrlEncoded
-    @POST("testing/server/login_new.php")
+    @POST("login_new.php")
     Observable<LoginResponse> login(
             @Field("name") String name,
             @Field("email") String email,
@@ -133,7 +133,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("testing/server/login_new.php")
+    @POST("login_new.php")
     Observable<LoginResponse> loginWithoutProfile(
             @Field("name") String name,
             @Field("email") String email,
@@ -147,7 +147,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("testing/server/postStatus.php")
+    @POST("postStatus.php")
     Observable<UserResponse> postStatus(
             @Field("user_id") String user_id,
             @Field("post_text") String postStatus,
@@ -159,12 +159,12 @@ public interface WebService {
 
 
 
-    @GET("testing/server/get_likers.php")
+    @GET("get_likers.php")
     Observable<PostSuperUserListModel> getInteractionPosts(
             @Query("id_posts") String id_posts);
 
     @FormUrlEncoded
-    @POST("testing/server/register_mobile.php")
+    @POST("register_mobile.php")
     Observable<BaseResponse> registerMobile(
             @Field("id_user_name") String user_id,
             @Field("phone_number") String phone_number
@@ -172,14 +172,14 @@ public interface WebService {
 
     // Todo adding all contacts mobile left
     @FormUrlEncoded
-    @POST("testing/server/register_user_contacts.php")
+    @POST("register_user_contacts.php")
     Observable<ContactAddResponse> addAllContacts(
             @Field("id_user_name") String user_id,
             @Field("contacts") String contacts
     );
 
     @FormUrlEncoded
-    @POST("testing/server/follower.php")
+    @POST("follower.php")
     Observable<UserResponse> addFollower(
             @Field("user_id") String user_id,
             @Field("follower_id") String follower_id,
@@ -187,17 +187,17 @@ public interface WebService {
     );
 
 
-    @GET("testing/server/follower.php")
+    @GET("follower.php")
     Observable<ProfileFollowerUserList> getUserFollow(@Query("user_id") String user_id);
 
-    @GET("testing/server/follower.php")
+    @GET("follower.php")
     Observable<ProfileFollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
 
-    @GET("testing/server/get_user.php")
+    @GET("get_user.php")
     Observable<ProfileUserList> getUserProfile(
             @Query("user_id") String user_id);
 
-    @GET("testing/server/get_user.php")
+    @GET("get_user.php")
     Observable<ProfileUserList> getOtherUserProfile(
             @Query("user_id") String user_id,
             @Query("follow_id") String follower);
@@ -207,7 +207,7 @@ public interface WebService {
 
     @Headers("Accept: multipart/form-data")
     @Multipart
-    @POST("testing/server/audio_upload/index.php")
+    @POST("audio_upload/index.php")
     Observable<String> uploadFile(@Part MultipartBody.Part file);
 
 
@@ -227,7 +227,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("testing/server/postComments.php")
+    @POST("postComments.php")
     Observable<UserResponse> sendComment(
             @Field("id_user_name") String user_id,
             @Field("id_posts") String id_posts,
@@ -235,7 +235,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("testing/server/report_abuse.php")
+    @POST("report_abuse.php")
     Observable<ReportResponse> reportAbuse(
             @Field("id_posts") String id_posts,
             @Field("id_user_name") String id_user_name,
@@ -244,7 +244,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("testing/server/updatePosts.php")
+    @POST("updatePosts.php")
     Observable<ReportResponse> EditPosts(
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts,
@@ -252,7 +252,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("testing/server/updatePostWithoutAudio.php")
+    @POST("updatePostWithoutAudio.php")
     Observable<ReportResponse> updatePostWithoutAudio(
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts
