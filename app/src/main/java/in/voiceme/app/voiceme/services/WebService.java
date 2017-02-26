@@ -16,6 +16,7 @@ import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.userpost.AllCategoryPojo;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -32,6 +33,9 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
+
+    @GET("get_hashtags.php")
+    Observable<List<AllCategoryPojo>> getAllHashTags();
 
     // Todo donot know about this call
     @GET("posts.php")
@@ -197,13 +201,14 @@ public interface WebService {
     Observable<ProfileUserList> getUserProfile(
             @Query("user_id") String user_id);
 
+    @GET("check_username_availability.php")
+    Observable<String> checkUsername(
+            @Query("user_id") String user_id);
+
     @GET("get_user.php")
     Observable<ProfileUserList> getOtherUserProfile(
             @Query("user_id") String user_id,
             @Query("follow_id") String follower);
-
-
-
 
     @Headers("Accept: multipart/form-data")
     @Multipart
@@ -213,7 +218,8 @@ public interface WebService {
 
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
     Observable<String> getResponse(
-            @Query("dataMsg") String dataMessage
+            @Query("dataMsg") String dataMessage,
+            @Query("chatText") String chatText
     );
 
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")

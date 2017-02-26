@@ -186,7 +186,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     protected void getChat() {
         application.getWebService()
-                .getResponse("senderid@1_contactId@1_chat@yes_chatText@mychatTtttttext")
+                .getResponse("senderid@2_contactId@1_chat@yes", "sample text sent")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -224,6 +224,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         if (viewId == R.id.changeimage) {
            // changeProfileRequest();
             getChat();
+          //  startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
             if (changedImage){

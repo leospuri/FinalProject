@@ -18,22 +18,30 @@ specific language governing permissions and limitations
 under the License.
 Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<com.redbooth.WelcomePageLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/welcome_page"
-    tools:background="@color/page1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.IntroActivity">
 
+    <com.redbooth.WelcomeCoordinatorLayout
+        android:id="@+id/coordinator_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#68B7AB"
+        app:showIndicators="true"
+        app:indicatorUnselected="#99b7b7b7"
+        app:indicatorSelected="#bfb7b7b7" />
 
-    <TextView
-        android:id="@+id/android_spin"
+    <Button
+        style="?attr/borderlessButtonStyle"
+        android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="80dp"
-        android:textSize="30dp"
-        android:text="Welcome Page 4" />
+        android:text="skip"
+        android:textColor="@color/white"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"/>
 
-</com.redbooth.WelcomePageLayout>
+</RelativeLayout>

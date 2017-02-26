@@ -4,29 +4,41 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.cunoraz.tagview.Tag;
 import com.cunoraz.tagview.TagView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class Category2Activity extends BaseActivity {
     private TagView tagGroup;
 
     private EditText editText;
+    private List<CategoryTag> categoryTags;
+    private RecyclerView rv;
+    private ScrollView scrollView;
+
 
     /**
      * sample country list
@@ -48,19 +60,32 @@ public class Category2Activity extends BaseActivity {
             }
         });
 
+        scrollView = (ScrollView) findViewById(R.id.tags_laoyut);
+
+        rv=(RecyclerView)findViewById(R.id.category_tag_rv);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        rv.setHasFixedSize(true);
+
+        initializeData();
+        initializeAdapter();
+
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
 
-        prepareTags();
+        getAllHashTags();
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                scrollView.setVisibility(View.VISIBLE);
+                rv.setVisibility(View.GONE);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 setTags(s);
             }
 
@@ -105,15 +130,40 @@ public class Category2Activity extends BaseActivity {
         });
     }
 
-    private void prepareTags() {
+
+
+    private void initializeData(){
+        categoryTags = new ArrayList<>();
+        categoryTags.add(new CategoryTag("Emma Wilson", "222"));
+        categoryTags.add(new CategoryTag("Lavery Maiss", "333"));
+        categoryTags.add(new CategoryTag("Lillie Watts", "334"));
+
+
+    }
+
+
+
+    private void initializeAdapter(){
+        CategoryTagAdapter adapter = new CategoryTagAdapter(categoryTags);
+        rv.setAdapter(adapter);
+    }
+
+    private void prepareTags(List<AllCategoryPojo> allCategories) {
+        Gson gson = new Gson();
         tagList = new ArrayList<>();
+        String simpleTags = gson.toJson(
+                allCategories,
+                new TypeToken<ArrayList<AllCategoryPojo>>() {}.getType());
         JSONArray jsonArray;
         JSONObject temp;
         try {
-            jsonArray = new JSONArray(ConstantsTag.COUNTRIES);
+            // Todo result from network call
+            jsonArray = new JSONArray(simpleTags);
+
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 temp = jsonArray.getJSONObject(i);
-                tagList.add(new TagClass(temp.getString("code"), temp.getString("name")));
+                tagList.add(new TagClass(temp.getString("id"), temp.getString("name")));
 
             }
         } catch (Exception e) {
@@ -121,6 +171,26 @@ public class Category2Activity extends BaseActivity {
         }
 
     }
+
+    private void getAllHashTags() {
+        // network call from retrofit
+        try {
+            application.getWebService()
+                    .getAllHashTags()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<List<AllCategoryPojo>>() {
+                        @Override
+                        public void onNext(List<AllCategoryPojo> userResponse) {
+                            prepareTags(userResponse);
+                            Toast.makeText(Category2Activity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void setTags(CharSequence cs) {
         /**

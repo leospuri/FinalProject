@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.google.android.gms.analytics.HitBuilders;
 
+import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
@@ -68,8 +69,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void finishLogin() {
         SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
-        startActivity(new Intent(this, LoginUserDetails.class));
-        finish();
+     //   if (secondPage()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+   /*      } else {
+            startActivity(new Intent(this, IntroActivity.class));
+            finish();
+            return;
+        } */
     }
 
 

@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
 //        checkAuthStatus();
 
+
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Activity Page");
         setNavDrawer(new MainNavDrawer(this));

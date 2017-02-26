@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private List<PostsModel> myList;
     List<PostUserCommentModel> myCommentList;
     private static LikeUnlikeClickListener myClickListener;
+    private ProgressBar progressBar;
 
     private boolean doDislike;
 
@@ -118,6 +120,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressBar = new ProgressBar(this);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         setContentView(R.layout.activity_posts_details);
         getSupportActionBar().setTitle("Post Details");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
@@ -207,6 +212,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
 
         initRecyclerView();
+        progressBar.setVisibility(View.INVISIBLE);
 
     }
 

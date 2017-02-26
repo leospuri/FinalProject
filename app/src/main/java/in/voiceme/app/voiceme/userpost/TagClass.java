@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class TagClass {
 
-    private String code;
+    private String id;
     private String name;
     private String color;
 
@@ -18,8 +18,8 @@ public class TagClass {
 
     }
 
-    public TagClass(String sinif, String name) {
-        this.code = sinif;
+    public TagClass(String id, String name) {
+        this.id = id;
         this.name = name;
         this.color = getRandomColor();
 
@@ -57,12 +57,12 @@ public class TagClass {
         this.color = color;
     }
 
-    public String getSinif() {
-        return code;
+    public String getId() {
+        return id;
     }
 
-    public void setSinif(String code) {
-        this.code = code;
+    public void setId(String code) {
+        this.id = code;
     }
 
 

@@ -7,4 +7,18 @@
         <item>Strip</item>
     </string-array>
 
+        <string-array name="colors">
+            <item>#ff0000</item>
+            <item>#00ff00</item>
+            <item>#0000ff</item>
+        </string-array>
+
+    <integer-array name="androidcolors">
+        <item>@color/md_purple_200</item>
+        <item>@color/md_blue_200</item>
+        <item>@color/md_light_blue_200</item>
+        <item>@color/md_cyan_200</item>
+
+    </integer-array>
+
 </resources>
