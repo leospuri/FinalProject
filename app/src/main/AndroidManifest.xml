@@ -216,10 +216,12 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".userpost.Category2Activity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".userpost.Category2Activity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".login.account.AfterLoginScreen" />
         <activity android:name=".login.IntroActivity" />
+        <activity android:name=".chat.ChatDialogActivity"></activity>
     </application>
 
 </manifest>

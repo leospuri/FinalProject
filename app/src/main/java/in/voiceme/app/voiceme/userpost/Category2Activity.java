@@ -107,6 +107,7 @@ public class Category2Activity extends BaseActivity {
             public void onTagClick(Tag tag, int position) {
                 editText.setText(tag.text);
                 editText.setSelection(tag.text.length());//to set cursor position
+                Toast.makeText(Category2Activity.this, "clicked ID", Toast.LENGTH_SHORT).show();
 
             }
         });
