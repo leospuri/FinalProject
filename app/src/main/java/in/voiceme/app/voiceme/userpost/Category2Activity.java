@@ -1,8 +1,10 @@
 package in.voiceme.app.voiceme.userpost;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,7 +76,12 @@ public class Category2Activity extends BaseActivity {
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
 
-        getAllHashTags();
+        if (isNetworkConnected()){
+            getAllHashTags();
+        } else {
+            Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+        }
+
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -86,7 +93,13 @@ public class Category2Activity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                setTags(s);
+                if (isNetworkConnected()){
+                    setTags(s);
+                } else {
+                    Toast.makeText(Category2Activity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
 
             @Override
@@ -107,10 +120,13 @@ public class Category2Activity extends BaseActivity {
             public void onTagClick(Tag tag, int position) {
                 editText.setText(tag.text);
                 editText.setSelection(tag.text.length());//to set cursor position
-                Toast.makeText(Category2Activity.this, "clicked ID", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(Category2Activity.this, "clicked ID: ", Toast.LENGTH_SHORT).show();
+                checkId(tag.text);
             }
         });
+
+
+
         tagGroup.setOnTagDeleteListener(new TagView.OnTagDeleteListener() {
 
             @Override
@@ -131,7 +147,19 @@ public class Category2Activity extends BaseActivity {
         });
     }
 
+    private void checkId(String text){
+        for (int i=0; i < tagList.size(); i++){
+            if (text.equals(tagList.get(i).getName())){
+                String id = tagList.get(i).getId();
+                Toast.makeText(this, "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
 
     private void initializeData(){
         categoryTags = new ArrayList<>();
