@@ -102,7 +102,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         followMe.setOnClickListener(this);
 
-
         //   if (isProgressBarVisible)
         //     setProgressBarVisible(true);
 

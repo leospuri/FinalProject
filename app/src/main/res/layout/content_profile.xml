@@ -16,8 +16,6 @@
         android:orientation="vertical">
 
 
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,16 +27,12 @@
                 android:background="@color/transparent"
                 />
 
-            <developer.shivam.library.DiagonalView
-                android:id="@+id/wave_head"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/profile_image"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@drawable/profile22"
+                android:layout_height="270dp"
                 android:scaleType="centerCrop"
-                diagonal:diagonalColor="#FFFFFF"
-                diagonal:backgroundColor="#00F44336"
-                diagonal:diagonalGravity="right"
-                diagonal:angle="15"/>
+                fresco:placeholderImage="@drawable/profile_back" />
 
 
           <!--  <com.intrusoft.library.FrissonView
@@ -68,15 +62,6 @@
                 android:layout_marginTop="28dp"
                 android:background="@drawable/ic_edit" />
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="160dp"
-                fresco:placeholderImage="@drawable/user" />
-
             <!--
              -->
 
@@ -103,11 +88,11 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/profile_image"
+                android:layout_below="@+id/profile_image"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="28dp"
-                android:layout_toRightOf="@+id/profile_image"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="Intruder Shanky"
+                android:text="Username"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -115,10 +100,10 @@
                 android:id="@+id/about"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="28dp"
                 android:layout_below="@id/name"
                 android:textSize="18sp"
-                android:layout_marginLeft="28dp"
-                android:layout_toRightOf="@+id/profile_image"
                 android:text="UI/UX Desig" />
 
 
@@ -126,7 +111,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/wave_head"
+                android:layout_below="@id/about"
                 android:padding="10dp"
                 android:orientation="horizontal"
                 android:id="@+id/activity_profile_textFields">
