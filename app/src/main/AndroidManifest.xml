@@ -221,7 +221,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".login.account.AfterLoginScreen" />
         <activity android:name=".login.IntroActivity" />
-        <activity android:name=".chat.ChatDialogActivity"></activity>
+        <activity android:name=".chat.ChatDialogActivity" />
+        <activity android:name=".chat.DialogDetailsActivity"></activity>
     </application>
 
 </manifest>

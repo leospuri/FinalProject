@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="chatkit-0.1.2">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/1164d77f407433bf2e1545159ca6f29a3b3b17ee/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/1164d77f407433bf2e1545159ca6f29a3b3b17ee/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.stfalcon/chatkit/0.1.2/3fa3f8d43345143d9be4faa7313b1e90e60fc3fe/chatkit-0.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

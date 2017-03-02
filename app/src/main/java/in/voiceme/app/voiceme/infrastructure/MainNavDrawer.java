@@ -15,6 +15,7 @@ import in.voiceme.app.voiceme.ProfilePage.User;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.chat.ChatDialogActivity;
+import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.contactPage.ContactListActivity;
 import in.voiceme.app.voiceme.l;
 
@@ -32,7 +33,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.mipmap.ic_action_group, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(ChatDialogActivity.class, "Chat Messages", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
      //    addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         prefs = activity.getSharedPreferences("Logged in or not", Context.MODE_PRIVATE);
         String sLcl = "Logout";
