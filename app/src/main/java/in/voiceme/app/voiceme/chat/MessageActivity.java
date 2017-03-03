@@ -37,6 +37,20 @@ public class MessageActivity extends BaseActivity {
         getSupportActionBar().setTitle("Private Messages");
         setNavDrawer(new MainNavDrawer(this));
 
+        messagesList = (MessagesList) findViewById(R.id.messagesList);
+
+
+        input = (MessageInput) findViewById(R.id.input);
+        input.setInputListener(new MessageInput.InputListener() {
+            @Override
+            public boolean onSubmit(CharSequence input) {
+
+                adapter.addToStart(new MessagePojo("1",  input.toString()), true);
+       //         adapter.addToStart(new MessagePojo(input.toString()), true);
+                return true;
+            }
+        });
+
         if (isNetworkConnected()){
             try {
                 chatMessages();
@@ -46,20 +60,6 @@ public class MessageActivity extends BaseActivity {
         } else {
             Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
         }
-
-        messagesList = (MessagesList) findViewById(R.id.messagesList);
-
-
-        input = (MessageInput) findViewById(R.id.input);
-        input.setInputListener(new MessageInput.InputListener() {
-            @Override
-            public boolean onSubmit(CharSequence input) {
-
-               // adapter.addToStart(new MessagePojo(input.toString()), true);
-       //         adapter.addToStart(new MessagePojo(input.toString()), true);
-                return true;
-            }
-        });
     }
 
     @Override
@@ -100,6 +100,7 @@ public class MessageActivity extends BaseActivity {
             Timber.e("MessagePojo null");
         } else {
             adapter.addToStart(response.get(0), false);
+            adapter.addToEnd(response, true);
         }
 
 

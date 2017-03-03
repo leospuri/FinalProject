@@ -14,14 +14,15 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.fixtures.DialogsListFixtures;
-import in.voiceme.app.voiceme.chat.models.DefaultDialog;
+import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class DialogDetailsActivity extends BaseActivity {
 
-    private DialogsListAdapter<DefaultDialog> dialogsListAdapter;
+    private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,26 +39,39 @@ public class DialogDetailsActivity extends BaseActivity {
             @Override
             public void loadImage(ImageView imageView, String url) {
                 //If you using another library - write here your way to load image
-                Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
+                if (imageView.equals(null)|| url.isEmpty()){
+                    Picasso.with(DialogDetailsActivity.this).load(String.valueOf(getResources().getDrawable(R.drawable.user))).into(imageView);
+                } else {
+                    Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
+                }
+
             }
         };
 
-        dialogsListAdapter = new DialogsListAdapter<>(R.layout.item_dialog_custom_view_holder,
-                CustomDialogViewHolder.class, imageLoader);
-        dialogsListAdapter.setItems(getDialogs());
+        dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
+        try {
+            chatMessages();
+            dialogInit(dialogsListView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<DefaultDialog>() {
+
+    }
+
+    private void dialogInit(DialogsList dialogsListView) {
+        dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
             @Override
-            public void onDialogClick(DefaultDialog dialog) {
+            public void onDialogClick(ChatDialogPojo dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
                 Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
             }
         });
 
-        dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<DefaultDialog>() {
+        dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<ChatDialogPojo>() {
             @Override
-            public void onDialogLongClick(DefaultDialog dialog) {
+            public void onDialogLongClick(ChatDialogPojo dialog) {
                 Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
                         Toast.LENGTH_SHORT).show();
             }
@@ -72,16 +86,25 @@ public class DialogDetailsActivity extends BaseActivity {
         }
     }
 
-    private void onNewDialog(DefaultDialog dialog) {
+    private void onNewDialog(ChatDialogPojo dialog) {
         // Todo add network calls to add new dialog
         dialogsListAdapter.addItem(dialog);
     }
 
-    private List<DefaultDialog> getDialogs() {
-        // Todo Network call will return all the dialogs
-        // ArrayList<DefaultDialog> getChatList()
-        // DefaultDialog
-
-        return DialogsListFixtures.getChatList();
+    private void chatMessages() throws Exception {
+        application.getWebService()
+                .getAllChatMessages("1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<List<ChatDialogPojo>>() {
+                    @Override
+                    public void onNext(List<ChatDialogPojo> response) {
+                        Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                        //    MessagePojo pojo = response.get(0).getMessage();
+                        //messages = response;
+                        dialogsListAdapter.setItems(response);
+                    }
+                });
     }
+
+
 }

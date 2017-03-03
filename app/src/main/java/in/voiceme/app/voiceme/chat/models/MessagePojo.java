@@ -22,11 +22,9 @@ public class MessagePojo implements IMessage {
         return id;
     }
 
-    public MessagePojo(String id, String text, String createdAt, UserPojo user) {
-        this.id = id;
+    public MessagePojo(String id, String text) {
+        this.id=id;
         this.text = text;
-        this.createdAt = createdAt;
-        this.user = user;
     }
 
     @Override

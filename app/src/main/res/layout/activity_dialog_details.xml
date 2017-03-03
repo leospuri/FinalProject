@@ -15,13 +15,7 @@
         <com.stfalcon.chatkit.dialogs.DialogsList
             android:id="@+id/dialogsList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:dialogDividerLeftPadding="0dp"
-            app:dialogMessageTextSize="17sp"
-            app:dialogTitleTextStyle="bold"
-            app:dialogUnreadBubbleBackgroundColor="@color/material_red_300"
-            app:dialogUnreadItemBackground="@color/warm_grey"
-            app:dialogUnreadTitleTextStyle="bold"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

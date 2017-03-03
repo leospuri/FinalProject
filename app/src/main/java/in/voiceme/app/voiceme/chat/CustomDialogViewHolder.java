@@ -5,14 +5,13 @@ import android.view.View;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.models.DefaultDialog;
-import in.voiceme.app.voiceme.chat.models.DefaultUser;
+import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
 
 /**
  * Created by Anton Bevza on 1/18/17.
  */
 
-public class CustomDialogViewHolder extends DialogsListAdapter.DialogViewHolder<DefaultDialog> {
+public class CustomDialogViewHolder extends DialogsListAdapter.DialogViewHolder<ChatDialogPojo> {
     private View onlineView;
 
     public CustomDialogViewHolder(View itemView) {
@@ -21,14 +20,8 @@ public class CustomDialogViewHolder extends DialogsListAdapter.DialogViewHolder<
     }
 
     @Override
-    public void onBind(DefaultDialog dialog) {
+    public void onBind(ChatDialogPojo dialog) {
         super.onBind(dialog);
-            boolean isOnline = ((DefaultUser)dialog.getUsers().get(0)).isOnline();
-            if (isOnline) {
-                onlineView.setBackgroundResource(R.drawable.shape_bubble_online);
-            } else {
-                onlineView.setBackgroundResource(R.drawable.shape_bubble_offline);
-            }
 
     }
 }

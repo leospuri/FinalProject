@@ -14,7 +14,6 @@ import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.User;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
-import in.voiceme.app.voiceme.chat.ChatDialogActivity;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.contactPage.ContactListActivity;
 import in.voiceme.app.voiceme.l;
