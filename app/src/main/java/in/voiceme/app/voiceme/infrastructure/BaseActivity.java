@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.infrastructure;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
@@ -96,6 +97,11 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected void onResume() {
         super.onResume();
         scheduler.onResume();
+    }
+
+    protected boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 
     @Override

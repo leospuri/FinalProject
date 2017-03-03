@@ -40,7 +40,7 @@ public class IntroActivity extends BaseActivity {
 
         coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.coordinator_login);
 
-        initializeListeners();
+        // initializeListeners();
         initializePages();
         initializeBackgroundTransitions();
 
@@ -155,7 +155,7 @@ public class IntroActivity extends BaseActivity {
                 R.layout.start_04);
     }
 
-    private void initializeListeners() {
+   /* private void initializeListeners() {
         coordinatorLayout.setOnPageScrollListener(new WelcomeCoordinatorLayout.OnPageScrollListener() {
             @Override
             public void onScrollPage(View v, float progress, float maximum) {
@@ -172,7 +172,7 @@ public class IntroActivity extends BaseActivity {
         });
 
 
-    }
+    } */
 
     private void initializeBackgroundTransitions() {
         final Resources resources = getResources();

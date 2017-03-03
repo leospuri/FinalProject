@@ -8,20 +8,37 @@ import com.stfalcon.chatkit.commons.models.IUser;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import in.voiceme.app.voiceme.chat.BaseMessages;
 import in.voiceme.app.voiceme.chat.models.DefaultUser;
+import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+
+import static in.voiceme.app.voiceme.chat.fixtures.FixturesData.avatars;
+import static in.voiceme.app.voiceme.chat.fixtures.FixturesData.names;
 
 /*
  * Created by troy379 on 12.12.16.
  */
-public final class MessagesListFixtures extends FixturesData {
-    private MessagesListFixtures() {
-        throw new AssertionError();
+public final class MessagesListFixtures extends BaseMessages {
+    List<Message> messages;
+
+    public MessagesListFixtures(VoicemeApplication application) {
+        super(application);
     }
 
     public static ArrayList<Message> getMessages() {
         ArrayList<Message> messages = new ArrayList<>();
+
+
+
+
+
+
+
+
+
         for (int i = 0; i < 10; i++) {
             Message message = new MessagesListFixtures.Message();
 
@@ -42,7 +59,7 @@ public final class MessagesListFixtures extends FixturesData {
         private Date createdAt;
 
         public Message() {
-            this(messages.get(rnd.nextInt(messages.size())));
+     //       this(messages.get(rnd.nextInt(messages.size())));
         }
 
         public Message(String text) {

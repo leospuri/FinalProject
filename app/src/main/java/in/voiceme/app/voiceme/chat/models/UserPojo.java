@@ -15,6 +15,9 @@ public class UserPojo implements IUser {
     @SerializedName("Avatar") @Expose private String avatar;
     @SerializedName("isOnline") @Expose private String isOnline;
 
+    public void setIsOnline(String isOnline) {
+        this.isOnline = isOnline;
+    }
 
     @Override
     public String getId() {

@@ -1,8 +1,6 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -182,11 +180,6 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
 
     /**
      * @param throwable to identify the type of error

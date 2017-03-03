@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar3" />
+
+        <com.stfalcon.chatkit.messages.MessagesList
+            android:id="@+id/messagesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/input"
+            app:incomingAvatarHeight="56dp"
+            app:incomingAvatarWidth="56dp"
+            app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
+            app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
+            app:outcomingTimeTextColor="@color/dark_gray"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/input"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/md_green_A100"/>
+
+        <com.stfalcon.chatkit.messages.MessageInput
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:inputButtonBackground="@drawable/bg_custom_layout_send"
+            app:inputButtonIcon="@drawable/ic_send_selector"
+            app:inputHint="Enter a Message"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/include_main_nav_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

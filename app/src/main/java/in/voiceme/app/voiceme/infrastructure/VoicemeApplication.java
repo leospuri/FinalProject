@@ -20,7 +20,9 @@ import com.twitter.sdk.android.core.TwitterCore;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import in.voiceme.app.voiceme.BuildConfig;
+import in.voiceme.app.voiceme.Module;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.chat.BaseChat;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
@@ -61,6 +63,7 @@ public class VoicemeApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        BaseChat.register(this);
         //Fabric.with(this, new Crashlytics());
         auth = new Auth(this);
         FacebookSdk.sdkInitialize(this);

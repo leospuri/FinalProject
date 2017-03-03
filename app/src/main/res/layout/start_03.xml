@@ -25,19 +25,36 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
     style="@style/welcome_page"
     tools:background="@color/page3">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:hint="Create or Search a HashTag" />
 
-    <TextView
-        style="@style/text_title"
-        android:id="@+id/title"
-        android:layout_above="@+id/subtitle"
-        android:text="In sync and on track"
-        />
+    <ScrollView
+        android:id="@+id/tags_laoyut"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/editText"
+        android:layout_marginLeft="6dp"
+        android:background="@android:color/white"
+        android:visibility="gone">
 
-    <TextView
-        style="@style/text_subtitle"
-        android:id="@+id/subtitle"
-        android:layout_alignParentBottom="true"
-        android:text="Visualize progress and notify\nteam members of important\nupdates."
-        />
+        <com.cunoraz.tagview.TagView
+            android:id="@+id/tag_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp" />
+
+    </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/editText"
+        android:visibility="visible"
+        android:id="@+id/category_tag_rv" />
 
 </com.redbooth.WelcomePageLayout>

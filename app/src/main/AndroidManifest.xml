@@ -222,7 +222,8 @@
         <activity android:name=".login.account.AfterLoginScreen" />
         <activity android:name=".login.IntroActivity" />
         <activity android:name=".chat.ChatDialogActivity" />
-        <activity android:name=".chat.DialogDetailsActivity"></activity>
+        <activity android:name=".chat.DialogDetailsActivity" />
+        <activity android:name=".chat.MessageActivity"></activity>
     </application>
 
 </manifest>

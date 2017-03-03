@@ -1,7 +1,5 @@
 package in.voiceme.app.voiceme.ProfilePage;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -143,11 +141,6 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         }
     }
 
-
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
 
     /**
      * @param throwable to identify the type of error

@@ -4,18 +4,19 @@ import android.net.Uri;
 
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.BaseResponse;
+import in.voiceme.app.voiceme.DTO.ContactAddResponse;
+import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.PostLikesResponse;
-import in.voiceme.app.voiceme.DTO.PostsModel;
-import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
+import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
+import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
-import in.voiceme.app.voiceme.DTO.ContactAddResponse;
-import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
-import in.voiceme.app.voiceme.DTO.LoginResponse;
-import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.userpost.AllCategoryPojo;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
@@ -33,6 +34,10 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
+
+    @GET("get_messages_new.php")
+    Observable<List<MessagePojo>> getChatMessages(@Query("from_user_id") String userID,
+                                                  @Query("to_user_id") String toUserID);
 
     @GET("get_hashtags.php")
     Observable<List<AllCategoryPojo>> getAllHashTags();

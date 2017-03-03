@@ -1,10 +1,8 @@
 package in.voiceme.app.voiceme.userpost;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -156,17 +154,13 @@ public class Category2Activity extends BaseActivity {
         }
     }
 
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
-
     private void initializeData(){
         categoryTags = new ArrayList<>();
-        categoryTags.add(new CategoryTag("Emma Wilson", "222"));
-        categoryTags.add(new CategoryTag("Lavery Maiss", "333"));
-        categoryTags.add(new CategoryTag("Lillie Watts", "334"));
-
+        categoryTags.add(new CategoryTag("Family", "22"));
+        categoryTags.add(new CategoryTag("Health", "33"));
+        categoryTags.add(new CategoryTag("Social", "34"));
+        categoryTags.add(new CategoryTag("Work", "22"));
+        categoryTags.add(new CategoryTag("Others", "33"));
 
     }
 

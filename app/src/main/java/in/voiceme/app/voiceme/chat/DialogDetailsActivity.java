@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class DialogDetailsActivity extends BaseActivity {
             public void onDialogClick(DefaultDialog dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
                 Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked", Toast.LENGTH_SHORT).show();
-              //  startActivity(new Intent(DialogDetailsActivity.this, MessagesListActivity.class));
+                startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
             }
         });
 

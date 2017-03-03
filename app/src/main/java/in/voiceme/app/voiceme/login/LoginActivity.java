@@ -69,15 +69,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void finishLogin() {
         SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
-     //   if (secondPage()) {
+        if (secondPage()) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
             return;
-   /*      } else {
+         } else {
             startActivity(new Intent(this, IntroActivity.class));
             finish();
             return;
-        } */
+        }
     }
 
 
