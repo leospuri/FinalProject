@@ -17,19 +17,21 @@ public class MessagePojo implements IMessage {
     @SerializedName("CreatedAt") @Expose private String createdAt;
     @SerializedName("User") @Expose private UserPojo user;
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    public MessagePojo(String id, String text) {
-        this.id=id;
+    public MessagePojo(String id, String text, String createdAt, UserPojo user) {
+        this.id = id;
         this.text = text;
+        this.createdAt = createdAt;
+        this.user = user;
     }
 
     @Override
     public String getText() {
         return text;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     @Override

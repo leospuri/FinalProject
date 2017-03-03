@@ -39,8 +39,10 @@ public class DialogDetailsActivity extends BaseActivity {
             @Override
             public void loadImage(ImageView imageView, String url) {
                 //If you using another library - write here your way to load image
+             //   Picasso.with(DialogDetailsActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
+
                 if (imageView.equals(null)|| url.isEmpty()){
-                    Picasso.with(DialogDetailsActivity.this).load(String.valueOf(getResources().getDrawable(R.drawable.user))).into(imageView);
+                    Picasso.with(DialogDetailsActivity.this).load(R.drawable.user).into(imageView);
                 } else {
                     Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
                 }

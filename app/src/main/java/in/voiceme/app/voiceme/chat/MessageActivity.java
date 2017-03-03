@@ -10,10 +10,13 @@ import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
+import in.voiceme.app.voiceme.chat.models.UserPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
@@ -45,7 +48,8 @@ public class MessageActivity extends BaseActivity {
             @Override
             public boolean onSubmit(CharSequence input) {
 
-                adapter.addToStart(new MessagePojo("1",  input.toString()), true);
+                adapter.addToStart(new MessagePojo(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
+                        input.toString(), String.valueOf(new Date(System.currentTimeMillis())), new UserPojo("1", "harish", "", String.valueOf(true))), true);
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
                 return true;
             }
@@ -75,7 +79,13 @@ public class MessageActivity extends BaseActivity {
         ImageLoader imageLoader = new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {
-                Picasso.with(MessageActivity.this).load(url).into(imageView);
+              //  Picasso.with(MessageActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
+              //  Picasso.with(MessageActivity.this).load(url).into(imageView);
+                if (imageView.equals(null)|| url.isEmpty()){
+                    Picasso.with(MessageActivity.this).load(R.drawable.user).into(imageView);
+                } else {
+                    Picasso.with(MessageActivity.this).load(url).into(imageView);
+                }
             }
         };
 
