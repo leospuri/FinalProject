@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 public class DialogDetailsActivity extends BaseActivity {
 
@@ -61,6 +62,23 @@ public class DialogDetailsActivity extends BaseActivity {
 
     }
 
+    protected void getChat() {
+        application.getWebService()
+                .getResponse("senderid@2_contactId@1_chat@yes", "current message")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        Timber.d("Message from server" + response);
+                    }
+                });
+
+
+    }
+
     private void dialogInit(DialogsList dialogsListView) {
         dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
             @Override
@@ -68,6 +86,7 @@ public class DialogDetailsActivity extends BaseActivity {
                 // Todo add methods to get user ID of the other user, add own ID
                 Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
+                getChat();
             }
         });
 
@@ -76,6 +95,7 @@ public class DialogDetailsActivity extends BaseActivity {
             public void onDialogLongClick(ChatDialogPojo dialog) {
                 Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
                         Toast.LENGTH_SHORT).show();
+
             }
         });
 

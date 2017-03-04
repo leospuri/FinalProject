@@ -26,10 +26,11 @@ import timber.log.Timber;
 public class MessageActivity extends BaseActivity {
 
     private MessagesList messagesList;
-    private MessagesListAdapter<MessagePojo> adapter;
+    public MessagesListAdapter<MessagePojo> adapter;
     private MessageInput input;
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
+    public static MessageActivity mThis = null;
    // List<MessagePojo> messages;
 
     @Override
@@ -49,7 +50,8 @@ public class MessageActivity extends BaseActivity {
             public boolean onSubmit(CharSequence input) {
 
                 adapter.addToStart(new MessagePojo(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                        input.toString(), String.valueOf(new Date(System.currentTimeMillis())), new UserPojo("1", "harish", "", String.valueOf(true))), true);
+                        input.toString(), String.valueOf(new Date(System.currentTimeMillis())),
+                        new UserPojo("1", "harish", "", String.valueOf(true))), true);
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
                 return true;
             }
@@ -64,6 +66,17 @@ public class MessageActivity extends BaseActivity {
         } else {
             Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mThis = this;
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mThis = null;
     }
 
     @Override

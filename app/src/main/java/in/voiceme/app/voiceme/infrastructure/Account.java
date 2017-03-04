@@ -2,6 +2,8 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.net.Uri;
 
+import in.voiceme.app.voiceme.NotificationsPage.ChatTextPojo;
+
 /**
  * Created by Harish on 7/25/2016.
  */
@@ -200,6 +202,14 @@ public final class Account {
 
         public String getAmazonIdentity() {
             return amazonIdentity;
+        }
+    }
+
+    public static class chatData {
+        public ChatTextPojo chatTextPojo;
+
+        public chatData(ChatTextPojo chatTextPojo) {
+            this.chatTextPojo = chatTextPojo;
         }
     }
 

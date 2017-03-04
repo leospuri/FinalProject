@@ -184,23 +184,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         uCrop.start(ChangeProfileActivity.this);
     }
 
-    protected void getChat() {
-        application.getWebService()
-                .getResponse("senderid@2_contactId@1_chat@yes", "sample text sent")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        Timber.d("Got user details");
-                        //     followers.setText(String.valueOf(response.size()));
-                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                        Timber.d("Message from server" + response);
-                    }
-                });
-
-
-    }
-
     protected void sendlike() {
         application.getWebService()
                 .sendLikeNotification("senderid@1_contactId@1_postId@1_click@2")
@@ -222,8 +205,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         int viewId = view.getId();
 
         if (viewId == R.id.changeimage) {
-           // changeProfileRequest();
-            getChat();
+            changeProfileRequest();
+            //getChat();
           //  startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
