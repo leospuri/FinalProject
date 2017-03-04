@@ -17,6 +17,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -24,6 +25,7 @@ import timber.log.Timber;
 public class DialogDetailsActivity extends BaseActivity {
 
     private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter;
+    private List<ChatDialogPojo> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class DialogDetailsActivity extends BaseActivity {
 
     protected void getChat() {
         application.getWebService()
-                .getResponse("senderid@2_contactId@1_chat@yes", "current message")
+                .getResponse("senderid@2_contactId@1_chat@yes", "after current message")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -85,7 +87,12 @@ public class DialogDetailsActivity extends BaseActivity {
             public void onDialogClick(ChatDialogPojo dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
                 Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
+             //   startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
+
+                Intent intent = new Intent(DialogDetailsActivity.this, MessageActivity.class);
+                intent.putExtra(Constants.YES, /* messages.get(0).getId()*/ "2");
+                startActivity(intent);
+
                 getChat();
             }
         });
@@ -122,7 +129,7 @@ public class DialogDetailsActivity extends BaseActivity {
                     public void onNext(List<ChatDialogPojo> response) {
                         Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //    MessagePojo pojo = response.get(0).getMessage();
-                        //messages = response;
+                        messages = response;
                         dialogsListAdapter.setItems(response);
                     }
                 });

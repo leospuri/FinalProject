@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.chat.models.UserPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -30,13 +31,17 @@ public class MessageActivity extends BaseActivity {
     private MessageInput input;
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
+
     public static MessageActivity mThis = null;
+    public static String userId = null;
    // List<MessagePojo> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+        userId = getIntent().getStringExtra(Constants.YES);
 
         getSupportActionBar().setTitle("Private Messages");
         setNavDrawer(new MainNavDrawer(this));
@@ -142,7 +147,7 @@ public class MessageActivity extends BaseActivity {
 
     private void chatMessages() throws Exception {
         application.getWebService()
-                .getChatMessages("1", "2")
+                .getChatMessages("1", userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override

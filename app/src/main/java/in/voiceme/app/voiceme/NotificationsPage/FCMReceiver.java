@@ -80,7 +80,10 @@ public class FCMReceiver extends FirebaseMessagingService {
 
 
                 if (MessageActivity.mThis != null) {
-                    startingUp(chatTextPojo);
+                    if (MessageActivity.userId.equals(chatTextPojo.getSenderId())){
+                        startingUp(chatTextPojo);
+                    }
+
                 } else {
                     showChatNotification(remoteMessage.getNotification().getBody(), chatTextPojo);
                 }
