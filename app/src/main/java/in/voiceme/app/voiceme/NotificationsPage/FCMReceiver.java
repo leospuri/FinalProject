@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.chat.MessageActivity;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.chat.models.UserPojo;
@@ -85,7 +86,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                     }
 
                 } else {
-                    showChatNotification(remoteMessage.getNotification().getBody(), chatTextPojo);
+                    showChatNotification(remoteMessage.getNotification().getTitle(), chatTextPojo);
                 }
 
             } else {
@@ -157,7 +158,7 @@ public class FCMReceiver extends FirebaseMessagingService {
     /*
     Creates pending intent
      */
-        Intent intent = new Intent(this, MessageActivity.class);
+        Intent intent = new Intent(this, DialogDetailsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("chatdata", post);
         intent.putExtra("fromNotification", true);

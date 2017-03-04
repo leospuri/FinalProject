@@ -53,7 +53,9 @@ public class DialogDetailsActivity extends BaseActivity {
             }
         };
 
-        dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
+        dialogsListAdapter = new DialogsListAdapter<>(R.layout.item_dialog_custom_view_holder,
+                CustomDialogViewHolder.class, imageLoader);
+
         try {
             chatMessages();
             dialogInit(dialogsListView);
