@@ -169,6 +169,17 @@ public class Category2Activity extends BaseActivity {
 
     private void initializeAdapter(List<AllPopularTagsPojo> categoryTags){
         CategoryTagAdapter adapter = new CategoryTagAdapter(categoryTags);
+
+        adapter.setOnItemClickListener(new PopularCategoryClickListner() {
+
+            @Override
+            public void popularCategoryName(AllPopularTagsPojo model, View v) {
+                String name = model.getName();
+                Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         rv.setAdapter(adapter);
     }
 

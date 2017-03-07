@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Random;
@@ -15,18 +16,21 @@ import in.voiceme.app.voiceme.R;
 /**
  * Created by Harish on 9/1/2016.
  */
-public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.PersonViewHolder> {
+public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.TrendingHashTagsViewHolder> {
     private TagClass tagList;
+    private static PopularCategoryClickListner myClickListener;
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+    public static class TrendingHashTagsViewHolder extends RecyclerView.ViewHolder {
+        protected AllPopularTagsPojo dataItem;
 
         Button tagName;
         TextView numberOfTags;
 
 
 
-        PersonViewHolder(View itemView) {
+        TrendingHashTagsViewHolder(View itemView) {
             super(itemView);
+
             tagName = (Button) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 
@@ -34,6 +38,17 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
             int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
             tagName.setBackgroundColor(randomAndroidColor);
         }
+
+        public void bind(AllPopularTagsPojo dataItem) {
+            this.dataItem = dataItem;
+            tagName.setText(dataItem.getName());
+            numberOfTags.setText(dataItem.getCount());
+
+        }
+    }
+
+    public void setOnItemClickListener(PopularCategoryClickListner myClickListener) {
+        this.myClickListener = myClickListener;
     }
 
     List<AllPopularTagsPojo> categoryTags;
@@ -48,17 +63,40 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
     }
 
     @Override
-    public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public TrendingHashTagsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.hastag_card, viewGroup, false);
+        TrendingHashTagsViewHolder pvh = new TrendingHashTagsViewHolder(v);
 
-        PersonViewHolder pvh = new PersonViewHolder(v);
+        pvh.tagName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (myClickListener != null) {
+                        myClickListener.popularCategoryName(pvh.dataItem, view);
+
+                    } else {
+                        Toast.makeText(view.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NullPointerException e) {
+                    Toast.makeText(view.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.tagName.setText(categoryTags.get(i).getName());
-        personViewHolder.numberOfTags.setText(categoryTags.get(i).getCount());
+    public void onBindViewHolder(TrendingHashTagsViewHolder trendingHashTagsViewHolder, int i) {
+
+            AllPopularTagsPojo dataItem = categoryTags.get(i);
+            ((CategoryTagAdapter.TrendingHashTagsViewHolder) trendingHashTagsViewHolder).bind(dataItem);
+
+
+
+    //    trendingHashTagsViewHolder.tagName.setText(categoryTags.get(i).getName());
+    //    trendingHashTagsViewHolder.numberOfTags.setText(categoryTags.get(i).getCount());
     }
 
     @Override
