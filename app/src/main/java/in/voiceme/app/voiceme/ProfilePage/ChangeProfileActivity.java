@@ -12,10 +12,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.emmasuzuki.easyform.EasyTextInputLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yalantis.ucrop.UCrop;
 
@@ -30,6 +30,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.login.Intro2Activity;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -40,9 +41,9 @@ import timber.log.Timber;
 public class ChangeProfileActivity extends BaseActivity implements View.OnClickListener {
     private static final int REQUEST_SELECT_IMAGE = 100;
 
-    private EasyTextInputLayout username;
-    private EasyTextInputLayout aboutme;
-    private EasyTextInputLayout userAge;
+    private EditText username;
+    private EditText aboutme;
+    private EditText userAge;
     private TextView genderSelection;
     private TextView genderSelectionTitle;
     private Button submitButton;
@@ -70,9 +71,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         });
 
         submitButton = (Button) findViewById(R.id.submit_button_profile);
-        username = (EasyTextInputLayout) findViewById(R.id.edittext_profile_username);
-        aboutme = (EasyTextInputLayout) findViewById(R.id.edittext_profile_aboutme);
-        userAge = (EasyTextInputLayout) findViewById(R.id.edittext_profile_age);
+        username = (EditText) findViewById(R.id.edittext_profile_username);
+        aboutme = (EditText) findViewById(R.id.edittext_profile_aboutme);
+        userAge = (EditText) findViewById(R.id.edittext_profile_age);
         genderSelection = (TextView) findViewById(R.id.user_gender_text_box);
         genderSelectionTitle = (TextView) findViewById(R.id.user_gender);
 
@@ -205,9 +206,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         int viewId = view.getId();
 
         if (viewId == R.id.changeimage) {
-            changeProfileRequest();
+         //   changeProfileRequest();
             //getChat();
-          //  startActivity(new Intent(this, IntroActivity.class));
+            startActivity(new Intent(this, Intro2Activity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
             if (changedImage){
@@ -277,15 +278,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private void submitData() throws Exception {
         application.getWebService()
                 .login("", MySharedPreferences.getEmail(preferences), "",
-                        userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        Uri.parse(imageUrl), this.currentGender, aboutme.getEditText().getText().toString(),
-                        username.getEditText().getText().toString())
+                        userAge.getText().toString(), MySharedPreferences.getSocialID(preferences),
+                        Uri.parse(imageUrl), this.currentGender, aboutme.getText().toString(),
+                        username.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
+                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
                         changedImage = false;
                         //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
@@ -296,15 +297,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private void submitDataWithoutProfile() throws Exception {
         application.getWebService()
                 .loginWithoutProfile("", MySharedPreferences.getEmail(preferences), "",
-                        userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        this.currentGender, aboutme.getEditText().getText().toString(),
-                        username.getEditText().getText().toString())
+                        userAge.getText().toString(), MySharedPreferences.getSocialID(preferences),
+                        this.currentGender, aboutme.getText().toString(),
+                        username.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
+                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
                         //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
@@ -326,9 +327,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     private void profileData(ProfileUserList response) {
-        username.getEditText().setText(response.getData().getUserNickName());
-        aboutme.getEditText().setText(response.getData().getAboutMe());
-        userAge.getEditText().setText(response.getData().getUserDateOfBirth());
+        username.setText(response.getData().getUserNickName());
+        aboutme.setText(response.getData().getAboutMe());
+        userAge.setText(response.getData().getUserDateOfBirth());
         genderSelection.setText(response.getData().getGender());
 
         avatarView.setImageURI(response.getData().getAvatarPics());

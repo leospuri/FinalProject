@@ -20,7 +20,6 @@ import com.twitter.sdk.android.core.TwitterCore;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import in.voiceme.app.voiceme.BuildConfig;
-import in.voiceme.app.voiceme.Module;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.BaseChat;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
@@ -79,10 +78,6 @@ public class VoicemeApplication extends Application {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
-
-
-
-
 
 
 

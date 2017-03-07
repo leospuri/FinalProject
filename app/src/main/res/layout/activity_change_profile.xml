@@ -55,43 +55,31 @@
 
         </RelativeLayout>
 
-        <com.emmasuzuki.easyform.EasyForm
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="12dp" >
-
-            <com.emmasuzuki.easyform.EasyTextInputLayout
+            <EditText
                 android:id="@+id/edittext_profile_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="User Name"
-                app:errorMessage="Username should be 5-25 chars"
-                app:maxChars="25"
-                app:minChars="5" />
+                android:hint="User Name" />
 
-            <com.emmasuzuki.easyform.EasyTextInputLayout
+            <EditText
                 android:id="@+id/edittext_profile_age"
                 android:layout_width="match_parent"
                 android:layout_below="@+id/edittext_profile_username"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="Age"
-                app:errorMessage="Please enter age between 12 to 100"
-                app:minValue="12"
-                app:maxValue="100" />
+                />
 
 
-            <com.emmasuzuki.easyform.EasyTextInputLayout
+            <EditText
                 android:id="@+id/edittext_profile_aboutme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edittext_profile_age"
                 android:layout_marginTop="8dp"
                 android:hint="About me"
-                app:errorMessage="About me should not be more than 50 chars"
-                app:maxChars="50"
-                app:minChars="6" />
+                />
 
 
             <LinearLayout
@@ -127,8 +115,6 @@
 
             </LinearLayout>
 
-
-        </com.emmasuzuki.easyform.EasyForm>
 
         <Button
             android:id="@+id/submit_button_profile"

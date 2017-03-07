@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -16,10 +17,6 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/tags_laoyut"
-            android:layout_alignLeft="@+id/tags_laoyut"
-            android:layout_alignRight="@+id/tags_laoyut"
-            android:layout_alignStart="@+id/tags_laoyut"
             android:layout_margin="20dp"
             android:hint="Create or Search a HashTag" />
 
@@ -27,7 +24,6 @@
             android:id="@+id/tags_laoyut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/editText"
             android:layout_marginLeft="6dp"
             android:background="@android:color/white"
             android:visibility="gone">
