@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.userpost.AllCategoryPojo;
+import in.voiceme.app.voiceme.userpost.AllPopularTagsPojo;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -45,6 +46,9 @@ public interface WebService {
 
     @GET("get_hashtags.php")
     Observable<List<AllCategoryPojo>> getAllHashTags();
+
+    @GET("get_trending_hastags_new.php")
+    Observable<List<AllPopularTagsPojo>> getPopularHashTags();
 
     // Todo donot know about this call
     @GET("posts.php")

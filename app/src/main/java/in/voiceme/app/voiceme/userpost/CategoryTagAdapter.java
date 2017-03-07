@@ -36,9 +36,9 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
         }
     }
 
-    List<CategoryTag> categoryTags;
+    List<AllPopularTagsPojo> categoryTags;
 
-    CategoryTagAdapter(List<CategoryTag> categoryTags){
+    CategoryTagAdapter(List<AllPopularTagsPojo> categoryTags){
         this.categoryTags = categoryTags;
     }
 
@@ -57,8 +57,8 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.tagName.setText(categoryTags.get(i).categoryTag);
-        personViewHolder.numberOfTags.setText(categoryTags.get(i).categoryTagCount);
+        personViewHolder.tagName.setText(categoryTags.get(i).getName());
+        personViewHolder.numberOfTags.setText(categoryTags.get(i).getCount());
     }
 
     @Override

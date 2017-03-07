@@ -35,7 +35,7 @@ public class Category2Activity extends BaseActivity {
     private TagView tagGroup;
 
     private EditText editText;
-    private List<CategoryTag> categoryTags;
+    private List<AllPopularTagsPojo> categoryTags;
     private RecyclerView rv;
     private ScrollView scrollView;
 
@@ -68,8 +68,7 @@ public class Category2Activity extends BaseActivity {
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
 
-        initializeData();
-        initializeAdapter();
+        getPopularHashTags();
 
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
@@ -154,7 +153,7 @@ public class Category2Activity extends BaseActivity {
         }
     }
 
-    private void initializeData(){
+/*    private void initializeData(){
         categoryTags = new ArrayList<>();
         categoryTags.add(new CategoryTag("Family", "22"));
         categoryTags.add(new CategoryTag("Health", "33"));
@@ -162,11 +161,13 @@ public class Category2Activity extends BaseActivity {
         categoryTags.add(new CategoryTag("Work", "22"));
         categoryTags.add(new CategoryTag("Others", "33"));
 
-    }
+    } */
 
 
 
-    private void initializeAdapter(){
+
+
+    private void initializeAdapter(List<AllPopularTagsPojo> categoryTags){
         CategoryTagAdapter adapter = new CategoryTagAdapter(categoryTags);
         rv.setAdapter(adapter);
     }
@@ -193,6 +194,25 @@ public class Category2Activity extends BaseActivity {
             e.printStackTrace();
         }
 
+    }
+
+    private void getPopularHashTags() {
+        // network call from retrofit
+        try {
+            application.getWebService()
+                    .getPopularHashTags()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<List<AllPopularTagsPojo>>() {
+                        @Override
+                        public void onNext(List<AllPopularTagsPojo> userResponse) {
+                            initializeAdapter(userResponse);
+                          //  categoryTags = userResponse;
+                            Toast.makeText(Category2Activity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getAllHashTags() {
