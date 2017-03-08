@@ -33,7 +33,6 @@ public class TextStatus extends BaseActivity {
     private String textStatus;
     private TextView choosen_category;
 
-
     private Button button_post_text_status;
 
     @Override

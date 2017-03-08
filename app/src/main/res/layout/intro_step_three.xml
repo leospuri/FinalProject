@@ -19,6 +19,15 @@
         android:layout_height="match_parent"
         android:background="#4285F4">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:text="How you are feeling?"/>
+
         <LinearLayout
             android:id="@+id/intro_happy_Category"
             android:layout_width="match_parent"
@@ -305,7 +314,7 @@
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/sleepy"
                 app:icon_release="@drawable/emoji_before"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -336,12 +345,12 @@
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_forth_switch"
+                android:id="@+id/intro_flirty_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/flirty"
                 app:icon_release="@drawable/emoji_before"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -353,32 +362,31 @@
 
 
         <LinearLayout
-            android:id="@+id/intro_fifth_category"
+            android:id="@+id/intro_optimistic_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/intro_flirty_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_fifth_emotion"
+                android:id="@+id/intro_optimistic_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_emotion"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="optimistic"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_fifth_switch"
+                android:id="@+id/intro_optimistic_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/optimistic"
                 app:icon_release="@drawable/emoji_before"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -390,32 +398,31 @@
 
 
         <LinearLayout
-            android:id="@+id/intro_sixth_category"
+            android:id="@+id/intro_jealous_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/intro_fifth_category"
+            android:layout_below="@+id/intro_optimistic_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_sixth_emotion"
+                android:id="@+id/intro_jealous_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_emotion"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="jealous"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_sixth_switch"
+                android:id="@+id/intro_jealous_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/jealous"
                 app:icon_release="@drawable/emoji_before"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -427,33 +434,103 @@
 
 
         <LinearLayout
-            android:id="@+id/intro_seventh_category"
+            android:id="@+id/intro_sick_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:layout_below="@+id/intro_sixth_category"
+            android:layout_below="@+id/intro_jealous_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_seventh_emotion"
+                android:id="@+id/intro_sick_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_emotion"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="sick"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_seventh_switch"
+                android:id="@+id/intro_sick_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/sick"
+                app:icon_release="@drawable/emoji_before"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="22dp"
+
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/intro_tired_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/intro_sick_category"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/intro_tired_emotion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="tired"
+                android:textColor="#fff"
+                android:textSize="23sp" />
+
+
+            <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/intro_tired_switch"
+                app:ball_press_color="@color/md_white_1000"
+                app:ball_release_color="@color/md_deep_orange_500"
+                app:base_press_color="@color/md_deep_orange_900"
+                app:base_release_color="@color/md_deep_orange_50"
+                app:icon_press="@drawable/tired"
+                app:icon_release="@drawable/emoji_before"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="22dp"
+
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/intro_sexy_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/intro_tired_category"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/intro_sexy_emotion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="sexy"
+                android:textColor="#fff"
+                android:textSize="23sp" />
+
+
+            <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/intro_sexy_switch"
+                app:ball_press_color="@color/md_white_1000"
+                app:ball_release_color="@color/md_deep_orange_500"
+                app:base_press_color="@color/md_deep_orange_900"
+                app:base_release_color="@color/md_deep_orange_50"
+                app:icon_press="@drawable/sexy"
                 app:icon_release="@drawable/emoji_before"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -465,14 +542,77 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/intro_btn_feeling"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/intro_pranky_category"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
-            android:text="Done" />
+            android:layout_below="@+id/intro_sexy_category"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/intro_pranky_emotion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="pranky"
+                android:textColor="#fff"
+                android:textSize="23sp" />
+
+
+            <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/intro_pranky_switch"
+                app:ball_press_color="@color/md_white_1000"
+                app:ball_release_color="@color/md_deep_orange_500"
+                app:base_press_color="@color/md_deep_orange_900"
+                app:base_release_color="@color/md_deep_orange_50"
+                app:icon_press="@drawable/pranky"
+                app:icon_release="@drawable/emoji_before"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="22dp"
+
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/intro_frustrated_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/intro_pranky_category"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/intro_frustrated_emotion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="frustrated"
+                android:textColor="#fff"
+                android:textSize="23sp" />
+
+
+            <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/intro_frustrated_switch"
+                app:ball_press_color="@color/md_white_1000"
+                app:ball_release_color="@color/md_deep_orange_500"
+                app:base_press_color="@color/md_deep_orange_900"
+                app:base_release_color="@color/md_deep_orange_50"
+                app:icon_press="@drawable/frustrated"
+                app:icon_release="@drawable/emoji_before"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="22dp"
+
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
 
     </RelativeLayout>

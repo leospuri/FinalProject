@@ -1,7 +1,9 @@
 package in.voiceme.app.voiceme.userpost;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +44,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
     private List<AllPopularTagsPojo> categoryTags;
     private RecyclerView rv;
     private ScrollView scrollView;
+    private String current_category;
 
 
     /**
@@ -128,7 +131,6 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
             public void onTagClick(Tag tag, int position) {
                 editText.setText(tag.text);
                 editText.setSelection(tag.text.length());//to set cursor position
-                Toast.makeText(Category2Activity.this, "clicked ID: ", Toast.LENGTH_SHORT).show();
                 checkId(tag.text);
             }
         });
@@ -159,6 +161,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         for (int i=0; i < tagList.size(); i++){
             if (text.equals(tagList.get(i).getName())){
                 String id = tagList.get(i).getId();
+                setCategory(id);
                 Toast.makeText(this, "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
             }
         }
@@ -173,6 +176,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
                 String name = model.getId();
+                setCategory(name);
                 Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
@@ -258,6 +262,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         Tag tag;
 
 
+        // Todo: Error when i closed the app inside the category activity
         for (int i = 0; i < tagList.size(); i++) {
             if (tagList.get(i).getName().toLowerCase().startsWith(text.toLowerCase())) {
                 tag = new Tag(tagList.get(i).getName());
@@ -270,6 +275,10 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         }
         tagGroup.addTags(tags);
 
+    }
+
+    public void setCategory(String current_category) {
+        this.current_category = current_category;
     }
 
     @Override
@@ -288,6 +297,14 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.category_menu) {
+            Intent returnIntent = new Intent();
+            if (current_category.isEmpty() || current_category == null){
+                Toast.makeText(this, "You have not selected any Hashtags", Toast.LENGTH_SHORT).show();
+            } else {
+                returnIntent.putExtra("resultFromCategory", current_category);
+            }
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
             return true;
         }
 

@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/category_menu"
-        android:icon="@mipmap/ic_action_edit"
+    android:id="@+id/category_menu"
         android:orderInCategory="100"
-        android:title="OK"
+        android:title="DONE"
         app:showAsAction="always" />
 
 
