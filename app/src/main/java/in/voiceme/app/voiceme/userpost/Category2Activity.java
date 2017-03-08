@@ -29,7 +29,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -352,10 +351,10 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
             application.getWebService()
                     .insertCategory(category)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BaseSubscriber<ReportResponse>() {
+                    .subscribe(new BaseSubscriber<NewCategoryAdded>() {
                         @Override
-                        public void onNext(ReportResponse userResponse) {
-
+                        public void onNext(NewCategoryAdded userResponse) {
+                            setCategory(userResponse.getId());
                             Toast.makeText(Category2Activity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });

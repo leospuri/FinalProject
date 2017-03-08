@@ -20,6 +20,7 @@ import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.userpost.AllCategoryPojo;
 import in.voiceme.app.voiceme.userpost.AllPopularTagsPojo;
+import in.voiceme.app.voiceme.userpost.NewCategoryAdded;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -279,7 +280,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("insertCategory.php")
-    Observable<ReportResponse> insertCategory(
+    Observable<NewCategoryAdded> insertCategory(
             @Field("category") String category
     );
 
