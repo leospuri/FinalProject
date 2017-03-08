@@ -46,7 +46,7 @@
                 app:base_release_color="@color/md_green_50"
                 app:icon_press="@drawable/emoji_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginStart="50dp"
@@ -83,7 +83,7 @@
                 app:base_release_color="@color/md_teal_50"
                 app:icon_press="@drawable/relax_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginStart="50dp"
@@ -121,7 +121,7 @@
                 app:base_release_color="@color/md_deep_purple_50"
                 app:icon_press="@drawable/angry_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="48dp"
                 android:layout_marginStart="48dp"
@@ -158,7 +158,7 @@
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/sad_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="48dp"
                 android:layout_marginStart="48dp"
@@ -196,7 +196,7 @@
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/bored_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginStart="50dp"
@@ -206,34 +206,34 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/intro_first_category"
+            android:id="@+id/intro_disappointed_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/intro_bored_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_first_emotion"
+                android:id="@+id/intro_disappointed_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="Disappointed"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_first_switch"
+                android:id="@+id/intro_disappointed_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/disappointed"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginStart="50dp"
@@ -244,34 +244,34 @@
 
 
         <LinearLayout
-            android:id="@+id/intro_second_category"
+            android:id="@+id/intro_loved_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/intro_first_category"
+            android:layout_below="@+id/intro_disappointed_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_second_emotion"
+                android:id="@+id/intro_loved_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="Loved"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_second_switch"
+                android:id="@+id/intro_loved_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
-                app:icon_press="@drawable/bored_after"
+                app:icon_press="@drawable/loved"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="22dp"
@@ -281,36 +281,34 @@
 
 
         <LinearLayout
-            android:id="@+id/intro_third_category"
+            android:id="@+id/intro_sleepy_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/intro_second_category"
+            android:layout_below="@+id/intro_loved_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_third_emotion"
+                android:id="@+id/intro_sleepy_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_emotion"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="Sleepy"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
-                android:id="@+id/intro_third_switch"
+                android:id="@+id/intro_sleepy_switch"
                 app:ball_press_color="@color/md_white_1000"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:base_press_color="@color/md_deep_orange_900"
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/bored_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_switch"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="22dp"
                 android:layout_weight="1" />
@@ -319,20 +317,20 @@
 
 
         <LinearLayout
-            android:id="@+id/intro_forth_category"
+            android:id="@+id/intro_flirty_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/intro_third_category"
+            android:layout_below="@+id/intro_sleepy_category"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/intro_forth_emotion"
+                android:id="@+id/intro_flirty_emotion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:text="Bored"
+                android:text="Flirty"
                 android:textColor="#fff"
                 android:textSize="23sp" />
 
@@ -345,13 +343,10 @@
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/bored_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_switch"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="22dp"
-                android:layout_toEndOf="@+id/intro_bored_emotion"
-                android:layout_toRightOf="@+id/intro_bored_emotion"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -361,7 +356,7 @@
             android:id="@+id/intro_fifth_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/intro_forth_category"
+            android:layout_below="@+id/intro_flirty_category"
             android:orientation="horizontal">
 
             <TextView
@@ -385,13 +380,10 @@
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/bored_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_switch"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="22dp"
-                android:layout_toEndOf="@+id/intro_bored_emotion"
-                android:layout_toRightOf="@+id/intro_bored_emotion"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -425,13 +417,10 @@
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/bored_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_switch"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="22dp"
-                android:layout_toEndOf="@+id/intro_bored_emotion"
-                android:layout_toRightOf="@+id/intro_bored_emotion"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -441,6 +430,7 @@
             android:id="@+id/intro_seventh_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:layout_below="@+id/intro_sixth_category"
             android:orientation="horizontal">
 
@@ -465,13 +455,11 @@
                 app:base_release_color="@color/md_deep_orange_50"
                 app:icon_press="@drawable/bored_after"
                 app:icon_release="@drawable/emoji_before"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/intro_sad_switch"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="22dp"
-                android:layout_toEndOf="@+id/intro_bored_emotion"
-                android:layout_toRightOf="@+id/intro_bored_emotion"
+
                 android:layout_weight="1" />
 
         </LinearLayout>

@@ -277,4 +277,10 @@ public interface WebService {
             @Field("text_status") String id_posts
     );
 
+    @FormUrlEncoded
+    @POST("insertCategory.php")
+    Observable<ReportResponse> insertCategory(
+            @Field("category") String category
+    );
+
 }

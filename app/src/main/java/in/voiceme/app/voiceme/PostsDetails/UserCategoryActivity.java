@@ -83,8 +83,9 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
 
         categoryId = getIntent().getStringExtra(Constants.CATEGORY);
+        setFeeling(categoryId);
 
-        if (categoryId.equals(family)) {
+  /*      if (categoryId.equals(family)) {
             setFeeling("1");
         } else if (categoryId.equals(health)) {
             setFeeling("2");
@@ -94,7 +95,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
             setFeeling("4");
         } else if (categoryId.equals(others)) {
             setFeeling("5");
-        }
+        } */
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);

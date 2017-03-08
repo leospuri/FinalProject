@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cunoraz.tagview.Tag;
@@ -26,15 +27,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class Category2Activity extends BaseActivity {
+public class Category2Activity extends BaseActivity implements View.OnClickListener {
     private TagView tagGroup;
 
+    private AlertDialog.Builder builder1;
     private EditText editText;
+    private TextView createNewHashTag;
     private List<AllPopularTagsPojo> categoryTags;
     private RecyclerView rv;
     private ScrollView scrollView;
@@ -72,7 +76,13 @@ public class Category2Activity extends BaseActivity {
 
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
+        createNewHashTag = (TextView) findViewById(R.id.create_new_hashtag);
 
+        if (createNewHashTag.getVisibility()==View.VISIBLE){
+            createNewHashTag.setVisibility(View.GONE);
+        }
+
+        createNewHashTag.setOnClickListener(this);
         if (isNetworkConnected()){
             getAllHashTags();
         } else {
@@ -84,6 +94,7 @@ public class Category2Activity extends BaseActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 scrollView.setVisibility(View.VISIBLE);
+                createNewHashTag.setVisibility(View.VISIBLE);
                 rv.setVisibility(View.GONE);
             }
 
@@ -153,19 +164,6 @@ public class Category2Activity extends BaseActivity {
         }
     }
 
-/*    private void initializeData(){
-        categoryTags = new ArrayList<>();
-        categoryTags.add(new CategoryTag("Family", "22"));
-        categoryTags.add(new CategoryTag("Health", "33"));
-        categoryTags.add(new CategoryTag("Social", "34"));
-        categoryTags.add(new CategoryTag("Work", "22"));
-        categoryTags.add(new CategoryTag("Others", "33"));
-
-    } */
-
-
-
-
 
     private void initializeAdapter(List<AllPopularTagsPojo> categoryTags){
         CategoryTagAdapter adapter = new CategoryTagAdapter(categoryTags);
@@ -174,7 +172,7 @@ public class Category2Activity extends BaseActivity {
 
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
-                String name = model.getName();
+                String name = model.getId();
                 Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
@@ -294,5 +292,58 @@ public class Category2Activity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.create_new_hashtag){
+            dialogBox();
+        }
+    }
+
+    public void dialogBox(){
+        builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Do you want to Create a New HashTag ?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(Category2Activity.this, "Clicked OK", Toast.LENGTH_SHORT).show();
+                        insertCategory(editText.getText().toString());
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(Category2Activity.this, "Clicked No", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    private void insertCategory(String category) {
+        // network call from retrofit
+        try {
+            application.getWebService()
+                    .insertCategory(category)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<ReportResponse>() {
+                        @Override
+                        public void onNext(ReportResponse userResponse) {
+
+                            Toast.makeText(Category2Activity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

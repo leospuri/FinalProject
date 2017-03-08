@@ -17,8 +17,22 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="18sp"
             android:hint="Create or Search a HashTag" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create a New HashTag"
+            android:id="@+id/create_new_hashtag"
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="18sp"/>
 
         <ScrollView
             android:id="@+id/tags_laoyut"

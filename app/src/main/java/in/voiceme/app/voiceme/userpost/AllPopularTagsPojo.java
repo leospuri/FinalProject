@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class AllPopularTagsPojo {
 
+    @SerializedName("id") @Expose private String id;
     @SerializedName("name") @Expose private String name;
     @SerializedName("count") @Expose private String count;
 
@@ -18,5 +19,9 @@ public class AllPopularTagsPojo {
 
     public String getCount() {
         return count;
+    }
+
+    public String getId() {
+        return id;
     }
 }

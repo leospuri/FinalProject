@@ -16,6 +16,7 @@ public class PostsModel {
     @SerializedName("avatar_pics") @Expose private String avatarPics;
     @SerializedName("emotions") @Expose private String emotions;
     @SerializedName("category") @Expose private String category;
+    @SerializedName("id_categories") @Expose private String idCategory;
     @SerializedName("likes") @Expose private Integer likes;
     @SerializedName("same") @Expose private Integer same;
     @SerializedName("hug") @Expose private Integer hug;
@@ -28,6 +29,10 @@ public class PostsModel {
 
     public Boolean getUserLike() {
         return userLike;
+    }
+
+    public String getIdCategory() {
+        return idCategory;
     }
 
     public void setUserLike(Boolean userLike) {
@@ -181,7 +186,7 @@ public class PostsModel {
     @Override
     public String toString() {
         return idPosts + " " + idUserName + " " + postTime + " " + textStatus + " " + audioDuration + " " + audioFileLink
-                + " " + userNicName + " " + avatarPics + " " + emotions + " " + category + " " + likes + " " +
+                + " " + userNicName + " " + avatarPics + " " + emotions + " " + category + " " + idCategory + " " + likes + " " +
                 same + " " + hug + " " + listen + " " + comments + " " + userLike + " " + userSame + " " + userHuge + " " +
                 userListen;
     }

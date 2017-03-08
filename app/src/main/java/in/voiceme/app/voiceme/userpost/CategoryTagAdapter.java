@@ -26,8 +26,6 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
         Button tagName;
         TextView numberOfTags;
 
-
-
         TrendingHashTagsViewHolder(View itemView) {
             super(itemView);
 
