@@ -51,7 +51,7 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
 
     List<AllPopularTagsPojo> categoryTags;
 
-    CategoryTagAdapter(List<AllPopularTagsPojo> categoryTags){
+    public CategoryTagAdapter(List<AllPopularTagsPojo> categoryTags){
         this.categoryTags = categoryTags;
     }
 

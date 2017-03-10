@@ -5,23 +5,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You selected this hashtag."
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:id="@+id/intro_selected_hashtag"
+        android:visibility="visible"
+        />
+
+
+
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/intro_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="18sp"
         android:hint="Create or Search a HashTag" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a New HashTag"
+        android:id="@+id/intro_create_new_hashtag"
+        android:visibility="gone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"/>
+
     <ScrollView
-        android:id="@+id/intro_tags_layout"
+        android:id="@+id/intro_tags_laoyut"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="6dp"
-        android:background="@android:color/white"
         android:visibility="gone">
 
         <com.cunoraz.tagview.TagView
-            android:id="@+id/tag_group"
+            android:id="@+id/intro_tag_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp" />
@@ -32,9 +58,6 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:visibility="visible"
-        android:id="@+id/category_tag_rv" />
-
-
-
+        android:id="@+id/intro_category_tag_rv" />
 
 </LinearLayout>

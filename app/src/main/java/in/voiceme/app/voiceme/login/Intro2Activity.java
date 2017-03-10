@@ -6,11 +6,12 @@ import android.widget.Toast;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.DotStepper;
 
-public class Intro2Activity extends DotStepper implements StepOneInterface, StepTwoInterface {
+public class Intro2Activity extends DotStepper implements StepOneInterface, StepTwoInterface, StepThreeInterface {
 
     private int i = 1;
     private String usernameText = null;
     private String feelingID = null;
+    private String categoryID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +52,11 @@ public class Intro2Activity extends DotStepper implements StepOneInterface, Step
     public void sendFeeling(String feelingID) {
         Toast.makeText(this, "Feeling ID: " + feelingID, Toast.LENGTH_SHORT).show();
         this.feelingID = feelingID;
+    }
+
+    @Override
+    public void setCategory(String category) {
+        Toast.makeText(this, "Feeling ID: " + category, Toast.LENGTH_SHORT).show();
+        categoryID = category;
     }
 }

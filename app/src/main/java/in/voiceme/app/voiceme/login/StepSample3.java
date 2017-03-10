@@ -300,8 +300,8 @@ public class StepSample3 extends AbstractStep {
 
     @Override
     public void onNext() {
-        StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
-        stepOneInterface.username(current_feeling);
+        StepTwoInterface stepOneInterface = (StepTwoInterface) getActivity();
+        stepOneInterface.sendFeeling(current_feeling);
     }
 
     @Override

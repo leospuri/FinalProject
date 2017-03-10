@@ -40,12 +40,10 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
     private AlertDialog.Builder builder1;
     private EditText editText;
     private TextView createNewHashTag;
-    private List<AllPopularTagsPojo> categoryTags;
     private RecyclerView rv;
     private ScrollView scrollView;
     private String current_category;
     private TextView selected_hashtag;
-
 
     /**
      * sample country list
@@ -100,13 +98,18 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                scrollView.setVisibility(View.VISIBLE);
-                createNewHashTag.setVisibility(View.VISIBLE);
-                rv.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (editText.hasFocus()){
+                    scrollView.setVisibility(View.VISIBLE);
+                    createNewHashTag.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.GONE);
+                }
+
 
                 if (isNetworkConnected()){
                     setTags(s);
@@ -183,6 +186,8 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                 editText.setText(model.getName());
                 String name = model.getId();
                 setCategory(name);
+                rv.setVisibility(View.GONE);
+                scrollView.setVisibility(View.GONE);
                 Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
