@@ -19,7 +19,7 @@ public class StepSample3 extends AbstractStep {
             bored_switch_button, disappointed_switch, loved_switch, sleepy_switch, flirty_switch, optimistic_switch,
             jealous_switch, sick_switch, tired_switch, sexy_switch, pranky_switch, frustrated_switch;
 
-    private String current_feeling;
+    private String current_feeling = null;
     private boolean yes = false;
 
     @Override
@@ -300,7 +300,8 @@ public class StepSample3 extends AbstractStep {
 
     @Override
     public void onNext() {
-
+        StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
+        stepOneInterface.username(current_feeling);
     }
 
     @Override

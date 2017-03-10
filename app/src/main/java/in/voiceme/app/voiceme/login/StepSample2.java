@@ -38,7 +38,6 @@ public class StepSample2 extends AbstractStep {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -67,7 +66,8 @@ public class StepSample2 extends AbstractStep {
 
     @Override
     public void onNext() {
-
+        StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
+        stepOneInterface.username(usernameText.getText().toString());
     }
 
     @Override
