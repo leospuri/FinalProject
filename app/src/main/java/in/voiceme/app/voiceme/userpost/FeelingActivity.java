@@ -3,8 +3,9 @@ package in.voiceme.app.voiceme.userpost;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
@@ -48,21 +49,6 @@ public class FeelingActivity extends BaseActivity {
             }
         });
 
-        Button button = (Button) findViewById(R.id.btn_feeling);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                // get the Entered  message
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("resultFromFeeling", current_feeling);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-
-            }
-        });
-
         happy_switch_button = (MaterialAnimatedSwitch) findViewById(R.id.happy_switch);
         relax_switch_button = (MaterialAnimatedSwitch) findViewById(R.id.relaxed_switch);
         angry_switch_button = (MaterialAnimatedSwitch) findViewById(R.id.angry_switch);
@@ -84,38 +70,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (happy_switch_button.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("1");
+                    setFeeling("1");
                 }
             }
         });
@@ -124,38 +80,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (relax_switch_button.isChecked()) {
-                    setFeeling("3");
-                    if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("2");
+                    setFeeling("2");
                 }
             }
         });
@@ -164,195 +90,47 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (angry_switch_button.isChecked()) {
+                    checkFeeling("3");
                     setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
-                }
-            }
-        });
-        sad_switch_button.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (sad_switch_button.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
-                }
-            }
-        });
-        bored_switch_button.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (bored_switch_button.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
-                }
-            }
-        });
-        disappointed_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (disappointed_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
                 }
             }
         });
 
+        sad_switch_button.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(boolean isChecked) {
+                if (sad_switch_button.isChecked()) {
+                    checkFeeling("4");
+                    setFeeling("4");
+                }
+            }
+        });
+
+        bored_switch_button.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(boolean isChecked) {
+                if (bored_switch_button.isChecked()) {
+                    checkFeeling("5");
+                    setFeeling("5");
+                }
+            }
+        });
+
+        disappointed_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(boolean isChecked) {
+                if (disappointed_switch.isChecked()) {
+                    checkFeeling("6");
+                    setFeeling("6");
+                }
+            }
+        });
         loved_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (loved_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("7");
+                    setFeeling("7");
                 }
             }
         });
@@ -361,38 +139,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sleepy_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("8");
+                    setFeeling("8");
                 }
             }
         });
@@ -401,38 +149,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (flirty_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("9");
+                    setFeeling("9");
                 }
             }
         });
@@ -441,38 +159,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (optimistic_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("10");
+                    setFeeling("10");
                 }
             }
         });
@@ -481,38 +169,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (jealous_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("11");
+                    setFeeling("11");
                 }
             }
         });
@@ -521,38 +179,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sick_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("12");
+                    setFeeling("12");
                 }
             }
         });
@@ -561,38 +189,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (tired_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("13");
+                    setFeeling("13");
                 }
             }
         });
@@ -601,36 +199,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sexy_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {relax_switch_button.toggle();}
-                    else if (angry_switch_button.isChecked()) {angry_switch_button.toggle();}
-                    else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("14");
+                    setFeeling("14");
                 }
             }
         });
@@ -639,38 +209,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (pranky_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (frustrated_switch.isChecked()) {
-                        frustrated_switch.toggle();
-                    }
+                    checkFeeling("15");
+                    setFeeling("15");
                 }
             }
         });
@@ -679,38 +219,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (frustrated_switch.isChecked()) {
-                    setFeeling("3");
-                    if (relax_switch_button.isChecked()) {
-                        relax_switch_button.toggle();
-                    } else if (angry_switch_button.isChecked()) {
-                        angry_switch_button.toggle();
-                    } else if (sad_switch_button.isChecked()) {
-                        sad_switch_button.toggle();
-                    } else if (bored_switch_button.isChecked()) {
-                        bored_switch_button.toggle();
-                    }else if (disappointed_switch.isChecked()) {
-                        disappointed_switch.toggle();
-                    }else if (loved_switch.isChecked()) {
-                        loved_switch.toggle();
-                    }else if (sleepy_switch.isChecked()) {
-                        sleepy_switch.toggle();
-                    }else if (flirty_switch.isChecked()) {
-                        flirty_switch.toggle();
-                    }else if (optimistic_switch.isChecked()) {
-                        optimistic_switch.toggle();
-                    }else if (jealous_switch.isChecked()) {
-                        jealous_switch.toggle();
-                    }else if (sick_switch.isChecked()) {
-                        sick_switch.toggle();
-                    }else if (tired_switch.isChecked()) {
-                        tired_switch.toggle();
-                    }else if (sexy_switch.isChecked()) {
-                        sexy_switch.toggle();
-                    }else if (happy_switch_button.isChecked()) {
-                        happy_switch_button.toggle();
-                    }else if (pranky_switch.isChecked()) {
-                        pranky_switch.toggle();
-                    }
+                    checkFeeling("16");
+                    setFeeling("16");
                 }
             }
         });
@@ -730,5 +240,99 @@ public class FeelingActivity extends BaseActivity {
         }
         return false;
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.categorymenu, menu);
+        return true;
+    }
+
+    private void checkFeeling(String value){
+        if (!value.equals("1")){
+            if (happy_switch_button.isChecked()) {
+                happy_switch_button.toggle();
+        }}
+        if (!value.equals("2")){
+            if (relax_switch_button.isChecked()) {
+                relax_switch_button.toggle();
+        }}
+
+        if (!value.equals("3")){
+            if (angry_switch_button.isChecked()) {
+                angry_switch_button.toggle();
+        }}
+        if (!value.equals("4")){
+            if (sad_switch_button.isChecked()) {
+                sad_switch_button.toggle();
+        }}
+        if (!value.equals("5")){
+            if (bored_switch_button.isChecked()) {
+                bored_switch_button.toggle();
+        }}
+        if (!value.equals("6")){
+            if (disappointed_switch.isChecked()) {
+                disappointed_switch.toggle();
+        }}
+        if (!value.equals("7")){
+            if (loved_switch.isChecked()) {
+                loved_switch.toggle();
+        }}
+        if (!value.equals("8")){
+            if (sleepy_switch.isChecked()) {
+                sleepy_switch.toggle();
+        }}
+        if (!value.equals("9")){
+            if (flirty_switch.isChecked()) {
+                flirty_switch.toggle();
+        }}
+        if (!value.equals("10")){
+            if (optimistic_switch.isChecked()) {
+                optimistic_switch.toggle();
+        }}
+        if (!value.equals("11")){
+                if (jealous_switch.isChecked()) {
+                    jealous_switch.toggle();
+        }}
+        if (!value.equals("12")){
+            if (sick_switch.isChecked()) {
+                sick_switch.toggle();
+        }}
+        if (!value.equals("13")){
+            if (tired_switch.isChecked()) {
+                tired_switch.toggle();
+        }}
+        if (!value.equals("14")){
+            if (sexy_switch.isChecked()) {
+                sexy_switch.toggle();
+        }}
+        if (!value.equals("15")){
+            if (pranky_switch.isChecked()) {
+                pranky_switch.toggle();
+        }}
+        if (!value.equals("16")){
+            if (frustrated_switch.isChecked()) {
+                frustrated_switch.toggle();
+        }}
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.category_menu) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("resultFromFeeling", current_feeling);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

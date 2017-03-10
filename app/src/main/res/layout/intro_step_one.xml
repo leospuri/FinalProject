@@ -15,8 +15,7 @@
         android:text="Before you join"
         android:textStyle="bold"
         android:textSize="24sp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"/>
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -44,6 +44,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
     private RecyclerView rv;
     private ScrollView scrollView;
     private String current_category;
+    private TextView selected_hashtag;
 
 
     /**
@@ -67,7 +68,11 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         });
 
         scrollView = (ScrollView) findViewById(R.id.tags_laoyut);
+        selected_hashtag = (TextView) findViewById(R.id.selected_hashtag);
 
+        if (selected_hashtag.getVisibility() == View.VISIBLE){
+            selected_hashtag.setVisibility(View.GONE);
+        }
         rv=(RecyclerView)findViewById(R.id.category_tag_rv);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -174,6 +179,8 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
+                // Todo add category text to the edittext
+                editText.setText(model.getName());
                 String name = model.getId();
                 setCategory(name);
                 Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
@@ -277,6 +284,8 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
     }
 
     public void setCategory(String current_category) {
+        selected_hashtag.setVisibility(View.VISIBLE);
+        selected_hashtag.setText(String.valueOf("You have selected : " + editText.getText().toString()));
         this.current_category = current_category;
     }
 
@@ -355,6 +364,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                         @Override
                         public void onNext(NewCategoryAdded userResponse) {
                             setCategory(userResponse.getId());
+
                             Toast.makeText(Category2Activity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });

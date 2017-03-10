@@ -147,17 +147,20 @@ public class TextStatus extends BaseActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromCategory");
+                Toast.makeText(this, "Category returned: " + result, Toast.LENGTH_SHORT).show();
                 category = result;
             }
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromFeeling");
+                Toast.makeText(this, "Feeling returned: " + result, Toast.LENGTH_SHORT).show();
                 feeling = result;
 
             }
         } else if (requestCode == 3) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromStatus");
+                Toast.makeText(this, "text Status returned: " + result, Toast.LENGTH_SHORT).show();
                 textStatus = result;
             }
         }
