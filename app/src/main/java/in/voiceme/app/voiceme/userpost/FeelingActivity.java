@@ -15,25 +15,11 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.l;
 
 public class FeelingActivity extends BaseActivity {
-    private MaterialAnimatedSwitch happy_switch_button;
-    private MaterialAnimatedSwitch relax_switch_button;
-    private MaterialAnimatedSwitch angry_switch_button;
-    private MaterialAnimatedSwitch sad_switch_button;
-    private MaterialAnimatedSwitch bored_switch_button;
-    private MaterialAnimatedSwitch disappointed_switch;
-    private MaterialAnimatedSwitch loved_switch;
-    private MaterialAnimatedSwitch sleepy_switch;
-    private MaterialAnimatedSwitch flirty_switch;
-    private MaterialAnimatedSwitch optimistic_switch;
-    private MaterialAnimatedSwitch jealous_switch;
-    private MaterialAnimatedSwitch sick_switch;
-    private MaterialAnimatedSwitch tired_switch;
-    private MaterialAnimatedSwitch sexy_switch;
-    private MaterialAnimatedSwitch pranky_switch;
-    private MaterialAnimatedSwitch frustrated_switch;
+    private MaterialAnimatedSwitch happy_switch_button, relax_switch_button, angry_switch_button, sad_switch_button,
+            bored_switch_button, disappointed_switch, loved_switch, sleepy_switch, flirty_switch, optimistic_switch,
+            jealous_switch, sick_switch, tired_switch, sexy_switch, pranky_switch, frustrated_switch;
 
-    private String firstSwitch = null;
-    private String secondSwitch = null;
+    private MaterialAnimatedSwitch firstSwitch = null;
 
     private String current_feeling;
 
@@ -243,6 +229,15 @@ public class FeelingActivity extends BaseActivity {
         }
         return false;
 
+    }
+
+    private void setCurrent_feeling(MaterialAnimatedSwitch feeling){
+        if (firstSwitch == null){
+            firstSwitch = feeling;
+        } else {
+            firstSwitch.toggle();
+            firstSwitch = feeling;
+        }
     }
 
     @Override
