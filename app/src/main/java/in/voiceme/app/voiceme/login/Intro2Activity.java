@@ -1,17 +1,21 @@
 package in.voiceme.app.voiceme.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.DotStepper;
 
-public class Intro2Activity extends DotStepper implements StepOneInterface, StepTwoInterface, StepThreeInterface {
+import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+
+public class Intro2Activity extends DotStepper implements StepOneInterface, StepTwoInterface, StepThreeInterface, StepFourInterface {
 
     private int i = 1;
     private String usernameText = null;
     private String feelingID = null;
     private String categoryID = null;
+    private String textStatus = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,7 @@ public class Intro2Activity extends DotStepper implements StepOneInterface, Step
         addStep(createFragment(new StepSample2()));
         addStep(createFragment(new StepSample3()));
         addStep(createFragment(new StepSample4()));
-        addStep(createFragment(new StepSample()));
+        addStep(createFragment(new StepSample5()));
 
         super.onCreate(savedInstanceState);
     }
@@ -40,6 +44,7 @@ public class Intro2Activity extends DotStepper implements StepOneInterface, Step
     public void onComplete() {
         super.onComplete();
         Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override
@@ -58,5 +63,11 @@ public class Intro2Activity extends DotStepper implements StepOneInterface, Step
     public void setCategory(String category) {
         Toast.makeText(this, "Feeling ID: " + category, Toast.LENGTH_SHORT).show();
         categoryID = category;
+    }
+
+    @Override
+    public void sendTextStatus(String status) {
+        Toast.makeText(this, "Feeling ID: " + status, Toast.LENGTH_SHORT).show();
+        textStatus = status;
     }
 }

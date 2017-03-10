@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <TextView
@@ -9,28 +10,63 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
         android:layout_marginLeft="16dp"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Would you like to ?"/>
+        android:text="Would you like to Say?"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_gravity="center_horizontal"
-        android:textSize="28sp"
-        android:id="@+id/intro_audio_status"
-        android:textStyle="bold"
-        android:text="Speak"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="18dp"
+        android:text="Enter Text"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/intro_text_status"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:text="Write"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/intro_output_autofit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:maxLines="5"
+                    autofit:minTextSize="8sp"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+                <EditText
+                    android:id="@+id/intro_edit_text_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:maxLines="8"
+                    android:textSize="20sp"
+                    android:gravity="top"
+                    android:hint="Enter Status here"
+                    android:text=""/>
+                <View
+
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+
+
+
+            </LinearLayout>
+        </ScrollView>
 
 </LinearLayout>
