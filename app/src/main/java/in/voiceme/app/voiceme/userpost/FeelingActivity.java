@@ -32,6 +32,9 @@ public class FeelingActivity extends BaseActivity {
     private MaterialAnimatedSwitch pranky_switch;
     private MaterialAnimatedSwitch frustrated_switch;
 
+    private String firstSwitch = null;
+    private String secondSwitch = null;
+
     private String current_feeling;
 
     @Override
