@@ -9,6 +9,7 @@ public interface Constants {
     String YES = "YES";
     String GOOGLE_LOGIN = "accounts.google.com";
     String FACEBOOK_LOGIN = "graph.facebook.com";
+    String MESSAGECHAT = "MESSAGECHAT";
 
     String EMAIL = "EMAIL";
     String SOCIAL_ID = "SOCIAL_ID";

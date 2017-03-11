@@ -17,6 +17,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.chat.MessageActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -218,24 +219,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        l.a(2222);
-        if (itemId == R.id.activity_profile_menuEdit) {
-            return true;
-        }
-
-        return false;
-    }
-
     private void addFollower(String secondUserId, String addOrRemove) throws Exception {
         application.getWebService()
                 .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
@@ -286,6 +269,31 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         }
         image.setImageURI(response.getData().getAvatarPics());
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_chat, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (processLoggedState(username))
+            return false;
+        l.a(111111);
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.activity_profile_chat) {
+
+            Intent intent = new Intent(this, MessageActivity.class);
+            intent.putExtra(Constants.YES, profileUserId);
+            startActivity(intent);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
