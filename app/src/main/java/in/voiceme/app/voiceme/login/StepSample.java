@@ -8,16 +8,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.R;
-import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
  */
 public class StepSample extends AbstractStep implements View.OnClickListener {
-    private String token;
     private Button accept;
     private boolean yes = false;
 
@@ -31,11 +28,6 @@ public class StepSample extends AbstractStep implements View.OnClickListener {
 
 
         accept.setOnClickListener(this);
-
-        token = FirebaseInstanceId.getInstance().getToken();
-
-        Toast.makeText(getActivity(), "Token " + token, Toast.LENGTH_SHORT).show();
-        Timber.d(String.valueOf("token from fcm: " + token));
 
         return v;
     }

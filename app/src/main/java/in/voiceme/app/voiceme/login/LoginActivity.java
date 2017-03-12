@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             finish();
             return;
          } else {
-            startActivity(new Intent(this, Intro2Activity.class));
+            startActivity(new Intent(this, LoginUserDetails.class));
             finish();
             return;
         }

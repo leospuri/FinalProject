@@ -57,9 +57,9 @@ public class MessageActivity extends BaseActivity {
 
 
                 sendMessage(input.toString());
-                adapter.addToStart(new MessagePojo("2",
+                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences),
                         input.toString(), String.valueOf(new Date(System.currentTimeMillis())),
-                        new UserPojo("2", "haridh",
+                        new UserPojo(MySharedPreferences.getUserId(preferences), "haridh",
                                 MySharedPreferences.getImageUrl(preferences), String.valueOf(true))), true);
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
                 return true;
@@ -114,7 +114,7 @@ public class MessageActivity extends BaseActivity {
         MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
         holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_holder_incoming_message);
         holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class, R.layout.item_custom_holder_outcoming_message);
-        adapter = new MessagesListAdapter<>("2", holdersConfig, imageLoader);
+        adapter = new MessagesListAdapter<>(MySharedPreferences.getUserId(preferences), holdersConfig, imageLoader);
         adapter.setOnMessageLongClickListener(new MessagesListAdapter.OnMessageLongClickListener<MessagePojo>() {
             @Override
             public void onMessageLongClick(MessagePojo message) {
@@ -151,8 +151,9 @@ public class MessageActivity extends BaseActivity {
 
     private void sendMessage(String message){
 
-        String sendChat = "senderid@" + userId + "_contactId@" +
-                "2" + "_chat@yes";
+        String sendChat = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                userId + "_chat@yes";
+        Timber.e(sendChat);
 
         application.getWebService()
                 .getResponse(sendChat, message)
@@ -171,7 +172,7 @@ public class MessageActivity extends BaseActivity {
 
     private void chatMessages() throws Exception {
         application.getWebService()
-                .getChatMessages("2", userId)
+                .getChatMessages(MySharedPreferences.getUserId(preferences), userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override

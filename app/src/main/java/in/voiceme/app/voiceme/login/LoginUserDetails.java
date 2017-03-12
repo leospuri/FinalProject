@@ -77,7 +77,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
                 try {
                     submitDataWithoutProfile();
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, Intro2Activity.class));
                     finish();
                 } catch (Exception e) {
                     e.printStackTrace();
