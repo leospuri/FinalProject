@@ -19,8 +19,8 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
-import timber.log.Timber;
 
 public class DialogDetailsActivity extends BaseActivity {
 
@@ -67,18 +67,7 @@ public class DialogDetailsActivity extends BaseActivity {
     }
 
     protected void getChat() {
-        application.getWebService()
-                .getResponse("senderid@2_contactId@1_chat@yes", "after current message")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        Timber.d("Got user details");
-                        //     followers.setText(String.valueOf(response.size()));
-                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                        Timber.d("Message from server" + response);
-                    }
-                });
+
 
 
     }
@@ -88,11 +77,11 @@ public class DialogDetailsActivity extends BaseActivity {
             @Override
             public void onDialogClick(ChatDialogPojo dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
-                Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked" + messages.get(0).getId(), Toast.LENGTH_SHORT).show();
              //   startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
 
                 Intent intent = new Intent(DialogDetailsActivity.this, MessageActivity.class);
-                intent.putExtra(Constants.YES, /* messages.get(0).getId()*/ "2");
+                intent.putExtra(Constants.YES, messages.get(0).getId());
                 startActivity(intent);
 
                 getChat();
@@ -124,7 +113,7 @@ public class DialogDetailsActivity extends BaseActivity {
 
     private void chatMessages() throws Exception {
         application.getWebService()
-                .getAllChatMessages("1")
+                .getAllChatMessages(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<ChatDialogPojo>>() {
                     @Override

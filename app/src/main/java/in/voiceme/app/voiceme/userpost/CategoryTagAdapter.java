@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +22,13 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
     public static class TrendingHashTagsViewHolder extends RecyclerView.ViewHolder {
         protected AllPopularTagsPojo dataItem;
 
-        Button tagName;
+        TextView tagName;
         TextView numberOfTags;
 
         TrendingHashTagsViewHolder(View itemView) {
             super(itemView);
 
-            tagName = (Button) itemView.findViewById(R.id.category_popular_tag);
+            tagName = (TextView) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 
             int[] androidColors = itemView.getResources().getIntArray(R.array.androidcolors);
@@ -39,7 +38,7 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
 
         public void bind(AllPopularTagsPojo dataItem) {
             this.dataItem = dataItem;
-            tagName.setText(dataItem.getName());
+            tagName.setText(String.valueOf("#" + dataItem.getName()));
             numberOfTags.setText(dataItem.getCount());
 
         }

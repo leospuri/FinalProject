@@ -44,6 +44,21 @@ public class StepSample2 extends AbstractStep {
         return v;
     }
 
+   /* private void submitDataWithoutProfile() throws Exception {
+        application.getWebService()
+                .LoginUserName(MySharedPreferences.getSocialID(preferences), username.getText().toString(),
+                        "", token)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<ProfileAboutMe>() {
+                    @Override
+                    public void onNext(ProfileAboutMe response) {
+
+                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
+                        //Todo add network call for uploading profile_image file
+                        //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
+                    }
+                }); */
+
     @Override
     public void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);

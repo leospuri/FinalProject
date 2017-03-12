@@ -7,20 +7,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:layout_marginLeft="16dp"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:text="Looks Good ?"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:text="Make sure your information is correct before continuing"
-        android:textSize="20sp"/>
+        android:text="Who are you"
+        android:textSize="28sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:hint="Example cool_marx"
         android:id="@+id/intro_username"/>
 
 

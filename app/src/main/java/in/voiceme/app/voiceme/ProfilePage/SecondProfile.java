@@ -287,6 +287,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         if (itemId == R.id.activity_profile_chat) {
 
+
             Intent intent = new Intent(this, MessageActivity.class);
             intent.putExtra(Constants.YES, profileUserId);
             startActivity(intent);

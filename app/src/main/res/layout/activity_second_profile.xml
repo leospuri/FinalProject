@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_grey_50"
-                android:id="@+id/profile_header_banner"
+                android:id="@+id/second_profile_header_banner"
                 tools:context=".ProfilePage.ProfileActivity">
 
                 <include layout="@layout/include_toolbar"
@@ -31,7 +31,7 @@
                     />
 
                 <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/profile_image"
+                    android:id="@+id/second_image"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:scaleType="fitCenter"
@@ -65,19 +65,29 @@
                     android:layout_marginTop="28dp"
                     android:background="@drawable/messenger_bubble_large_white" />
 
+                <Button
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_above="@+id/second_activity_profile_textFields"
+                    android:id="@+id/second_profile_follow_me"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="28dp"
+                    android:background="@drawable/ic_add" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_image"
+                    android:layout_below="@+id/second_image"
                     android:padding="10dp"
                     android:orientation="horizontal"
-                    android:id="@+id/activity_profile_textFields">
+                    android:id="@+id/second_activity_profile_textFields">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/total_post_layout"
+                        android:id="@+id/layout_second_user_profile_textview"
                         android:orientation="vertical"
                         android:layout_weight="1">
 
@@ -85,13 +95,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:id="@+id/user_profile_textview"
+                            android:id="@+id/second_user_profile_textview"
                             android:singleLine="true"
                             android:text="Total Posts"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/total_posts_counter"
+                            android:id="@+id/second_total_posts_counter"
                             android:singleLine="true"
                             android:text="0"
                             android:layout_gravity="center"/>
@@ -108,7 +118,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/follower_column"
+                        android:id="@+id/layout_second_profile_followers"
                         android:orientation="vertical"
                         android:layout_weight="1">
 
@@ -116,11 +126,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:id="@+id/profile_followers"
+                            android:id="@+id/second_profile_followers"
                             android:layout_gravity="center"
                             android:text="Followers"/>
                         <TextView
-                            android:id="@+id/action_followers"
+                            android:id="@+id/second_action_followers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
@@ -139,7 +149,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/following_layout"
+                        android:id="@+id/layout_second_profile_following"
                         android:orientation="vertical"
                         android:layout_weight="1">
 
@@ -147,11 +157,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:id="@+id/profile_following"
+                            android:id="@+id/second_profile_following"
                             android:layout_gravity="center"
                             android:text="Following"/>
                         <TextView
-                            android:id="@+id/action_following"
+                            android:id="@+id/second_action_following"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
@@ -165,8 +175,8 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_below="@+id/activity_profile_textFields"
-                    android:id="@+id/new_username"
+                    android:layout_below="@+id/second_activity_profile_textFields"
+                    android:id="@+id/second_new_username"
                     android:layout_margin="20dp"
                     android:padding="10dp"
                     android:background="@color/white"
@@ -181,7 +191,7 @@
                         android:text="Name"/>
 
                     <TextView
-                        android:id="@+id/name"
+                        android:id="@+id/second_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
@@ -194,11 +204,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
-                        android:id="@+id/age"
+                        android:id="@+id/second_age"
                         android:text="My Age"/>
 
                     <TextView
-                        android:id="@+id/age_value"
+                        android:id="@+id/second_age_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -210,11 +220,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
-                        android:id="@+id/gender"
+                        android:id="@+id/second_gender"
                         android:text="Gender"/>
 
                     <TextView
-                        android:id="@+id/gender_value"
+                        android:id="@+id/second_gender_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -227,8 +237,8 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_below="@+id/new_username"
-                    android:id="@+id/about_me_layout"
+                    android:layout_below="@+id/second_new_username"
+                    android:id="@+id/second_about_me_layout"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:padding="10dp"
@@ -244,7 +254,7 @@
                         android:text="About me"/>
 
                     <TextView
-                        android:id="@+id/about"
+                        android:id="@+id/second_about"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -257,7 +267,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/about_me_layout"
+                    android:layout_below="@+id/second_about_me_layout"
                     android:layout_height="50dp" />
 
 

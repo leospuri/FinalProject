@@ -8,18 +8,19 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.R;
+import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
  */
-public class StepSample extends AbstractStep {
-
-
+public class StepSample extends AbstractStep implements View.OnClickListener {
+    private String token;
     private Button accept;
     private boolean yes = false;
-    private final static String CLICK = "click";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,13 +28,14 @@ public class StepSample extends AbstractStep {
         View v = inflater.inflate(R.layout.intro_step_one, container, false);
         accept = (Button) v.findViewById(R.id.intro01_accept);
 
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               yes = true;
-                onNext();
-            }
-        });
+
+
+        accept.setOnClickListener(this);
+
+        token = FirebaseInstanceId.getInstance().getToken();
+
+        Toast.makeText(getActivity(), "Token " + token, Toast.LENGTH_SHORT).show();
+        Timber.d(String.valueOf("token from fcm: " + token));
 
         return v;
     }
@@ -97,4 +99,9 @@ public class StepSample extends AbstractStep {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        yes = true;
+        onNext();
+    }
 }

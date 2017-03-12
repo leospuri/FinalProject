@@ -12,8 +12,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Before you join"
+        android:text="Welcome"
         android:textStyle="bold"
+        android:layout_marginTop="20dp"
         android:textSize="24sp"
         android:layout_marginLeft="16dp" />
 
@@ -24,34 +25,16 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:textSize="20sp"
-        android:text="Whether its your first time using Voiceme or you are one of our existing member, please commit to respecting everyone in Voiceme Community."
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:textSize="20sp"
-        android:text="I agree to treat everyone in the Voiceme community- regardless of their race, religion, national origin, ethnicity, disability, sex, gender identity, sexual orientation or age - with respect and without any judgment or bias"
+        android:text="At Voice Me, we encourage healthy public participation via anonymous means of text and audio medium. So please commit to respect everyone in Voice Me Community"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
         android:id="@+id/intro01_accept"
         android:text="Accept"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:id="@+id/intro01_decline"
-        android:text="Decline"/>
 
 
 </LinearLayout>

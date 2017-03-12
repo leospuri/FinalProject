@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     private ScrollView scrollView;
     private String current_category;
     private TextView selected_hashtag;
+    private LinearLayout mLinearLayout;
 
     /**
      * sample country list
@@ -80,6 +83,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
         getPopularHashTags();
 
+        mLinearLayout = (LinearLayout) v.findViewById(R.id.stepFourLinear);
         tagGroup = (TagView) v.findViewById(R.id.intro_tag_group);
         editText = (EditText) v.findViewById(R.id.intro_editText);
         createNewHashTag = (TextView) v.findViewById(R.id.intro_create_new_hashtag);
@@ -87,6 +91,17 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         if (createNewHashTag.getVisibility()==View.VISIBLE){
             createNewHashTag.setVisibility(View.GONE);
         }
+
+        mLinearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (editText.isFocused()){
+                    rv.setVisibility(View.VISIBLE);
+                    scrollView.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
 
         createNewHashTag.setOnClickListener(this);
         getAllHashTags();
@@ -101,13 +116,16 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                     setTags(s);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (editText.getText().toString().isEmpty()){
+                    scrollView.setVisibility(View.GONE);
+                    createNewHashTag.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -171,6 +189,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
                 // Todo add category text to the edittext
                 editText.setText(model.getName());
+                createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
                 setCategory(name);
                 Toast.makeText(getActivity(), "name of the category: " + name, Toast.LENGTH_SHORT).show();
@@ -180,6 +199,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
         rv.setAdapter(adapter);
     }
+
 
     private void prepareTags(List<AllCategoryPojo> allCategories) {
         Gson gson = new Gson();
@@ -234,7 +254,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                         @Override
                         public void onNext(List<AllCategoryPojo> userResponse) {
                             prepareTags(userResponse);
-                            Toast.makeText(getActivity(), "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -326,7 +345,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                         public void onNext(NewCategoryAdded userResponse) {
                             setCategory(userResponse.getId());
 
-                            Toast.makeText(getActivity(), "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -342,6 +360,9 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean isOptional() {
+        if (!editText.getText().toString().isEmpty()){
+            yes = true;
+        }
         if (yes){
             return true;
         } else {
@@ -359,6 +380,11 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void onNext() {
         StepThreeInterface stepOneInterface = (StepThreeInterface) getActivity();
         stepOneInterface.setCategory(this.current_category);
+        if (!editText.getText().toString().isEmpty()){
+            Toast.makeText(getActivity(), "New Hash tag created", Toast.LENGTH_SHORT).show();
+            yes = true;
+        }
+
     }
 
     @Override
@@ -372,7 +398,10 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     }
 
     @Override
-    public boolean nextIf() {;
+    public boolean nextIf() {
+        if (!editText.getText().toString().isEmpty()){
+            yes = true;
+        }
         if (yes){
             return true;
         } else {

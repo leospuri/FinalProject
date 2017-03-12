@@ -12,7 +12,6 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
@@ -21,6 +20,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -42,6 +42,7 @@ public class MessageActivity extends BaseActivity {
         setContentView(R.layout.activity_message);
 
         userId = getIntent().getStringExtra(Constants.YES);
+        Toast.makeText(this, "User ID: " + userId, Toast.LENGTH_SHORT).show();
 
         getSupportActionBar().setTitle("Private Messages");
         setNavDrawer(new MainNavDrawer(this));
@@ -54,9 +55,12 @@ public class MessageActivity extends BaseActivity {
             @Override
             public boolean onSubmit(CharSequence input) {
 
-                adapter.addToStart(new MessagePojo(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
+
+                sendMessage(input.toString());
+                adapter.addToStart(new MessagePojo("2",
                         input.toString(), String.valueOf(new Date(System.currentTimeMillis())),
-                        new UserPojo("1", "harish", "", String.valueOf(true))), true);
+                        new UserPojo("2", "haridh",
+                                MySharedPreferences.getImageUrl(preferences), String.valueOf(true))), true);
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
                 return true;
             }
@@ -110,7 +114,7 @@ public class MessageActivity extends BaseActivity {
         MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
         holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_holder_incoming_message);
         holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class, R.layout.item_custom_holder_outcoming_message);
-        adapter = new MessagesListAdapter<>("1", holdersConfig, imageLoader);
+        adapter = new MessagesListAdapter<>("2", holdersConfig, imageLoader);
         adapter.setOnMessageLongClickListener(new MessagesListAdapter.OnMessageLongClickListener<MessagePojo>() {
             @Override
             public void onMessageLongClick(MessagePojo message) {
@@ -145,9 +149,29 @@ public class MessageActivity extends BaseActivity {
         messagesList.setAdapter(adapter);
     }
 
+    private void sendMessage(String message){
+
+        String sendChat = "senderid@" + userId + "_contactId@" +
+                "2" + "_chat@yes";
+
+        application.getWebService()
+                .getResponse(sendChat, message)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        Timber.d("Message from server" + response);
+                    }
+                });
+    }
+
     private void chatMessages() throws Exception {
         application.getWebService()
-                .getChatMessages("1", userId)
+                .getChatMessages("2", userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override

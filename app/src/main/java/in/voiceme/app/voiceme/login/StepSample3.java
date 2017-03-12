@@ -16,8 +16,7 @@ import in.voiceme.app.voiceme.R;
  */
 public class StepSample3 extends AbstractStep {
     private MaterialAnimatedSwitch happy_switch_button, relax_switch_button, angry_switch_button, sad_switch_button,
-            bored_switch_button, disappointed_switch, loved_switch, sleepy_switch, flirty_switch, optimistic_switch,
-            jealous_switch, sick_switch, tired_switch, sexy_switch, pranky_switch, frustrated_switch;
+            bored_switch_button, loved_switch, sleepy_switch, flirty_switch, sick_switch, tired_switch, sexy_switch;
 
     private String current_feeling = null;
     private boolean yes = false;
@@ -31,17 +30,12 @@ public class StepSample3 extends AbstractStep {
         angry_switch_button = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_angry_switch);
         sad_switch_button = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_sad_switch);
         bored_switch_button = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_bored_switch);
-        disappointed_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_disappointed_switch);
         loved_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_loved_switch);
         sleepy_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_sleepy_switch);
         flirty_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_flirty_switch);
-        optimistic_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_optimistic_switch);
-        jealous_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_jealous_switch);
         sick_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_sick_switch);
         tired_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_tired_switch);
         sexy_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_sexy_switch);
-        pranky_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_pranky_switch);
-        frustrated_switch = (MaterialAnimatedSwitch) v.findViewById(R.id.intro_frustrated_switch);
 
         happy_switch_button.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
@@ -93,15 +87,6 @@ public class StepSample3 extends AbstractStep {
             }
         });
 
-        disappointed_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (disappointed_switch.isChecked()) {
-                    checkFeeling("6");
-                    setFeeling("6");
-                }
-            }
-        });
         loved_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
@@ -128,26 +113,6 @@ public class StepSample3 extends AbstractStep {
                 if (flirty_switch.isChecked()) {
                     checkFeeling("9");
                     setFeeling("9");
-                }
-            }
-        });
-
-        optimistic_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (optimistic_switch.isChecked()) {
-                    checkFeeling("10");
-                    setFeeling("10");
-                }
-            }
-        });
-
-        jealous_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (jealous_switch.isChecked()) {
-                    checkFeeling("11");
-                    setFeeling("11");
                 }
             }
         });
@@ -182,26 +147,6 @@ public class StepSample3 extends AbstractStep {
             }
         });
 
-        pranky_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (pranky_switch.isChecked()) {
-                    checkFeeling("15");
-                    setFeeling("15");
-                }
-            }
-        });
-
-        frustrated_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (frustrated_switch.isChecked()) {
-                    checkFeeling("16");
-                    setFeeling("16");
-                }
-            }
-        });
-
         return v;
     }
 
@@ -227,10 +172,6 @@ public class StepSample3 extends AbstractStep {
             if (bored_switch_button.isChecked()) {
                 bored_switch_button.toggle();
             }}
-        if (!value.equals("6")){
-            if (disappointed_switch.isChecked()) {
-                disappointed_switch.toggle();
-            }}
         if (!value.equals("7")){
             if (loved_switch.isChecked()) {
                 loved_switch.toggle();
@@ -243,14 +184,6 @@ public class StepSample3 extends AbstractStep {
             if (flirty_switch.isChecked()) {
                 flirty_switch.toggle();
             }}
-        if (!value.equals("10")){
-            if (optimistic_switch.isChecked()) {
-                optimistic_switch.toggle();
-            }}
-        if (!value.equals("11")){
-            if (jealous_switch.isChecked()) {
-                jealous_switch.toggle();
-            }}
         if (!value.equals("12")){
             if (sick_switch.isChecked()) {
                 sick_switch.toggle();
@@ -262,14 +195,6 @@ public class StepSample3 extends AbstractStep {
         if (!value.equals("14")){
             if (sexy_switch.isChecked()) {
                 sexy_switch.toggle();
-            }}
-        if (!value.equals("15")){
-            if (pranky_switch.isChecked()) {
-                pranky_switch.toggle();
-            }}
-        if (!value.equals("16")){
-            if (frustrated_switch.isChecked()) {
-                frustrated_switch.toggle();
             }}
     }
 
