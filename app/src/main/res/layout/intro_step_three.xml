@@ -24,15 +24,14 @@
             android:textSize="24sp"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
             android:text="So How are you feeling Today?"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/intro_happy_Category"
-            android:layout_below="@+id/intro_feeling_heading"
             android:weightSum="2"
             android:orientation="horizontal">
 

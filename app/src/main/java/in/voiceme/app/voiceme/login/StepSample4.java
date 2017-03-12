@@ -188,7 +188,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
                 // Todo add category text to the edittext
-                editText.setText(model.getName());
                 createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
                 setCategory(name);

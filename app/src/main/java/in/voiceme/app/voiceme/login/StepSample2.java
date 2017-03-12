@@ -96,7 +96,7 @@ public class StepSample2 extends AbstractStep {
     }
 
     @Override
-    public boolean nextIf() {;
+    public boolean nextIf() {
         return yes;
 
     }

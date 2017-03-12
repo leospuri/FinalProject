@@ -4,30 +4,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.R;
+import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
  */
-public class StepSample extends AbstractStep implements View.OnClickListener {
-    private Button accept;
+public class StepSample extends AbstractStep {
     private boolean yes = false;
+    private String token;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.intro_step_one, container, false);
-        accept = (Button) v.findViewById(R.id.intro01_accept);
+        token = FirebaseInstanceId.getInstance().getToken();
 
-
-
-        accept.setOnClickListener(this);
+        Toast.makeText(getActivity(), "Token " + token, Toast.LENGTH_SHORT).show();
+        Timber.d(String.valueOf("token from fcm: " + token));
 
         return v;
     }
@@ -60,7 +60,9 @@ public class StepSample extends AbstractStep implements View.OnClickListener {
 
     @Override
     public void onNext() {
-
+        yes=true;
+        StepzeroInterface stepOneInterface = (StepzeroInterface) getActivity();
+        stepOneInterface.sendToken(token);
     }
 
     @Override
@@ -90,10 +92,4 @@ public class StepSample extends AbstractStep implements View.OnClickListener {
         return "<b>You must agree!</b> <small>please respect other people!</small>";
     }
 
-
-    @Override
-    public void onClick(View view) {
-        yes = true;
-        onNext();
-    }
 }
