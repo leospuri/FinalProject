@@ -26,6 +26,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
@@ -39,7 +40,6 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     private int mPage;
     private RecyclerView recyclerView;
     private TotalPostsAdapter activityInteractionAdapter;
-    private String emotionId;
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
@@ -51,13 +51,6 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     ProgressBar progressBar;
     LinearLayout errorLayout;
     TextView txtError;
-
-
-    private String angry = "angry";
-    private String relaxed = "relaxed";
-    private String happy = "happy";
-    private String sad = "sad";
-    private String bored = "bored";
 
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
@@ -81,19 +74,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        emotionId = getIntent().getStringExtra(Constants.EMOTION);
-
-        if (emotionId.equals(angry)) {
-            setFeeling("1");
-        } else if (emotionId.equals(relaxed)) {
-            setFeeling("2");
-        } else if (emotionId.equals(happy)) {
-            setFeeling("3");
-        } else if (emotionId.equals(sad)) {
-            setFeeling("4");
-        } else if (emotionId.equals(bored)) {
-            setFeeling("5");
-        }
+        feelingID = getIntent().getStringExtra(Constants.EMOTION);
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
@@ -204,6 +185,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         application.getWebService()
                 .getEmotionPosts(feelingID, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -239,6 +221,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         application.getWebService()
                 .getEmotionPosts(feelingID, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {

@@ -42,7 +42,7 @@ public interface WebService {
     Observable<List<MessagePojo>> getChatMessages(@Query("from_user_id") String userID,
                                                   @Query("to_user_id") String toUserID);
 
-    @GET("get_all_chats.php")
+    @GET("get_all_chats_new.php")
     Observable<List<ChatDialogPojo>> getAllChatMessages(@Query("user_id") String userID);
 
     @GET("get_hashtags.php")
@@ -92,7 +92,7 @@ public interface WebService {
                                                  @Query("contacts") String contacts,
                                                  @Query("page") int page);
 
-    @GET("get_comments.php")
+    @GET("get_comments_new.php")
     Observable<List<PostUserCommentModel>> getUserComments(
             @Query("id_posts") String id_posts);
 

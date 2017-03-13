@@ -38,6 +38,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -229,6 +230,7 @@ public class RegisterActivity extends BaseActivity
         application.getWebService()
                 .login(name, email, "", "", identityID, profile, "", "", "")
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {

@@ -356,7 +356,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // add feeling ID to get feeling Posts from current pojo
 
             Intent intent = new Intent(v.getContext(), UserFeelingActivity.class);
-            intent.putExtra(Constants.EMOTION, getFeeling().getText().toString());
+            intent.putExtra(Constants.EMOTION, dataItem.getIdFeeling());
             v.getContext().startActivity(intent);
         }
 

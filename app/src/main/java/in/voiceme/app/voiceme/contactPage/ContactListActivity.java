@@ -27,6 +27,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
@@ -225,6 +226,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         application.getWebService()
                 .getContactPosts(MySharedPreferences.getUserId(preferences), MySharedPreferences.getUserId(preferences), "true", currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -261,6 +263,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         application.getWebService()
                 .getContactPosts(MySharedPreferences.getUserId(preferences), MySharedPreferences.getUserId(preferences), "true", currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {

@@ -43,6 +43,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.PrivacyPolicy;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import rx.android.schedulers.AndroidSchedulers;
@@ -373,6 +374,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         application.getWebService()
                 .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override
                     public void onNext(ContactAddResponse response) {
@@ -428,6 +430,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         application.getWebService()
                 .registerMobile(MySharedPreferences.getUserId(preferences), phoneNumber)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override
                     public void onNext(BaseResponse response) {

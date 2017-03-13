@@ -25,6 +25,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
@@ -40,12 +41,6 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     private TotalPostsAdapter activityInteractionAdapter;
 
     private String categoryId;
-
-    private String family = "family";
-    private String health = "health";
-    private String work = "work";
-    private String social = "social";
-    private String others = "others";
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
@@ -213,6 +208,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         application.getWebService()
                 .getCategoryPosts(currentCategoryID, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -248,6 +244,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         application.getWebService()
                 .getCategoryPosts(currentCategoryID, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {

@@ -17,6 +17,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.CurrentTime;
 import mbanje.kurt.fabbutton.FabButton;
 import rx.android.schedulers.AndroidSchedulers;
@@ -384,7 +385,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         String userId = MySharedPreferences.getUserId(preferences);
         String postId = dataItem.getIdPosts();
-        application.getWebService().likes(userId, postId, like, hug, same, listen)
+        application.getWebService()
+                .likes(userId, postId, like, hug, same, listen)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
@@ -397,7 +400,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         String userId = MySharedPreferences.getUserId(preferences);
         String postId = dataItem.getIdPosts();
-        application.getWebService().unlikes(userId, postId, like, hug, same, listen)
+        application.getWebService()
+                .unlikes(userId, postId, like, hug, same, listen)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
@@ -416,6 +421,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         application.getWebService()
                 .sendLikeNotification(likeUrl)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {

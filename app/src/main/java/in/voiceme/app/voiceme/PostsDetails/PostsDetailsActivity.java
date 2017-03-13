@@ -44,8 +44,10 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
+import in.voiceme.app.voiceme.utils.CurrentTime;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -60,7 +62,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private MessageAdapter mMessageAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private String postId;
-    private List<PostsModel> myList;
+    private PostsModel myList;
     List<PostUserCommentModel> myCommentList;
     private static LikeUnlikeClickListener myClickListener;
     private ProgressBar progressBar;
@@ -195,6 +197,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         feeling.setOnClickListener(this);
         likeCounterImage.setOnClickListener(this);
         hugCounterImage.setOnClickListener(this);
+        sameCounterImage.setOnClickListener(this);
         commentCounterImage.setOnClickListener(this);
         listenCounterImage.setOnClickListener(this);
         user_name.setOnClickListener(this);
@@ -265,7 +268,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
                     String sendLike = "senderid@" + userId + "_contactId@" +
-                            myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+                            myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
                     } else {
@@ -293,7 +296,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
                     String sendLike = "senderid@" + userId + "_contactId@" +
-                            myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+                            myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
                     } else {
@@ -324,7 +327,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
                     String sendLike = "senderid@" + userId + "_contactId@" +
-                            myList.get(0).getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+                            myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
                     } else {
@@ -351,7 +354,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 SharedPreferences preferences;
                 preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
-                if (MySharedPreferences.getUserId(preferences).equals(myList.get(0).getIdUserName())){
+                if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
                     if(popupMenu.getMenu() == null)
                         return;
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
@@ -366,7 +369,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
                                 Intent editIntent = new Intent(PostsDetailsActivity.this, EditPost.class);
                                 editIntent.putExtra(Constants.IDPOST, postId);
-                                editIntent.putExtra(Constants.IDUSERNAME, myList.get(0).getIdUserName());
+                                editIntent.putExtra(Constants.IDUSERNAME, myList.getIdUserName());
                                 startActivity(editIntent);
                                 return true;
 
@@ -374,7 +377,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
                                 Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
                                 reportIntent.putExtra(Constants.IDPOST, postId);
-                                reportIntent.putExtra(Constants.IDUSERNAME, myList.get(0).getIdUserName());
+                                reportIntent.putExtra(Constants.IDUSERNAME, myList.getIdUserName());
                                 startActivity(reportIntent);
                                 return true;
 
@@ -411,33 +414,33 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 view.getId() == R.id.detail_list_item_posts_avatar){
 
             Intent intent = new Intent(this, SecondProfile.class);
-            intent.putExtra(Constants.SECOND_PROFILE_ID, myList.get(0).getIdUserName());
+            intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
             startActivity(intent);
         } else if (view.getId() == R.id.detail_list_item_posts_feeling){
             Intent intent = new Intent(this, UserFeelingActivity.class);
-            intent.putExtra(Constants.EMOTION, myList.get(0).getEmotions());
+            intent.putExtra(Constants.EMOTION, myList.getIdFeeling());
             startActivity(intent);
         } else if (view.getId() == R.id.detail_list_item_posts_category){
             Intent intent = new Intent(this, UserCategoryActivity.class);
-            intent.putExtra(Constants.CATEGORY, myList.get(0).getCategory());
+            intent.putExtra(Constants.CATEGORY, myList.getCategory());
             startActivity(intent);
-        } else if (view.getId() == R.id.detail_post_likes_counter){
+        } else if (view.getId() == R.id.detail_post_likes_counter || view.getId() == R.id.detail_emoji_above_like){
 
             Intent intent = new Intent(this, UserLikeCounterActivity.class);
-            intent.putExtra(Constants.LIKE_FEELING, myList.get(0).getIdPosts());
+            intent.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_hugs_counter){
+        } else if(view.getId() == R.id.detail_post_hugs_counter || view.getId() == R.id.detail_emoji_above_same){
             Intent intent = new Intent(this, UserHugCounterActivity.class);
-            intent.putExtra(Constants.HUG_FEELING, myList.get(0).getIdPosts());
+            intent.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_same_counter){
+        } else if(view.getId() == R.id.detail_post_same_counter || view.getId() == R.id.detail_emoji_above_comment){
             Intent intent = new Intent(this, UserSameCounterActivity.class);
-            intent.putExtra(Constants.SAME_FEELING, myList.get(0).getIdPosts());
+            intent.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
             startActivity(intent);
 
         } else if(view.getId() == R.id.detail_post_listen_counter){
             Intent intent = new Intent(this, UserListenCounterActivity.class);
-            intent.putExtra(Constants.LISTEN_FEELING, myList.get(0).getIdPosts());
+            intent.putExtra(Constants.LISTEN_FEELING, myList.getIdPosts());
             startActivity(intent);
         } else if(view.getId() == R.id.detail_list_item_posts_play_button){
             if (!mediaPlayer.isPlaying()){
@@ -453,7 +456,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try {
-                    mediaPlayer.setDataSource(myList.get(0).getAudioFileLink());
+                    mediaPlayer.setDataSource(myList.getAudioFileLink());
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mediaPlayer) {
@@ -492,7 +495,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, myList.get(0).getTextStatus() + " " + "Voiceme");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, myList.getTextStatus() + " " + "Voiceme");
         return shareIntent;
     }
 
@@ -532,6 +535,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private void getComments(String postId) throws Exception {
         application.getWebService()
                 .getUserComments(postId)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostUserCommentModel>>() {
                     @Override
@@ -569,61 +573,68 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onNext(List<PostsModel> response) {
                         String name = response.get(0).getIdUserName();
 
-                        showRecycleWithDataFilled(response);
+                        showRecycleWithDataFilled(response.get(0));
                     }
                 });
     }
 
 
-    private void showRecycleWithDataFilled(final List<PostsModel> myList) {
+    private void showRecycleWithDataFilled(final PostsModel myList) {
 
         this.myList = myList;
 
-        user_name.setText(myList.get(0).getUserNicName());
-        timeStamp.setText(myList.get(0).getPostTime());
-        postMessage.setText(myList.get(0).getTextStatus());
-        feeling.setText(myList.get(0).getEmotions());
-        category.setText(myList.get(0).getCategory());
-        post_comments.setText(String.valueOf(myList.get(0).getComments()));
-        like_counter.setText(String.valueOf(myList.get(0).getLikes()));
-        same_counter.setText(String.valueOf(myList.get(0).getSame()));
-        hug_counter.setText(String.valueOf(myList.get(0).getHug()));
+        user_name.setText(myList.getUserNicName());
+
+        // Todo make JodaTIme
+
+        if (myList.getPostTime() == null){
+            return;
+        } else {
+            timeStamp.setText(CurrentTime.getCurrentTime(myList.getPostTime(), PostsDetailsActivity.this));
+        }
+        postMessage.setText(myList.getTextStatus());
+        feeling.setText(myList.getEmotions());
+        category.setText(myList.getCategory());
+        post_comments.setText(String.valueOf(myList.getComments()));
+        like_counter.setText(String.valueOf(myList.getLikes()));
+        same_counter.setText(String.valueOf(myList.getSame()));
+        hug_counter.setText(String.valueOf(myList.getHug()));
 
 
-        if (myList.get(0).getAudioDuration() != null){
-            post_audio_duration.setText(myList.get(0).getAudioDuration());
-            post_listen.setText(myList.get(0).getListen());
+        if (myList.getAudioDuration() != null){
+            post_audio_duration.setText(myList.getAudioDuration());
+            post_listen.setText(myList.getListen());
         }
 
       //  likeCounter = myList.get(0).getLikes();
       //  hugCounter = myList.get(0).getHug();
      //   sameCounter = myList.get(0).getSame();
 
-        user_avatar.setImageURI(myList.get(0).getAvatarPics());
+        user_avatar.setImageURI(myList.getAvatarPics());
 
-        if (myList.get(0).getUserLike() != null){
-            if (myList.get(0).getUserLike()){
+        if (myList.getUserLike() != null){
+            if (myList.getUserLike()){
                 likeButtonMain.setFavorite(true, false);
             } else {
                 likeButtonMain.setFavorite(false, false);
             }
 
 
-            if (myList.get(0).getUserHuge()){
+            if (myList.getUserHuge()){
                 HugButtonMain.setFavorite(true, false);
             } else {
                 HugButtonMain.setFavorite(false, false);
             }
 
 
-            if (myList.get(0).getUserSame()){
+            if (myList.getUserSame()){
                 SameButtonMain.setFavorite(true, false);
             } else {
                 SameButtonMain.setFavorite(false, false);
             }
         }
 
-        if (myList.get(0).getAudioFileLink() == null){
+        if (myList.getAudioFileLink() == null){
             play_button.setVisibility(View.GONE);
             post_audio_duration.setVisibility(View.GONE);
             post_listen.setVisibility(View.GONE);
@@ -633,6 +644,34 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             post_audio_duration.setVisibility(View.VISIBLE);
             post_listen.setVisibility(View.VISIBLE);
             listenCounterImage.setVisibility(View.VISIBLE);
+        }
+
+        if (myList.getUserLike() != null){
+            if (myList.getUserLike()){
+                likeButtonMain.setFavorite(true, false);
+                //   likeButtonMain.setFavoriteResource(like_after);
+            } else {
+                likeButtonMain.setFavorite(false, false);
+                //   likeButtonMain.setFavoriteResource(like_before);
+            }
+
+
+            if (myList.getUserHuge()){
+                //    HugButtonMain.setFavoriteResource(hug_after);
+                HugButtonMain.setFavorite(true, false);
+            } else {
+                HugButtonMain.setFavorite(false, false);
+                //     HugButtonMain.setFavoriteResource(status_before);
+            }
+
+
+            if (myList.getUserSame()){
+                SameButtonMain.setFavorite(true, false);
+                //      SameButtonMain.setFavoriteResource(sad);
+            } else {
+                SameButtonMain.setFavorite(false, false);
+                //  SameButtonMain.setFavoriteResource(status_before);
+            }
         }
     }
 

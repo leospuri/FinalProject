@@ -15,6 +15,7 @@ import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -60,6 +61,7 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
         try {
             application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
                     textStatus, categoryID, feelingID, "", "")
+                    .retryWhen(new RetryWithDelay(3,2000))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<UserResponse>() {
                         @Override
@@ -82,6 +84,7 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
             application.getWebService()
                     .LoginUserName(MySharedPreferences.getSocialID(preferences), usernameText,
                             "", token)
+                    .retryWhen(new RetryWithDelay(3,2000))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<ProfileAboutMe>() {
                         @Override
@@ -104,6 +107,7 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
         Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
        // startActivity(new Intent(this, MainActivity.class));
         postStatus();
+        postUsername();
     }
 
     @Override

@@ -27,6 +27,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
@@ -196,6 +197,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
         application.getWebService()
                 .getPopulars(MySharedPreferences.getUserId(preferences),"true", currentPage)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
@@ -232,6 +234,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
         application.getWebService()
                 .getPopulars(MySharedPreferences.getUserId(preferences),"true", currentPage)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

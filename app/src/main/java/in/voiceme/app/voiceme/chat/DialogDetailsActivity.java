@@ -20,12 +20,13 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class DialogDetailsActivity extends BaseActivity {
 
-    private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter;
-    private List<ChatDialogPojo> messages;
+    private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter = null;
+    private List<ChatDialogPojo> messages = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,7 @@ public class DialogDetailsActivity extends BaseActivity {
         application.getWebService()
                 .getAllChatMessages(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<ChatDialogPojo>>() {
                     @Override
                     public void onNext(List<ChatDialogPojo> response) {

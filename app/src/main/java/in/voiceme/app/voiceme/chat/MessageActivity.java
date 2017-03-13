@@ -24,12 +24,13 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 public class MessageActivity extends BaseActivity {
 
-    private MessagesList messagesList;
+    private MessagesList messagesList = null;
     public MessagesListAdapter<MessagePojo> adapter;
     private MessageInput input;
     private Date date=new Date(System.currentTimeMillis());
@@ -71,8 +72,8 @@ public class MessageActivity extends BaseActivity {
                 sendMessage(input.toString());
                 adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences),
                         input.toString(), String.valueOf(currentTime.getMillis()),
-                        new UserPojo(MySharedPreferences.getUserId(preferences), "haridh",
-                                MySharedPreferences.getImageUrl(preferences), String.valueOf(true))), true);
+                        new UserPojo(MySharedPreferences.getUserId(preferences), "harish",
+                                "", String.valueOf(true))), true);
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
                 return true;
             }
@@ -98,6 +99,7 @@ public class MessageActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         mThis = null;
+        userId = null;
     }
 
     @Override
@@ -171,6 +173,7 @@ public class MessageActivity extends BaseActivity {
 
         application.getWebService()
                 .getResponse(sendChat, message)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -188,6 +191,7 @@ public class MessageActivity extends BaseActivity {
         application.getWebService()
                 .getChatMessages(MySharedPreferences.getUserId(preferences), userId)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override
                     public void onNext(List<MessagePojo> response) {

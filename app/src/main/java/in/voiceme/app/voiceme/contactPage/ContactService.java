@@ -13,6 +13,7 @@ import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.ContactsHelper;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -103,6 +104,7 @@ public class ContactService extends IntentService {
         ((VoicemeApplication)getApplication()).getWebService()
                 .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override
                     public void onNext(ContactAddResponse response) {
