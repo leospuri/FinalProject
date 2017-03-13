@@ -168,7 +168,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
                 .setContentTitle(post.getSenderName())
-                .setContentText(messageBody)
+                .setContentText(post.getChatText())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_done)
