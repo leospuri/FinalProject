@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.chat;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -9,6 +10,9 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +23,6 @@ import in.voiceme.app.voiceme.chat.models.UserPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -29,11 +32,13 @@ public class MessageActivity extends BaseActivity {
     private MessagesList messagesList;
     public MessagesListAdapter<MessagePojo> adapter;
     private MessageInput input;
+    private Date date=new Date(System.currentTimeMillis());
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
 
     public static MessageActivity mThis = null;
     public static String userId = null;
+    private DateTime currentTime = new DateTime(DateTimeZone.UTC);
    // List<MessagePojo> messages;
 
     @Override
@@ -45,7 +50,14 @@ public class MessageActivity extends BaseActivity {
         Toast.makeText(this, "User ID: " + userId, Toast.LENGTH_SHORT).show();
 
         getSupportActionBar().setTitle("Private Messages");
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         messagesList = (MessagesList) findViewById(R.id.messagesList);
 
@@ -58,7 +70,7 @@ public class MessageActivity extends BaseActivity {
 
                 sendMessage(input.toString());
                 adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences),
-                        input.toString(), String.valueOf(new Date(System.currentTimeMillis())),
+                        input.toString(), String.valueOf(currentTime.getMillis()),
                         new UserPojo(MySharedPreferences.getUserId(preferences), "haridh",
                                 MySharedPreferences.getImageUrl(preferences), String.valueOf(true))), true);
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
@@ -131,12 +143,14 @@ public class MessageActivity extends BaseActivity {
         } else if (response.get(0)==null){
             Timber.e("MessagePojo null");
         } else {
-            adapter.addToStart(response.get(0), false);
+            adapter.addToStart(response.get(response.size() - 1), false);
+          //  response = new ArrayList<>();
+            response.remove(response.size() - 1);
             adapter.addToEnd(response, true);
         }
 
 
-        adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
+      /*  adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 // Todo Load more method network request
@@ -144,7 +158,7 @@ public class MessageActivity extends BaseActivity {
                     adapter.addToEnd(response, true);
                 }
             }
-        });
+        }); */
 
         messagesList.setAdapter(adapter);
     }
