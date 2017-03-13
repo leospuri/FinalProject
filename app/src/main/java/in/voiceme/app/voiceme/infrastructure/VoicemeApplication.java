@@ -21,6 +21,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import in.voiceme.app.voiceme.BuildConfig;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.ReleaseTree;
 import in.voiceme.app.voiceme.chat.BaseChat;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
@@ -70,7 +71,7 @@ public class VoicemeApplication extends Application {
 
 
 
-        /*************************************** */
+        /* **************************************
        Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
             @Override
@@ -78,6 +79,7 @@ public class VoicemeApplication extends Application {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
+        */
 
 
 
@@ -88,7 +90,7 @@ public class VoicemeApplication extends Application {
         sAnalytics = GoogleAnalytics.getInstance(this);
         /* *****************************************/
    //     Fabric.with(this, new Crashlytics());
-     //   Timber.plant(new ReleaseTree());
+        Timber.plant(new ReleaseTree());
 
 
         context = getApplicationContext();

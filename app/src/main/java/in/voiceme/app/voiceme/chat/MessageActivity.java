@@ -48,7 +48,7 @@ public class MessageActivity extends BaseActivity {
         setContentView(R.layout.activity_message);
 
         userId = getIntent().getStringExtra(Constants.YES);
-        Toast.makeText(this, "User ID: " + userId, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, "User ID: " + userId, Toast.LENGTH_SHORT).show();
 
         getSupportActionBar().setTitle("Private Messages");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
@@ -133,8 +133,8 @@ public class MessageActivity extends BaseActivity {
             @Override
             public void onMessageLongClick(MessagePojo message) {
                 //Yor custom long click handler
-                Toast.makeText(MessageActivity.this,
-                        "Long Message Clicked", Toast.LENGTH_SHORT).show();
+         //       Toast.makeText(MessageActivity.this,
+         //               "Long Message Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -179,7 +179,7 @@ public class MessageActivity extends BaseActivity {
                     @Override
                     public void onNext(String response) {
                         Timber.d("Got user details");
-                        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
+                //        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
@@ -195,7 +195,7 @@ public class MessageActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override
                     public void onNext(List<MessagePojo> response) {
-                       Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+             //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         String text = response.get(0).getText();
                   //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;

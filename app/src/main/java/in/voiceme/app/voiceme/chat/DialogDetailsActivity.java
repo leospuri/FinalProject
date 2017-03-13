@@ -3,7 +3,6 @@ package in.voiceme.app.voiceme.chat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -67,33 +66,25 @@ public class DialogDetailsActivity extends BaseActivity {
 
     }
 
-    protected void getChat() {
-
-
-
-    }
-
     private void dialogInit(DialogsList dialogsListView) {
         dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
             @Override
             public void onDialogClick(ChatDialogPojo dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
-                Toast.makeText(DialogDetailsActivity.this, "Dialog Clicked" + messages.get(0).getId(), Toast.LENGTH_SHORT).show();
              //   startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
 
                 Intent intent = new Intent(DialogDetailsActivity.this, MessageActivity.class);
-                intent.putExtra(Constants.YES, messages.get(0).getId());
+                intent.putExtra(Constants.YES, dialog.getId());
                 startActivity(intent);
 
-                getChat();
             }
         });
 
         dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<ChatDialogPojo>() {
             @Override
             public void onDialogLongClick(ChatDialogPojo dialog) {
-                Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
-                        Toast.LENGTH_SHORT).show();
+      //          Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
+      //                  Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -120,7 +111,7 @@ public class DialogDetailsActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<List<ChatDialogPojo>>() {
                     @Override
                     public void onNext(List<ChatDialogPojo> response) {
-                        Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                   //     Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //    MessagePojo pojo = response.get(0).getMessage();
                         messages = response;
                         dialogsListAdapter.setItems(response);

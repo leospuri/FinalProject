@@ -30,7 +30,6 @@
                 android:layout_height="96dp"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/intruder_shanky"
                 fresco:placeholderImage="@drawable/user" />
 
 
