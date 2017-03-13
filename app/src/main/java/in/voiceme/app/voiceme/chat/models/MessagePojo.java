@@ -43,7 +43,9 @@ public class MessagePojo implements IMessage {
     public Date getCreatedAt() {
       //  int currentTime = (int) (System.currentTimeMillis()/1000 - Integer.parseInt(createdAt));
       //  Date date = new Date(currentTime);
-        return new Date(System.currentTimeMillis());
+        Long datetime = Long.parseLong(createdAt);
+        Date date=new Date(datetime);
+        return date;
     }
 
     public String getStatus() {

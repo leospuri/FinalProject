@@ -91,8 +91,8 @@ public class StepSample3 extends AbstractStep {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (loved_switch.isChecked()) {
-                    checkFeeling("7");
-                    setFeeling("7");
+                    checkFeeling("6");
+                    setFeeling("6");
                 }
             }
         });
@@ -101,8 +101,8 @@ public class StepSample3 extends AbstractStep {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sleepy_switch.isChecked()) {
-                    checkFeeling("8");
-                    setFeeling("8");
+                    checkFeeling("7");
+                    setFeeling("7");
                 }
             }
         });
@@ -111,8 +111,8 @@ public class StepSample3 extends AbstractStep {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (flirty_switch.isChecked()) {
-                    checkFeeling("9");
-                    setFeeling("9");
+                    checkFeeling("8");
+                    setFeeling("8");
                 }
             }
         });
@@ -121,8 +121,8 @@ public class StepSample3 extends AbstractStep {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sick_switch.isChecked()) {
-                    checkFeeling("12");
-                    setFeeling("12");
+                    checkFeeling("9");
+                    setFeeling("9");
                 }
             }
         });
@@ -131,8 +131,8 @@ public class StepSample3 extends AbstractStep {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (tired_switch.isChecked()) {
-                    checkFeeling("13");
-                    setFeeling("13");
+                    checkFeeling("10");
+                    setFeeling("10");
                 }
             }
         });
@@ -141,8 +141,8 @@ public class StepSample3 extends AbstractStep {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sexy_switch.isChecked()) {
-                    checkFeeling("14");
-                    setFeeling("14");
+                    checkFeeling("11");
+                    setFeeling("11");
                 }
             }
         });
@@ -172,27 +172,27 @@ public class StepSample3 extends AbstractStep {
             if (bored_switch_button.isChecked()) {
                 bored_switch_button.toggle();
             }}
-        if (!value.equals("7")){
+        if (!value.equals("6")){
             if (loved_switch.isChecked()) {
                 loved_switch.toggle();
             }}
-        if (!value.equals("8")){
+        if (!value.equals("7")){
             if (sleepy_switch.isChecked()) {
                 sleepy_switch.toggle();
             }}
-        if (!value.equals("9")){
+        if (!value.equals("8")){
             if (flirty_switch.isChecked()) {
                 flirty_switch.toggle();
             }}
-        if (!value.equals("12")){
+        if (!value.equals("9")){
             if (sick_switch.isChecked()) {
                 sick_switch.toggle();
             }}
-        if (!value.equals("13")){
+        if (!value.equals("10")){
             if (tired_switch.isChecked()) {
                 tired_switch.toggle();
             }}
-        if (!value.equals("14")){
+        if (!value.equals("11")){
             if (sexy_switch.isChecked()) {
                 sexy_switch.toggle();
             }}

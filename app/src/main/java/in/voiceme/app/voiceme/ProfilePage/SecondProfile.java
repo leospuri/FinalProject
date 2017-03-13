@@ -35,7 +35,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView followers;
     private TextView following;
     private Button followMe;
-    private LinearLayout totalPost;
     private LinearLayout followerPost;
     private LinearLayout followingPost;
 
@@ -70,7 +69,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
 
         username = (TextView) findViewById(R.id.second_name);
-        totalPost = (LinearLayout) findViewById(R.id.layout_second_user_profile_textview);
         followerPost = (LinearLayout) findViewById(R.id.layout_second_profile_followers);
         followingPost = (LinearLayout) findViewById(R.id.layout_second_profile_following);
         image = (SimpleDraweeView) findViewById(R.id.second_image);
@@ -96,7 +94,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         followerPost.setOnClickListener(this);
         followingPost.setOnClickListener(this);
         total_posts_counter.setOnClickListener(this);
-        totalPost.setOnClickListener(this);
         gender.setOnClickListener(this);
         total_posts.setOnClickListener(this);
         total_posts_counter.setOnClickListener(this);
@@ -114,7 +111,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             return;
         int viewId = view.getId();
 
-        if (viewId == R.id.second_user_profile_textview || viewId == R.id.layout_second_user_profile_textview || viewId == R.id.second_total_posts_counter) {
+        if (viewId == R.id.second_user_profile_textview || viewId == R.id.second_total_posts_counter) {
             // [START custom_event]
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("SecondProfile")

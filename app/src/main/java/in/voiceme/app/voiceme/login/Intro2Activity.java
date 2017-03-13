@@ -10,11 +10,11 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.DotStepper;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
-import in.voiceme.app.voiceme.userpost.TextStatus;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -28,10 +28,13 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
     private String categoryID = null;
     private String textStatus = null;
     private String token = null;
+    private SharedPreferences preferences = null;
+    private VoicemeApplication application = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        application = (VoicemeApplication)getApplication();
+        preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         setErrorTimeout(1500);
         setTitle("Voiceme Community");
         addStep(createFragment(new StepSample()));
@@ -52,8 +55,8 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
 
 
     private void postStatus(){
-        VoicemeApplication application = (VoicemeApplication)getApplication();
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+
+
         try {
             application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
                     textStatus, categoryID, feelingID, "", "")
@@ -66,6 +69,27 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
                                 Toast.makeText(Intro2Activity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(Intro2Activity.this, MainActivity.class));
                             }
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void postUsername(){
+        try {
+            application.getWebService()
+                    .LoginUserName(MySharedPreferences.getSocialID(preferences), usernameText,
+                            "", token)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<ProfileAboutMe>() {
+                        @Override
+                        public void onNext(ProfileAboutMe response) {
+
+                            MySharedPreferences.registerUsername(preferences, usernameText);
+                            //Todo add network call for uploading profile_image file
+                            //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
                         }
                     });
         } catch (Exception e) {

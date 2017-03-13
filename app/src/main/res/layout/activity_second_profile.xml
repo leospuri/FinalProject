@@ -33,8 +33,8 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/second_image"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:scaleType="fitCenter"
+                    android:layout_height="290dp"
+                    android:scaleType="centerCrop"
                     fresco:placeholderImage="@drawable/profile_back" />
 
 
@@ -51,29 +51,19 @@
                       frisson:autoTint="true"/>   -->
 
                 <View
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="28dp"
-                    android:background="@drawable/ic_navigation" />
+                    android:background="@mipmap/ic_ab_close" />
 
                 <View
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
                     android:layout_marginTop="28dp"
                     android:background="@drawable/messenger_bubble_large_white" />
-
-                <Button
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_above="@+id/second_activity_profile_textFields"
-                    android:id="@+id/second_profile_follow_me"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="28dp"
-                    android:background="@drawable/ic_add" />
 
 
                 <LinearLayout
@@ -87,7 +77,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/layout_second_user_profile_textview"
+                        android:id="@+id/layout_second_profile_followers"
                         android:orientation="vertical"
                         android:layout_weight="1">
 
@@ -95,13 +85,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:id="@+id/second_user_profile_textview"
+                            android:id="@+id/second_profile_followers"
                             android:singleLine="true"
-                            android:text="Total Posts"/>
+                            android:text="Followers"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/second_total_posts_counter"
+                            android:id="@+id/second_action_followers"
                             android:singleLine="true"
                             android:text="0"
                             android:layout_gravity="center"/>
@@ -118,24 +108,19 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/layout_second_profile_followers"
+                        android:id="@+id/layout_second_follow"
                         android:orientation="vertical"
                         android:layout_weight="1">
 
-                        <TextView
+                        <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:id="@+id/second_profile_followers"
+                            android:id="@+id/second_profile_follow_me"
+                            android:padding="15dp"
                             android:layout_gravity="center"
-                            android:text="Followers"/>
-                        <TextView
-                            android:id="@+id/second_action_followers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:text="0"
-                            android:layout_gravity="center"/>
+                            android:background="@color/transparent"
+                            android:text="Follow"/>
 
                     </LinearLayout>
 
@@ -229,6 +214,22 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="gender"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:id="@+id/second_user_profile_textview"
+                        android:text="Total Posts"/>
+
+                    <TextView
+                        android:id="@+id/second_total_posts_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="0"
                         android:textStyle="bold"/>
 
 

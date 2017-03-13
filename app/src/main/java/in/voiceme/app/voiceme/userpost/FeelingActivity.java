@@ -16,8 +16,7 @@ import in.voiceme.app.voiceme.l;
 
 public class FeelingActivity extends BaseActivity {
     private MaterialAnimatedSwitch happy_switch_button, relax_switch_button, angry_switch_button, sad_switch_button,
-            bored_switch_button, disappointed_switch, loved_switch, sleepy_switch, flirty_switch, optimistic_switch,
-            jealous_switch, sick_switch, tired_switch, sexy_switch, pranky_switch, frustrated_switch;
+            bored_switch_button, loved_switch, sleepy_switch, flirty_switch, sick_switch, tired_switch, sexy_switch;
 
     private MaterialAnimatedSwitch firstSwitch = null;
 
@@ -43,17 +42,12 @@ public class FeelingActivity extends BaseActivity {
         angry_switch_button = (MaterialAnimatedSwitch) findViewById(R.id.angry_switch);
         sad_switch_button = (MaterialAnimatedSwitch) findViewById(R.id.sad_switch);
         bored_switch_button = (MaterialAnimatedSwitch) findViewById(R.id.bored_switch);
-        disappointed_switch = (MaterialAnimatedSwitch) findViewById(R.id.disappointed_switch);
         loved_switch = (MaterialAnimatedSwitch) findViewById(R.id.loved_switch);
         sleepy_switch = (MaterialAnimatedSwitch) findViewById(R.id.sleepy_switch);
         flirty_switch = (MaterialAnimatedSwitch) findViewById(R.id.flirty_switch);
-        optimistic_switch = (MaterialAnimatedSwitch) findViewById(R.id.optimistic_switch);
-        jealous_switch = (MaterialAnimatedSwitch) findViewById(R.id.jealous_switch);
         sick_switch = (MaterialAnimatedSwitch) findViewById(R.id.sick_switch);
         tired_switch = (MaterialAnimatedSwitch) findViewById(R.id.tired_switch);
         sexy_switch = (MaterialAnimatedSwitch) findViewById(R.id.sexy_switch);
-        pranky_switch = (MaterialAnimatedSwitch) findViewById(R.id.pranky_switch);
-        frustrated_switch = (MaterialAnimatedSwitch) findViewById(R.id.frustrated_switch);
 
         happy_switch_button.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
@@ -105,21 +99,12 @@ public class FeelingActivity extends BaseActivity {
             }
         });
 
-        disappointed_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (disappointed_switch.isChecked()) {
-                    checkFeeling("6");
-                    setFeeling("6");
-                }
-            }
-        });
         loved_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (loved_switch.isChecked()) {
-                    checkFeeling("7");
-                    setFeeling("7");
+                    checkFeeling("6");
+                    setFeeling("6");
                 }
             }
         });
@@ -128,8 +113,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sleepy_switch.isChecked()) {
-                    checkFeeling("8");
-                    setFeeling("8");
+                    checkFeeling("7");
+                    setFeeling("7");
                 }
             }
         });
@@ -138,28 +123,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (flirty_switch.isChecked()) {
-                    checkFeeling("9");
-                    setFeeling("9");
-                }
-            }
-        });
-
-        optimistic_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (optimistic_switch.isChecked()) {
-                    checkFeeling("10");
-                    setFeeling("10");
-                }
-            }
-        });
-
-        jealous_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (jealous_switch.isChecked()) {
-                    checkFeeling("11");
-                    setFeeling("11");
+                    checkFeeling("8");
+                    setFeeling("8");
                 }
             }
         });
@@ -168,8 +133,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sick_switch.isChecked()) {
-                    checkFeeling("12");
-                    setFeeling("12");
+                    checkFeeling("9");
+                    setFeeling("9");
                 }
             }
         });
@@ -178,8 +143,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (tired_switch.isChecked()) {
-                    checkFeeling("13");
-                    setFeeling("13");
+                    checkFeeling("10");
+                    setFeeling("10");
                 }
             }
         });
@@ -188,28 +153,8 @@ public class FeelingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (sexy_switch.isChecked()) {
-                    checkFeeling("14");
-                    setFeeling("14");
-                }
-            }
-        });
-
-        pranky_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (pranky_switch.isChecked()) {
-                    checkFeeling("15");
-                    setFeeling("15");
-                }
-            }
-        });
-
-        frustrated_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(boolean isChecked) {
-                if (frustrated_switch.isChecked()) {
-                    checkFeeling("16");
-                    setFeeling("16");
+                    checkFeeling("11");
+                    setFeeling("11");
                 }
             }
         });
@@ -270,48 +215,28 @@ public class FeelingActivity extends BaseActivity {
                 bored_switch_button.toggle();
         }}
         if (!value.equals("6")){
-            if (disappointed_switch.isChecked()) {
-                disappointed_switch.toggle();
-        }}
-        if (!value.equals("7")){
             if (loved_switch.isChecked()) {
                 loved_switch.toggle();
         }}
-        if (!value.equals("8")){
+        if (!value.equals("7")){
             if (sleepy_switch.isChecked()) {
                 sleepy_switch.toggle();
         }}
-        if (!value.equals("9")){
+        if (!value.equals("8")){
             if (flirty_switch.isChecked()) {
                 flirty_switch.toggle();
         }}
-        if (!value.equals("10")){
-            if (optimistic_switch.isChecked()) {
-                optimistic_switch.toggle();
-        }}
-        if (!value.equals("11")){
-                if (jealous_switch.isChecked()) {
-                    jealous_switch.toggle();
-        }}
-        if (!value.equals("12")){
+        if (!value.equals("9")){
             if (sick_switch.isChecked()) {
                 sick_switch.toggle();
         }}
-        if (!value.equals("13")){
+        if (!value.equals("10")){
             if (tired_switch.isChecked()) {
                 tired_switch.toggle();
         }}
-        if (!value.equals("14")){
+        if (!value.equals("11")){
             if (sexy_switch.isChecked()) {
                 sexy_switch.toggle();
-        }}
-        if (!value.equals("15")){
-            if (pranky_switch.isChecked()) {
-                pranky_switch.toggle();
-        }}
-        if (!value.equals("16")){
-            if (frustrated_switch.isChecked()) {
-                frustrated_switch.toggle();
         }}
     }
 
