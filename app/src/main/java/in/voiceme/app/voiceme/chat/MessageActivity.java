@@ -18,7 +18,6 @@ import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
@@ -74,10 +73,9 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
 
                 sendMessage(input.toString());
-                adapter.addToStart(new MessagePojo(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
-                        input.toString(), String.valueOf(currentTime.getMillis()),
-                        new UserPojo(MySharedPreferences.getUserId(preferences), "harish",
-                                "", String.valueOf(true))), true);
+                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), input.toString(), new UserPojo(MySharedPreferences.getUserId(preferences),
+                                "harish", "", String.valueOf(true))), true);
+
        //         adapter.addToStart(new MessagePojo(input.toString()), true);
                 return true;
             }
@@ -106,6 +104,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         userId = null;
     }
 
+
+
     private void initMessagesAdapter(List<MessagePojo> response) {
         ImageLoader imageLoader = new ImageLoader() {
             @Override
@@ -125,7 +125,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
 
         // Todo place where we will add initial chatting messages
-        if (response==null){
+        if (response==null || response.isEmpty()){
             Timber.d("message is null");
         } else if (response.get(0)==null){
             Timber.e("MessagePojo null");
@@ -181,7 +181,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     @Override
                     public void onNext(List<MessagePojo> response) {
              //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
-                        String text = response.get(0).getText();
+                 //       String text = response.get(0).getText();
                   //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
                         initMessagesAdapter(response);

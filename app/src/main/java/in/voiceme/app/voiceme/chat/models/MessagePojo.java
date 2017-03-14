@@ -24,6 +24,12 @@ public class MessagePojo implements IMessage {
         this.user = user;
     }
 
+    public MessagePojo(String id, String text, UserPojo user) {
+        this.id = id;
+        this.text = text;
+        this.user = user;
+    }
+
     @Override
     public String getText() {
         return text;
@@ -43,9 +49,14 @@ public class MessagePojo implements IMessage {
     public Date getCreatedAt() {
       //  int currentTime = (int) (System.currentTimeMillis()/1000 - Integer.parseInt(createdAt));
       //  Date date = new Date(currentTime);
-        Long datetime = Long.parseLong(createdAt);
-        Date date=new Date(datetime);
-        return date;
+        if (createdAt == null){
+            return new Date();
+
+        } else {
+            Long datetime = Long.parseLong(createdAt);
+            Date date=new Date(datetime);
+            return date;
+        }
     }
 
     public String getStatus() {
