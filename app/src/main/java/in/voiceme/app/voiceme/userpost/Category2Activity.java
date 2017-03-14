@@ -98,7 +98,9 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                scrollView.setVisibility(View.VISIBLE);
+                createNewHashTag.setVisibility(View.VISIBLE);
+                rv.setVisibility(View.GONE);
             }
 
             @Override
@@ -122,7 +124,11 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (editText.getText().toString().isEmpty()){
+                    scrollView.setVisibility(View.GONE);
+                    createNewHashTag.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -183,11 +189,9 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
                 // Todo add category text to the edittext
-                editText.setText(model.getName());
+                createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
                 setCategory(name);
-                rv.setVisibility(View.GONE);
-                scrollView.setVisibility(View.GONE);
                 Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }

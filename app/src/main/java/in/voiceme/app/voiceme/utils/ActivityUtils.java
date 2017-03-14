@@ -73,8 +73,9 @@ public class ActivityUtils {
             ActivityCompat.requestPermissions((Activity) activity,
                     TAKE_PICTURE_PERM,
                     INT_TAKE_PICTURE_PERM);
+            return false;
         }
-        return false;
+
     }
 
     public static boolean recordPermissionGranted(Context activity) {
@@ -86,9 +87,10 @@ public class ActivityUtils {
             ActivityCompat.requestPermissions((Activity) activity,
                     RECORD_AUDIO_PERM,
                     INT_RECORD_AUDIO_PERM);
+            return false;
         }
 
-        return false;
+
     }
 
     public static boolean delete_perm (Context activity, int storageRequestId) {

@@ -154,15 +154,12 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     private void showErrorView(Throwable throwable) {
-
         if (errorLayout.getVisibility() == View.GONE) {
             errorLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
-
             txtError.setText(fetchErrorMessage(throwable));
         }
     }

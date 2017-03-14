@@ -12,12 +12,13 @@ public class PostsModel {
     @SerializedName("text_status") @Expose private String textStatus;
     @SerializedName("audio_duration") @Expose private String audioDuration;
     @SerializedName("audio_file_link") @Expose private String audioFileLink;
+    @SerializedName("report_abuse_count") @Expose private String reportAbuseCount;
     @SerializedName("user_nic_name") @Expose private String userNicName;
     @SerializedName("avatar_pics") @Expose private String avatarPics;
     @SerializedName("emotions") @Expose private String emotions;
-    @SerializedName("category") @Expose private String category;
-    @SerializedName("id_categories") @Expose private String idCategory;
     @SerializedName("id_feeling_table") @Expose private String idFeeling;
+    @SerializedName("id_categories") @Expose private String idCategory;
+    @SerializedName("category") @Expose private String category;
     @SerializedName("likes") @Expose private Integer likes;
     @SerializedName("same") @Expose private Integer same;
     @SerializedName("hug") @Expose private Integer hug;
@@ -27,6 +28,10 @@ public class PostsModel {
     @SerializedName("user_Same") @Expose private Boolean userSame;
     @SerializedName("user_Huge") @Expose private Boolean userHuge;
     @SerializedName("user_Listen") @Expose private Boolean userListen;
+
+    public String getReportAbuseCount() {
+        return reportAbuseCount;
+    }
 
     public Boolean getUserLike() {
         return userLike;

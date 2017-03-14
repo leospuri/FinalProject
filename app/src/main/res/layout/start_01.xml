@@ -33,43 +33,15 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:id="@+id/intro_page1_title"
-        android:text="Enter your username" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:id="@+id/username_intro"
-        android:layout_below="@+id/intro_page1_title"
         android:textColor="@color/white"
-        android:hint="Ex. User01" />
+        android:gravity="center"
+        android:textSize="26sp"
+        android:id="@+id/intro_page1_title"
+        android:text="Voice Me lets you confess anonymously via text or audio mode.
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username_intro"
-        android:textSize="20sp"
-        android:visibility="gone"
-        android:id="@+id/check_username_status"/>
+Everything you say remains completely private and secure. We do not reveal your true identity to anyone." />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="check"
-        android:text="check availability"
-        android:layout_below="@+id/check_username_status"
-        android:id="@+id/check_avail" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="next"
-        android:visibility="gone"
-        android:text="Next"
-        android:layout_below="@+id/check_avail"
-        android:id="@+id/first_page_next" />
 
 
 </com.redbooth.WelcomePageLayout>

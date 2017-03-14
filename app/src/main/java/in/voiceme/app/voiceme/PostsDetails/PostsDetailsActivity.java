@@ -34,7 +34,6 @@ import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
-import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -62,15 +61,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private MessageAdapter mMessageAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private String postId;
-    private PostsModel myList;
-    List<PostUserCommentModel> myCommentList;
-    private static LikeUnlikeClickListener myClickListener;
-    private ProgressBar progressBar;
+    private PostsModel myList = null;
+    List<PostUserCommentModel> myCommentList = null;
+    private ProgressBar progressBar = null;
 
     private boolean doDislike;
 
-    private SimpleDraweeView user_avatar;
-    private ImageView play_button;
+    private SimpleDraweeView user_avatar = null;
+    private ImageView play_button = null;
 
     private TextView user_name;
     private TextView isPost;
@@ -124,9 +122,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         progressBar = new ProgressBar(this);
         progressBar.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
         setContentView(R.layout.activity_posts_details);
         getSupportActionBar().setTitle("Post Details");
+
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,8 +204,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         moreButton.setOnClickListener(this);
 
         try {
-            if (postId != null){
-            }
             getData(postId);
             getComments(postId);
         } catch (Exception e) {
@@ -217,10 +213,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         initRecyclerView();
         progressBar.setVisibility(View.INVISIBLE);
 
-    }
-
-    public void setOnItemClickListener(LikeUnlikeClickListener myClickListener) {
-        this.myClickListener = myClickListener;
     }
 
     private void initRecyclerView() {
@@ -448,7 +440,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     try {
                         mediaPlayer.stop();
                     } catch (Exception e){
-
+                        e.printStackTrace();
                     }
                     mediaPlayer = null;
                 }
@@ -571,9 +563,35 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
-                        String name = response.get(0).getIdUserName();
+                 //       String name = response.get(0).getIdUserName();
+                        Timber.e(String.valueOf(response.size()));
 
-                        showRecycleWithDataFilled(response.get(0));
+                        showRecycleWithDataFilled(response.get(1));
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        try {
+                            Toast.makeText(PostsDetailsActivity.this,
+                                    e.getMessage(),
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                            Timber.e(String.valueOf("error message inside Post Details: " + e));
+                        }catch (Exception ex){
+
+                            if (ex instanceof IndexOutOfBoundsException) {
+                                Toast.makeText(PostsDetailsActivity.this,
+                                        e.getMessage(),
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                                ex.printStackTrace();
+                                Timber.e(String.valueOf("IndexOutOfBoundException inside Post Details: " + e));
+
+
+                            } else {
+                                throw new RuntimeException(ex);
+                            }
+
+                        }
                     }
                 });
     }
@@ -611,28 +629,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
      //   sameCounter = myList.get(0).getSame();
 
         user_avatar.setImageURI(myList.getAvatarPics());
-
-        if (myList.getUserLike() != null){
-            if (myList.getUserLike()){
-                likeButtonMain.setFavorite(true, false);
-            } else {
-                likeButtonMain.setFavorite(false, false);
-            }
-
-
-            if (myList.getUserHuge()){
-                HugButtonMain.setFavorite(true, false);
-            } else {
-                HugButtonMain.setFavorite(false, false);
-            }
-
-
-            if (myList.getUserSame()){
-                SameButtonMain.setFavorite(true, false);
-            } else {
-                SameButtonMain.setFavorite(false, false);
-            }
-        }
 
         if (myList.getAudioFileLink() == null){
             play_button.setVisibility(View.GONE);
