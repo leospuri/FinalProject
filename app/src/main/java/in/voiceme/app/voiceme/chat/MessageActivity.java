@@ -133,7 +133,12 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             adapter.addToStart(response.get(response.size() - 1), false);
           //  response = new ArrayList<>();
             response.remove(response.size() - 1);
-            adapter.addToEnd(response, true);
+            if (response.size() == 0){
+                Timber.e("Single Message inside chat");
+            } else {
+                adapter.addToEnd(response, true);
+            }
+
         }
 
 
