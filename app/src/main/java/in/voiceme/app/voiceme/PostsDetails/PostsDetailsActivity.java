@@ -120,10 +120,11 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressBar = new ProgressBar(this);
-        progressBar.setVisibility(View.VISIBLE);
         setContentView(R.layout.activity_posts_details);
         getSupportActionBar().setTitle("Post Details");
+
+        progressBar = new ProgressBar(this);
+        progressBar.setVisibility(View.VISIBLE);
 
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -566,7 +567,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                  //       String name = response.get(0).getIdUserName();
                         Timber.e(String.valueOf(response.size()));
 
-                        showRecycleWithDataFilled(response.get(1));
+                        showRecycleWithDataFilled(response.get(0));
                     }
                     @Override
                     public void onError(Throwable e){
@@ -621,7 +622,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         if (myList.getAudioDuration() != null){
             post_audio_duration.setText(myList.getAudioDuration());
-            post_listen.setText(myList.getListen());
+            post_listen.setText(String.valueOf(myList.getListen()));
         }
 
       //  likeCounter = myList.get(0).getLikes();
@@ -630,7 +631,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         user_avatar.setImageURI(myList.getAvatarPics());
 
-        if (myList.getAudioFileLink() == null){
+        if (myList.getAudioFileLink() == null || myList.getAudioFileLink().isEmpty()){
             play_button.setVisibility(View.GONE);
             post_audio_duration.setVisibility(View.GONE);
             post_listen.setVisibility(View.GONE);
