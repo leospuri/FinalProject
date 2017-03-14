@@ -1,6 +1,8 @@
 package in.voiceme.app.voiceme.chat;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
@@ -28,7 +31,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
-public class MessageActivity extends BaseActivity {
+public class MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener {
 
     private MessagesList messagesList = null;
     public MessagesListAdapter<MessagePojo> adapter;
@@ -38,6 +41,7 @@ public class MessageActivity extends BaseActivity {
     private int selectionCount;
 
     public static MessageActivity mThis = null;
+    private Menu menu;
     public static String userId = null;
     private DateTime currentTime = new DateTime(DateTimeZone.UTC);
    // List<MessagePojo> messages;
@@ -70,7 +74,7 @@ public class MessageActivity extends BaseActivity {
 
 
                 sendMessage(input.toString());
-                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences),
+                adapter.addToStart(new MessagePojo(String.valueOf(UUID.randomUUID().getLeastSignificantBits()),
                         input.toString(), String.valueOf(currentTime.getMillis()),
                         new UserPojo(MySharedPreferences.getUserId(preferences), "harish",
                                 "", String.valueOf(true))), true);
@@ -102,15 +106,6 @@ public class MessageActivity extends BaseActivity {
         userId = null;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (selectionCount == 0) {
-            super.onBackPressed();
-        } else {
-            adapter.unselectAllItems();
-        }
-    }
-
     private void initMessagesAdapter(List<MessagePojo> response) {
         ImageLoader imageLoader = new ImageLoader() {
             @Override
@@ -125,18 +120,8 @@ public class MessageActivity extends BaseActivity {
             }
         };
 
-        MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
-        holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_holder_incoming_message);
-        holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class, R.layout.item_custom_holder_outcoming_message);
-        adapter = new MessagesListAdapter<>(MySharedPreferences.getUserId(preferences), holdersConfig, imageLoader);
-        adapter.setOnMessageLongClickListener(new MessagesListAdapter.OnMessageLongClickListener<MessagePojo>() {
-            @Override
-            public void onMessageLongClick(MessagePojo message) {
-                //Yor custom long click handler
-         //       Toast.makeText(MessageActivity.this,
-         //               "Long Message Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter = new MessagesListAdapter<>(MySharedPreferences.getUserId(preferences), imageLoader);
+        adapter.enableSelectionMode(this);
 
 
         // Todo place where we will add initial chatting messages
@@ -204,4 +189,36 @@ public class MessageActivity extends BaseActivity {
                 });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.chat_actions_menu, menu);
+        onSelectionChanged(0);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                adapter.deleteSelectedMessages();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onSelectionChanged(int count) {
+        this.selectionCount = count;
+        menu.findItem(R.id.action_delete).setVisible(count > 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (selectionCount == 0) {
+            super.onBackPressed();
+        } else {
+            adapter.unselectAllItems();
+        }
+    }
 }
