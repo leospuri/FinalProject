@@ -174,7 +174,8 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         for (int i=0; i < tagList.size(); i++){
             if (text.equals(tagList.get(i).getName())){
                 String id = tagList.get(i).getId();
-                setCategory(id);
+                String name = tagList.get(i).getName();
+                setCategory(id, name);
                 Toast.makeText(this, "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
             }
         }
@@ -191,8 +192,10 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                 // Todo add category text to the edittext
                 createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
-                setCategory(name);
-                Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
+                String category_name = model.getName();
+
+                setCategory(name, category_name);
+           //     Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -235,7 +238,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                         public void onNext(List<AllPopularTagsPojo> userResponse) {
                             initializeAdapter(userResponse);
                           //  categoryTags = userResponse;
-                            Toast.makeText(Category2Activity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(Category2Activity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -292,9 +295,10 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
 
     }
 
-    public void setCategory(String current_category) {
+    public void setCategory(String current_category, String category_name) {
         selected_hashtag.setVisibility(View.VISIBLE);
-        selected_hashtag.setText(String.valueOf("You have selected : " + editText.getText().toString()));
+        selected_hashtag.setText(String.valueOf("You have selected : " + category_name));
+
         this.current_category = current_category;
     }
 
@@ -372,7 +376,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                     .subscribe(new BaseSubscriber<NewCategoryAdded>() {
                         @Override
                         public void onNext(NewCategoryAdded userResponse) {
-                            setCategory(userResponse.getId());
+                            setCategory(userResponse.getId(), editText.getText().toString());
 
                             Toast.makeText(Category2Activity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
                         }

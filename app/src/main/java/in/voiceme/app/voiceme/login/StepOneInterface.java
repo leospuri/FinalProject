@@ -7,4 +7,6 @@ package in.voiceme.app.voiceme.login;
 public interface StepOneInterface {
 
     void username(String name);
+
+    void sendToken(String token);
 }

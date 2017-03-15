@@ -157,7 +157,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         view.remove(position);
-                        Toast.makeText(getActivity(), "\"" + tag.text + "\" deleted", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(getActivity(), "\"" + tag.text + "\" deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -173,8 +173,9 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         for (int i=0; i < tagList.size(); i++){
             if (text.equals(tagList.get(i).getName())){
                 String id = tagList.get(i).getId();
-                setCategory(id);
-                Toast.makeText(getActivity(), "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
+                String name = tagList.get(i).getName();
+                setCategory(id, name);
+         //       Toast.makeText(getActivity(), "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -190,8 +191,9 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                 // Todo add category text to the edittext
                 createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
-                setCategory(name);
-                Toast.makeText(getActivity(), "name of the category: " + name, Toast.LENGTH_SHORT).show();
+                String categoryname = model.getName();
+                setCategory(name, categoryname);
+           //     Toast.makeText(getActivity(), "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -235,7 +237,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                         public void onNext(List<AllPopularTagsPojo> userResponse) {
                             initializeAdapter(userResponse);
                             //  categoryTags = userResponse;
-                            Toast.makeText(getActivity(), "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                    //        Toast.makeText(getActivity(), "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -291,10 +293,10 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     }
 
-    public void setCategory(String current_category) {
+    public void setCategory(String current_category, String categoryName) {
         selected_hashtag.setVisibility(View.VISIBLE);
         yes = true;
-        selected_hashtag.setText(String.valueOf("You have selected : " + editText.getText().toString()));
+        selected_hashtag.setText(String.valueOf("You have selected : " + categoryName));
         this.current_category = current_category;
     }
 
@@ -342,8 +344,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     .subscribe(new BaseSubscriber<NewCategoryAdded>() {
                         @Override
                         public void onNext(NewCategoryAdded userResponse) {
-                            setCategory(userResponse.getId());
-
+                            setCategory(userResponse.getId(), editText.getText().toString());
                         }
                     });
         } catch (Exception e) {
@@ -365,7 +366,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "IsOptional is false- step 01", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getActivity(), "IsOptional is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -404,7 +405,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "nextIf is false- step 01", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "nextIf is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
 

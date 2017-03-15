@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.login.BeforeLoginActivity;
 import in.voiceme.app.voiceme.login.RefreshTokenTask;
 import in.voiceme.app.voiceme.login.account.AccountManager;
 import timber.log.Timber;
@@ -131,7 +131,7 @@ public class AuthService {
                         Timber.v("  -> got failed PENDING result: redirecting user to sign in...");
                         // It didn't work, we show the sign in, but things will get messy...
                         // TODO onCompletion is ignored (should be dealt with in onActivityResult)
-                        Intent intent = new Intent(context, LoginActivity.class);
+                        Intent intent = new Intent(context, BeforeLoginActivity.class);
                         context.startActivity(intent);
                     }
                 }
@@ -177,7 +177,7 @@ public class AuthService {
                     SimpleDateFormat.getInstance().format(accessToken.getExpires())));
             //User has to sign in to refresh an elapsed facebook token
             // TODO onCompletion is ignored (should be dealt with in onActivityResult)
-            Intent intent = new Intent(context, LoginActivity.class);
+            Intent intent = new Intent(context, BeforeLoginActivity.class);
             context.startActivity(intent);
         }
     }

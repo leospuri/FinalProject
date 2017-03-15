@@ -7,7 +7,7 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.login.BeforeLoginActivity;
 
 /**
  * Created by Harish on 7/26/2016.
@@ -26,7 +26,7 @@ public class AuthenticationActivity extends BaseActivity {
         auth = application.getAuth();
 
         if (!auth.hasAuthToken()) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, BeforeLoginActivity.class));
             finish();
         } else {
             refreshValues();

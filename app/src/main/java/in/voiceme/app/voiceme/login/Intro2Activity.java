@@ -21,7 +21,7 @@ import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
-public class Intro2Activity extends DotStepper implements StepzeroInterface, StepOneInterface, StepTwoInterface, StepThreeInterface, StepFourInterface {
+public class Intro2Activity extends DotStepper implements StepOneInterface, StepTwoInterface, StepThreeInterface, StepFourInterface {
 
     private int i = 1;
     private String usernameText = null;
@@ -38,7 +38,6 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
         preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         setErrorTimeout(1500);
         setTitle("Voiceme Community");
-        addStep(createFragment(new StepSample()));
         addStep(createFragment(new StepSample2()));
         addStep(createFragment(new StepSample3()));
         addStep(createFragment(new StepSample4()));
@@ -112,25 +111,21 @@ public class Intro2Activity extends DotStepper implements StepzeroInterface, Ste
 
     @Override
     public void username(String name) {
-        Toast.makeText(this, "username set: " + name, Toast.LENGTH_SHORT).show();
         usernameText = name;
     }
 
     @Override
     public void sendFeeling(String feelingID) {
-        Toast.makeText(this, "Feeling ID: " + feelingID, Toast.LENGTH_SHORT).show();
         this.feelingID = feelingID;
     }
 
     @Override
     public void setCategory(String category) {
-        Toast.makeText(this, "Feeling ID: " + category, Toast.LENGTH_SHORT).show();
         categoryID = category;
     }
 
     @Override
     public void sendTextStatus(String status) {
-        Toast.makeText(this, "Feeling ID: " + status, Toast.LENGTH_SHORT).show();
         textStatus = status;
     }
 

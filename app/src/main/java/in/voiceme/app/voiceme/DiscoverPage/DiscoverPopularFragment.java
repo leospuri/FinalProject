@@ -93,6 +93,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        loadNextPage();
                     }
                 }, 4000);
             }

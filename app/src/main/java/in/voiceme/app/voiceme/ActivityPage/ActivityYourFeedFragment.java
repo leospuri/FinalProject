@@ -93,6 +93,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        loadNextPage();
                     }
                 }, 4000);
             }

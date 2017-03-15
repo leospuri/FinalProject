@@ -42,7 +42,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.LoginActivity;
+import in.voiceme.app.voiceme.login.BeforeLoginActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
@@ -735,7 +735,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     } */
 
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
-        application.getWebService().likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
+        application.getWebService()
+                .likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
@@ -778,7 +779,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             alertDialog.setMessage("You cannot interact\nunless you logged in");
             alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(PostsDetailsActivity.this, LoginActivity.class));
+                    startActivity(new Intent(PostsDetailsActivity.this, BeforeLoginActivity.class));
                 }
             });
             alertDialog.show();

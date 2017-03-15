@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.userpost;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +25,12 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
 
         TextView tagName;
         TextView numberOfTags;
+        CardView cv;
 
         TrendingHashTagsViewHolder(View itemView) {
             super(itemView);
 
+            cv = (CardView) itemView.findViewById(R.id.hashtag_cardview);
             tagName = (TextView) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 

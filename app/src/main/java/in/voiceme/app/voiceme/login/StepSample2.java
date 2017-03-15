@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.R;
+import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -18,12 +21,17 @@ import in.voiceme.app.voiceme.R;
 public class StepSample2 extends AbstractStep {
     private EditText usernameText;
     private boolean yes = false;
+    private String token;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.intro_step_two, container, false);
         usernameText = (EditText) v.findViewById(R.id.intro_username);
+        token = FirebaseInstanceId.getInstance().getToken();
+
+        Toast.makeText(getActivity(), "Token " + token, Toast.LENGTH_SHORT).show();
+        Timber.d(String.valueOf("token from fcm: " + token));
 
         usernameText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,6 +91,8 @@ public class StepSample2 extends AbstractStep {
     public void onNext() {
         StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
         stepOneInterface.username(usernameText.getText().toString());
+        stepOneInterface.sendToken(token);
+
     }
 
     @Override

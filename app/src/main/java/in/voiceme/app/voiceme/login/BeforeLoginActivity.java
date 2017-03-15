@@ -2,20 +2,27 @@ package in.voiceme.app.voiceme.login;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.redbooth.WelcomeCoordinatorLayout;
 
+import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
-public class BeforeLoginActivity extends AppCompatActivity {
+public class BeforeLoginActivity extends BaseActivity implements View.OnClickListener {
     private boolean animationReady = false;
     private ValueAnimator backgroundAnimator;
     WelcomeCoordinatorLayout coordinatorLayout;
+    private static final int REQUEST_REGISTER = 2;
+
+    private View registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,9 @@ public class BeforeLoginActivity extends AppCompatActivity {
 
         coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.logincoordinator);
 
+        registerButton = findViewById(R.id.activity_login_register);
+
+        registerButton.setOnClickListener(this);
 
         initializeListeners();
         initializePages();
@@ -74,5 +84,55 @@ public class BeforeLoginActivity extends AppCompatActivity {
 
     public void next(View view) {
         coordinatorLayout.setCurrentPage(1, true);
+    }
+
+    @Override
+    public void onClick(View view) {
+        processLoggedState(view);
+        if (view == registerButton) {
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("BeforeLoginActivity")
+                    .setAction("Clicked Register Button")
+                    .build());
+            // [END custom_event]
+            // network call from retrofit
+            startActivityForResult(new Intent(this, RegisterActivity.class), REQUEST_REGISTER);
+        }
+    }
+
+    public void tryDemoOnClick(View viewPrm) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("BeforeLoginActivity")
+                .setAction("Clicked Skip Button")
+                .build());
+        // [END custom_event]
+        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
+        prefsLcl.edit().putBoolean("is this demo mode", true).apply();
+        startActivity(new Intent(this, AnonymousLogin.class));
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) return;
+
+        if (requestCode == REQUEST_REGISTER) {
+            finishLogin();
+        }
+    }
+
+    private void finishLogin() {
+        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
+        prefsLcl.edit().putBoolean("is this demo mode", false).apply();
+        if (secondPage()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        } else {
+            startActivity(new Intent(this, Intro2Activity.class));
+            finish();
+            return;
+        }
     }
 }

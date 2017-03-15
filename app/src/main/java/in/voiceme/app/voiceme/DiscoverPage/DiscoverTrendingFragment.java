@@ -89,6 +89,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        loadNextPage();
                     }
                 }, 4000);
             }

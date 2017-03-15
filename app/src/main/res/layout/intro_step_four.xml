@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:id="@+id/stepFourLinear"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -26,6 +27,19 @@
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Popular HashTags:"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/intro_category_tag_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/intro_editText"
@@ -62,11 +76,5 @@
             android:layout_margin="10dp" />
 
     </ScrollView>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:visibility="visible"
-        android:id="@+id/intro_category_tag_rv" />
 
 </LinearLayout>
