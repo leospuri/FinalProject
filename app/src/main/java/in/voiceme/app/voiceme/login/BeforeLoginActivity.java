@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.redbooth.WelcomeCoordinatorLayout;
@@ -22,7 +23,7 @@ public class BeforeLoginActivity extends BaseActivity implements View.OnClickLis
     WelcomeCoordinatorLayout coordinatorLayout;
     private static final int REQUEST_REGISTER = 2;
 
-    private View registerButton;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +32,13 @@ public class BeforeLoginActivity extends BaseActivity implements View.OnClickLis
 
         coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.logincoordinator);
 
-        registerButton = findViewById(R.id.activity_login_register);
-
-        registerButton.setOnClickListener(this);
-
         initializeListeners();
         initializePages();
         initializeBackgroundTransitions();
+
+        registerButton = (Button) findViewById(R.id.activity_login_register);
+
+        registerButton.setOnClickListener(this);
     }
 
     private void initializePages() {

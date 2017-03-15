@@ -9,9 +9,9 @@ import android.widget.Toast;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.DotStepper;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
@@ -68,7 +68,7 @@ public class Intro2Activity extends DotStepper implements StepOneInterface, Step
                             Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
                             if (userResponse.getStatus() == 1) {
                                 Toast.makeText(Intro2Activity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Intro2Activity.this, MainActivity.class));
+                                startActivity(new Intent(Intro2Activity.this, DiscoverActivity.class));
                             }
                         }
                     });

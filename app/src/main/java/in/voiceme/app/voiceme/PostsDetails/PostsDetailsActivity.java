@@ -293,6 +293,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                             myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
                     if (MySharedPreferences.getUserId(preferences).equals(userId)){
+
                     } else {
                         sendLikeNotification(application, sendLike);
                     }

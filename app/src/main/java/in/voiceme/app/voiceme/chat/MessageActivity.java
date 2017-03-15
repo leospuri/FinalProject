@@ -39,7 +39,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     public static MessageActivity mThis = null;
     private Menu menu;
-    public static String userId = null;
+    public static String messageActivityuserId = null;
     private DateTime currentTime = new DateTime(DateTimeZone.UTC);
    // List<MessagePojo> messages;
 
@@ -48,8 +48,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        userId = getIntent().getStringExtra(Constants.YES);
-     //   Toast.makeText(this, "User ID: " + userId, Toast.LENGTH_SHORT).show();
+        messageActivityuserId = getIntent().getStringExtra(Constants.YES);
+     //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
         getSupportActionBar().setTitle("Private Messages");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
@@ -99,7 +99,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     protected void onPause() {
         super.onPause();
         mThis = null;
-        userId = null;
+        messageActivityuserId = null;
     }
 
 
@@ -156,7 +156,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private void sendMessage(String message){
 
         String sendChat = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                userId + "_chat@yes";
+                messageActivityuserId + "_chat@yes";
         Timber.e(sendChat);
 
         application.getWebService()
@@ -177,7 +177,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     private void chatMessages() throws Exception {
         application.getWebService()
-                .getChatMessages(MySharedPreferences.getUserId(preferences), userId)
+                .getChatMessages(MySharedPreferences.getUserId(preferences), messageActivityuserId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
