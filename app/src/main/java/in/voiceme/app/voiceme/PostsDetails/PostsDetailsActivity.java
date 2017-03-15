@@ -226,6 +226,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             }
         };
         mLinearLayoutManager.setStackFromEnd(true);
+        mLinearLayoutManager.setReverseLayout(true);
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mMessageAdapter);
@@ -510,7 +511,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             try {
                 postComment(message);
                 String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + "21"
-                       /* "dataItem.getIdUserName()" */ + "_postId" + postId  + "_click" + "5";
+                       /* "dataItem.getIdUserName()" */ + "_postId@" + postId  + "_click@" + "5";
                 sendLikeNotification(application, sendLike);
 
             } catch (Exception e) {

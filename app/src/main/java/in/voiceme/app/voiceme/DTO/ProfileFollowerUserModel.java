@@ -25,7 +25,7 @@ public class ProfileFollowerUserModel implements Parcelable {
     };
 
     @SerializedName("id_user_name") @Expose private String idUserName;
-    @SerializedName("name") @Expose private String name;
+    @SerializedName("user_nick_name") @Expose private String name;
     @SerializedName("avatar_pics") @Expose private String avatarPics;
 
     protected ProfileFollowerUserModel(Parcel in) {

@@ -16,7 +16,6 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import java.util.Date;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
@@ -35,7 +34,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private MessagesList messagesList = null;
     public MessagesListAdapter<MessagePojo> adapter;
     private MessageInput input;
-    private Date date=new Date(System.currentTimeMillis());
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
 
