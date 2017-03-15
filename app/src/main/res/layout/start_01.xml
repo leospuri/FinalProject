@@ -23,7 +23,6 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/first_page_start"
@@ -32,16 +31,24 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="250dp"
         android:textColor="@color/white"
         android:gravity="center"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:id="@+id/intro_page1_title"
-        android:text="Voice Me lets you confess anonymously via text or audio mode.
-
-Everything you say remains completely private and secure. We do not reveal your true identity to anyone." />
+        android:text="Voice Me lets you confess anonymously via\n text or audio mode." />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_below="@+id/intro_page1_title"
+        android:id="@+id/intro_page1_title2"
+        android:text="Everything you say remains completely private and secure. We do not reveal your true identity to anyone." />
 
 
 </com.redbooth.WelcomePageLayout>

@@ -20,41 +20,35 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
 <com.redbooth.WelcomePageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/welcome_page"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/first_page_start"
     tools:background="@color/page3">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:hint="Create or Search a HashTag" />
+        android:layout_marginTop="250dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:id="@+id/intro_page3_title"
+        android:text="At Voice Me, we encourage healthy public participation via anonymous means of text and audio medium." />
 
-    <ScrollView
-        android:id="@+id/tags_laoyut"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/editText"
-        android:layout_marginLeft="6dp"
-        android:background="@android:color/white"
-        android:visibility="gone">
 
-        <com.cunoraz.tagview.TagView
-            android:id="@+id/tag_group"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_below="@+id/intro_page3_title"
+        android:id="@+id/intro_page1_title2"
+        android:text="So please commit to respect everyone in Voice Me Community." />
 
-    </ScrollView>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/editText"
-        android:visibility="visible"
-        android:id="@+id/category_tag_rv" />
 
 </com.redbooth.WelcomePageLayout>

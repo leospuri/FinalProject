@@ -1,44 +1,45 @@
 package in.voiceme.app.voiceme.login;
 
-import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-public class IntroActivity extends BaseActivity {
-    /*
+import com.redbooth.WelcomeCoordinatorLayout;
+
+import in.voiceme.app.voiceme.R;
+
+public class BeforeLoginActivity extends AppCompatActivity {
     private boolean animationReady = false;
     private ValueAnimator backgroundAnimator;
-    private boolean firstPageDone = false;
-    private View firstPageNext;
-
-    private String current_feeling;
+    WelcomeCoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
+        setContentView(R.layout.activity_before_login);
 
-        coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.coordinator_login);
+        coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.logincoordinator);
 
-        // initializeListeners();
+
+        initializeListeners();
         initializePages();
         initializeBackgroundTransitions();
-
-
     }
-
-    public void setFeeling(String feelingName) {
-        current_feeling = feelingName;
-    }
-
-
 
     private void initializePages() {
+        final WelcomeCoordinatorLayout coordinatorLayout
+                = (WelcomeCoordinatorLayout)findViewById(R.id.logincoordinator);
         coordinatorLayout.addPage(R.layout.start_01,
                 R.layout.start_02,
                 R.layout.start_03,
                 R.layout.start_04);
     }
 
-   /* private void initializeListeners() {
+    private void initializeListeners() {
         coordinatorLayout.setOnPageScrollListener(new WelcomeCoordinatorLayout.OnPageScrollListener() {
             @Override
             public void onScrollPage(View v, float progress, float maximum) {
@@ -53,8 +54,6 @@ public class IntroActivity extends BaseActivity {
             public void onPageSelected(View v, int pageSelected) {
             }
         });
-
-
     }
 
     private void initializeBackgroundTransitions() {
@@ -76,40 +75,4 @@ public class IntroActivity extends BaseActivity {
     public void next(View view) {
         coordinatorLayout.setCurrentPage(1, true);
     }
-
-    public void check(View view) {
-
-        if (!usernameEntered.getText().toString().isEmpty()){
-            try {
-                getData(usernameEntered.getText().toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void getData(String username) throws Exception {
-        application.getWebService()
-                .checkUsername(username)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        if (response.equals("false")){
-                            usernameValidation.setVisibility(View.VISIBLE);
-                            usernameValidation.setText("User name is available");
-                            usernameValidation.setHighlightColor(getResources().getColor(R.color.md_green_A200));
-                            firstPageDone = true;
-                            firstPageNext.setVisibility(View.VISIBLE);
-                        } else {
-                            usernameValidation.setVisibility(View.VISIBLE);
-                            usernameValidation.setText("User name is not available");
-                            usernameValidation.setHighlightColor(getResources().getColor(R.color.md_red_A200));
-                        }
-                    }
-                });
-    }
-
-*/
-
 }
