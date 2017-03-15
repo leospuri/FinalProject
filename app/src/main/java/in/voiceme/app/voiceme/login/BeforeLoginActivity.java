@@ -131,7 +131,7 @@ public class BeforeLoginActivity extends BaseActivity implements View.OnClickLis
             finish();
             return;
         } else {
-            startActivity(new Intent(this, Intro2Activity.class));
+            startActivity(new Intent(this, IntroActivity.class));
             finish();
             return;
         }

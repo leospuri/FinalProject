@@ -207,13 +207,13 @@
             android:exported="true" />
 
         <activity
-            android:name=".userpost.Category2Activity"
+            android:name=".userpost.CategoryActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".login.account.AfterLoginScreen" />
         <activity android:name=".chat.DialogDetailsActivity" />
         <activity android:name=".chat.MessageActivity" />
         <activity
-            android:name=".login.Intro2Activity"
+            android:name=".login.IntroActivity"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".login.BeforeLoginActivity"></activity>
     </application>

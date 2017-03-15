@@ -34,7 +34,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class Category2Activity extends BaseActivity implements View.OnClickListener {
+public class CategoryActivity extends BaseActivity implements View.OnClickListener {
     private TagView tagGroup;
 
     private AlertDialog.Builder builder1;
@@ -116,7 +116,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                 if (isNetworkConnected()){
                     setTags(s);
                 } else {
-                    Toast.makeText(Category2Activity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CategoryActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -135,7 +135,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
         tagGroup.setOnTagLongClickListener(new TagView.OnTagLongClickListener() {
             @Override
             public void onTagLongClick(Tag tag, int position) {
-                Toast.makeText(Category2Activity.this, "Long Click: " + tag.text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoryActivity.this, "Long Click: " + tag.text, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -154,13 +154,13 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onTagDeleted(final TagView view, final Tag tag, final int position) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Category2Activity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CategoryActivity.this);
                 builder.setMessage("\"" + tag.text + "\" will be delete. Are you sure?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         view.remove(position);
-                        Toast.makeText(Category2Activity.this, "\"" + tag.text + "\" deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CategoryActivity.this, "\"" + tag.text + "\" deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -195,7 +195,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                 String category_name = model.getName();
 
                 setCategory(name, category_name);
-           //     Toast.makeText(Category2Activity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(CategoryActivity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -238,7 +238,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                         public void onNext(List<AllPopularTagsPojo> userResponse) {
                             initializeAdapter(userResponse);
                           //  categoryTags = userResponse;
-                          //  Toast.makeText(Category2Activity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(CategoryActivity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -256,7 +256,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                         @Override
                         public void onNext(List<AllCategoryPojo> userResponse) {
                             prepareTags(userResponse);
-                            Toast.makeText(Category2Activity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CategoryActivity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -348,7 +348,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(Category2Activity.this, "Clicked OK", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CategoryActivity.this, "Clicked OK", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString());
                         dialog.cancel();
                     }
@@ -358,7 +358,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                 "No",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(Category2Activity.this, "Clicked No", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CategoryActivity.this, "Clicked No", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -378,7 +378,7 @@ public class Category2Activity extends BaseActivity implements View.OnClickListe
                         public void onNext(NewCategoryAdded userResponse) {
                             setCategory(userResponse.getId(), editText.getText().toString());
 
-                            Toast.makeText(Category2Activity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CategoryActivity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {

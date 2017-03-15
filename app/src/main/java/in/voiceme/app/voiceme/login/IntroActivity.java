@@ -21,7 +21,7 @@ import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
-public class Intro2Activity extends DotStepper implements StepOneInterface, StepTwoInterface, StepThreeInterface, StepFourInterface {
+public class IntroActivity extends DotStepper implements StepOneInterface, StepTwoInterface, StepThreeInterface, StepFourInterface {
 
     private int i = 1;
     private String usernameText = null;
@@ -67,8 +67,8 @@ public class Intro2Activity extends DotStepper implements StepOneInterface, Step
                         public void onNext(UserResponse userResponse) {
                             Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
                             if (userResponse.getStatus() == 1) {
-                                Toast.makeText(Intro2Activity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Intro2Activity.this, DiscoverActivity.class));
+                                Toast.makeText(IntroActivity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(IntroActivity.this, DiscoverActivity.class));
                             }
                         }
                     });

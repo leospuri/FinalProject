@@ -12,51 +12,127 @@
 
         <include layout="@layout/include_toolbar3" />
 
-        <LinearLayout
+        <?xml version="1.0" encoding="utf-8"?>
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:background="@android:color/white"
+            android:fillViewport="true">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit text status"
-                android:textSize="24sp"
-                />
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:gravity="top"
-                android:id="@+id/remove_edit_posts"
-                android:hint="Please enter new status"/>
+                <LinearLayout
+                    android:id="@+id/wrapper_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rectangle"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Click below to remove Audio"
-                android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Edit Post"
+                        android:textSize="32sp"
+                        android:textStyle="bold"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/remove_audio"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/body_Color"/>
 
-                android:text="remove audio"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Edit Text Status"
+                            android:textAppearance="?android:textAppearanceSmall"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/remove_audio_confirm"
-                android:layout_height="wrap_content"
-                android:text="Audio will be removed after clicking the submit button"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Current status which the user wants to edit"
+                            android:textSize="18sp"
+                            android:id="@+id/previous_status"
+                            android:padding="10dp"
+                            android:gravity="center"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="submit"/>
-        </LinearLayout>
+                        <EditText
+                            android:id="@+id/edit_for_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:hint="Above Status entered here automatically" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/body_Color"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete  Audio"
+                        android:id="@+id/delete_audio"
+                        android:padding="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/md_yellow_100"
+                        android:layout_gravity="center"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="2"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Update  Status"
+                            android:background="@color/md_green_100"
+                            android:padding="15dp"
+                            android:id="@+id/update_status"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_gravity="center" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Delete  Status"
+                            android:layout_marginRight="5dp"
+                            android:id="@+id/delete_status"
+                            android:background="@color/md_red_100"
+                            android:padding="15dp"
+                            android:layout_gravity="center" />
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+        </ScrollView>
 
 
     </LinearLayout>

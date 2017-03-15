@@ -40,6 +40,7 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
+import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -393,7 +394,13 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                             Intent editIntent = new Intent(itemView.getContext(), EditPost.class);
                             editIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
-                            editIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
+                            editIntent.putExtra(Constants.STATUS_POST, dataItem.getTextStatus());
+                            if (dataItem.getAudioFileLink().isEmpty() || dataItem.getAudioFileLink() == null){
+                                Timber.e("No audio attached");
+                            } else {
+                                editIntent.putExtra(Constants.AUDIO, dataItem.getAudioFileLink());
+                            }
+
                             itemView.getContext().startActivity(editIntent);
                             return true;
 

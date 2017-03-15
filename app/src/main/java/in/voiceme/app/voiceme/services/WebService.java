@@ -264,24 +264,24 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("updatePosts.php")
-    Observable<ReportResponse> EditPosts(
-            @Field("id_posts") String user_id,
-            @Field("text_status") String id_posts,
-            @Field("audio_file_link") String audio_file_link
-    );
-
-    @FormUrlEncoded
-    @POST("updatePostWithoutAudio.php")
-    Observable<ReportResponse> updatePostWithoutAudio(
-            @Field("id_posts") String user_id,
-            @Field("text_status") String id_posts
-    );
-
-    @FormUrlEncoded
     @POST("insertCategory.php")
     Observable<NewCategoryAdded> insertCategory(
             @Field("category") String category
+    );
+
+    @FormUrlEncoded
+    @POST("update_post.php")
+    Observable<ReportResponse> deletePost(
+            @Field("id_posts") String category,
+            @Field("action") String action
+    );
+
+    @FormUrlEncoded
+    @POST("update_post.php")
+    Observable<ReportResponse> updatePost(
+            @Field("id_posts") String category,
+            @Field("action") String action,
+            @Field("text_status") String text_status
     );
 
 }

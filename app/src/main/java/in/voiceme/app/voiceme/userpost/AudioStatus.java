@@ -90,7 +90,7 @@ public class AudioStatus extends BaseActivity {
                         .setAction("Enter Category Page")
                         .build());
                 // [END custom_event]
-                Intent categoryIntent = new Intent(AudioStatus.this, Category2Activity.class);
+                Intent categoryIntent = new Intent(AudioStatus.this, CategoryActivity.class);
                 startActivityForResult(categoryIntent, 1);
             }
         });

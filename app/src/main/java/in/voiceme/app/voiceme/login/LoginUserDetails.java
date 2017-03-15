@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -77,7 +76,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
                 try {
                     submitDataWithoutProfile();
-                    startActivity(new Intent(this, Intro2Activity.class));
+                    startActivity(new Intent(this, IntroActivity.class));
                     finish();
                 } catch (Exception e) {
                     e.printStackTrace();

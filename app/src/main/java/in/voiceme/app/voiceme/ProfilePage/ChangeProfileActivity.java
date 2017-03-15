@@ -207,7 +207,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         if (viewId == R.id.changeimage) {
             changeProfileRequest();
             //getChat();
-         //   startActivity(new Intent(this, Intro2Activity.class));
+         //   startActivity(new Intent(this, IntroActivity.class));
        //     startActivity(new Intent(this, BeforeLoginActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 

@@ -167,8 +167,8 @@ public class FCMReceiver extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-                .setContentTitle(post.getSenderName())
-                .setContentText(messageBody)
+                .setContentTitle(String.valueOf(post.getSenderName() + " " + "sent private message"))
+                .setContentText(String.valueOf(post.getChatText()))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_done)
