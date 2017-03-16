@@ -2,13 +2,19 @@ package in.voiceme.app.voiceme.contactPage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,6 +34,7 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.utils.ActivityUtils;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
@@ -54,6 +61,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     LinearLayout errorLayout;
     LinearLayout noPostLayout;
     TextView txtError;
+    private AlertDialog.Builder builder1;
     PullRefreshLayout layout;
 
 
@@ -78,6 +86,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        loadNextPage();
                     }
                 }, 4000);
             }
@@ -305,6 +314,76 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
             }
         }); */
         recyclerView.setAdapter(activityInteractionAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.contact_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.refresh_new_contact) {
+         //   startActivity(new Intent(this, ChangeProfileActivity.class));
+            Toast.makeText(this, "clicked refresh new contacts", Toast.LENGTH_SHORT).show();
+            readContacts();
+            return true;
+        } else if (itemId == R.id.more_info){
+            dialogBox();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void readContacts() {
+        ActivityUtils.isContactsPermission(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == getResources().getInteger(R.integer.contacts_request)) {
+                contactMethod();
+            }
+        }
+    }
+
+    public void contactMethod(){
+        startService(new Intent(this, ContactService.class));
+        Toast.makeText(this, "Contacts are getting refreshed.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void dialogBox(){
+        builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("All your contacts are used only for getting anonymous posts from your friends. " +
+                "We donot share you numbers with third party.");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+     /*   builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }); */
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @Override

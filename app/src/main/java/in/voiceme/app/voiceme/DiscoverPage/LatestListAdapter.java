@@ -429,6 +429,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 Intent reportIntent = new Intent(itemView.getContext(), ReportAbuseActivity.class);
                                 reportIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
                                 reportIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
+                                reportIntent.putExtra(Constants.STATUS_POST, dataItem.getTextStatus());
                                 itemView.getContext().startActivity(reportIntent);
                                 return true;
 
@@ -445,7 +446,14 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 Toast.makeText(itemView.getContext(), "Share Action Provider is null", Toast.LENGTH_SHORT).show();
                               //  Log.d(LOG_TAG, "Share Action Provider is null?");
                             } */
+
+                            if(dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
                                 itemView.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+                            } else {
+                                itemView.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
+
+                            }
+
 
 
                                 return true;
@@ -469,7 +477,19 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, dataItem.getTextStatus() + " " + "Voiceme");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(dataItem.getUserNicName() + " " + "said: "
+                                + " " + dataItem.getTextStatus() + " " + "inside Voiceme Android App"));
+            return shareIntent;
+        }
+
+        private Intent sharedAudioIntentMaker(){
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(dataItem.getUserNicName() + " " + "recorded: "
+                    + " " + dataItem.getAudioFileLink() + " " + "inside Voiceme Android App"));
             return shareIntent;
         }
 

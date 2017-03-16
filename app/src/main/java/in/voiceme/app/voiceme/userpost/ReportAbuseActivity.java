@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -19,9 +20,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 public class ReportAbuseActivity extends BaseActivity implements View.OnClickListener {
-    private EditText enteredProblems;
+    private EditText report_abuse_reason;
     private Button submitProblem;
+    private TextView abuse_previous_status;
     private String id_username;
+    private String post_text;
     private String id_posts;
 
     @Override
@@ -43,10 +46,14 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
         Intent intent = getIntent();
         id_username = intent.getStringExtra(Constants.IDUSERNAME);
         id_posts = intent.getStringExtra(Constants.IDPOST);
+        post_text = intent.getStringExtra(Constants.STATUS_POST);
 
-        enteredProblems = (EditText) findViewById(R.id.reportabuse_edittext);
+        report_abuse_reason = (EditText) findViewById(R.id.report_abuse_reason);
+        abuse_previous_status = (TextView) findViewById(R.id.abuse_previous_status);
         submitProblem = (Button) findViewById(R.id.submit_report);
 
+
+        abuse_previous_status.setText(post_text);
 
         submitProblem.setOnClickListener(this);
     }
@@ -55,18 +62,19 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.submit_report){
             processLoggedState(view);
-            if (enteredProblems.getText().toString() != null && !(enteredProblems.getText().length() == 0)){
+            if ((report_abuse_reason.getText().toString()) != null && !(report_abuse_reason.getText().length() == 0)){
                 try {
                     application.getWebService()
-                            .reportAbuse(id_posts, id_username, MySharedPreferences.getUserId(preferences), enteredProblems.getText().toString() )
+                            .reportAbuse(id_username, MySharedPreferences.getUserId(preferences), id_posts,
+                                    report_abuse_reason.getText().toString() )
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new BaseSubscriber<ReportResponse>() {
                                 @Override
                                 public void onNext(ReportResponse userResponse) {
                                     Timber.e("UserResponse " + userResponse.getSuccess());
                                     if (userResponse.getSuccess()) {
-                                        Toast.makeText(ReportAbuseActivity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(ReportAbuseActivity.this, MainActivity.class));
+                                        Toast.makeText(ReportAbuseActivity.this, "Successfully posted message to our team", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(ReportAbuseActivity.this, DiscoverActivity.class));
                                     }
                                 }
                             });

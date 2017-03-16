@@ -257,9 +257,9 @@ public interface WebService {
     @FormUrlEncoded
     @POST("report_abuse.php")
     Observable<ReportResponse> reportAbuse(
-            @Field("id_posts") String id_posts,
             @Field("id_user_name") String id_user_name,
             @Field("sender_user_id") String sender_user_id,
+            @Field("id_posts") String id_posts,
             @Field("abuse_message") String message
     );
 

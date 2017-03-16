@@ -409,6 +409,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             Intent reportIntent = new Intent(itemView.getContext(), ReportAbuseActivity.class);
                             reportIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
                             reportIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
+                            reportIntent.putExtra(Constants.STATUS_POST, dataItem.getTextStatus());
                             itemView.getContext().startActivity(reportIntent);
                             return true;
 

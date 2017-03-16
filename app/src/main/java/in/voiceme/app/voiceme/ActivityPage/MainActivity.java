@@ -1,10 +1,7 @@
 package in.voiceme.app.voiceme.ActivityPage;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,46 +10,20 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
-import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.BeforeLoginActivity;
-import in.voiceme.app.voiceme.loginV2.AuthService;
-import in.voiceme.app.voiceme.loginV2.RefreshTokenService;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
-import timber.log.Timber;
 
-public class MainActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, Constants, View.OnClickListener {
-    private static Context applicationContext;
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
-    private AuthService authService;
-    private RefreshTokenService refreshTokenService;
     private static ImageView play_button;
-
-
-    /**
-     * saves and shows state: if the user in demo mode or not .
-     */
-    private SharedPreferences prefs;
-    /**
-     * Is true if  the user is  in demo mode.
-     * Otherwise is  false
-     */
-    private boolean isDemoMode;
-
-
-    public static Context getStaticApplicationContext() {
-        return applicationContext;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +38,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         setNavDrawer(new MainNavDrawer(this));
 
         mTracker = application.getDefaultTracker();
-        applicationContext = this.getApplicationContext();
 
-        prefs = getSharedPreferences("Logged in or not", MODE_PRIVATE);
-        isDemoMode = prefs.getBoolean("is this demo mode", false);
-        if (!isDemoMode)
-            checkAuthStatus();
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
@@ -99,26 +65,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
     }
 
-    //quits demo mode
-    public void onBackPressed() {
-        if (isDemoMode)
-            prefs.edit().putBoolean("is this demo mode", false).apply();
-        super.onBackPressed();
-    }
 
-    private void checkAuthStatus() {
-        if (!application.getAuth().getUser().isLoggedIn()) {
-            if (application.getAuth().hasAuthToken()) {
-                authService = new AuthService(MainActivity.this);
-                authService.refreshToken(new Thread());
-
-                scheduleTokenRefresh();
-            } else {
-                startActivity(new Intent(this, BeforeLoginActivity.class));
-                finish();
-            }
-        }
-    }
 
     //add all pages
     private void addPages(ViewPager pager) {
@@ -155,26 +102,6 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
     */
 
-    /* Implements GoogleApiClient.OnConnectionFailedListener */
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        String message = String.format("Failed to connect to Google [error #%d, %s]...",
-                connectionResult.getErrorCode(), connectionResult.getErrorMessage());
-        Timber.e(message);
-    }
-
-    private void scheduleTokenRefresh() {
-
-        refreshTokenService = new RefreshTokenService(MainActivity.this, new Thread());
-
-        refreshTokenService.schedulePeriodicJob();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (refreshTokenService != null) refreshTokenService.cacelAll();
-    }
 
 
 

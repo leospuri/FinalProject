@@ -12,32 +12,91 @@
 
         <include layout="@layout/include_toolbar3" />
 
-        <LinearLayout
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:background="@android:color/white"
+            android:fillViewport="true">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please Describe your concerns"
-                android:textSize="18sp"
-                />
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:gravity="top"
-                android:id="@+id/reportabuse_edittext"
-                android:hint="Please write your problem here"/>
+                <LinearLayout
+                    android:id="@+id/wrapper_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_rectangle"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/submit_report"
-                android:text="submit"/>
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Take Action against \nAbusive Posts"
+                        android:textSize="26sp"
+                        android:textStyle="bold"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/body_Color"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Abusive Status Post you selected"
+                        android:textAppearance="?android:textAppearanceSmall"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current status which the user wants to edit"
+                        android:textSize="18sp"
+                        android:id="@+id/abuse_previous_status"
+                        android:padding="10dp"
+                        android:gravity="center"/>
+
+                    <EditText
+                        android:id="@+id/report_abuse_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:hint="Reason for Report Abuse" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/body_Color"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete  Audio"
+                        android:id="@+id/submit_report"
+                        android:padding="20dp"
+                        android:layout_marginTop="90dp"
+                        android:background="@color/md_orange_300"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+        </ScrollView>
 
 
     </LinearLayout>

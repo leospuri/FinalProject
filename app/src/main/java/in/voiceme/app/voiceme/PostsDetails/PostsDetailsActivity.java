@@ -378,6 +378,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                                 Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
                                 reportIntent.putExtra(Constants.IDPOST, postId);
                                 reportIntent.putExtra(Constants.IDUSERNAME, myList.getIdUserName());
+                                reportIntent.putExtra(Constants.STATUS_POST, myList.getTextStatus());
                                 startActivity(reportIntent);
                                 return true;
 
