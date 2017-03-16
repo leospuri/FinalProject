@@ -31,9 +31,9 @@ import com.digits.sdk.android.DigitsException;
 import com.digits.sdk.android.DigitsSession;
 import com.redbooth.WelcomeCoordinatorLayout;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
 import in.voiceme.app.voiceme.contactPage.animators.InSyncAnimator;
@@ -132,6 +132,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
                 try {
                     sendContact(newPhoneNumber);
+                    coordinatorLayout.setCurrentPage(4, true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -264,7 +265,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         }
 
         if (view.getId() == R.id.skip){
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, DiscoverActivity.class));
             finish();
             return;
         }

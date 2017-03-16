@@ -363,8 +363,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                             case R.id.edit_post:
 
                                 Intent editIntent = new Intent(PostsDetailsActivity.this, EditPost.class);
-                                editIntent.putExtra(Constants.IDPOST, postId);
-                                editIntent.putExtra(Constants.IDUSERNAME, myList.getIdUserName());
+                                editIntent.putExtra(Constants.IDPOST, myList.getIdPosts());
+                                editIntent.putExtra(Constants.STATUS_POST, myList.getTextStatus());
+                                if (myList.getAudioFileLink().isEmpty() || myList.getAudioFileLink() == null){
+                                    Timber.e("No audio attached");
+                                } else {
+                                    editIntent.putExtra(Constants.AUDIO, myList.getAudioFileLink());
+                                }
                                 startActivity(editIntent);
                                 return true;
 

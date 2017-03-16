@@ -54,7 +54,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginLeft="18dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="18dp"
                     android:background="@drawable/ic_navigation" />
 
                 <View
@@ -62,7 +62,7 @@
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="18dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="18dp"
                     android:background="@drawable/ic_edit" />
 
                 <FrameLayout

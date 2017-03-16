@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.userpost;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -58,8 +60,8 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
 
         previous_status.setText(postText);
         edit_for_status.setText(postText);
-        if (audioLink.isEmpty() || audioLink == null){
-            delete_audio.setVisibility(View.GONE);
+        if (audioLink == null){
+                delete_audio.setVisibility(View.GONE);
         } else {
             delete_audio.setVisibility(View.VISIBLE);
         }
@@ -81,10 +83,16 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         if (view.getId() == R.id.delete_audio){
             deleteAudio(postID, "remove_audio");
+            delete_audio.setVisibility(View.GONE);
+            Toast.makeText(this, "Audio has been removed successfully", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.update_status){
             updateStatus(postID, "text_status", edit_for_status.getText().toString());
+            Toast.makeText(this, "Status has been updated successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, DiscoverActivity.class));
         } else if (view.getId() == R.id.delete_status){
             deleteAudio(postID, "delete");
+            Toast.makeText(this, "Status has been deleted successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, DiscoverActivity.class));
         }
     }
 
