@@ -366,19 +366,25 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         }
 
         if (dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
-            play_button.setVisibility(View.GONE);
-            post_audio_duration.setVisibility(View.GONE);
-            post_listen.setVisibility(View.GONE);
-            listenCounterImage.setVisibility(View.GONE);
+            hideAudioButton(View.GONE);
         } else {
-            play_button.setVisibility(View.VISIBLE);
-            post_audio_duration.setVisibility(View.VISIBLE);
-            post_listen.setVisibility(View.VISIBLE);
-            listenCounterImage.setVisibility(View.VISIBLE);
+            hideAudioButton(View.VISIBLE);
+        }
+
+        if (dataItem.getReportAbuseCount() >= 2){
+            postMessage.setText("This post is flagged as Abusive for General Public");
+            hideAudioButton(View.GONE);
+
         }
 
     }
 
+    private void hideAudioButton(int gone) {
+        play_button.setVisibility(gone);
+        post_audio_duration.setVisibility(gone);
+        post_listen.setVisibility(gone);
+        listenCounterImage.setVisibility(gone);
+    }
 
 
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {

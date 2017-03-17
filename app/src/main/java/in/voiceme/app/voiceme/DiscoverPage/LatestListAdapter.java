@@ -60,7 +60,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean retryPageLoad = false;
     private String errorMsg;
     private PaginationAdapterCallback mCallback;
-   // private static PostMoreButton postMoreButton;
+    private static SharedPreferences recyclerviewpreferences;
+    // private static PostMoreButton postMoreButton;
 
 
     public void removeLoadingFooter() {
@@ -232,7 +233,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof EventViewHolder) {
           //  position = (dataSet.size() - 1);
             PostsModel dataItem = dataSet.get(position);
-            ((EventViewHolder) holder).bind(dataItem);
+                ((EventViewHolder) holder).bind(dataItem);
+
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
@@ -268,6 +270,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Toast.makeText(view.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
             }
         }
+
+
 
 
         protected void secondUserProfileClicked(View view){
@@ -401,6 +405,10 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SharedPreferences preferences;
                 preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
+            if (MySharedPreferences.getUserId(preferences) == null){
+                Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
+            } else {
+
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
                 } else {
@@ -447,12 +455,12 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                               //  Log.d(LOG_TAG, "Share Action Provider is null?");
                             } */
 
-                            if(dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
-                                itemView.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
-                            } else {
-                                itemView.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
+                                if(dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
+                                    itemView.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+                                } else {
+                                    itemView.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
 
-                            }
+                                }
 
 
 
@@ -465,6 +473,10 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 });
                 popupMenu.show();
+
+
+
+            }
 
 
 
@@ -519,8 +531,12 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (likeButtonMain.isFavorite()){
                 Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 likeButtonMain.setFavorite(false);
+                if (MySharedPreferences.getUserId(recyclerviewpreferences) == null){
+                    Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
+                }
                 // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
                 likeCounter--;
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             } else {
@@ -532,14 +548,19 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
 
-                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                if (MySharedPreferences.getUserId(recyclerviewpreferences) == null){
+                    Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
                 } else {
-                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                    sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
+
+                    if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                        Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                    } else {
+                        sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                    }
                 }
 
 
-                sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
 
 
 
@@ -555,7 +576,13 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(false);
                 hugCounter--;
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
+
+                if (MySharedPreferences.getUserId(recyclerviewpreferences) == null){
+                    Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
+                }
+
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             } else {
                 Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
@@ -567,11 +594,16 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
 
 
-                sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
-                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                if (MySharedPreferences.getUserId(preferences) == null){
+                    Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
                 } else {
-                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                    sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
+
+                    if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                        Timber.e("same user");
+                    } else {
+                        sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                    }
                 }
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             }
@@ -583,22 +615,32 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(false);
                 sameCounter--;
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
+                if (MySharedPreferences.getUserId(recyclerviewpreferences) == null){
+                    Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
+                }
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             } else {
                 Toast.makeText(itemView.getContext(), "Liked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(true);
                 sameCounter++;
-                SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-                String userId = MySharedPreferences.getUserId(preferences);
+                recyclerviewpreferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+                String userId = MySharedPreferences.getUserId(recyclerviewpreferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "3";
 
-                sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
-                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
-                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+
+                if (MySharedPreferences.getUserId(recyclerviewpreferences) == null){
+                    Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
                 } else {
-                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                    sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
+
+                    if (MySharedPreferences.getUserId(recyclerviewpreferences).equals(dataItem.getIdUserName())){
+                        Timber.e("same user");
+                    } else {
+                        sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                    }
                 }
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             }

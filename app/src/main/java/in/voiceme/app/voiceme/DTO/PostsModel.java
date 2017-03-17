@@ -12,7 +12,7 @@ public class PostsModel {
     @SerializedName("text_status") @Expose private String textStatus;
     @SerializedName("audio_duration") @Expose private String audioDuration;
     @SerializedName("audio_file_link") @Expose private String audioFileLink;
-    @SerializedName("report_abuse_count") @Expose private String reportAbuseCount;
+    @SerializedName("report_abuse_count") @Expose private int reportAbuseCount;
     @SerializedName("user_nic_name") @Expose private String userNicName;
     @SerializedName("avatar_pics") @Expose private String avatarPics;
     @SerializedName("emotions") @Expose private String emotions;
@@ -29,7 +29,7 @@ public class PostsModel {
     @SerializedName("user_Huge") @Expose private Boolean userHuge;
     @SerializedName("user_Listen") @Expose private Boolean userListen;
 
-    public String getReportAbuseCount() {
+    public int getReportAbuseCount() {
         return reportAbuseCount;
     }
 

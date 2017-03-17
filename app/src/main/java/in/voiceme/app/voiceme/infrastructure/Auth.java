@@ -56,6 +56,7 @@ public class Auth {
         setAuthToken(null);
         CognitoCachingCredentialsProvider cognitoCachingCredentialsProvider = AccountManager.getInstance().getCredentialsProvider();
 
+        MySharedPreferences.wipe(preferences);
 
 
         if (AccessToken.getCurrentAccessToken() != null){
