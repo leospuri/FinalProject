@@ -18,6 +18,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import in.voiceme.app.voiceme.ActivityPage.OfflineActivity;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
@@ -171,6 +172,8 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
 
         if (!isNetworkConnected()) {
             errorMsg = getResources().getString(R.string.error_msg_no_internet);
+            startActivity(new Intent(this, OfflineActivity.class));
+
         } else if (throwable instanceof TimeoutException) {
             errorMsg = getResources().getString(R.string.error_msg_timeout);
         }

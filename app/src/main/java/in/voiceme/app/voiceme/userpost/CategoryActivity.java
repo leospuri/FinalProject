@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.ActivityPage.OfflineActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -92,6 +93,8 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             getAllHashTags();
         } else {
             Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, OfflineActivity.class));
+
         }
 
 
@@ -117,6 +120,8 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     setTags(s);
                 } else {
                     Toast.makeText(CategoryActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CategoryActivity.this, OfflineActivity.class));
+
                 }
 
 

@@ -26,6 +26,7 @@ import com.baoyz.widget.PullRefreshLayout;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import in.voiceme.app.voiceme.ActivityPage.OfflineActivity;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
@@ -199,6 +200,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
             errorMsg = getResources().getString(R.string.msg_no_contacts);
         } else  {
            errorMsg = getResources().getString(R.string.error_msg_timeout);
+            startActivity(new Intent(this, OfflineActivity.class));
+
         }
 
         return errorMsg;
@@ -221,6 +224,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
         if (!isNetworkConnected()) {
             errorMsg = getResources().getString(R.string.error_msg_no_internet);
+            startActivity(new Intent(this, OfflineActivity.class));
         } else if (throwable instanceof TimeoutException) {
             errorMsg = getResources().getString(R.string.error_msg_timeout);
         }
