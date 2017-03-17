@@ -66,16 +66,23 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
                         @Override
                         public void onNext(UserResponse userResponse) {
                             Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
-                            if (userResponse.getStatus() == 1) {
-                                Toast.makeText(IntroActivity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(IntroActivity.this, DiscoverActivity.class));
-                            }
+                            finishLogin(userResponse);
                         }
                     });
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void finishLogin(UserResponse userResponse) {
+        if (userResponse.getStatus() == 1) {
+            Toast.makeText(IntroActivity.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(IntroActivity.this, DiscoverActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void postUsername(){

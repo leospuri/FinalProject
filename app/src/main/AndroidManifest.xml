@@ -42,7 +42,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
 
         <service android:name=".NotificationsPage.FCMReceiver">
             <intent-filter>
@@ -214,8 +214,9 @@
         <activity android:name=".chat.MessageActivity" />
         <activity
             android:name=".login.IntroActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".login.BeforeLoginActivity"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".login.BeforeLoginActivity" />
+        <activity android:name=".ActivityPage.OfflineActivity"></activity>
     </application>
 
 </manifest>
