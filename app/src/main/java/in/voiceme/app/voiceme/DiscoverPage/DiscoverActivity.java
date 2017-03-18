@@ -19,7 +19,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
-import in.voiceme.app.voiceme.login.BeforeLoginActivity;
+import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.loginV2.AuthService;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenService;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
@@ -132,7 +132,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
                 scheduleTokenRefresh();
             } else {
-                startActivity(new Intent(this, BeforeLoginActivity.class));
+                startActivity(new Intent(this, SecondBeforeLoginActivity.class));
                 finish();
             }
         }

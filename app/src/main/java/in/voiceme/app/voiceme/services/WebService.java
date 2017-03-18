@@ -136,7 +136,7 @@ public interface WebService {
                                           @Field("audio") int listen);
 
     @FormUrlEncoded
-    @POST("login_new.php")
+    @POST("login_new_current.php")
     Observable<LoginResponse> login(
             @Field("name") String name,
             @Field("email") String email,
@@ -151,7 +151,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("login_new.php")
+    @POST("login_new_current.php")
     Observable<LoginResponse> loginWithoutProfile(
             @Field("name") String name,
             @Field("email") String email,

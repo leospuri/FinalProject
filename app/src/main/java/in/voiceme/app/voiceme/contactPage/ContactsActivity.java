@@ -42,7 +42,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.BeforeLoginActivity;
+import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.PrivacyPolicy;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
@@ -453,7 +453,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             alertDialog.setMessage("You cannot interact\nunless you logged in");
             alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(ContactsActivity.this, BeforeLoginActivity.class));
+                    startActivity(new Intent(ContactsActivity.this, SecondBeforeLoginActivity.class));
                 }
             });
             alertDialog.show();

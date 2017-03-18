@@ -33,7 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected SharedPreferences preferences;
     private boolean isRegisterdWithBus;
     protected String givenContact;
-    protected String firstRun;
     protected Tracker mTracker;
 
 
@@ -54,7 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
 
         givenContact = preferences.getString(Constants.GET_CONTACT_NUMBER, null);
-        firstRun = preferences.getString(Constants.FIRST_RUN_CONTACT, null);
 
         /**
          * Initialize Facebook SDK
@@ -74,18 +72,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(Constants.GET_CONTACT_NUMBER, givenContact);
-        editor.commit();
-    }
-
-    public boolean secondPage() {
-        return firstRun != null && !firstRun.isEmpty();
-    }
-
-    public void setSecondPage(String givenContact) {
-        this.firstRun = givenContact;
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.FIRST_RUN_CONTACT, givenContact);
         editor.commit();
     }
 

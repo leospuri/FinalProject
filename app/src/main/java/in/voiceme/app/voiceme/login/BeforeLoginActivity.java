@@ -13,7 +13,6 @@ import android.widget.Button;
 import com.google.android.gms.analytics.HitBuilders;
 import com.redbooth.WelcomeCoordinatorLayout;
 
-import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
@@ -115,26 +114,4 @@ public class BeforeLoginActivity extends BaseActivity implements View.OnClickLis
         finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_OK) return;
-
-        if (requestCode == REQUEST_REGISTER) {
-            finishLogin();
-        }
-    }
-
-    private void finishLogin() {
-        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
-        prefsLcl.edit().putBoolean("is this demo mode", false).apply();
-        if (secondPage()) {
-            startActivity(new Intent(this, DiscoverActivity.class));
-            finish();
-            return;
-        } else {
-            startActivity(new Intent(this, IntroActivity.class));
-            finish();
-            return;
-        }
-    }
 }

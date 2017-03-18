@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -56,6 +57,7 @@ public class RegisterActivity extends BaseActivity
     // Google
     private SignInButton googleSignInBtn;
     private GoogleApiClient googleApiClient;
+    private ImageView go_back;
 
     // Facebook
     private LoginButton facebookSignInBtn;
@@ -76,9 +78,17 @@ public class RegisterActivity extends BaseActivity
         super.onCreate(savedState);
 
         setContentView(R.layout.activity_register);
+        go_back = (ImageView) findViewById(R.id.go_back);
 
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.signin_with_facebook_btn);
+
+        go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, SecondBeforeLoginActivity.class));
+            }
+        });
 
         this.setUpGoogleSignIn();
 

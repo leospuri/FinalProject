@@ -46,7 +46,7 @@ public class BlankFragment extends BaseFragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), IntroActivity.class));
+                startActivity(new Intent(getActivity(), RegisterActivity.class));
             }
         });
 

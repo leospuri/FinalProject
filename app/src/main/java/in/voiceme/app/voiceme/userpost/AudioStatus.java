@@ -23,7 +23,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.BeforeLoginActivity;
+import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -289,7 +289,7 @@ public class AudioStatus extends BaseActivity {
             alertDialog.setMessage("You cannot interact\nunless you logged in");
             alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(AudioStatus.this, BeforeLoginActivity.class));
+                    startActivity(new Intent(AudioStatus.this, SecondBeforeLoginActivity.class));
                 }
             });
             alertDialog.show();
