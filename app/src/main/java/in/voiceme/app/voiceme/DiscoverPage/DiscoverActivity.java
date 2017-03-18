@@ -26,7 +26,7 @@ import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import timber.log.Timber;
 
-public class DiscoverActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, Constants, View.OnClickListener {
+public class DiscoverActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, Constants {
 
     private static Context applicationContext;
     private static final int REQUEST_VIEW_MESSAGE = 1;
@@ -169,11 +169,6 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
         //set adapter to pager
         pager.setAdapter(adapter);
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
 //  @Override

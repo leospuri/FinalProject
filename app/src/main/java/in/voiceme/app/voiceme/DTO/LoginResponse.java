@@ -19,6 +19,11 @@ public class LoginResponse extends AbstractResponse {
         @SerializedName("imageurl")
         String imageUrl;
         String rrr;
+        String present;
+
+        public String getPresent() {
+            return present;
+        }
 
         public String getId() {
             return id;

@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.voiceme.app.voiceme.DTO.LoginResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -217,8 +219,8 @@ public class RegisterActivity extends BaseActivity
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            setResult(RESULT_OK);
-            finish();
+            ///////////////////////////////////////////////////////////
+
         } else {
 
             Log.w(TAG, String.format("Failed to authenticate against Google #%d - %s",
@@ -235,6 +237,22 @@ public class RegisterActivity extends BaseActivity
                     @Override
                     public void onNext(LoginResponse response) {
                         UserData(response);
+                        SharedPreferences prefsLcl = application.getSharedPreferences("Logged in or not", MODE_PRIVATE);
+                        prefsLcl.edit().putBoolean("is this demo mode", false).apply();
+
+                        if (response.info.getPresent().equals("yes")){
+                            Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                        finish();
                     }
                 });
     }
