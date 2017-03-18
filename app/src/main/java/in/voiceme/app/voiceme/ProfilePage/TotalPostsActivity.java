@@ -1,6 +1,5 @@
 package in.voiceme.app.voiceme.ProfilePage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,6 @@ import com.baoyz.widget.PullRefreshLayout;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import in.voiceme.app.voiceme.ActivityPage.OfflineActivity;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -154,7 +152,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
 
         if (!isNetworkConnected()) {
             errorMsg = getResources().getString(R.string.error_msg_no_internet);
-            startActivity(new Intent(this, OfflineActivity.class));
+       //     startActivity(new Intent(this, OfflineActivity.class));
 
         } else if (throwable instanceof TimeoutException) {
             errorMsg = getResources().getString(R.string.error_msg_timeout);

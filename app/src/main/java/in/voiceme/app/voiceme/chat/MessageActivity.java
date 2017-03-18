@@ -1,6 +1,5 @@
 package in.voiceme.app.voiceme.chat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +18,6 @@ import org.joda.time.DateTimeZone;
 
 import java.util.List;
 
-import in.voiceme.app.voiceme.ActivityPage.OfflineActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.chat.models.UserPojo;
@@ -88,7 +86,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 e.printStackTrace();
             }
         } else {
-            startActivity(new Intent(this, OfflineActivity.class));
+    //        startActivity(new Intent(this, OfflineActivity.class));
             Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
         }
     }

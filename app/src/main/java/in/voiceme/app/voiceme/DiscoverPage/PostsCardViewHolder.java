@@ -372,7 +372,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         }
 
         if (dataItem.getReportAbuseCount() >= 2){
-            postMessage.setText("This post is flagged as Abusive for General Public");
+            postMessage.setText("******** This post is flagged as Abusive for General Public *********");
             hideAudioButton(View.GONE);
 
         }

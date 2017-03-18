@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.google.android.gms.analytics.HitBuilders;
 import com.redbooth.WelcomeCoordinatorLayout;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
@@ -103,6 +103,7 @@ public class BeforeLoginActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void tryDemoOnClick(View viewPrm) {
+
         mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory("BeforeLoginActivity")
                 .setAction("Clicked Skip Button")
@@ -127,7 +128,7 @@ public class BeforeLoginActivity extends BaseActivity implements View.OnClickLis
         SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
         if (secondPage()) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, DiscoverActivity.class));
             finish();
             return;
         } else {

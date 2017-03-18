@@ -64,7 +64,15 @@ public class VoicemeApplication extends Application {
         //Fabric.with(this, new Crashlytics());
         auth = new Auth(this);
         FacebookSdk.sdkInitialize(this);
-        webService = ServiceFactory.createRetrofitService(WebService.class);
+
+        try {
+            webService = ServiceFactory.createRetrofitService(WebService.class);
+        } catch (NullPointerException ex){
+            Timber.e("Null Pointer exception");
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
 
 
 

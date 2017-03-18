@@ -640,15 +640,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         user_avatar.setImageURI(myList.getAvatarPics());
 
         if (myList.getAudioFileLink() == null || myList.getAudioFileLink().isEmpty()){
-            play_button.setVisibility(View.GONE);
-            post_audio_duration.setVisibility(View.GONE);
-            post_listen.setVisibility(View.GONE);
-            listenCounterImage.setVisibility(View.GONE);
+            hideAudioButton(View.GONE);
         } else {
-            play_button.setVisibility(View.VISIBLE);
-            post_audio_duration.setVisibility(View.VISIBLE);
-            post_listen.setVisibility(View.VISIBLE);
-            listenCounterImage.setVisibility(View.VISIBLE);
+            hideAudioButton(View.VISIBLE);
         }
 
         if (myList.getUserLike() != null){
@@ -678,6 +672,19 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 //  SameButtonMain.setFavoriteResource(status_before);
             }
         }
+
+        if (myList.getReportAbuseCount() >= 2){
+            postMessage.setText("******** This post is flagged as Abusive for General Public *********");
+            hideAudioButton(View.GONE);
+
+        }
+    }
+
+    private void hideAudioButton(int gone) {
+        play_button.setVisibility(gone);
+        post_audio_duration.setVisibility(gone);
+        post_listen.setVisibility(gone);
+        listenCounterImage.setVisibility(gone);
     }
 
     //LikeButton likeButton

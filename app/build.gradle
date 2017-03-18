@@ -147,6 +147,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.fcannizzaro:material-stepper:1.2.2'
     compile 'com.github.jetradarmobile.desertplaceholder:desertplaceholder:1.2.1'
+    compile 'com.github.paolorotolo:appintro:4.1.0'
     testCompile 'junit:junit:4.12'
 }
 // ADD THIS AT THE BOTTOM
