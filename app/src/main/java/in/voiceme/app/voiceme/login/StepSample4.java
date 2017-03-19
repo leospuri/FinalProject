@@ -360,7 +360,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean isOptional() {
-        if (!editText.getText().toString().isEmpty()){
+        if (!selected_hashtag.getText().toString().isEmpty()){
             yes = true;
         }
         if (yes){
@@ -380,11 +380,40 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void onNext() {
         StepThreeInterface stepOneInterface = (StepThreeInterface) getActivity();
         stepOneInterface.setCategory(this.current_category);
-        if (!editText.getText().toString().isEmpty()){
-            Toast.makeText(getActivity(), "New Hash tag created", Toast.LENGTH_SHORT).show();
-            yes = true;
+        if (!editText.getText().toString().isEmpty() || selected_hashtag.getText() == null){
+            dialogBox(editText.getText().toString());
         }
 
+     //   yes = true;
+    }
+
+    public void dialogBox(String message){
+        builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Do you want to Create a New HashTag: " + message + " ?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getActivity(), "Creating New HashTag", Toast.LENGTH_SHORT).show();
+                        insertCategory(editText.getText().toString());
+                        yes = true;
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getActivity(), "Clicked No", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @Override
@@ -399,7 +428,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean nextIf() {
-        if (!editText.getText().toString().isEmpty()){
+        if (!selected_hashtag.getText().toString().isEmpty()){
             yes = true;
         }
         if (yes){

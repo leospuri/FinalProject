@@ -157,7 +157,6 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     private BroadcastReceiver onNotice=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent i) {
          //   showNotification(); Remove still syncing
-            setSecondPage("Contact Page Added");
             loadDesign();
 
         }

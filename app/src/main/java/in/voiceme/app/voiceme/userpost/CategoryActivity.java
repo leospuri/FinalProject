@@ -44,6 +44,9 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     private ScrollView scrollView;
     private String current_category;
     private TextView selected_hashtag;
+    private View mView;
+    private EditText userInputDialogEditText;
+    private AlertDialog.Builder alertDialogBuilderUserInput;
 
     /**
      * sample country list
@@ -78,6 +81,14 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         rv.setHasFixedSize(true);
 
         getPopularHashTags();
+        mView = getLayoutInflater().inflate(R.layout.user_input_dialog_box, null);
+
+        alertDialogBuilderUserInput = new AlertDialog.Builder(this);
+        alertDialogBuilderUserInput.setView(mView);
+
+        userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
+
+
 
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
@@ -339,20 +350,45 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.create_new_hashtag){
-            dialogBox();
+            if (!editText.getText().toString().isEmpty()){
+                dialogBox(editText.getText().toString());
+            } else {
+                editDialog();
+            }
         }
     }
 
-    public void dialogBox(){
+    public void editDialog(){
+        alertDialogBuilderUserInput
+                .setCancelable(false)
+                .setPositiveButton("Create HashTag", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogBox, int id) {
+                        // ToDo get user input here
+                        Toast.makeText(CategoryActivity.this, userInputDialogEditText.getText().toString(), Toast.LENGTH_LONG).show();
+                    }
+                })
+
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                dialogBox.cancel();
+                            }
+                        });
+
+        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.show();
+    }
+
+    public void dialogBox(String message){
         builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Do you want to Create a New HashTag ?");
+        builder1.setMessage("Do you want to Create a New HashTag: " + message + " ?");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(CategoryActivity.this, "Clicked OK", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CategoryActivity.this, "Creating New HashTag", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString());
                         dialog.cancel();
                     }
@@ -381,8 +417,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onNext(NewCategoryAdded userResponse) {
                             setCategory(userResponse.getId(), editText.getText().toString());
-
-                            Toast.makeText(CategoryActivity.this, "current response = " + userResponse.getSuccess().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
