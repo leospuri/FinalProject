@@ -253,11 +253,17 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 if (likeButtonMain.isFavorite()){
                     likeButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-                    likeCounter--;
-                    like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                    unLikeMethod();
                 } else {
                     likeButtonMain.setFavorite(true);
+                    if (HugButtonMain.isFavorite()){
+                        HugButtonMain.setFavorite(false);
+                        unHugMethod();
+                    }
+                    if (SameButtonMain.isFavorite()){
+                        SameButtonMain.setFavorite(false);
+                        unSameMethod();
+                    }
                     likeCounter++;
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
@@ -281,11 +287,17 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 if (HugButtonMain.isFavorite()){
                     HugButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-                    hugCounter--;
-                    hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+                    unHugMethod();
                 } else {
                     HugButtonMain.setFavorite(true);
+                    if (likeButtonMain.isFavorite()){
+                        likeButtonMain.setFavorite(false);
+                        unLikeMethod();
+                    }
+                    if (SameButtonMain.isFavorite()){
+                        SameButtonMain.setFavorite(false);
+                        unSameMethod();
+                    }
                     hugCounter++;
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
@@ -313,11 +325,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 if (SameButtonMain.isFavorite()){
                     SameButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
-                    sameCounter--;
-                    same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+                    unSameMethod();
                 } else {
                     SameButtonMain.setFavorite(true);
+                    if (likeButtonMain.isFavorite()){
+                        likeButtonMain.setFavorite(false);
+                        unLikeMethod();
+                    }
+                    if (HugButtonMain.isFavorite()){
+                        HugButtonMain.setFavorite(false);
+                        unHugMethod();
+                    }
+
                     sameCounter++;
                     SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                     String userId = MySharedPreferences.getUserId(preferences);
@@ -488,6 +507,24 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         }
+    }
+
+    private void unSameMethod() {
+        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        sameCounter--;
+        same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+    }
+
+    private void unHugMethod() {
+        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        hugCounter--;
+        hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+    }
+
+    private void unLikeMethod() {
+        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        likeCounter--;
+        like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
     }
 
     private Intent sharedIntentMaker(){

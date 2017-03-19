@@ -71,9 +71,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         scrollView = (ScrollView) findViewById(R.id.tags_laoyut);
         selected_hashtag = (TextView) findViewById(R.id.selected_hashtag);
 
-        if (selected_hashtag.getVisibility() == View.VISIBLE){
-            selected_hashtag.setVisibility(View.GONE);
-        }
         rv=(RecyclerView)findViewById(R.id.category_tag_rv);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -93,11 +90,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
         createNewHashTag = (TextView) findViewById(R.id.create_new_hashtag);
-
-        if (createNewHashTag.getVisibility()==View.VISIBLE){
-            createNewHashTag.setVisibility(View.GONE);
-        }
-
         createNewHashTag.setOnClickListener(this);
         if (isNetworkConnected()){
             getAllHashTags();
@@ -112,7 +104,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 scrollView.setVisibility(View.VISIBLE);
-                createNewHashTag.setVisibility(View.VISIBLE);
                 rv.setVisibility(View.GONE);
             }
 
@@ -121,7 +112,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
                 if (editText.hasFocus()){
                     scrollView.setVisibility(View.VISIBLE);
-                    createNewHashTag.setVisibility(View.VISIBLE);
                     rv.setVisibility(View.GONE);
                 }
 
@@ -141,7 +131,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             public void afterTextChanged(Editable s) {
                 if (editText.getText().toString().isEmpty()){
                     scrollView.setVisibility(View.GONE);
-                    createNewHashTag.setVisibility(View.VISIBLE);
                     rv.setVisibility(View.VISIBLE);
                 }
             }
@@ -205,10 +194,9 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
                 // Todo add category text to the edittext
-                createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
                 String category_name = model.getName();
-
+                editText.setText(category_name);
                 setCategory(name, category_name);
            //     Toast.makeText(CategoryActivity.this, "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
@@ -418,6 +406,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         public void onNext(NewCategoryAdded userResponse) {
                             setCategory(userResponse.getId(), editText.getText().toString());
                             Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
+                            selected_hashtag.setText(editText.getText().toString());
                         }
                     });
         } catch (Exception e) {

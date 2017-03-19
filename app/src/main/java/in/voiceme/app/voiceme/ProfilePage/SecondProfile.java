@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -269,32 +267,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_chat, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (processLoggedState(username))
-            return false;
-        l.a(111111);
-        int itemId = item.getItemId();
-
-        if (itemId == R.id.activity_profile_chat) {
-
-
-            Intent intent = new Intent(this, MessageActivity.class);
-            intent.putExtra(Constants.YES, profileUserId);
-            startActivity(intent);
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public boolean processLoggedState(View viewPrm) {
         if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
             l.a(666);
@@ -312,4 +284,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
     }
 
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, MessageActivity.class);
+        intent.putExtra(Constants.YES, profileUserId);
+        startActivity(intent);
+    }
 }

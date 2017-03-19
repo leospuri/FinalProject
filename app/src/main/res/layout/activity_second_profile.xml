@@ -57,15 +57,6 @@
                     android:layout_marginTop="14dp"
                     android:background="@mipmap/ic_ab_close" />
 
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="18dp"
-                    android:layout_marginTop="14dp"
-                    android:background="@drawable/messenger_bubble_large_white" />
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,9 +149,30 @@
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="120dp"
+                    android:id="@+id/send_private_message"
+                    android:layout_below="@+id/second_activity_profile_textFields"
+                    android:background="@drawable/messenger_button_white_bg_round"
+                    android:onClick="sendMessage"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message"
+                    android:layout_marginTop="12dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@+id/second_activity_profile_textFields"
+                    android:layout_toRightOf="@+id/send_private_message"/>
+
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_below="@+id/second_activity_profile_textFields"
+                    android:layout_below="@+id/send_private_message"
                     android:id="@+id/second_new_username"
                     android:layout_margin="20dp"
                     android:padding="10dp"
