@@ -54,28 +54,57 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Username"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="26dp"
+            />
             <EditText
                 android:id="@+id/edittext_profile_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:hint="User Name" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Your Age"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="26dp"
+            />
 
             <EditText
                 android:id="@+id/edittext_profile_age"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/edittext_profile_username"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="Age"
                 />
 
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter About yourself"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="26dp"
+            />
 
             <EditText
                 android:id="@+id/edittext_profile_aboutme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edittext_profile_age"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
                 android:hint="About me"
                 />
@@ -84,6 +113,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:weightSum="2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
                 android:layout_below="@+id/edittext_profile_aboutme"
                 android:id="@+id/gender_change_profile"
                 android:layout_height="wrap_content"
