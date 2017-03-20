@@ -41,16 +41,21 @@ import timber.log.Timber;
 public class ChangeProfileActivity extends BaseActivity implements View.OnClickListener {
     private static final int REQUEST_SELECT_IMAGE = 100;
 
+    private String user_name = null;
+    private String about_me = null;
+    private String user_Age = null;
+    private String user_gender = null;
+    private String image_Url = null;
+
+
+
     private EditText username;
     private EditText aboutme;
     private EditText userAge;
     private TextView genderSelection;
     private TextView genderSelectionTitle;
     private Button submitButton;
-    private String imageUrl;
-    private boolean changedImage = false;
     AlertDialog alertDialog1;
-    private String currentGender;
     CharSequence[] values = {" Male "," Female "," Transgender "};
 
     private SimpleDraweeView avatarView;
@@ -156,7 +161,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
 
                 uploadFile(Uri.parse(tempOutputFile.getPath()));
-                changedImage = true;
 
                 Timber.e(String.valueOf(Uri.fromFile(tempOutputFile)));
                 avatarView.setImageResource(0);
@@ -211,21 +215,11 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             startActivity(new Intent(this, SecondBeforeLoginActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
-            if (changedImage){
                 try {
                     submitData();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                try {
-                    submitDataWithoutProfile();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
 
         } else if(viewId == R.id.user_gender_text_box || viewId == R.id.user_gender){
             CreateAlertDialogWithRadioButtonGroup();
@@ -270,42 +264,25 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     private void setCurrentGender(String gender){
-        this.currentGender = gender;
+        this.user_gender = gender;
     }
 
 
     private void submitData() throws Exception {
         application.getWebService()
                 .updateProfile(
-                        MySharedPreferences.getUserId(preferences), Uri.parse(imageUrl), username.getText().toString(),
-                        userAge.getText().toString(), this.currentGender, aboutme.getText().toString())
+                        MySharedPreferences.getUserId(preferences), Uri.parse(image_Url), username.getText().toString(),
+                        userAge.getText().toString(), this.user_gender, aboutme.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
                     public void onNext(ReportResponse response) {
                         MySharedPreferences.registerUsername(preferences, username.getText().toString());
-                        changedImage = false;
                         //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
 
                         MySharedPreferences.registerUsername(preferences, username.getText().toString());
-                        MySharedPreferences.registerImageUrl(preferences, imageUrl);
-                        startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
-                    }
-                });
-    }
-
-    private void submitDataWithoutProfile() throws Exception {
-        application.getWebService()
-                .updateProfile(
-                        MySharedPreferences.getUserId(preferences), Uri.parse(imageUrl), username.getText().toString(),
-                        userAge.getText().toString(), this.currentGender, aboutme.getText().toString())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<ReportResponse>() {
-                    @Override
-                    public void onNext(ReportResponse response) {
-                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
-                        MySharedPreferences.registerImageUrl(preferences, imageUrl);
+                        MySharedPreferences.registerImageUrl(preferences, image_Url);
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
                 });
@@ -326,13 +303,26 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     private void profileData(ProfileUserList response) {
+        setUserData(response.getData().getUserNickName(),
+                response.getData().getAboutMe(),
+                response.getData().getUserDateOfBirth(),
+                response.getData().getGender(),
+                response.getData().getAvatarPics());
+
         username.setText(response.getData().getUserNickName());
         aboutme.setText(response.getData().getAboutMe());
         userAge.setText(response.getData().getUserDateOfBirth());
         genderSelection.setText(response.getData().getGender());
-
         avatarView.setImageURI(response.getData().getAvatarPics());
 
+    }
+
+    private void setUserData(String user_name, String about_me, String user_Age, String user_gender, String image_Url){
+        this.user_name = user_name;
+        this.about_me = about_me;
+        this.user_Age = user_Age;
+        this.user_gender = user_gender;
+        this.image_Url = image_Url;
     }
 
     private void uploadFile(Uri fileUri) {
@@ -366,8 +356,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     }
 
+
     private void setImageFileUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.image_Url = imageUrl;
     }
 
     @Override
