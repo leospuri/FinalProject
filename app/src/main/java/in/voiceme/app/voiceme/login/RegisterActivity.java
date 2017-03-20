@@ -2,7 +2,6 @@ package in.voiceme.app.voiceme.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -223,8 +222,8 @@ public class RegisterActivity extends BaseActivity
             }
 
             try {
-                getData(result.getSignInAccount().getDisplayName(), result.getSignInAccount().getId(),
-                        result.getSignInAccount().getEmail(), Uri.parse(""));
+                getData(result.getSignInAccount().getDisplayName(),
+                        result.getSignInAccount().getEmail(), result.getSignInAccount().getId());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -238,9 +237,10 @@ public class RegisterActivity extends BaseActivity
         }
     }
 
-    private void getData(String name, String identityID, String email, Uri profile) throws Exception {
+
+    private void getData(String name, String email, String userId) throws Exception {
         application.getWebService()
-                .login(name, email, "", "", identityID, profile, "", "", "")
+                .login(name, email, userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<LoginResponse>() {
@@ -270,7 +270,8 @@ public class RegisterActivity extends BaseActivity
 
     private void UserData(LoginResponse response) {
         MySharedPreferences.registerUserId(preferences, response.info.getId());
-        MySharedPreferences.registerEmail(preferences, response.info.getEmail());
+        MySharedPreferences.registerUsername(preferences, response.info.getName());
+        MySharedPreferences.registerImageUrl(preferences, response.info.getImageurl());
         MySharedPreferences.registerSocialID(preferences, response.info.getUserId());
 
         Timber.d("the user ID is " + response.info.getId());
@@ -332,8 +333,7 @@ public class RegisterActivity extends BaseActivity
                             Log.i("age_range", "-->" + age_range);
 
                             try {
-                                getData(String.valueOf(first_name + "" +last_name), id,
-                                        email, Uri.parse(""));
+                                getData(String.valueOf(first_name + " " + last_name), email, id);
 
                             } catch (Exception e) {
                                 e.printStackTrace();

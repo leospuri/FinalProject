@@ -23,8 +23,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
+import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -274,21 +274,22 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
 
-
     private void submitData() throws Exception {
         application.getWebService()
-                .login("", MySharedPreferences.getEmail(preferences), "",
-                        userAge.getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        Uri.parse(imageUrl), this.currentGender, aboutme.getText().toString(),
-                        username.getText().toString())
+                .updateProfile(
+                        MySharedPreferences.getUserId(preferences), Uri.parse(imageUrl), username.getText().toString(),
+                        userAge.getText().toString(), this.currentGender, aboutme.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<LoginResponse>() {
+                .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
-                    public void onNext(LoginResponse response) {
-
+                    public void onNext(ReportResponse response) {
                         MySharedPreferences.registerUsername(preferences, username.getText().toString());
                         changedImage = false;
                         //Todo add network call for uploading profile_image file
+                        startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
+
+                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
+                        MySharedPreferences.registerImageUrl(preferences, imageUrl);
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
                 });
@@ -296,17 +297,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void submitDataWithoutProfile() throws Exception {
         application.getWebService()
-                .loginWithoutProfile("", MySharedPreferences.getEmail(preferences), "",
-                        userAge.getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        this.currentGender, aboutme.getText().toString(),
-                        username.getText().toString())
+                .updateProfile(
+                        MySharedPreferences.getUserId(preferences), Uri.parse(imageUrl), username.getText().toString(),
+                        userAge.getText().toString(), this.currentGender, aboutme.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<LoginResponse>() {
+                .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
-                    public void onNext(LoginResponse response) {
-
+                    public void onNext(ReportResponse response) {
                         MySharedPreferences.registerUsername(preferences, username.getText().toString());
-                        //Todo add network call for uploading profile_image file
+                        MySharedPreferences.registerImageUrl(preferences, imageUrl);
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
                 });

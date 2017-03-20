@@ -136,33 +136,22 @@ public interface WebService {
                                           @Field("audio") int listen);
 
     @FormUrlEncoded
-    @POST("login_new_current.php")
+    @POST("login_new_current_latest.php")
     Observable<LoginResponse> login(
             @Field("name") String name,
             @Field("email") String email,
-            @Field("location") String location,
-            @Field("dob") String dateOfBirth,
-            @Field("user_id") String userId,
-            @Field("profile") Uri profile,
-            @Field("gender") String gender,
-            @Field("about_me") String aboutme,
-            @Field("user_nick_name") String userNickName
-
+            @Field("user_id") String userId
     );
 
+    /*
     @FormUrlEncoded
     @POST("login_new_current.php")
     Observable<LoginResponse> loginWithoutProfile(
             @Field("name") String name,
             @Field("email") String email,
-            @Field("location") String location,
-            @Field("dob") String dateOfBirth,
-            @Field("user_id") String userId,
-            @Field("gender") String gender,
-            @Field("about_me") String aboutme,
-            @Field("user_nick_name") String userNickName
-
+            @Field("user_id") String userId
     );
+    */
 
     @FormUrlEncoded
     @POST("postStatus.php")
@@ -282,6 +271,17 @@ public interface WebService {
             @Field("id_posts") String category,
             @Field("action") String action,
             @Field("text_status") String text_status
+    );
+
+    @FormUrlEncoded
+    @POST("update_profile.php")
+    Observable<ReportResponse> updateProfile(
+            @Field("id_user_name") String id_user_name,
+            @Field("avatar_url") Uri avatar_url,
+            @Field("user_nick_name") String user_nick_name,
+            @Field("age") String age,
+            @Field("gender") String gender,
+            @Field("about_me") String about_me
     );
 
 }
