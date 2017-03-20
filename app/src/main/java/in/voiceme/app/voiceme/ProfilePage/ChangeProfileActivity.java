@@ -47,8 +47,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private String user_gender = null;
     private String image_Url = null;
 
-
-
     private EditText username;
     private EditText aboutme;
     private EditText userAge;

@@ -2,9 +2,13 @@ package in.voiceme.app.voiceme.userpost;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +29,10 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
     private TextView abuse_previous_status;
     private String id_username;
     private String post_text;
+    private String current_problem = null;
     private String id_posts;
+    private RadioGroup radio_group_report;
+    private RadioButton report_other;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +40,6 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_report_abuse);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("Report Abuse Page");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processLoggedState(v);
-                finish();
-            }
-        });
-
 
         Intent intent = getIntent();
         id_username = intent.getStringExtra(Constants.IDUSERNAME);
@@ -51,10 +49,54 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
         report_abuse_reason = (EditText) findViewById(R.id.report_abuse_reason);
         abuse_previous_status = (TextView) findViewById(R.id.abuse_previous_status);
         submitProblem = (Button) findViewById(R.id.submit_report);
+        if (report_abuse_reason.getVisibility() == View.VISIBLE){
+            report_abuse_reason.setVisibility(View.GONE);
+        }
+
+        radio_group_report = (RadioGroup) findViewById(R.id.radio_group_report);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
 
-        abuse_previous_status.setText(post_text);
+        report_other = (RadioButton) findViewById(R.id.report_other);
+        radio_group_report.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int id=group.getCheckedRadioButtonId();
+                RadioButton rb=(RadioButton) findViewById(id);
+
+                String radioText=rb.getText().toString();
+                current_problem = radioText;
+                if (rb == report_other){
+                    report_abuse_reason.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+        report_abuse_reason.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                current_problem = report_abuse_reason.getText().toString();
+            }
+        });
+        abuse_previous_status.setText(String.valueOf("**" + " " + post_text + " " + "**"));
         submitProblem.setOnClickListener(this);
     }
 
@@ -62,11 +104,9 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.submit_report){
             processLoggedState(view);
-            if ((report_abuse_reason.getText().toString()) != null && !(report_abuse_reason.getText().length() == 0)){
                 try {
                     application.getWebService()
-                            .reportAbuse(id_username, MySharedPreferences.getUserId(preferences), id_posts,
-                                    report_abuse_reason.getText().toString() )
+                            .reportAbuse(id_username, MySharedPreferences.getUserId(preferences), id_posts, current_problem)
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new BaseSubscriber<ReportResponse>() {
                                 @Override
@@ -81,7 +121,7 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+
         }
     }
 
