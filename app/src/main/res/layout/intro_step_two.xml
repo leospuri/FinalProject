@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <TextView
@@ -21,6 +22,25 @@
         android:layout_marginRight="16dp"
         android:text="Your Username inside the community?"
         android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/intro_output_autofitpage2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="30sp"
+        android:gravity="center"
+        android:maxLines="5"
+        autofit:minTextSize="8sp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
 
     <EditText
         android:layout_width="match_parent"

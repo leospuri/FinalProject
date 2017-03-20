@@ -31,11 +31,7 @@
                 android:orientation="vertical">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
+                    android:layout_height="20dp"/>
 
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/intro_output_autofit"

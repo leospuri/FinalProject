@@ -34,8 +34,6 @@ public class StepSample5 extends AbstractStep {
         View v = inflater.inflate(R.layout.intro_step_five, container, false);
 
         text_status = (EditText) v.findViewById(R.id.intro_edit_text_status);
-
-
         mAutofitOutput = (TextView) v.findViewById(R.id.intro_output_autofit);
         mAutofitOutput.setGravity(Gravity.CENTER);
         originalKeyListener = text_status.getKeyListener();
@@ -53,7 +51,7 @@ public class StepSample5 extends AbstractStep {
             }
         });
 
-        text_status = (EditText) v.findViewById(R.id.edit_text_status);
+
 
         editTextChangeListener();
 
@@ -93,6 +91,7 @@ public class StepSample5 extends AbstractStep {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                yes = true;
                 // do nothing
             }
         });
@@ -121,9 +120,14 @@ public class StepSample5 extends AbstractStep {
     @Override
     public void onNext() {
         // get the Entered  message
-        String status = text_status.getText().toString();
-        StepFourInterface stepOneInterface = (StepFourInterface) getActivity();
-        stepOneInterface.sendTextStatus(status);
+        if (text_status.getText().toString().isEmpty()){
+            Toast.makeText(getActivity(), "Please enter your status", Toast.LENGTH_LONG).show();
+        } else {
+            String status = text_status.getText().toString();
+            StepFourInterface stepOneInterface = (StepFourInterface) getActivity();
+            stepOneInterface.sendTextStatus(status);
+        }
+
 
     }
 
