@@ -173,6 +173,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
                     }
+
                 });
     }
 
