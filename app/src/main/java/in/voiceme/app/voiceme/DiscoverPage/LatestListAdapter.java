@@ -250,6 +250,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public EventViewHolder(View itemView) {
             super(itemView);
+            recyclerviewpreferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+
         }
 
 
@@ -505,7 +507,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         protected void likeButtonMethod(View view) {
-            likeCounter = Integer.parseInt(like_counter.getText().toString());
+       //     likeCounter = Integer.parseInt(like_counter.getText().toString());
 
             if (likeButtonMain.isFavorite()){
                 Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
@@ -522,7 +524,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     unSameMethod();
                 }
                 likeCounter++;
-                recyclerviewpreferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+
                 String userId = MySharedPreferences.getUserId(recyclerviewpreferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
@@ -556,10 +558,9 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         protected void hugButtonMethod(View view) {
-            hugCounter = Integer.parseInt(hug_counter.getText().toString());
+        //    hugCounter = Integer.parseInt(hug_counter.getText().toString());
 
             if (HugButtonMain.isFavorite()){
-                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 HugButtonMain.setFavorite(false);
 
                 unHugMethod();
@@ -575,7 +576,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 hugCounter++;
-                recyclerviewpreferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
                 String userId = MySharedPreferences.getUserId(recyclerviewpreferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
@@ -608,7 +608,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         protected void sameButtonMethod(View view) {
-            sameCounter = Integer.parseInt(same_counter.getText().toString());
+         //   sameCounter = Integer.parseInt(same_counter.getText().toString());
             if (SameButtonMain.isFavorite()){
                 Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 SameButtonMain.setFavorite(false);
@@ -625,7 +625,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 sameCounter++;
-                recyclerviewpreferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(recyclerviewpreferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "3";

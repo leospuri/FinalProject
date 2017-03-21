@@ -339,7 +339,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         protected void categoryClicked(View v) {
             Intent intent = new Intent(v.getContext(), UserCategoryActivity.class);
-            intent.putExtra(Constants.CATEGORY, getCategory().getText().toString());
+            intent.putExtra(Constants.CATEGORY, dataItem.getIdCategory());
             v.getContext().startActivity(intent);
         }
 

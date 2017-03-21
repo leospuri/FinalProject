@@ -3,11 +3,17 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FinalProject.iml" filepath="$PROJECT_DIR$/FinalProject.iml" />
+      <module fileurl="file://C:\Users\harish\Documents\GitHub\FinalProject\FinalProject.iml" filepath="C:\Users\harish\Documents\GitHub\FinalProject\FinalProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\harish\Documents\GitHub\FinalProject\app\app.iml" filepath="C:\Users\harish\Documents\GitHub\FinalProject\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
+      <module fileurl="file://C:\Users\harish\Documents\GitHub\FinalProject\lib\lib.iml" filepath="C:\Users\harish\Documents\GitHub\FinalProject\lib\lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/licenseLib/licenseLib.iml" filepath="$PROJECT_DIR$/licenseLib/licenseLib.iml" />
+      <module fileurl="file://C:\Users\harish\Documents\GitHub\FinalProject\licenseLib\licenseLib.iml" filepath="C:\Users\harish\Documents\GitHub\FinalProject\licenseLib\licenseLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialanimatedswitch/materialanimatedswitch.iml" filepath="$PROJECT_DIR$/materialanimatedswitch/materialanimatedswitch.iml" />
+      <module fileurl="file://C:\Users\harish\Documents\GitHub\FinalProject\materialanimatedswitch\materialanimatedswitch.iml" filepath="C:\Users\harish\Documents\GitHub\FinalProject\materialanimatedswitch\materialanimatedswitch.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialfavoritebutton/materialfavoritebutton.iml" filepath="$PROJECT_DIR$/materialfavoritebutton/materialfavoritebutton.iml" />
+      <module fileurl="file://C:\Users\harish\Documents\GitHub\FinalProject\materialfavoritebutton\materialfavoritebutton.iml" filepath="C:\Users\harish\Documents\GitHub\FinalProject\materialfavoritebutton\materialfavoritebutton.iml" />
     </modules>
   </component>
 </project>

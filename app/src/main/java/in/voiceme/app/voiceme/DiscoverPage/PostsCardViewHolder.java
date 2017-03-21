@@ -301,6 +301,10 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     public void bind(PostsModel dataItem) {
         this.dataItem = dataItem;
 
+        setLikeCounter(dataItem.getLikes());
+        setHugCounter(dataItem.getHug());
+        setSameCounter(dataItem.getSame());
+
         user_name.setText(dataItem.getUserNicName());
         feeling.setText(dataItem.getEmotions());
         category.setText(dataItem.getCategory());
@@ -439,12 +443,15 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 });
     }
 
-    public TextView getFeeling() {
-        return feeling;
+    public void setLikeCounter(int likeCounter) {
+        this.likeCounter = likeCounter;
     }
 
-    public TextView getCategory() {
-        return category;
+    public void setHugCounter(int hugCounter) {
+        this.hugCounter = hugCounter;
     }
 
+    public void setSameCounter(int sameCounter) {
+        this.sameCounter = sameCounter;
+    }
 }
