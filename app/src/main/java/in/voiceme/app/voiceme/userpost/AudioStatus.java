@@ -16,6 +16,7 @@ import com.google.android.gms.analytics.HitBuilders;
 
 import java.io.File;
 
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
@@ -35,9 +36,12 @@ import static in.voiceme.app.voiceme.utils.ActivityUtils.deleteAudioFile;
 
 public class AudioStatus extends BaseActivity {
     private static final int REQUEST_RECORD_AUDIO = 0;
-    private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
+   // private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
+    private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/recorded_audio"+".mp3";
 
-    public static final int REQUEST_CODE = 1;
+  //  private String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio"+".mp3";
+
+    public static final int REQUEST_CODE = 4;
     private String audio_time;
 
     private TextView textView_category;
@@ -152,14 +156,24 @@ public class AudioStatus extends BaseActivity {
         textView_record_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AudioStatus.this, AudioRecordingActivity.class);
-                startActivityForResult(intent,4);
+      //          Intent intent = new Intent(AudioStatus.this, SecondRecordactivity.class);
+                recordActivity();
+            //    startActivityForResult(intent,4);
             }
         });
 
 
 
 
+    }
+
+    private void startRec() {
+        int color = getResources().getColor(R.color.colorPrimaryDark);
+        int requestCode = REQUEST_CODE;
+        AndroidAudioRecorder.with(this)
+                .setColor(color)
+                .setRequestCode(requestCode)
+                .record();
     }
 
     @Override
@@ -169,6 +183,8 @@ public class AudioStatus extends BaseActivity {
             if (resultCode == RESULT_OK) {
 
                 audio_time = data.getExtras().getString("audioTime");
+
+           //     path.setText(data.getExtras().getString("path"));
 
                 /************ Audio Received ******************** */
                 Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
@@ -193,6 +209,12 @@ public class AudioStatus extends BaseActivity {
                 String result = data.getStringExtra("resultFromStatus");
                 textStatus = result;
             }
+        }
+    }
+
+    private void recordActivity() {
+        if (ActivityUtils.recordPermissionGranted(this)) {
+            startRec();
         }
     }
 

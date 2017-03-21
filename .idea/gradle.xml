@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/licenseLib" />
             <option value="$PROJECT_DIR$/materialanimatedswitch" />
             <option value="$PROJECT_DIR$/materialfavoritebutton" />

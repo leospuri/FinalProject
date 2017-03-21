@@ -93,6 +93,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //compile project(':licenseLib')
+    compile project(':lib')
     compile project(':materialanimatedswitch')
     compile project(':materialfavoritebutton')
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
