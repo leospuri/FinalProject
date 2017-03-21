@@ -243,6 +243,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public EventViewHolder(View itemView) {
             super(itemView);
+            totalpreference = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
         }
 
         @Override
@@ -486,7 +487,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     unSameMethod();
                 }
                 likeCounter++;
-                totalpreference = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(totalpreference);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
@@ -498,13 +498,11 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
 
                     if (MySharedPreferences.getUserId(totalpreference).equals(dataItem.getIdUserName())){
-                        Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                        Timber.e("same user");
                     } else {
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                     }
                 }
-
-                //////////////
 
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
             }
@@ -543,7 +541,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 hugCounter++;
-                totalpreference = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(totalpreference);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId" + dataItem.getIdPosts()  + "_click" + "2";
@@ -591,17 +588,15 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     unHugMethod();
                 }
                 sameCounter++;
-                SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-                String userId = MySharedPreferences.getUserId(preferences);
+                String userId = MySharedPreferences.getUserId(totalpreference);
                 String sendLike = "senderid@" + userId + "_contactId@" +
                         dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "3";
 
-                /////////////////////
                 if (MySharedPreferences.getUserId(totalpreference) == null){
                     Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
                 } else {
                     sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
-                    if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    if (MySharedPreferences.getUserId(totalpreference).equals(dataItem.getIdUserName())){
                         Timber.e("same user");
                     } else {
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
@@ -766,4 +761,6 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             progressBar = (ProgressBar) v.findViewById(R.id.progress_bar);
         }
     }
+
+
 }

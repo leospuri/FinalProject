@@ -535,7 +535,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
 
                     if (MySharedPreferences.getUserId(recyclerviewpreferences).equals(dataItem.getIdUserName())){
-                        Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                        Timber.d("user ID is null");
                     } else {
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                     }
