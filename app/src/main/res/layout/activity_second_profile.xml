@@ -33,7 +33,7 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/second_image"
                     android:layout_width="match_parent"
-                    android:layout_height="288dp"
+                    android:layout_height="270dp"
                     android:scaleType="centerCrop"
                     fresco:placeholderImage="@drawable/profile_back" />
 
@@ -57,11 +57,23 @@
                     android:layout_marginTop="14dp"
                     android:background="@mipmap/ic_ab_close" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/send_private_message"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="235dp"
+                    android:background="@drawable/messenger_button_white_bg_round"
+                    android:onClick="sendMessage"
+                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/second_image"
                     android:padding="10dp"
+                    android:layout_marginTop="35dp"
                     android:orientation="horizontal"
                     android:id="@+id/second_activity_profile_textFields">
 
@@ -149,32 +161,15 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="120dp"
-                    android:id="@+id/send_private_message"
-                    android:layout_below="@+id/second_activity_profile_textFields"
-                    android:background="@drawable/messenger_button_white_bg_round"
-                    android:onClick="sendMessage"
-                    />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Message"
-                    android:layout_marginTop="12dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:layout_below="@+id/second_activity_profile_textFields"
-                    android:layout_toRightOf="@+id/send_private_message"/>
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_below="@+id/send_private_message"
+                    android:layout_below="@+id/second_activity_profile_textFields"
                     android:id="@+id/second_new_username"
-                    android:layout_margin="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="20dp"
                     android:padding="10dp"
                     android:background="@color/white"
                     android:layout_width="match_parent"

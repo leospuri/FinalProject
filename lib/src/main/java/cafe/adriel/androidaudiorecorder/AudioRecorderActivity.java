@@ -230,10 +230,10 @@ public class AudioRecorderActivity extends AppCompatActivity
         if (isRecording) {
           pauseRecording();
         } else {
-          if (recorderSecondsElapsed < 120 ) {
+          if (recorderSecondsElapsed < 45 ) {
             resumeRecording();
           } else {
-            Toast.makeText(AudioRecorderActivity.this, "max recording time is 2 minute", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AudioRecorderActivity.this, "max recording time is 45 sec", Toast.LENGTH_SHORT).show();
           }
         }
       }
@@ -427,7 +427,7 @@ public class AudioRecorderActivity extends AppCompatActivity
       public void run() {
         if (isRecording) {
           recordeTime = recorderSecondsElapsed;
-          if (recorderSecondsElapsed > 120) {
+          if (recorderSecondsElapsed > 45) {
             pauseRecording();
           } else {
             recorderSecondsElapsed++;
