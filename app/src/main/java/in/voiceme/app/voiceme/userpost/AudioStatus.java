@@ -25,6 +25,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -270,6 +271,7 @@ public class AudioStatus extends BaseActivity {
                     .postStatus(MySharedPreferences.getUserId(preferences),
                     textStatus, category, feeling, audioFileUrl, audio_time)
                     .observeOn(AndroidSchedulers.mainThread())
+                    .retryWhen(new RetryWithDelay(3,2000))
                     .subscribe(new BaseSubscriber<UserResponse>() {
                         @Override
                         public void onNext(UserResponse userResponse) {
@@ -279,6 +281,15 @@ public class AudioStatus extends BaseActivity {
                                 deleteAudio();
                             }
                         }
+                        @Override
+                        public void onError(Throwable e) {
+                            try {
+                                Toast.makeText(AudioStatus.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+                        }
+
                     });
         } catch (Exception e) {
             e.printStackTrace();

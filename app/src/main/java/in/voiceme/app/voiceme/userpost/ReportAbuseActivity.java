@@ -20,6 +20,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -108,6 +109,7 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                     application.getWebService()
                             .reportAbuse(id_username, MySharedPreferences.getUserId(preferences), id_posts, current_problem)
                             .observeOn(AndroidSchedulers.mainThread())
+                            .retryWhen(new RetryWithDelay(3,2000))
                             .subscribe(new BaseSubscriber<ReportResponse>() {
                                 @Override
                                 public void onNext(ReportResponse userResponse) {
@@ -115,6 +117,14 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                                     if (userResponse.getSuccess()) {
                                         Toast.makeText(ReportAbuseActivity.this, "Successfully posted message to our team", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(ReportAbuseActivity.this, DiscoverActivity.class));
+                                    }
+                                }
+                                @Override
+                                public void onError(Throwable e) {
+                                    try {
+                                        Toast.makeText(ReportAbuseActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }catch (Exception ex){
+                                        ex.printStackTrace();
                                     }
                                 }
                             });

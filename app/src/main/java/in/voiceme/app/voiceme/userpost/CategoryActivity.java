@@ -36,6 +36,7 @@ import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class CategoryActivity extends BaseActivity implements View.OnClickListener {
@@ -240,12 +241,21 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             application.getWebService()
                     .getPopularHashTags()
                     .observeOn(AndroidSchedulers.mainThread())
+                    .retryWhen(new RetryWithDelay(3,2000))
                     .subscribe(new BaseSubscriber<List<AllPopularTagsPojo>>() {
                         @Override
                         public void onNext(List<AllPopularTagsPojo> userResponse) {
                             initializeAdapter(userResponse);
                           //  categoryTags = userResponse;
                           //  Toast.makeText(CategoryActivity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                            try {
+                                Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }catch (Exception ex){
+                                ex.printStackTrace();
+                            }
                         }
                     });
         } catch (Exception e) {
@@ -259,10 +269,19 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             application.getWebService()
                     .getAllHashTags()
                     .observeOn(AndroidSchedulers.mainThread())
+                    .retryWhen(new RetryWithDelay(3,2000))
                     .subscribe(new BaseSubscriber<List<AllCategoryPojo>>() {
                         @Override
                         public void onNext(List<AllCategoryPojo> userResponse) {
                             prepareTags(userResponse);
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                            try {
+                                Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }catch (Exception ex){
+                                ex.printStackTrace();
+                            }
                         }
                     });
         } catch (Exception e) {
@@ -403,6 +422,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         try {
             application.getWebService()
                     .insertCategory(category)
+                    .retryWhen(new RetryWithDelay(3,2000))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<NewCategoryAdded>() {
                         @Override
@@ -410,6 +430,14 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                             setCategory(userResponse.getId(), editText.getText().toString());
                             Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
                             selected_hashtag.setText(editText.getText().toString());
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                            try {
+                                Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }catch (Exception ex){
+                                ex.printStackTrace();
+                            }
                         }
                     });
         } catch (Exception e) {

@@ -15,6 +15,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -100,6 +101,7 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
         application.getWebService()
                 .deletePost(postID, action)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
                     public void onNext(ReportResponse response) {
@@ -108,12 +110,21 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
                     }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(EditPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
                 });
     }
 
     protected void updateStatus(String postID, String action, String text_status) {
         application.getWebService()
                 .updatePost(postID, action, text_status)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
@@ -122,6 +133,14 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(EditPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }

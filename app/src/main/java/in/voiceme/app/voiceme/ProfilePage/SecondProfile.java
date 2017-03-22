@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -22,6 +23,8 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.userpost.AudioStatus;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -194,6 +197,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .sendFollowNotification("senderid@1_contactId@21_follow@1")
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
@@ -201,6 +205,14 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                         //     followers.setText(String.valueOf(response.size()));
                         //  Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         // Timber.d("Message from server" + response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -209,6 +221,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .sendFollowNotification("senderid@1_contactId@21_follow@1")
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
@@ -217,6 +230,14 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                         //  Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         // Timber.d("Message from server" + response);
                     }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
                 });
     }
 
@@ -224,20 +245,39 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
                     }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
                 });
+
     }
 
     private void removeFollower(String secondUserId, String addOrRemove) throws Exception {
         application.getWebService()
                 .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -246,11 +286,20 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .getOtherUserProfile(secondUserId, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
                         currentFollowing = response.getFollower();
                         secondProfileData(response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }

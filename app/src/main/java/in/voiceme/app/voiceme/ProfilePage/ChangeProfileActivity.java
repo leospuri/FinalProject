@@ -30,6 +30,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -190,6 +191,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         application.getWebService()
                 .sendLikeNotification("senderid@1_contactId@1_postId@1_click@2")
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
@@ -197,6 +199,14 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -271,6 +281,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         MySharedPreferences.getUserId(preferences), Uri.parse(image_Url), username.getText().toString(),
                         userAge.getText().toString(), this.user_gender, aboutme.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
                     public void onNext(ReportResponse response) {
@@ -282,6 +293,14 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         MySharedPreferences.registerImageUrl(preferences, image_Url);
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
                 });
     }
 
@@ -289,12 +308,21 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         application.getWebService()
                 .getUserProfile(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }

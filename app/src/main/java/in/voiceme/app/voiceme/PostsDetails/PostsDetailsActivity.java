@@ -44,6 +44,7 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
 import in.voiceme.app.voiceme.utils.CurrentTime;
@@ -568,11 +569,20 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .getUserComments(postId)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostUserCommentModel>>() {
                     @Override
                     public void onNext(List<PostUserCommentModel> response) {
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showComments(response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -588,9 +598,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .sendComment(MySharedPreferences.getUserId(preferences), postId, message)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -599,6 +618,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .getSinglePost(postId, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -798,9 +818,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -808,6 +837,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected void sendLikeNotification(final VoicemeApplication application, String likeUrl) {
         application.getWebService()
                 .sendLikeNotification(likeUrl)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -817,15 +847,32 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         //  Timber.d("Message from server" + response);
                     }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
                 });
     }
 
     protected void sendUnlikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
         application.getWebService().unlikes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }

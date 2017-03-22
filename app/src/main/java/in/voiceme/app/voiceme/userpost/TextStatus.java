@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -111,6 +112,7 @@ public class TextStatus extends BaseActivity {
                             application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
                                     textStatus, category, feeling, "", "")
                                     .observeOn(AndroidSchedulers.mainThread())
+                                    .retryWhen(new RetryWithDelay(3,2000))
                                     .subscribe(new BaseSubscriber<UserResponse>() {
                                         @Override
                                         public void onNext(UserResponse userResponse) {
@@ -118,6 +120,14 @@ public class TextStatus extends BaseActivity {
                                             if (userResponse.getStatus() == 1) {
                                                 Toast.makeText(TextStatus.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(TextStatus.this, MainActivity.class));
+                                            }
+                                        }
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            try {
+                                                Toast.makeText(TextStatus.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }catch (Exception ex){
+                                                ex.printStackTrace();
                                             }
                                         }
                                     });

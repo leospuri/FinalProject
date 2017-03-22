@@ -12,6 +12,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class UserSameCounterActivity extends BaseActivity {
@@ -48,11 +49,20 @@ public class UserSameCounterActivity extends BaseActivity {
 
         application.getWebService()
                 .getInteractionPosts(likeCounter)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<PostSuperUserListModel>() {
                     @Override
                     public void onNext(PostSuperUserListModel response) {
                         showRecycleWithDataFilled(response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(UserSameCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
