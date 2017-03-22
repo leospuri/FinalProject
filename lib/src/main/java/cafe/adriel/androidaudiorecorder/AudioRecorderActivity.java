@@ -216,7 +216,7 @@ public class AudioRecorderActivity extends AppCompatActivity
   private void selectAudio() {
     stopRecording();
     Intent returnIntent = new Intent();
-    returnIntent.putExtra("audioTime", Util.formatSeconds(recordeTime));
+    returnIntent.putExtra("audioTime", Util.formatSeconds02(recordeTime));
     returnIntent.putExtra("path", filePath);
     setResult(Activity.RESULT_OK, returnIntent);
     finish();
@@ -275,7 +275,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     restartView.setVisibility(View.INVISIBLE);
     playView.setVisibility(View.INVISIBLE);
     recordView.setImageResource(R.drawable.aar_ic_rec);
-    timerView.setText("00:00:00");
+    timerView.setText("00:00");
     recorderSecondsElapsed = 0;
     playerSecondsElapsed = 0;
     recordeTime = 0;
@@ -296,7 +296,7 @@ public class AudioRecorderActivity extends AppCompatActivity
     visualizerView.linkTo(visualizerHandler);
 
     if (recorder == null) {
-      timerView.setText("00:00:00");
+      timerView.setText("00:00");
 
       recorder = OmRecorder.wav(
           new PullTransport.Default(Util.getMic(source, channel, sampleRate), AudioRecorderActivity.this),
@@ -361,7 +361,7 @@ public class AudioRecorderActivity extends AppCompatActivity
         }
       });
 
-      timerView.setText("00:00:00");
+      timerView.setText("00:00");
       statusView.setText(R.string.aar_playing);
       statusView.setVisibility(View.VISIBLE);
       playView.setImageResource(R.drawable.aar_ic_stop);
@@ -431,11 +431,11 @@ public class AudioRecorderActivity extends AppCompatActivity
             pauseRecording();
           } else {
             recorderSecondsElapsed++;
-            timerView.setText(Util.formatSeconds(recorderSecondsElapsed));
+            timerView.setText(Util.formatSeconds02(recorderSecondsElapsed));
           }
         } else if (isPlaying()) {
           playerSecondsElapsed++;
-          timerView.setText(Util.formatSeconds(playerSecondsElapsed));
+          timerView.setText(Util.formatSeconds02(playerSecondsElapsed));
         }
       }
     });

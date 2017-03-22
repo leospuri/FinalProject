@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     private EditText userInputDialogEditText;
     private AlertDialog.Builder alertDialogBuilderUserInput;
 
+    private ProgressBar progressBar;
     /**
      * sample country list
      */
@@ -64,6 +66,9 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_category2);
         getSupportActionBar().setTitle("Choose Category");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+
+        progressBar = (ProgressBar) findViewById(R.id.getAllHashTagProgress);
+        progressBar.setVisibility(View.VISIBLE);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +182,8 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
             }
         });
+        progressBar.setVisibility(View.GONE);
+        rv.setVisibility(View.VISIBLE);
     }
 
     private void checkId(String text){
@@ -321,7 +328,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void setCategory(String current_category, String category_name) {
-        selected_hashtag.setVisibility(View.VISIBLE);
         selected_hashtag.setText(String.valueOf("You have selected : " + category_name));
 
         this.current_category = current_category;

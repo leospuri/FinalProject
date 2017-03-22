@@ -42,7 +42,7 @@ public class AudioStatus extends BaseActivity {
 
   //  private String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio"+".mp3";
 
-    public static final int REQUEST_CODE = 4;
+    public static final int REQUEST_CODE = 1;
     private String audio_time;
 
     private TextView textView_category;
@@ -56,7 +56,7 @@ public class AudioStatus extends BaseActivity {
     private String textStatus;
   //  private FFmpeg ffmpeg;
     private ProgressDialog progressDialog;
-    private int audioDuration;
+  //  private int audioDuration;
   //  private String convertAudioCommand = "-y -i " + AUDIO_FILE_PATH + " -ar 44100 -ac 2 -ab 64k -f mp3 " + CONVERTED_AUDIO_FILE_PATH;
 
 
@@ -96,7 +96,7 @@ public class AudioStatus extends BaseActivity {
                         .build());
                 // [END custom_event]
                 Intent categoryIntent = new Intent(AudioStatus.this, CategoryActivity.class);
-                startActivityForResult(categoryIntent, 1);
+                startActivityForResult(categoryIntent, 4);
             }
         });
         textView_feeling.setOnClickListener(new View.OnClickListener() {
@@ -180,10 +180,11 @@ public class AudioStatus extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 4) {
+        if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
 
                 audio_time = data.getExtras().getString("audioTime");
+                Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
 
            //     path.setText(data.getExtras().getString("path"));
 
@@ -194,7 +195,7 @@ public class AudioStatus extends BaseActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode == 1) {
+        } else if (requestCode == 4) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromCategory");
                 category = result;
