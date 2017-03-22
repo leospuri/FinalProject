@@ -16,11 +16,11 @@ import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
-import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
-import in.voiceme.app.voiceme.chat.models.MessagePojo;
-import in.voiceme.app.voiceme.userpost.AllCategoryPojo;
-import in.voiceme.app.voiceme.userpost.AllPopularTagsPojo;
-import in.voiceme.app.voiceme.userpost.NewCategoryAdded;
+import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
+import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
+import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
+import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -288,6 +288,13 @@ public interface WebService {
     @POST("delete_chat.php")
     Observable<UserResponse> deleteChat(
             @Field("messageId") String messageId
+    );
+
+    @FormUrlEncoded
+    @POST("save_token.php")
+    Observable<ReportResponse> save_token(
+            @Field("id_user_name") String id_user_name,
+            @Field("pushnotificationToken") String pushnotificationToken
     );
 
 }

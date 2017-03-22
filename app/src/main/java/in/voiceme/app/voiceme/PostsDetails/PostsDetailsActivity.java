@@ -248,7 +248,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (processLoggedState(view)) {
                 return;
             } else {
-                likeCounter = Integer.parseInt(like_counter.getText().toString());
 
                 if (likeButtonMain.isFavorite()){
                     likeButtonMain.setFavorite(false);
@@ -265,12 +264,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         unSameMethod();
                     }
                     likeCounter++;
-                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
-                    String userId = MySharedPreferences.getUserId(preferences);
-                    String sendLike = "senderid@" + userId + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
 
-                    if (MySharedPreferences.getUserId(preferences).equals(userId)){
+                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "1";
+
+                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
+                        Timber.e("Same user");
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
@@ -283,7 +282,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (processLoggedState(view)) {
                 return;
             } else {
-                hugCounter = Integer.parseInt(hug_counter.getText().toString());
                 if (HugButtonMain.isFavorite()){
                     HugButtonMain.setFavorite(false);
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
@@ -299,12 +297,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         unSameMethod();
                     }
                     hugCounter++;
-                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
-                    String userId = MySharedPreferences.getUserId(preferences);
-                    String sendLike = "senderid@" + userId + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "1";
 
-                    if (MySharedPreferences.getUserId(preferences).equals(userId)){
+                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
 
                     } else {
                         sendLikeNotification(application, sendLike);
@@ -320,7 +316,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (processLoggedState(view)) {
                 return;
             } else {
-                sameCounter = Integer.parseInt(same_counter.getText().toString());
 
                 if (SameButtonMain.isFavorite()){
                     SameButtonMain.setFavorite(false);
@@ -338,12 +333,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
 
                     sameCounter++;
-                    SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
-                    String userId = MySharedPreferences.getUserId(preferences);
-                    String sendLike = "senderid@" + userId + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + userId  + "_click@" + "1";
+                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "1";
 
-                    if (MySharedPreferences.getUserId(preferences).equals(userId)){
+                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
@@ -647,6 +640,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         this.myList = myList;
 
+        setLikeCounter(myList.getLikes());
+        setHugCounter(myList.getHug());
+        setSameCounter(myList.getSame());
+
         user_name.setText(myList.getUserNicName());
 
         // Todo make JodaTIme
@@ -715,6 +712,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             hideAudioButton(View.GONE);
 
         }
+    }
+
+    public void setLikeCounter(int likeCounter) {
+        this.likeCounter = likeCounter;
+    }
+
+    public void setHugCounter(int hugCounter) {
+        this.hugCounter = hugCounter;
+    }
+
+    public void setSameCounter(int sameCounter) {
+        this.sameCounter = sameCounter;
     }
 
     private void hideAudioButton(int gone) {

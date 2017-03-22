@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -37,7 +36,6 @@ public class StepSample2 extends AbstractStep {
         usernameText = (EditText) v.findViewById(R.id.intro_username);
         token = FirebaseInstanceId.getInstance().getToken();
 
-        Toast.makeText(getActivity(), "Token " + token, Toast.LENGTH_SHORT).show();
         Timber.d(String.valueOf("token from fcm: " + token));
 
         mAutofitOutput = (TextView) v.findViewById(R.id.intro_output_autofitpage2);

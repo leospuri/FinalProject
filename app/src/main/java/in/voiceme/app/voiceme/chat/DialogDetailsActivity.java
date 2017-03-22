@@ -13,7 +13,7 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
+import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;

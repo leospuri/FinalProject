@@ -29,6 +29,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
+import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
+import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
+import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -259,7 +263,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onNext(List<AllCategoryPojo> userResponse) {
                             prepareTags(userResponse);
-                            Toast.makeText(CategoryActivity.this, "current response = " + userResponse.get(0).getName(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {

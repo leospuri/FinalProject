@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.ProfilePage;
+package in.voiceme.app.voiceme.DTO;
 
 import java.util.Date;
 

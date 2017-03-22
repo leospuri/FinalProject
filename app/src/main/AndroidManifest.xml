@@ -129,12 +129,6 @@
             android:name="io.fabric.ApiKey"
             android:value="194d44ffa4364e27a990ec8091490243dafd97b2" />
 
-        <activity
-            android:name=".login.LoginUserDetails"
-            android:label="@string/title_activity_login_user_details"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
         <service
             android:name=".loginV2.RefreshTokenService"
             android:exported="false">
@@ -217,7 +211,9 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ActivityPage.OfflineActivity" />
         <activity android:name=".login.SecondBeforeLoginActivity" />
-        <activity android:name=".userpost.SecondRecordactivity"></activity>
+        <activity android:name=".userpost.SecondRecordactivity" />
+        <activity android:name=".login.SplashScreenActivity"
+            android:theme="@style/SplashTheme" />
     </application>
 
 </manifest>

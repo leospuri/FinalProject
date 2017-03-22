@@ -2,7 +2,6 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.crashlytics.android.Crashlytics;
@@ -76,14 +75,15 @@ public class VoicemeApplication extends Application {
 
 
 
-        /* **************************************  */
+        /* **************************************
        Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
             @Override
             protected String createStackElementTag(StackTraceElement element) {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
-        });
+        }); */
+
 
 
 
@@ -94,7 +94,7 @@ public class VoicemeApplication extends Application {
         sAnalytics = GoogleAnalytics.getInstance(this);
         /* *****************************************/
    //     Fabric.with(this, new Crashlytics());
-     //   Timber.plant(new ReleaseTree());
+      //  Timber.plant(new ReleaseTree());
 
 
         context = getApplicationContext();
@@ -105,7 +105,7 @@ public class VoicemeApplication extends Application {
 
      //   LeakCanary.install(this);
 
-        Timber.d("Setting up StrictMode policy checking.");
+     /*   Timber.d("Setting up StrictMode policy checking.");
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
@@ -116,6 +116,7 @@ public class VoicemeApplication extends Application {
                 .penaltyLog()
                 .build());
 
+        */
 
         final TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.CONSUMER_KEY,
                 BuildConfig.CONSUMER_SECRET);

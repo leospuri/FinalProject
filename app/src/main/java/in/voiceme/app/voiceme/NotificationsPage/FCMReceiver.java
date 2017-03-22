@@ -19,8 +19,8 @@ import java.util.List;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.chat.MessageActivity;
-import in.voiceme.app.voiceme.chat.models.MessagePojo;
-import in.voiceme.app.voiceme.chat.models.UserPojo;
+import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.UserPojo;
 import io.realm.Realm;
 import timber.log.Timber;
 

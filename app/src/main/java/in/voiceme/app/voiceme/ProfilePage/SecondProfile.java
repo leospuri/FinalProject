@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -45,10 +46,15 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView gender;
     private String profileUserId;
     protected Boolean currentFollowing;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_second_profile);
+        progressBar = (ProgressBar) findViewById(R.id.second_profile_progress);
+        progressBar.setVisibility(View.VISIBLE);
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
 
         try {
@@ -56,7 +62,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setContentView(R.layout.activity_second_profile);
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +106,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         //   if (isProgressBarVisible)
         //     setProgressBarVisible(true);
 
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

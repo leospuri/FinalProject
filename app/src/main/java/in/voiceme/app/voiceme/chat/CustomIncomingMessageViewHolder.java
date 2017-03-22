@@ -5,8 +5,8 @@ import android.view.View;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.models.MessagePojo;
-import in.voiceme.app.voiceme.chat.models.UserPojo;
+import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.UserPojo;
 
 public class CustomIncomingMessageViewHolder
         extends MessagesListAdapter.IncomingMessageViewHolder<MessagePojo> {

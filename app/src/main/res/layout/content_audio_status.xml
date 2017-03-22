@@ -190,7 +190,7 @@
                         android:layout_height="80dp"
                         android:layout_marginTop="15dp"
                         android:id="@+id/id_audio"
-                        android:src="@drawable/audio_icon" />
+                        android:src="@drawable/sound" />
 
                     <TextView
                         android:layout_width="match_parent"

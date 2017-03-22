@@ -9,7 +9,7 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
-import in.voiceme.app.voiceme.ProfilePage.User;
+import in.voiceme.app.voiceme.DTO.User;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.login.account.AccountManager;
 

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Random;
 
+import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
+import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
 
 /**

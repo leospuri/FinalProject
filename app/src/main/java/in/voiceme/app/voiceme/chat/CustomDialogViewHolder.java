@@ -5,7 +5,7 @@ import android.view.View;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.models.ChatDialogPojo;
+import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 
 /**
  * Created by Anton Bevza on 1/18/17.

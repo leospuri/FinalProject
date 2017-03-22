@@ -11,7 +11,7 @@ import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.NotificationsPage.NotificationsActivity;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
-import in.voiceme.app.voiceme.ProfilePage.User;
+import in.voiceme.app.voiceme.DTO.User;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -34,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.voiceme.app.voiceme.DTO.LoginResponse;
-import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -61,6 +61,7 @@ public class RegisterActivity extends BaseActivity
     // Facebook
     private LoginButton facebookSignInBtn;
     private CallbackManager callbackManager;
+    private ProgressBar progressBar;
 
 
     /* Implements GoogleApiClient.OnConnectionFailedListener */
@@ -81,6 +82,8 @@ public class RegisterActivity extends BaseActivity
 
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.signin_with_facebook_btn);
+        progressBar = (ProgressBar) findViewById(R.id.register_activity_progress);
+
 
         go_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,23 +249,23 @@ public class RegisterActivity extends BaseActivity
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
+                        progressBar.setVisibility(View.VISIBLE);
                         UserData(response);
                         SharedPreferences prefsLcl = application.getSharedPreferences("Logged in or not", MODE_PRIVATE);
                         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
 
                         if (response.info.getPresent().equals("yes")){
-                            Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, SplashScreenActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
 
                         } else {
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
                         }
                         finish();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }

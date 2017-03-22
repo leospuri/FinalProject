@@ -153,9 +153,9 @@ public final class Account {
     }
 
     public static class UserDetailsUpdatedEvent {
-        public in.voiceme.app.voiceme.ProfilePage.User User;
+        public in.voiceme.app.voiceme.DTO.User User;
 
-        public UserDetailsUpdatedEvent(in.voiceme.app.voiceme.ProfilePage.User user) {
+        public UserDetailsUpdatedEvent(in.voiceme.app.voiceme.DTO.User user) {
             User = user;
         }
     }

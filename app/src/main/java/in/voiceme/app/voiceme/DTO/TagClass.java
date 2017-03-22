@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.userpost;
+package in.voiceme.app.voiceme.DTO;
 
 import java.util.ArrayList;
 import java.util.Random;

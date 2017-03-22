@@ -21,8 +21,8 @@ import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.models.MessagePojo;
-import in.voiceme.app.voiceme.chat.models.UserPojo;
+import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;

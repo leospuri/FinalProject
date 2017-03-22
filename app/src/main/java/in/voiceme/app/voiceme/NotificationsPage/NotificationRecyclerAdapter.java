@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.NotificationsPage;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
+import in.voiceme.app.voiceme.PostsDetails.PostsDetailsActivity;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 
 public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -35,6 +38,29 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     if (holder.getItemViewType() == ITEM) {
       VHItem item = (VHItem) holder;
 
+      item.notificationMessage.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+          startPostDetail(view, position);
+
+        }
+      });
+
+      item.imgProfilePicture.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          startPostDetail(view, position);
+        }
+      });
+
+      item.notificationTime.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          startPostDetail(view, position);
+        }
+      });
+
       item.notificationMessage.setText(data.get(position).initWithNotification());
 
       item.notificationTime.setText(((VHItem) holder).notificationMessage.getContext()
@@ -47,7 +73,15 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
       }
 
 
+
+
     }
+  }
+
+  private void startPostDetail(View view, int position) {
+    Intent intent = new Intent(view.getContext(), PostsDetailsActivity.class);
+    intent.putExtra(Constants.POST_BACKGROUND, data.get(position).getPostId());
+    view.getContext().startActivity(intent);
   }
 
   @Override public int getItemCount() {
