@@ -16,8 +16,10 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.models.MessagePojo;
 import in.voiceme.app.voiceme.chat.models.UserPojo;
@@ -33,6 +35,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     private MessagesList messagesList = null;
     public MessagesListAdapter<MessagePojo> adapter;
+    public ArrayList<MessagePojo> messageArray;
     private MessageInput input;
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
@@ -194,6 +197,23 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 });
     }
 
+    private void deleteChat(String messageId) throws Exception {
+        application.getWebService()
+                .deleteChat(messageId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<UserResponse>() {
+                    @Override
+                    public void onNext(UserResponse response) {
+             //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                 //       String text = response.get(0).getText();
+                  //    MessagePojo pojo = response.get(0).getMessage();
+                        //messages = response;
+                     //   Toast.makeText(MessageActivity.this, "deleted message", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
@@ -206,7 +226,17 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
+                messageArray = adapter.getSelectedMessages();
+                for (int i = 0; i < this.selectionCount; i++){
+                    try {
+                        deleteChat(messageArray.get(i).getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                //    Toast.makeText(this, "selected IDs: " + messageArray.get(i).getId(), Toast.LENGTH_SHORT).show();
+                }
                 adapter.deleteSelectedMessages();
+              //
                 break;
         }
         return true;

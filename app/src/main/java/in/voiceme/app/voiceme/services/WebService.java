@@ -284,4 +284,10 @@ public interface WebService {
             @Field("about_me") String about_me
     );
 
+    @FormUrlEncoded
+    @POST("delete_chat.php")
+    Observable<UserResponse> deleteChat(
+            @Field("messageId") String messageId
+    );
+
 }
