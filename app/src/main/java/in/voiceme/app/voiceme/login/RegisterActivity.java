@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.voiceme.app.voiceme.DTO.LoginResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -255,7 +256,7 @@ public class RegisterActivity extends BaseActivity
                         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
 
                         if (response.info.getPresent().equals("yes")){
-                            Intent intent = new Intent(RegisterActivity.this, SplashScreenActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
 

@@ -470,8 +470,9 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(dataItem.getUserNicName() + " " + "said: "
-                                + " " + dataItem.getTextStatus() + " " + "inside Voiceme Android App"));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(dataItem.getUserNicName() + " " + "said:"
+                                + " " + dataItem.getTextStatus() + " " + "inside Voiceme Android App. You can download from " +
+                                "https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme"));
             return shareIntent;
         }
 
@@ -481,8 +482,10 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(dataItem.getUserNicName() + " " + "recorded: "
-                    + " " + dataItem.getAudioFileLink() + " " + "inside Voiceme Android App"));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(dataItem.getUserNicName() + " " + "said:" + " " +
+                    dataItem.getTextStatus() + " " + "and" + " " + "recorded:"
+                    + " " + dataItem.getAudioFileLink() + " " + "inside Voiceme Android App." + "You can download app from" +
+                " " + "https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme"));
             return shareIntent;
         }
 

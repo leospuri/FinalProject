@@ -266,6 +266,15 @@
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="like"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/list_item_like_button"
+            android:id="@+id/like_below_like"/>
+
         <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/list_item_hug_button"
             android:layout_width="wrap_content"
@@ -275,9 +284,18 @@
             android:layout_toRightOf="@+id/list_item_like_button"
             app:mfb_rotation_duration="400"
             app:mfb_favorite_image="@drawable/hug_after"
-            app:mfb_not_favorite_image="@drawable/status_before"
+            app:mfb_not_favorite_image="@drawable/hug_before"
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hug"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="70dp"
+            android:layout_below="@+id/list_item_hug_button"
+            android:id="@+id/hug_below_hug"/>
 
         <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/list_item_same_button"
@@ -291,6 +309,15 @@
             app:mfb_not_favorite_image="@drawable/status_before"
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sad"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="120dp"
+            android:layout_below="@+id/list_item_hug_button"
+            android:id="@+id/sad_below_sad"/>
 
 
         <ImageView

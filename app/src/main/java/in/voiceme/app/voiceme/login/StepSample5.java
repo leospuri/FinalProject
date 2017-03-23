@@ -63,6 +63,19 @@ public class StepSample5 extends AbstractStep {
             }
         });
 
+        text_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Restore key listener - this will make the field editable again.
+                text_status.setKeyListener(originalKeyListener);
+                // Focus the field.
+                text_status.requestFocus();
+                // Show soft keyboard for the user to enter the value.
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(text_status, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
         return v;
     }
 

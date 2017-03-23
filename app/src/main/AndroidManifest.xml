@@ -212,8 +212,7 @@
         <activity android:name=".ActivityPage.OfflineActivity" />
         <activity android:name=".login.SecondBeforeLoginActivity" />
         <activity android:name=".userpost.SecondRecordactivity" />
-        <activity android:name=".login.SplashScreenActivity"
-            android:theme="@style/SplashTheme" />
+        <activity android:name=".login.SplashScreenActivity" />
     </application>
 
 </manifest>
