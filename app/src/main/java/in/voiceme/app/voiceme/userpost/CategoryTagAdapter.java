@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Random;
 
 import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
 import in.voiceme.app.voiceme.DTO.TagClass;
@@ -36,9 +35,9 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
             tagName = (TextView) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 
-            int[] androidColors = itemView.getResources().getIntArray(R.array.androidcolors);
+         /*   int[] androidColors = itemView.getResources().getIntArray(R.array.androidcolors);
             int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
-            tagName.setBackgroundColor(randomAndroidColor);
+            tagName.setBackgroundColor(randomAndroidColor); */
         }
 
         public void bind(AllPopularTagsPojo dataItem) {
