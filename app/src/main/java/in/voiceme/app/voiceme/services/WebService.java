@@ -7,6 +7,7 @@ import java.util.List;
 import in.voiceme.app.voiceme.DTO.BaseResponse;
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.DTO.LoginResponse;
+import in.voiceme.app.voiceme.DTO.OnlyToken;
 import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
@@ -124,6 +125,11 @@ public interface WebService {
                                              @Field("username") String username,
                                              @Field("about_me") String about_me,
                                              @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("tokenonly.php")
+    Observable<OnlyToken> onlyToken(@Field("user_id") String userId,
+                                    @Field("token") String token);
 
 
     @FormUrlEncoded

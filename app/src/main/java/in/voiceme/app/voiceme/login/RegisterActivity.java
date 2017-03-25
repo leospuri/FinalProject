@@ -27,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONObject;
 
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.voiceme.app.voiceme.DTO.LoginResponse;
+import in.voiceme.app.voiceme.DTO.OnlyToken;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -64,6 +66,7 @@ public class RegisterActivity extends BaseActivity
     private CallbackManager callbackManager;
     private ProgressBar progressBar;
 
+    private String token;
 
     /* Implements GoogleApiClient.OnConnectionFailedListener */
 
@@ -257,7 +260,10 @@ public class RegisterActivity extends BaseActivity
                         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
 
                         if (response.info.getPresent().equals("yes")){
+                            token = FirebaseInstanceId.getInstance().getToken();
                             Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
+
+                            postToken(response.info.getUserId(), token);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             progressBar.setVisibility(View.GONE);
                             startActivity(intent);
@@ -272,6 +278,27 @@ public class RegisterActivity extends BaseActivity
                         progressBar.setVisibility(View.GONE);
                     }
                 });
+    }
+
+    private void postToken(String id, String token){
+        try {
+            application.getWebService()
+                    .onlyToken(id, token)
+                    .retryWhen(new RetryWithDelay(3,2000))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<OnlyToken>() {
+                        @Override
+                        public void onNext(OnlyToken response) {
+
+                        //    MySharedPreferences.registerUsername(preferences, usernameText);
+                            //Todo add network call for uploading profile_image file
+                            //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
