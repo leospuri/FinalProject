@@ -261,9 +261,10 @@ public class RegisterActivity extends BaseActivity
 
                         if (response.info.getPresent().equals("yes")){
                             token = FirebaseInstanceId.getInstance().getToken();
+                            postToken(response.info.getUserId(), token);
                             Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
 
-                            postToken(response.info.getUserId(), token);
+
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             progressBar.setVisibility(View.GONE);
                             startActivity(intent);
