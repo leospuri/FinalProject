@@ -30,15 +30,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
+import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
+import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
+import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
-import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
-import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
 import in.voiceme.app.voiceme.userpost.CategoryTagAdapter;
-import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
 import in.voiceme.app.voiceme.userpost.PopularCategoryClickListner;
-import in.voiceme.app.voiceme.DTO.TagClass;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**

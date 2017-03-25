@@ -55,8 +55,6 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
 
 
     private void postStatus(){
-
-
         try {
             application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
                     textStatus, categoryID, feelingID, "", "")
@@ -72,7 +70,6 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void finishLogin(UserResponse userResponse) {

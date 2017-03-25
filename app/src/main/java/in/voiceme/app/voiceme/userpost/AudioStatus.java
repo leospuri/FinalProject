@@ -184,7 +184,7 @@ public class AudioStatus extends BaseActivity {
             if (resultCode == RESULT_OK) {
 
                 audio_time = data.getExtras().getString("audioTime");
-                Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
 
            //     path.setText(data.getExtras().getString("path"));
 

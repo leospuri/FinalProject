@@ -197,6 +197,7 @@ public class RegisterActivity extends BaseActivity
      */
     private void handleGoogleSignInResult(GoogleSignInResult result) {
 
+        progressBar.setVisibility(View.VISIBLE);
         if (result.isSuccess()) {
 
             mTracker.send(new HitBuilders.EventBuilder()
@@ -258,11 +259,13 @@ public class RegisterActivity extends BaseActivity
                         if (response.info.getPresent().equals("yes")){
                             Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
 
                         } else {
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
                         }
                         finish();
@@ -301,6 +304,7 @@ public class RegisterActivity extends BaseActivity
      * @param loginResult the successful login result
      */
     private void handleFacebookLogin(LoginResult loginResult) {
+        progressBar.setVisibility(View.VISIBLE);
 
         Log.v(TAG, "Successfully logged in with Facebook...");
 

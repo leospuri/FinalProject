@@ -44,7 +44,6 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
 import in.voiceme.app.voiceme.utils.CurrentTime;
@@ -79,7 +78,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     //post data
     private TextView timeStamp;
     private TextView postMessage;
-    private TextView postReadMore;
+  //  private TextView postReadMore;
     private TextView post_audio_duration;
 
     //counter numbers
@@ -87,14 +86,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private TextView hug_counter;
     private TextView same_counter;
     private TextView post_comments;
-    private TextView post_listen;
+//    private TextView post_listen;
 
     //emoji for like, hug and same above
     private ImageView likeCounterImage;
     private ImageView hugCounterImage;
     private ImageView sameCounterImage;
     private ImageView commentCounterImage;
-    private ImageView listenCounterImage;
+ //   private ImageView listenCounterImage;
     private ImageView moreButton;
 
     private int likeCounter;
@@ -154,21 +153,21 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         post_audio_duration = (TextView) findViewById(R.id.detail_list_item_posts_duration_count);
         timeStamp = (TextView) findViewById(R.id.detail_list_item_posts_timeStamp);
         postMessage = (TextView) findViewById(R.id.detail_list_item_posts_message);
-        postReadMore = (TextView) findViewById(R.id.detail_list_item_posts_read_more);
+      //  postReadMore = (TextView) findViewById(R.id.detail_list_item_posts_read_more);
 
         //counter numbers
         like_counter = (TextView) findViewById(R.id.detail_post_likes_counter);
         hug_counter = (TextView) findViewById(R.id.detail_post_hugs_counter);
         same_counter = (TextView) findViewById(R.id.detail_post_same_counter);
         post_comments = (TextView) findViewById(R.id.detail_post_comment_counter);
-        post_listen = (TextView) findViewById(R.id.detail_post_listen_counter);
+     //   post_listen = (TextView) findViewById(R.id.detail_post_listen_counter);
 
         //emoji for like, hug and same above
         likeCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_like);
         hugCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_hug);
         sameCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_same);
         commentCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_comment);
-        listenCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_listen);
+      //  listenCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_listen);
 
         //animated buttons
         likeButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_like_button);
@@ -192,14 +191,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         hug_counter.setOnClickListener(this);
         same_counter.setOnClickListener(this);
         post_comments.setOnClickListener(this);
-        post_listen.setOnClickListener(this);
+     //   post_listen.setOnClickListener(this);
         category.setOnClickListener(this);
         feeling.setOnClickListener(this);
         likeCounterImage.setOnClickListener(this);
         hugCounterImage.setOnClickListener(this);
         sameCounterImage.setOnClickListener(this);
         commentCounterImage.setOnClickListener(this);
-        listenCounterImage.setOnClickListener(this);
+     //   listenCounterImage.setOnClickListener(this);
         user_name.setOnClickListener(this);
         user_avatar.setOnClickListener(this);
         play_button.setOnClickListener(this);
@@ -443,20 +442,25 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             Intent intent = new Intent(this, UserLikeCounterActivity.class);
             intent.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_hugs_counter || view.getId() == R.id.detail_emoji_above_same){
+        } else if(view.getId() == R.id.detail_post_hugs_counter || view.getId() == R.id.detail_emoji_above_hug){
             Intent intent = new Intent(this, UserHugCounterActivity.class);
             intent.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_same_counter || view.getId() == R.id.detail_emoji_above_comment){
+        } else if(view.getId() == R.id.detail_post_same_counter || view.getId() == R.id.detail_emoji_above_same){
             Intent intent = new Intent(this, UserSameCounterActivity.class);
             intent.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
             startActivity(intent);
 
-        } else if(view.getId() == R.id.detail_post_listen_counter){
+        }
+
+   /*     else if(view.getId() == R.id.detail_post_listen_counter){
             Intent intent = new Intent(this, UserListenCounterActivity.class);
             intent.putExtra(Constants.LISTEN_FEELING, myList.getIdPosts());
-            startActivity(intent);
-        } else if(view.getId() == R.id.detail_list_item_posts_play_button){
+            startActivity(intent); */
+
+
+    //    }
+        else if(view.getId() == R.id.detail_list_item_posts_play_button){
             if (!mediaPlayer.isPlaying()){
                 if (mediaPlayer != null){
                     try {
@@ -684,7 +688,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         if (myList.getAudioDuration() != null){
             post_audio_duration.setText(myList.getAudioDuration());
-            post_listen.setText(String.valueOf(myList.getListen()));
+         //   post_listen.setText(String.valueOf(myList.getListen()));
         }
 
       //  likeCounter = myList.get(0).getLikes();
@@ -749,8 +753,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private void hideAudioButton(int gone) {
         play_button.setVisibility(gone);
         post_audio_duration.setVisibility(gone);
-        post_listen.setVisibility(gone);
-        listenCounterImage.setVisibility(gone);
+    //    post_listen.setVisibility(gone);
+      //  listenCounterImage.setVisibility(gone);
     }
 
     //LikeButton likeButton

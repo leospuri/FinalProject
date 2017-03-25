@@ -9,10 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Random;
 
 import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
 import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
+import timber.log.Timber;
 
 /**
  * Created by Harish on 9/1/2016.
@@ -35,9 +37,16 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
             tagName = (TextView) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 
-         /*   int[] androidColors = itemView.getResources().getIntArray(R.array.androidcolors);
-            int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
-            tagName.setBackgroundColor(randomAndroidColor); */
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                // only for gingerbread and newer versions
+                Timber.e("lower android version");
+            } else {
+                int[] androidColors = itemView.getResources().getIntArray(R.array.androidcolors);
+                int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+                tagName.setBackgroundColor(randomAndroidColor);
+            }
+
+
         }
 
         public void bind(AllPopularTagsPojo dataItem) {

@@ -1,15 +1,12 @@
 package in.voiceme.app.voiceme.login;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +23,6 @@ public class StepSample5 extends AbstractStep {
     private TextView mAutofitOutput;
     private EditText text_status;
     private boolean yes = false;
-    private KeyListener originalKeyListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,57 +32,11 @@ public class StepSample5 extends AbstractStep {
         text_status = (EditText) v.findViewById(R.id.intro_edit_text_status);
         mAutofitOutput = (TextView) v.findViewById(R.id.intro_output_autofit);
         mAutofitOutput.setGravity(Gravity.CENTER);
-        originalKeyListener = text_status.getKeyListener();
-        text_status.setKeyListener(null);
-        mAutofitOutput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Restore key listener - this will make the field editable again.
-                text_status.setKeyListener(originalKeyListener);
-                // Focus the field.
-                text_status.requestFocus();
-                // Show soft keyboard for the user to enter the value.
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(text_status, InputMethodManager.SHOW_IMPLICIT);
-            }
-        });
-
-
+        mAutofitOutput.setVisibility(View.GONE);
 
         editTextChangeListener();
 
-        text_status.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // If it loses focus...
-                doesnotHaveFocus(hasFocus);
-            }
-        });
-
-        text_status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Restore key listener - this will make the field editable again.
-                text_status.setKeyListener(originalKeyListener);
-                // Focus the field.
-                text_status.requestFocus();
-                // Show soft keyboard for the user to enter the value.
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(text_status, InputMethodManager.SHOW_IMPLICIT);
-            }
-        });
-
         return v;
-    }
-
-    private void doesnotHaveFocus(boolean hasFocus) {
-        if (!hasFocus) {
-            // Hide soft keyboard.
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(text_status.getWindowToken(), 0);
-            // Make it non-editable again.
-            text_status.setKeyListener(null);
-        }
     }
 
 
@@ -95,6 +45,7 @@ public class StepSample5 extends AbstractStep {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 // do nothing
+                mAutofitOutput.setVisibility(View.VISIBLE);
             }
 
             @Override

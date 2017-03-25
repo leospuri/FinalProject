@@ -29,7 +29,6 @@ import in.voiceme.app.voiceme.PostsDetails.UserCategoryActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserFeelingActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserHugCounterActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserLikeCounterActivity;
-import in.voiceme.app.voiceme.PostsDetails.UserListenCounterActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserSameCounterActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
@@ -328,6 +327,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
 
+        /*
         @Override
         protected void listenCounterClicked(View v) {
             if (processLoggedState(v))
@@ -336,6 +336,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             intent.putExtra(Constants.LISTEN_FEELING, dataItem.getIdPosts());
             v.getContext().startActivity(intent);
         }
+        */
 
         @Override
         protected void categoryClicked(View v) {

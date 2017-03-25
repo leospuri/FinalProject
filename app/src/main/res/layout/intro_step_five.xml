@@ -29,23 +29,20 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"/>
 
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/intro_output_autofit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:text=""
                     android:textSize="30sp"
                     android:gravity="center"
                     android:maxLines="5"
                     autofit:minTextSize="8sp"
                     />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"/>
+
                 <EditText
                     android:id="@+id/intro_edit_text_status"
                     android:layout_width="match_parent"

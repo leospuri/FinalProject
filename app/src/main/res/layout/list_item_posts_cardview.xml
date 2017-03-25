@@ -236,7 +236,7 @@
                 android:textSize="12sp"
                 tools:text="0" />
 
-            <ImageView
+      <!--      <ImageView
                 android:id="@+id/emoji_above_listen"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
@@ -251,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="2dp"
                 android:textSize="12sp"
-                tools:text="0" />
+                tools:text="0" />  -->
 
         </LinearLayout>
 

@@ -52,14 +52,14 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected TextView hug_counter;
     protected TextView same_counter;
     protected TextView post_comments;
-    protected TextView post_listen;
+//    protected TextView post_listen;
 
     //emoji for like, hug and same above
     protected ImageView likeCounterImage;
     protected ImageView hugCounterImage;
     protected ImageView sameCounterImage;
     protected ImageView commentCounterImage;
-    protected ImageView listenCounterImage;
+  //  protected ImageView listenCounterImage;
     protected MediaPlayer mediaPlayer = new MediaPlayer();
 
 
@@ -94,14 +94,14 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         hug_counter = (TextView) itemView.findViewById(R.id.post_hugs_counter);
         same_counter = (TextView) itemView.findViewById(R.id.post_same_counter);
         post_comments = (TextView) itemView.findViewById(R.id.post_comment_counter);
-        post_listen = (TextView) itemView.findViewById(R.id.post_listen_counter);
+    //    post_listen = (TextView) itemView.findViewById(R.id.post_listen_counter);
 
         //emoji for like, hug and same above
         likeCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_like);
         hugCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_hug);
         sameCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_same);
         commentCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_comment);
-        listenCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_listen);
+       // listenCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_listen);
 
         //animated buttons
         likeButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_like_button);
@@ -158,7 +158,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 commentsCounterClicked(v);
             }
         });
-        post_listen.setOnClickListener(new View.OnClickListener() {
+
+
+    /*    post_listen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listenCounterClicked(v);
@@ -171,6 +173,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             }
         });
 
+*/
         category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,12 +211,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 cardBackground(v);
             }
         });
-        listenCounterImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listenCounterClicked(v);
-            }
-        });
+
         user_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -338,7 +336,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
         if (dataItem.getAudioDuration() != null){
             post_audio_duration.setText(String.valueOf(dataItem.getAudioDuration()));
-            post_listen.setText(String.valueOf(dataItem.getListen()));
+     //       post_listen.setText(String.valueOf(dataItem.getListen()));
         }
 
         if (dataItem.getUserLike() != null){
@@ -386,8 +384,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     private void hideAudioButton(int gone) {
         play_button.setVisibility(gone);
         post_audio_duration.setVisibility(gone);
-        post_listen.setVisibility(gone);
-        listenCounterImage.setVisibility(gone);
+   //     post_listen.setVisibility(gone);
+        // listenCounterImage.setVisibility(gone);
     }
 
 

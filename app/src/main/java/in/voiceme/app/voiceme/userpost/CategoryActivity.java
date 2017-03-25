@@ -350,7 +350,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         //noinspection SimplifiableIfStatement
         if (id == R.id.category_menu) {
             Intent returnIntent = new Intent();
-            if (current_category.isEmpty() || current_category == null){
+            if (current_category == null){
                 Toast.makeText(this, "You have not selected any Hashtags", Toast.LENGTH_SHORT).show();
             } else {
                 returnIntent.putExtra("resultFromCategory", current_category);
