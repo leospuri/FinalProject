@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -143,7 +142,11 @@ public class RegisterActivity extends BaseActivity
 
             @Override
             public void onSuccess(LoginResult loginResult) {
+                if (progressBar.getVisibility()==View.INVISIBLE){
+                    progressBar.setVisibility(View.VISIBLE);
+                }
                 RegisterActivity.this.handleFacebookLogin(loginResult);
+
             }
 
             @Override
@@ -211,14 +214,14 @@ public class RegisterActivity extends BaseActivity
 
             Log.v(TAG, "Successfully logged in with Google...");
             // We can request some Cognito Credentials
-            GoogleSignInAccount acct = result.getSignInAccount();
-            Map<String, String> logins = new HashMap<>();
-            logins.put(GOOGLE_LOGIN, acct.getIdToken());
+         //   GoogleSignInAccount acct = result.getSignInAccount();
+      //      Map<String, String> logins = new HashMap<>();
+      //      logins.put(GOOGLE_LOGIN, acct.getIdToken());
 
-            Log.v(TAG, String.format("Google token <<<\n%s\n>>>", logins.get(GOOGLE_LOGIN)));
+      //      Log.v(TAG, String.format("Google token <<<\n%s\n>>>", logins.get(GOOGLE_LOGIN)));
 
             // The identity must be created asynchronously
-            new CreateIdentityTask(this).execute(logins);
+     //       new CreateIdentityTask(this).execute(logins);
             application.getAuth().getUser().setLoggedIn(true);
 
             GoogleSignInAccount account = result.getSignInAccount();
@@ -332,7 +335,7 @@ public class RegisterActivity extends BaseActivity
      * @param loginResult the successful login result
      */
     private void handleFacebookLogin(LoginResult loginResult) {
-        progressBar.setVisibility(View.VISIBLE);
+
 
         Log.v(TAG, "Successfully logged in with Facebook...");
 
@@ -343,8 +346,8 @@ public class RegisterActivity extends BaseActivity
         // [END custom_event]
 
         final Map<String, String> logins = new HashMap<>();
-        logins.put(FACEBOOK_LOGIN, AccessToken.getCurrentAccessToken().getToken());
-        Log.v(TAG, String.format("Facebook token <<<\n%s\n>>>", logins.get(FACEBOOK_LOGIN)));
+    //    logins.put(FACEBOOK_LOGIN, AccessToken.getCurrentAccessToken().getToken());
+    //    Log.v(TAG, String.format("Facebook token <<<\n%s\n>>>", logins.get(FACEBOOK_LOGIN)));
 
         GraphRequest graphRequest = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -385,7 +388,7 @@ public class RegisterActivity extends BaseActivity
         graphRequest.executeAsync();
 
         // The identity must be created asynchronously
-        new CreateIdentityTask(this).execute(logins);
+      //  new CreateIdentityTask(this).execute(logins);
         application.getAuth().getUser().setLoggedIn(true);
         setResult(RESULT_OK);
         finish();

@@ -37,7 +37,7 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
             tagName = (TextView) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 // only for gingerbread and newer versions
                 Timber.e("lower android version");
             } else {

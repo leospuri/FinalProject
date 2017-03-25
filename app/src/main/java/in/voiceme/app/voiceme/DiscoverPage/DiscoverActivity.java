@@ -19,9 +19,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
-import in.voiceme.app.voiceme.loginV2.AuthService;
-import in.voiceme.app.voiceme.loginV2.RefreshTokenService;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import timber.log.Timber;
@@ -32,8 +29,6 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
     private static final int REQUEST_VIEW_MESSAGE = 1;
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
-    private AuthService authService;
-    private RefreshTokenService refreshTokenService;
     FloatingActionsMenu rightLabels;
 
     /**
@@ -64,8 +59,8 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
         prefs = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         isDemoMode = prefs.getBoolean("is this demo mode", false);
-        if (!isDemoMode)
-            checkAuthStatus();
+      //  if (!isDemoMode)
+      //      checkAuthStatus();
 
         // ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         // viewPager.setAdapter(new DiscoverActivityFragmentPagerAdapter(getSupportFragmentManager()));
@@ -124,7 +119,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         super.onBackPressed();
     }
 
-    private void checkAuthStatus() {
+ /*   private void checkAuthStatus() {
         if (!application.getAuth().getUser().isLoggedIn()) {
             if (application.getAuth().hasAuthToken()) {
                 authService = new AuthService(DiscoverActivity.this);
@@ -137,6 +132,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
             }
         }
     }
+    */
 
     /* Implements GoogleApiClient.OnConnectionFailedListener */
     @Override
@@ -146,18 +142,21 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         Timber.e(message);
     }
 
-    private void scheduleTokenRefresh() {
+  /*  private void scheduleTokenRefresh() {
 
         refreshTokenService = new RefreshTokenService(DiscoverActivity.this, new Thread());
 
         refreshTokenService.schedulePeriodicJob();
     }
+    */
 
+  /*
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (refreshTokenService != null) refreshTokenService.cacelAll();
     }
+    */
 
     //add all pages
     private void addPages(ViewPager pager) {

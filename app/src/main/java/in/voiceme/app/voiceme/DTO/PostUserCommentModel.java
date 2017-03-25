@@ -27,6 +27,8 @@ public class PostUserCommentModel implements Parcelable {
     @SerializedName("user_name") @Expose private String userName;
     @SerializedName("avatar") @Expose private String avatar;
     @SerializedName("comment") @Expose private String comment;
+    @SerializedName("postUserId") @Expose private String postUserId;
+    @SerializedName("commentUserId") @Expose private String commentUserId;
     @SerializedName("comment_time") @Expose private String commentTime;
 
     public String getUserName() {
@@ -43,6 +45,14 @@ public class PostUserCommentModel implements Parcelable {
 
     public String getCommentTime() {
         return commentTime;
+    }
+
+    public String getPostUserId() {
+        return postUserId;
+    }
+
+    public String getCommentUserId() {
+        return commentUserId;
     }
 
     public PostUserCommentModel(String message, String imageUri, String userName) {

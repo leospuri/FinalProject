@@ -7,7 +7,6 @@ import android.support.multidex.MultiDex;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.digits.sdk.android.Digits;
-import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -20,7 +19,6 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import in.voiceme.app.voiceme.BuildConfig;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
 import io.fabric.sdk.android.Fabric;
@@ -101,7 +99,6 @@ public class VoicemeApplication extends Application {
         /*
          *Creates a periodic job to refresh token
          */
-        JobManager.create(this).addJobCreator(new RefreshTokenJobCreator());
 
      //   LeakCanary.install(this);
 

@@ -18,7 +18,6 @@ import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.account.AccountManager;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -29,7 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected NavDrawer navDrawer;
     protected Bus bus;
     protected ActionScheduler scheduler;
-    protected AccountManager manager;
     protected SharedPreferences preferences;
     private boolean isRegisterdWithBus;
     protected String givenContact;
@@ -42,7 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         application = (VoicemeApplication) getApplication();
         bus = application.getBus();
         scheduler = new ActionScheduler(application);
-        manager = AccountManager.getInstance();
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
         mTracker = application.getDefaultTracker();

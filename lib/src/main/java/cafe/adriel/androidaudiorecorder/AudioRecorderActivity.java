@@ -187,7 +187,7 @@ public class AudioRecorderActivity extends AppCompatActivity
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.aar_audio_recorder, menu);
     saveMenuItem = menu.findItem(R.id.action_save);
-    saveMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.aar_ic_check));
+ //   saveMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.aar_ic_check));
     return super.onCreateOptionsMenu(menu);
   }
 

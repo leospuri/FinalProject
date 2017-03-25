@@ -203,7 +203,6 @@
         <activity
             android:name=".userpost.CategoryActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".login.account.AfterLoginScreen" />
         <activity android:name=".chat.DialogDetailsActivity" />
         <activity android:name=".chat.MessageActivity" />
         <activity
@@ -212,7 +211,6 @@
         <activity android:name=".ActivityPage.OfflineActivity" />
         <activity android:name=".login.SecondBeforeLoginActivity" />
         <activity android:name=".userpost.SecondRecordactivity" />
-        <activity android:name=".login.SplashScreenActivity" />
     </application>
 
 </manifest>

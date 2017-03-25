@@ -330,7 +330,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
-                    android:text="sick"
+                    android:text="Sick"
                     android:textColor="#fff"
                     android:textSize="23sp" />
 
@@ -366,7 +366,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
-                    android:text="tired"
+                    android:text="Tired"
                     android:textColor="#fff"
                     android:textSize="23sp" />
 
@@ -402,7 +402,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
-                    android:text="sexy"
+                    android:text="Sexy"
                     android:textColor="#fff"
                     android:textSize="23sp" />
 

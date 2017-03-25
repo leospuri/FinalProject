@@ -124,7 +124,6 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.jakewharton.timber:timber:4.3.1'
-    compile 'com.amazonaws:aws-android-sdk-cognito:2.3.1'
     compile 'com.facebook.android:facebook-android-sdk:4.19.0'
     compile 'com.google.android.gms:play-services-auth:9.6.1'
     compile 'com.google.android.gms:play-services-plus:9.6.1'

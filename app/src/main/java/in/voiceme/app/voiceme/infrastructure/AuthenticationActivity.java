@@ -3,8 +3,6 @@ package in.voiceme.app.voiceme.infrastructure;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
@@ -15,7 +13,6 @@ import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 public class AuthenticationActivity extends BaseActivity {
     public static final String EXTRA_RETURN_TO_ACTIVITY = "EXTRA_RETURN_TO_ACTIVITY";
     private static String TAG = MainActivity.class.getSimpleName();
-    private CognitoCachingCredentialsProvider mCredentialsProvider;
     private Auth auth;
 
     @Override
@@ -41,7 +38,6 @@ public class AuthenticationActivity extends BaseActivity {
      */
     public void refreshValues() {
         //As we might need to refresh the credentials, we synchronize the dataset asynchronously
-        //new AccountManager.SynchronizeDatasetTask(manager).execute();
         Intent intent = null;
         String returnTo = getIntent().getStringExtra(EXTRA_RETURN_TO_ACTIVITY);
         if (returnTo != null) {

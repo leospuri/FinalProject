@@ -284,7 +284,7 @@
             android:layout_toRightOf="@+id/list_item_like_button"
             app:mfb_rotation_duration="400"
             app:mfb_favorite_image="@drawable/hug_after"
-            app:mfb_not_favorite_image="@drawable/hug_before"
+            app:mfb_not_favorite_image="@drawable/status_before"
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
 
