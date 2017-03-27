@@ -22,7 +22,6 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -41,6 +40,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout followerLayout;
     private LinearLayout followingLayout;
     private LinearLayout totalPostLayout;
+    private View progressFrame;
 
     private TextView age;
     private TextView gender;
@@ -51,12 +51,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setTitle("Profile Page");
         setNavDrawer(new MainNavDrawer(this));
-
-        try {
-            getData();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        progressFrame = findViewById(R.id.activity_profile_progress);
 
         avatarProgressFrame = findViewById(R.id.activity_profile_avatarProgressFrame);
 
@@ -86,6 +81,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         total_posts_counter.setOnClickListener(this);
         followerLayout.setOnClickListener(this);
         totalPostLayout.setOnClickListener(this);
+
+        try {
+            getData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         avatarProgressFrame.setVisibility(View.GONE);
 
@@ -148,6 +149,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
+                        progressFrame.setVisibility(View.GONE);
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);

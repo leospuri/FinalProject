@@ -55,6 +55,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private TextView genderSelectionTitle;
     private Button submitButton;
     AlertDialog alertDialog1;
+    private View changeProgress;
     CharSequence[] values = {" Male "," Female "," Transgender "};
 
     private SimpleDraweeView avatarView;
@@ -73,6 +74,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 finish();
             }
         });
+        changeProgress = findViewById(R.id.activity_change_profile_progress);
 
         submitButton = (Button) findViewById(R.id.submit_button_profile);
         username = (EditText) findViewById(R.id.edittext_profile_username);
@@ -313,6 +315,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
+                        changeProgress.setVisibility(View.GONE);
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);

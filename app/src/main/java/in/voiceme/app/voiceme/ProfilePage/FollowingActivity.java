@@ -19,6 +19,7 @@ public class FollowingActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
     private String userId;
     private RecyclerView rv;
+    private View progressFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class FollowingActivity extends BaseActivity {
                 finish();
             }
         });
+
+        progressFrame = findViewById(R.id.activity_following_progress);
 
         rv = (RecyclerView) findViewById(R.id.user_following_recyclerview);
 
@@ -55,6 +58,7 @@ public class FollowingActivity extends BaseActivity {
                     @Override
                     public void onNext(ProfileFollowerUserList response) {
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

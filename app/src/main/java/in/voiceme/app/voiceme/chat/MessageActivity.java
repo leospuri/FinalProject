@@ -37,6 +37,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     public MessagesListAdapter<MessagePojo> adapter;
     public ArrayList<MessagePojo> messageArray;
     private MessageInput input;
+    private View progressFrame;
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
 
@@ -51,6 +52,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        progressFrame = findViewById(R.id.chat_details);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
      //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
@@ -92,6 +94,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     //        startActivity(new Intent(this, OfflineActivity.class));
             Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
         }
+
+        progressFrame.setVisibility(View.GONE);
     }
 
     @Override

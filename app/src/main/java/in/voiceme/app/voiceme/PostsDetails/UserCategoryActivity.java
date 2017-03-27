@@ -57,6 +57,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
+    private View progressFrame;
 
     PullRefreshLayout layout;
 
@@ -67,6 +68,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_category);
+
         getSupportActionBar().setTitle("Category Posts");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -75,6 +77,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                 finish();
             }
         });
+        progressFrame = findViewById(R.id.activity_user_category_progress);
         recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
 
         categoryId = getIntent().getStringExtra(Constants.CATEGORY);
@@ -221,6 +224,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
 
 
                         //   showRecycleWithDataFilled(response);

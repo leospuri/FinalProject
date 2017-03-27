@@ -8,6 +8,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,6 +19,8 @@
 
         <include
             layout="@layout/include_toolbar3" />
+
+
 
         <RelativeLayout
             android:id="@+id/detail_list_item_post_background"
@@ -357,9 +362,24 @@
 
 
 
-
-
     </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#91D4Fa"
+            android:clickable="true"
+            android:id="@+id/post_details_progressBar">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+    </FrameLayout>
+
+
 
 
     <include layout="@layout/include_main_nav_drawer" />

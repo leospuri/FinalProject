@@ -379,17 +379,21 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         protected void moreClick(View view){
              processLoggedState(view);
 
+
+
+            SharedPreferences preferences;
+            preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+
+
+            if (MySharedPreferences.getUserId(preferences) == null){
+                Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
+            } else {
                 popupMenu = new PopupMenu(view.getContext(), view);
                 MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
                 //    this.menu = popupMenu.getMenu();
 
-                SharedPreferences preferences;
-                preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
-            if (MySharedPreferences.getUserId(preferences) == null){
-                Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();
-            } else {
 
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);

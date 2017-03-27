@@ -47,6 +47,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
     private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
     private int currentResults;
+    private View progressFrame;
 
     private int mPage;
     private RecyclerView recyclerView;
@@ -81,6 +82,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_your_feed, container, false);
+        progressFrame = view.findViewById(R.id.activity_yourfeed_progress);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
@@ -198,6 +200,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         hideErrorView();
                       Log.e("RESPONSE:::", "Size===" + response.size());
                //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();

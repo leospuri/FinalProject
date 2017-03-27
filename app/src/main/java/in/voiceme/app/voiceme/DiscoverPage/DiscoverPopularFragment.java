@@ -51,6 +51,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
     ProgressBar progressBar;
     LinearLayout errorLayout;
     TextView txtError;
+    private View progressFrame;
 
     private int mPage;
     private RecyclerView recyclerView;
@@ -80,6 +81,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover_popular, container, false);
+        progressFrame = view.findViewById(R.id.activity_discover_popular);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
@@ -105,6 +107,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
 
 
@@ -204,6 +207,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
 
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());

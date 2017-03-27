@@ -166,6 +166,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 listenCounterClicked(v);
             }
         });
+
+        */
         play_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +175,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             }
         });
 
-*/
+
         category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

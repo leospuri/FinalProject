@@ -31,6 +31,19 @@
                 android:layout_marginRight="16dp"
                 android:background="@color/warm_grey_two"/>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:background="#dd000000"
+                android:id="@+id/chat_details">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminateOnly="true"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
             <com.stfalcon.chatkit.messages.MessageInput
                 android:id="@+id/input"
                 android:layout_width="match_parent"

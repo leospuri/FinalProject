@@ -44,6 +44,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
     private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
+    private View progressFrame;
 
     ProgressBar progressBar;
     LinearLayout errorLayout;
@@ -76,6 +77,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_interaction, container, false);
+        progressFrame = view.findViewById(R.id.activity_interaction_progress);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
@@ -199,6 +201,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();

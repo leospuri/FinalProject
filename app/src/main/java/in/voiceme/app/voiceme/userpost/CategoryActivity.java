@@ -42,6 +42,7 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class CategoryActivity extends BaseActivity implements View.OnClickListener {
     private TagView tagGroup;
+    private View progressFrame;
 
     private AlertDialog.Builder builder1;
     private EditText editText;
@@ -66,6 +67,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_category2);
         getSupportActionBar().setTitle("Choose Category");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        progressFrame = findViewById(R.id.activity_category_progress);
 
         progressBar = (ProgressBar) findViewById(R.id.getAllHashTagProgress);
         progressBar.setVisibility(View.VISIBLE);
@@ -281,6 +283,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onNext(List<AllCategoryPojo> userResponse) {
                             prepareTags(userResponse);
+                            progressFrame.setVisibility(View.GONE);
                         }
                         @Override
                         public void onError(Throwable e) {

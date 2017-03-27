@@ -180,36 +180,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 public void onClick(View view) {
                     popupMenu = new PopupMenu(view.getContext(), view);
                     MenuInflater inflater = popupMenu.getMenuInflater();
-                    inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+                    inflater.inflate(R.menu.comment_more, popupMenu.getMenu());
                     //    this.menu = popupMenu.getMenu();
 
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()){
-                                case R.id.edit_post:
+                                case R.id.commentDelete:
 
                                     Toast.makeText(view.getContext(), "clicked", Toast.LENGTH_LONG).show();
-                                    return true;
-
-                                case R.id.report_post:
-
-                                    return true;
-
-                                case R.id.menu_item_share:
-                                    //            MenuItem menuItem = popupMenu.getMenu().findItem(R.id.menu_item_share);
-                                    //            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
-
-                  /*          mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
-                        //    int currentViewPagerItem = ((ViewPager) itemView.findViewById(R.id.viewpager)).getCurrentItem();
-
-                            if (mShareActionProvider != null) {
-                                mShareActionProvider.setShareIntent(sharedIntentMaker());
-                            } else {
-                                Toast.makeText(itemView.getContext(), "Share Action Provider is null", Toast.LENGTH_SHORT).show();
-                              //  Log.d(LOG_TAG, "Share Action Provider is null?");
-                            } */
-
                                     return true;
 
                                 default:

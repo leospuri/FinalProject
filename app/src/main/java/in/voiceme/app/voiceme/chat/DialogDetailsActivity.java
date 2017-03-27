@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -12,8 +13,8 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
 import java.util.List;
 
-import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
+import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -26,6 +27,7 @@ public class DialogDetailsActivity extends BaseActivity {
 
     private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter = null;
     private List<ChatDialogPojo> messages = null;
+    private View progressFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class DialogDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_dialog_details);
         getSupportActionBar().setTitle("Chat Messages");
         setNavDrawer(new MainNavDrawer(this));
+
+        progressFrame = findViewById(R.id.dialog_details);
 
 
 
@@ -61,6 +65,8 @@ public class DialogDetailsActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        progressFrame.setVisibility(View.GONE);
 
 
     }

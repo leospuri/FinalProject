@@ -1,33 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/body_Color"
-    tools:context=".DiscoverPage.DiscoverLatestFragment">
+    android:layout_height="match_parent">
 
-    <com.baoyz.widget.PullRefreshLayout
-        android:id="@+id/discover_latest_swipeRefreshLayout"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/body_Color"
+        android:orientation="vertical"
+        tools:context=".DiscoverPage.DiscoverLatestFragment">
 
-        <android.support.v7.widget.RecyclerView
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/discover_latest_swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_discover_recyclerview"
-            class="android.supportv7.widget.RecyclerView"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_discover_recyclerview"
+                class="android.supportv7.widget.RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </com.baoyz.widget.PullRefreshLayout>
 
 
-    <ProgressBar
-        android:id="@+id/main_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        <ProgressBar
+            android:id="@+id/main_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
-    <include layout="@layout/error_layout"/>
+        <include layout="@layout/error_layout" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_discover_latest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#91D4Fa"
+        android:clickable="true">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+    </FrameLayout>
+
+</FrameLayout>

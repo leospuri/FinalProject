@@ -24,7 +24,6 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -50,21 +49,19 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private String profileUserId;
     protected Boolean currentFollowing;
     private ProgressBar progressBar;
+    private View progressFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_second_profile);
+        progressFrame = findViewById(R.id.activity_second_profile_progress);
         progressBar = (ProgressBar) findViewById(R.id.second_profile_progress);
         progressBar.setVisibility(View.VISIBLE);
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
 
-        try {
-            getData(profileUserId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +106,11 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         //   if (isProgressBarVisible)
         //     setProgressBarVisible(true);
 
+        try {
+            getData(profileUserId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         progressBar.setVisibility(View.GONE);
     }
 
@@ -292,6 +294,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     public void onNext(ProfileUserList response) {
                         currentFollowing = response.getFollower();
                         secondProfileData(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

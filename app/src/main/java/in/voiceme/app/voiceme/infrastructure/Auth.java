@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -17,10 +18,6 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Harish on 7/20/2016.
  */
 public class Auth {
-    private static final String AUTH_PREFERENCES = "AUTH_PREFERENCES";
-    private static final String AUTH_PREFERENCES_TOKEN = "AUTH_PREFERENCES_TOKEN";
-    private static final String AK_KEY = "accessKey";
-    private final String DEFAULT_SHAREDPREFERENCES_NAME = "com.amazonaws.android.auth";
     private final Context context;
     private final SharedPreferences preferences;
 
@@ -54,6 +51,10 @@ public class Auth {
         setAuthToken(null);
 
         MySharedPreferences.wipe(preferences);
+
+        if (MySharedPreferences.getUserId(preferences)!= null){
+            Toast.makeText(context, "userID", Toast.LENGTH_LONG).show();
+        }
 
 
         if (AccessToken.getCurrentAccessToken() != null){

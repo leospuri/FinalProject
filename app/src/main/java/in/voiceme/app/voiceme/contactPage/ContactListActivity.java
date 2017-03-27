@@ -63,6 +63,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     TextView txtError;
     private AlertDialog.Builder builder1;
     PullRefreshLayout layout;
+    private View progressFrame;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         setContentView(R.layout.activity_contact_list);
         getSupportActionBar().setTitle("Contacts Posts");
         setNavDrawer(new MainNavDrawer(this));
+        progressFrame = findViewById(R.id.contact_list);
 
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
@@ -98,6 +100,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
             loadDesign();
 //        }
 
+        progressFrame.setVisibility(View.GONE);
 
     }
 

@@ -50,6 +50,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
     private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
+    private View progressFrame;
 
     ProgressBar progressBar;
     LinearLayout errorLayout;
@@ -82,6 +83,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover_latest, container, false);
+        progressFrame = view.findViewById(R.id.activity_discover_latest);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
@@ -113,7 +115,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 //        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_recyclerview);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 //        recyclerView.setAdapter(new MyRecyclerAdapter(this.getActivity(), getDiscoverLatest()));
-
         return view;
     }
 
@@ -205,6 +206,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
 
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());

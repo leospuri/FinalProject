@@ -16,10 +16,13 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import rx.android.schedulers.AndroidSchedulers;
 
+import static android.R.attr.id;
+
 public class UserHugCounterActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
     private RecyclerView rv;
     private String likeCounter;
+    private View progressFrame;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -34,6 +37,7 @@ public class UserHugCounterActivity extends BaseActivity {
             }
         });
 
+        progressFrame = findViewById(R.id.activity_hug_progress);
         likeCounter = getIntent().getStringExtra(Constants.HUG_FEELING);
 
         rv = (RecyclerView) findViewById(R.id.counter_hug_recyclerview);
@@ -55,6 +59,7 @@ public class UserHugCounterActivity extends BaseActivity {
                     @Override
                     public void onNext(PostSuperUserListModel response) {
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

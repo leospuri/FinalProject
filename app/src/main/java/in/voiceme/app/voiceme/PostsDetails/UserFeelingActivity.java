@@ -32,6 +32,7 @@ import in.voiceme.app.voiceme.userpost.TextStatus;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 
+import static android.R.attr.id;
 import static com.facebook.GraphRequest.TAG;
 
 
@@ -56,6 +57,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
     PullRefreshLayout layout;
+    private View progressFrame;
 
     private String feelingID;
 
@@ -74,6 +76,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
+        progressFrame = findViewById(R.id.activity_feeling_progress);
         feelingID = getIntent().getStringExtra(Constants.EMOTION);
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
@@ -199,6 +202,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
 
 
                         //   showRecycleWithDataFilled(response);

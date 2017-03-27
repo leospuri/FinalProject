@@ -34,6 +34,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
     private RecyclerView recyclerView;
     private TotalPostsAdapter activityInteractionAdapter;
     private String userId;
+    private View progressFrame;
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
@@ -51,6 +52,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_posts);
 
+
         userId = getIntent().getStringExtra(Constants.TOTAL_POST);
 
         getSupportActionBar().setTitle("Total Posts");
@@ -61,6 +63,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                 finish();
             }
         });
+        progressFrame = findViewById(R.id.activity_total_post_progress);
 
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
@@ -180,6 +183,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
 
 
                         //   showRecycleWithDataFilled(response);

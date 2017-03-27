@@ -19,6 +19,7 @@ public class UserLikeCounterActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
     private RecyclerView rv;
     private String likeCounter;
+    private View progressFrame;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -34,6 +35,7 @@ public class UserLikeCounterActivity extends BaseActivity {
             }
         });
 
+        progressFrame = findViewById(R.id.activity_like_progress);
         likeCounter = getIntent().getStringExtra(Constants.LIKE_FEELING);
 
         rv = (RecyclerView) findViewById(R.id.counter_like_recyclerview);
@@ -57,6 +59,7 @@ public class UserLikeCounterActivity extends BaseActivity {
                     @Override
                     public void onNext(PostSuperUserListModel response) {
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

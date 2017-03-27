@@ -18,6 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public class FollowersActivity extends BaseActivity {
     private RecyclerView rv;
     private String userId;
+    private View progressFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class FollowersActivity extends BaseActivity {
             }
         });
 
+        progressFrame = findViewById(R.id.activity_followers_progress);
         rv = (RecyclerView) findViewById(R.id.user_follower_recyclerview);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -55,7 +57,9 @@ public class FollowersActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<ProfileFollowerUserList>() {
                     @Override
                     public void onNext(ProfileFollowerUserList response) {
+
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

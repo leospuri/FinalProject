@@ -18,6 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public class UserSameCounterActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
     private RecyclerView rv;
+    private View progressFrame;
     private String likeCounter;
 
 
@@ -34,6 +35,7 @@ public class UserSameCounterActivity extends BaseActivity {
             }
         });
 
+        progressFrame = findViewById(R.id.activity_same_progress);
         likeCounter = getIntent().getStringExtra(Constants.SAME_FEELING);
 
         rv = (RecyclerView) findViewById(R.id.counter_same_recyclerview);
@@ -55,6 +57,7 @@ public class UserSameCounterActivity extends BaseActivity {
                     @Override
                     public void onNext(PostSuperUserListModel response) {
                         showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

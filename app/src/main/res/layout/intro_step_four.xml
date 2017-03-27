@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/stepFourLinear"
-    android:background="#00bcd4"
+    android:background="#f4ff81"
     android:orientation="vertical">
 
 

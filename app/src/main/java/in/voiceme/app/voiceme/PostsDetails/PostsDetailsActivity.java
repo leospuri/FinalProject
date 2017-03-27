@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,8 +62,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private String postId;
     private PostsModel myList = null;
     List<PostUserCommentModel> myCommentList = null;
-    private ProgressBar progressBar = null;
-
     private boolean doDislike;
 
     private SimpleDraweeView user_avatar = null;
@@ -100,6 +97,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private int hugCounter;
     private int sameCounter;
     private PopupMenu popupMenu;
+    private View progressFrame;
     protected MediaPlayer mediaPlayer = new MediaPlayer();
 
 
@@ -123,8 +121,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_posts_details);
         getSupportActionBar().setTitle("Post Details");
 
-        progressBar = new ProgressBar(this);
-        progressBar.setVisibility(View.VISIBLE);
+        progressFrame = findViewById(R.id.post_details_progressBar);
 
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -212,7 +209,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
 
         initRecyclerView();
-        progressBar.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -230,6 +227,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mMessageAdapter);
+
     }
 
 
@@ -579,6 +577,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onNext(List<PostUserCommentModel> response) {
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showComments(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

@@ -47,6 +47,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
     ProgressBar progressBar;
     LinearLayout errorLayout;
     TextView txtError;
+    private View progressFrame;
 
     private int mPage;
     private RecyclerView recyclerView;
@@ -77,6 +78,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover_trending, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
+        progressFrame = view.findViewById(R.id.activity_trending_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
@@ -198,6 +200,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
 
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
