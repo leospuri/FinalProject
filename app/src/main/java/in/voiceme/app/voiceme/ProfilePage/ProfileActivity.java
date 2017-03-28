@@ -149,10 +149,11 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
-                        progressFrame.setVisibility(View.GONE);
+
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {

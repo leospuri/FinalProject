@@ -32,6 +32,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -221,7 +222,8 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         //   latestListAdapter.addAll(myModelList);
                         if (response.size() < 25){
                             isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                        }
+                        if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
                     @Override
@@ -244,6 +246,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void onNext(List<PostsModel> response) {
                         hideErrorView();
+                        latestListAdapter.addAll(response);
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;
 
@@ -252,7 +255,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         }
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        latestListAdapter.addAll(response);
+
                        // showRecycleWithDataFilled(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
@@ -260,6 +263,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        Timber.e("error is: " + e);
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });

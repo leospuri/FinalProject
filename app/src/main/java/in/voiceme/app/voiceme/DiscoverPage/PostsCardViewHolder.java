@@ -301,9 +301,13 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     public void bind(PostsModel dataItem) {
         this.dataItem = dataItem;
 
-        setLikeCounter(dataItem.getLikes());
-        setHugCounter(dataItem.getHug());
-        setSameCounter(dataItem.getSame());
+        if (dataItem.getLikes() != null && dataItem.getHug() != null && dataItem.getSame() != null){
+            setLikeCounter(dataItem.getLikes());
+            setHugCounter(dataItem.getHug());
+            setSameCounter(dataItem.getSame());
+        } else {
+            return;
+        }
 
         user_name.setText(dataItem.getUserNicName());
         feeling.setText(dataItem.getEmotions());
@@ -339,6 +343,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         if (dataItem.getAudioDuration() != null){
             post_audio_duration.setText(String.valueOf(dataItem.getAudioDuration()));
      //       post_listen.setText(String.valueOf(dataItem.getListen()));
+        } else {
+            post_audio_duration.setText(null);
         }
 
         if (dataItem.getUserLike() != null){
@@ -367,6 +373,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 SameButtonMain.setFavorite(false, false);
               //  SameButtonMain.setFavoriteResource(status_before);
             }
+        } else {
+            return;
         }
 
         if (dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
@@ -376,9 +384,11 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         }
 
         if (dataItem.getReportAbuseCount() >= 2){
-            postMessage.setText("******** This post is flagged as Abusive for General Public *********");
+            postMessage.setText("***** This post is flagged as Abusive for General Public ******");
             hideAudioButton(View.GONE);
 
+        } else {
+            return;
         }
 
     }

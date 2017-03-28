@@ -583,6 +583,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onError(Throwable e) {
                         try {
                             Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e("message error " + e);
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -632,6 +633,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e){
+                        Timber.e("error loading the contents" + e);
                         try {
                             Toast.makeText(PostsDetailsActivity.this,
                                     e.getMessage(),
