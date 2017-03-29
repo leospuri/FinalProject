@@ -14,7 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -102,6 +101,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private final Handler mDelayHandler = new Handler();
         private View mHolderView;
         private int mPosition;
+        private PostUserCommentModel user_comment;
 
         private Animation mFadeOutAnimation;
         private boolean isAnimating = false;
@@ -145,13 +145,49 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
             commentMore = (ImageView) itemView.findViewById(R.id.comment_more);
+            commentMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    commentMoreMethod(view);
+                }
+            });
             mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_out_anim);
             mFadeOutAnimation.setAnimationListener(mFadeOutAnimationListener);
+        }
+
+        protected void commentMoreMethod(View view) {
+            popupMenu = new PopupMenu(view.getContext(), view);
+            MenuInflater inflater = popupMenu.getMenuInflater();
+            inflater.inflate(R.menu.comment_more, popupMenu.getMenu());
+            //    this.menu = popupMenu.getMenu();
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.commentDelete:
+
+                            remove(user_comment);
+                            return true;
+
+                        default:
+                            return false;
+
+                    }
+                }
+            });
+            popupMenu.show();
+        }
+
+        private void remove(PostUserCommentModel user_comment) {
+            mMessageList.remove(user_comment);
+            notifyItemRemoved(mPosition);
         }
 
         public void onBind(int position, PostUserCommentModel messageItem) {
 
             mPosition = position;
+            user_comment = messageItem;
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
 
@@ -163,44 +199,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             username.setText(userName);
             userImage.setImageURI(imageUri);
 
-            if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(preferences))){
+            if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(preferences))||
+                    messageItem.getPostUserId().equals(MySharedPreferences.getUserId(preferences))){
                 commentMore.setVisibility(View.VISIBLE);
             } else {
                 commentMore.setVisibility(View.INVISIBLE);
 
             }
-            if (messageItem.getPostUserId().equals(MySharedPreferences.getUserId(preferences))){
-                commentMore.setVisibility(View.VISIBLE);
-            } else {
-                commentMore.setVisibility(View.INVISIBLE);
-            }
-
-            commentMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    popupMenu = new PopupMenu(view.getContext(), view);
-                    MenuInflater inflater = popupMenu.getMenuInflater();
-                    inflater.inflate(R.menu.comment_more, popupMenu.getMenu());
-                    //    this.menu = popupMenu.getMenu();
-
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()){
-                                case R.id.commentDelete:
-
-                                    Toast.makeText(view.getContext(), "clicked", Toast.LENGTH_LONG).show();
-                                    return true;
-
-                                default:
-                                    return false;
-
-                            }
-                        }
-                    });
-                    popupMenu.show();
-                }
-            });
         }
 
         public int getBoundPosition() {

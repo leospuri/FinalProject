@@ -618,6 +618,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 });
     }
 
+
+
+
+
+
+
+
     private void getData(String postId) throws Exception {
         application.getWebService()
                 .getSinglePost(postId, MySharedPreferences.getUserId(preferences))
