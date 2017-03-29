@@ -99,6 +99,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private PopupMenu popupMenu;
     private View progressFrame;
     protected MediaPlayer mediaPlayer = new MediaPlayer();
+    private String idusername;
 
 
     //animated buttons
@@ -134,6 +135,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         Intent intent = getIntent();
         postId = intent.getStringExtra(Constants.POST_BACKGROUND);
+        idusername = intent.getStringExtra(Constants.IDUSERNAME);
 
         //Imageview for avatar and play pause button
         user_avatar = (SimpleDraweeView) findViewById(detail_list_item_posts_avatar);
@@ -550,8 +552,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
             try {
                 postComment(message);
-                String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + "21"
-                       /* "dataItem.getIdUserName()" */ + "_postId@" + postId  + "_click@" + "5";
+                String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                        idusername + "_postId@" + postId  + "_click@" + "5";
                 sendLikeNotification(application, sendLike);
 
             } catch (Exception e) {
@@ -600,7 +602,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void postComment(String message) throws Exception {
         application.getWebService()
-                .sendComment(MySharedPreferences.getUserId(preferences), postId, message)
+                .sendComment(MySharedPreferences.getUserId(preferences), idusername, postId, message)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {

@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -21,9 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
+import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
+import rx.android.schedulers.AndroidSchedulers;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -145,17 +150,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
             commentMore = (ImageView) itemView.findViewById(R.id.comment_more);
-            commentMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    commentMoreMethod(view);
-                }
-            });
             mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_out_anim);
             mFadeOutAnimation.setAnimationListener(mFadeOutAnimationListener);
         }
 
-        protected void commentMoreMethod(View view) {
+        protected void commentMoreMethod(View view, int position) {
             popupMenu = new PopupMenu(view.getContext(), view);
             MenuInflater inflater = popupMenu.getMenuInflater();
             inflater.inflate(R.menu.comment_more, popupMenu.getMenu());
@@ -167,7 +166,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     switch (item.getItemId()){
                         case R.id.commentDelete:
 
-                            remove(user_comment);
+                            try {
+                                deleteChat(view, mMessageList.get(mPosition).getCommentId());
+                          //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            remove(position);
+
                             return true;
 
                         default:
@@ -179,9 +185,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             popupMenu.show();
         }
 
-        private void remove(PostUserCommentModel user_comment) {
+        private void remove(int user_comment) {
             mMessageList.remove(user_comment);
-            notifyItemRemoved(mPosition);
+            notifyItemRemoved(user_comment);
         }
 
         public void onBind(int position, PostUserCommentModel messageItem) {
@@ -195,17 +201,28 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
 
+            commentMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    commentMoreMethod(view, position);
+
+                }
+            });
+
             messageCard.setText(message);
             username.setText(userName);
             userImage.setImageURI(imageUri);
 
-            if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(preferences))||
-                    messageItem.getPostUserId().equals(MySharedPreferences.getUserId(preferences))){
-                commentMore.setVisibility(View.VISIBLE);
-            } else {
-                commentMore.setVisibility(View.INVISIBLE);
+            if (messageItem.getCommentUserId() != null){
+                if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(preferences))||
+                        messageItem.getId_post_user_name().equals(MySharedPreferences.getUserId(preferences))){
+                    commentMore.setVisibility(View.VISIBLE);
+                } else {
+                    commentMore.setVisibility(View.INVISIBLE);
 
+                }
             }
+
         }
 
         public int getBoundPosition() {
@@ -219,5 +236,32 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         public boolean isVisible() {
             return isVisible;
         }
+    }
+
+    private void deleteChat(View view, String messageId) throws Exception {
+        ((VoicemeApplication) view.getContext().getApplicationContext()).getWebService()
+                .deleteComment(messageId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<UserResponse>() {
+                    @Override
+                    public void onNext(UserResponse response) {
+
+                        Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
+                        //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                        //       String text = response.get(0).getText();
+                        //    MessagePojo pojo = response.get(0).getMessage();
+                        //messages = response;
+                        //   Toast.makeText(MessageActivity.this, "deleted message", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
     }
 }

@@ -245,6 +245,7 @@ public interface WebService {
     @POST("postComments.php")
     Observable<UserResponse> sendComment(
             @Field("id_user_name") String user_id,
+            @Field("id_post_user_name") String id_post_user_name,
             @Field("id_posts") String id_posts,
             @Field("message") String message
     );
