@@ -23,7 +23,7 @@
             android:id="@+id/action_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_icon="@mipmap/ic_action_group"
+            fab:fab_icon="@drawable/listtext"
             fab:fab_colorNormal="@color/white"
             fab:fab_title="Text Status"
             fab:fab_colorPressed="@color/white_pressed"/>
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_icon="@mipmap/ic_action_group"
+            fab:fab_icon="@drawable/audiostatus"
             fab:fab_title="Audio Status"
             fab:fab_colorPressed="@color/white_pressed"/>
 

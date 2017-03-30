@@ -31,8 +31,28 @@
         android:id="@+id/activity_discover_popular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#91D4Fa"
+        android:background="@color/body_Color"
         android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="70dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Wait..."
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="40dp"
+            />
 
         <ProgressBar
             android:layout_width="wrap_content"

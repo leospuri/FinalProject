@@ -552,9 +552,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
             try {
                 postComment(message);
-                String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                        idusername + "_postId@" + postId  + "_click@" + "5";
-                sendLikeNotification(application, sendLike);
+                if (idusername.equals(MySharedPreferences.getUserId(preferences))){
+                    Timber.e("same user");
+                } else {
+                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                            idusername + "_postId@" + postId  + "_click@" + "5";
+                    sendLikeNotification(application, sendLike);
+                }
+
 
             } catch (Exception e) {
                 e.printStackTrace();

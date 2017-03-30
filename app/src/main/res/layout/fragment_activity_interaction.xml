@@ -39,7 +39,7 @@
         android:id="@+id/activity_interaction_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#91D4Fa"
+        android:background="@color/body_Color"
         android:clickable="true">
 
         <TextView

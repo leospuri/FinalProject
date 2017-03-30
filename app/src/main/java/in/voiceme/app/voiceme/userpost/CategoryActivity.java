@@ -82,6 +82,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
         scrollView = (ScrollView) findViewById(R.id.tags_laoyut);
         selected_hashtag = (TextView) findViewById(R.id.selected_hashtag);
+        selected_hashtag.setVisibility(View.GONE);
 
         rv=(RecyclerView)findViewById(R.id.category_tag_rv);
 
@@ -333,6 +334,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     public void setCategory(String current_category, String category_name) {
         selected_hashtag.setText(String.valueOf("You have selected : " + category_name));
 
+        selected_hashtag.setVisibility(View.VISIBLE);
         this.current_category = current_category;
     }
 
@@ -439,6 +441,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                             setCategory(userResponse.getId(), editText.getText().toString());
                             Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
                             selected_hashtag.setText(editText.getText().toString());
+                            selected_hashtag.setVisibility(View.VISIBLE);
                         }
                         @Override
                         public void onError(Throwable e) {

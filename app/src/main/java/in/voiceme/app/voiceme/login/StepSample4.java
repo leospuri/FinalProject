@@ -194,6 +194,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                 String name = model.getId();
                 String categoryname = model.getName();
                 setCategory(name, categoryname);
+                editText.setText(categoryname);
            //     Toast.makeText(getActivity(), "name of the category: " + name, Toast.LENGTH_SHORT).show();
 
             }
@@ -381,7 +382,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void onNext() {
         StepThreeInterface stepOneInterface = (StepThreeInterface) getActivity();
         stepOneInterface.setCategory(this.current_category);
-        if (!editText.getText().toString().isEmpty() || selected_hashtag.getText() == null){
+        if (!editText.getText().toString().isEmpty() && selected_hashtag.getText().toString().isEmpty()){
             dialogBox(editText.getText().toString());
         }
 

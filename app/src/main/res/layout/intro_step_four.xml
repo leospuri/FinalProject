@@ -32,6 +32,17 @@
         android:textSize="18sp"
         android:hint="Create or Search a HashTag" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a New HashTag"
+        android:id="@+id/intro_create_new_hashtag"
+        android:visibility="gone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"/>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,16 +69,6 @@
         android:background="#FFD3B0E6"
         android:visibility="visible" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create a New HashTag"
-        android:id="@+id/intro_create_new_hashtag"
-        android:visibility="gone"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="18sp"/>
 
     <ScrollView
         android:id="@+id/intro_tags_laoyut"
