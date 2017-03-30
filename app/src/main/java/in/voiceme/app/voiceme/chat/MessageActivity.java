@@ -95,7 +95,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
         }
 
-        progressFrame.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -197,6 +197,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                   //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
                         initMessagesAdapter(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                 });
     }

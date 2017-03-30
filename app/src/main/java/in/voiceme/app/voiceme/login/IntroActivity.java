@@ -107,7 +107,7 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
     @Override
     public void onComplete() {
         super.onComplete();
-        Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
        // startActivity(new Intent(this, MainActivity.class));
         postStatus();
         postUsername();

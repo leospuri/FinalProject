@@ -298,14 +298,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     hugCounter++;
                     String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "1";
+                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "2";
 
                     if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
 
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
-                    sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+                    sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
                     hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 }
             }
@@ -334,13 +334,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
                     sameCounter++;
                     String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "1";
+                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "3";
 
                     if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
                     } else {
                         sendLikeNotification(application, sendLike);
                     }
-                    sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+                    sendLikeToServer(application, 0, 0, 1, 0, "clicked sad button");
                     same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 }
 

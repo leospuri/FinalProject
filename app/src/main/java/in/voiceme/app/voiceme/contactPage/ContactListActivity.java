@@ -333,7 +333,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
         if (itemId == R.id.refresh_new_contact) {
          //   startActivity(new Intent(this, ChangeProfileActivity.class));
-            Toast.makeText(this, "clicked refresh new contacts", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "clicked refresh new contacts", Toast.LENGTH_SHORT).show();
             readContacts();
             return true;
         } else if (itemId == R.id.more_info){

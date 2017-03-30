@@ -66,7 +66,7 @@ public class DialogDetailsActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        progressFrame.setVisibility(View.GONE);
+
 
 
     }
@@ -120,6 +120,7 @@ public class DialogDetailsActivity extends BaseActivity {
                         //    MessagePojo pojo = response.get(0).getMessage();
                         messages = response;
                         dialogsListAdapter.setItems(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
 
                 });

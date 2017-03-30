@@ -57,6 +57,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="10dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_more_grey" />
 

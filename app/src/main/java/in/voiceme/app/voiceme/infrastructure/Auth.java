@@ -20,6 +20,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Auth {
     private final Context context;
     private final SharedPreferences preferences;
+   // private final SharedPreferences preferences2;
 
     private User user;
     private String authToken;
@@ -28,7 +29,8 @@ public class Auth {
         this.context = context;
         user = new User();
         preferences = context.getSharedPreferences(Constants.PREF_FILE, MODE_PRIVATE);
-        authToken = preferences.getString(Constants.KEY_PROVIDER_TOKEN, null);
+    //    preferences2 = context.getSharedPreferences(Constants.PREF_FILE, MODE_PRIVATE);
+        authToken = preferences.getString(Constants.PREF_FILE, null);
     }
 
     public User getUser() {
@@ -41,6 +43,11 @@ public class Auth {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constants.PREF_FILE, authToken);
+        editor.apply();
+
     }
 
     public boolean hasAuthToken() {

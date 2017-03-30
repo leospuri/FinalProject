@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
+import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import timber.log.Timber;
@@ -59,8 +60,8 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
         prefs = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         isDemoMode = prefs.getBoolean("is this demo mode", false);
-      //  if (!isDemoMode)
-      //      checkAuthStatus();
+        if (!isDemoMode)
+            checkAuthStatus();
 
         // ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         // viewPager.setAdapter(new DiscoverActivityFragmentPagerAdapter(getSupportFragmentManager()));
@@ -119,20 +120,17 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         super.onBackPressed();
     }
 
- /*   private void checkAuthStatus() {
+    private void checkAuthStatus() {
         if (!application.getAuth().getUser().isLoggedIn()) {
             if (application.getAuth().hasAuthToken()) {
-                authService = new AuthService(DiscoverActivity.this);
-                authService.refreshToken(new Thread());
-
-                scheduleTokenRefresh();
+                return;
             } else {
                 startActivity(new Intent(this, SecondBeforeLoginActivity.class));
                 finish();
             }
         }
     }
-    */
+
 
     /* Implements GoogleApiClient.OnConnectionFailedListener */
     @Override

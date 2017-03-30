@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -63,7 +62,7 @@ public class RegisterActivity extends BaseActivity
     // Facebook
     private LoginButton facebookSignInBtn;
     private CallbackManager callbackManager;
-    private ProgressBar progressBar;
+ //   private ProgressBar progressBar;
 
     private String token;
 
@@ -85,7 +84,6 @@ public class RegisterActivity extends BaseActivity
 
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.signin_with_facebook_btn);
-        progressBar = (ProgressBar) findViewById(R.id.register_activity_progress);
 
 
         go_back.setOnClickListener(new View.OnClickListener() {
@@ -142,9 +140,6 @@ public class RegisterActivity extends BaseActivity
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                if (progressBar.getVisibility()==View.INVISIBLE){
-                    progressBar.setVisibility(View.VISIBLE);
-                }
                 RegisterActivity.this.handleFacebookLogin(loginResult);
 
             }
@@ -202,8 +197,6 @@ public class RegisterActivity extends BaseActivity
      * Handle Google sign in result
      */
     private void handleGoogleSignInResult(GoogleSignInResult result) {
-
-        progressBar.setVisibility(View.VISIBLE);
         if (result.isSuccess()) {
 
             mTracker.send(new HitBuilders.EventBuilder()
@@ -222,7 +215,7 @@ public class RegisterActivity extends BaseActivity
 
             // The identity must be created asynchronously
      //       new CreateIdentityTask(this).execute(logins);
-            application.getAuth().getUser().setLoggedIn(true);
+      //      application.getAuth().getUser().setLoggedIn(true);
 
             GoogleSignInAccount account = result.getSignInAccount();
             if (account != null) {
@@ -257,29 +250,26 @@ public class RegisterActivity extends BaseActivity
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
-                        progressBar.setVisibility(View.VISIBLE);
                         UserData(response);
+                        application.getAuth().setAuthToken("token");
                         SharedPreferences prefsLcl = application.getSharedPreferences("Logged in or not", MODE_PRIVATE);
                         prefsLcl.edit().putBoolean("is this demo mode", false).apply();
 
                         if (response.info.getPresent().equals("yes")){
                             token = FirebaseInstanceId.getInstance().getToken();
+                            application.getAuth().getUser().setLoggedIn(true);
                             postToken(response.info.getUserId(), token);
                             Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
-
-
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
 
                         } else {
+                            application.getAuth().getUser().setLoggedIn(true);
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
                         }
                         finish();
-                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }
@@ -389,7 +379,7 @@ public class RegisterActivity extends BaseActivity
 
         // The identity must be created asynchronously
       //  new CreateIdentityTask(this).execute(logins);
-        application.getAuth().getUser().setLoggedIn(true);
+
         setResult(RESULT_OK);
         finish();
     }

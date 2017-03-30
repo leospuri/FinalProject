@@ -247,7 +247,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     @Override
                     public void onNext(UserResponse response) {
 
-                        Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
                         //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();

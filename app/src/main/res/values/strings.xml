@@ -7,10 +7,10 @@
     <string name="FACEBOOK_APP_ID">595451247320096</string>
     <string name="aws_identity_pool">us-east-1:6526d88c-8ae8-415d-b8f3-4cf95c191843</string> -->
 
-    <!--   ******************  -->
+    <!--   ******************
 
 
-    <!-- Live AWS and Facebook ID -->
+    <!- Live AWS and Facebook ID -->
 
     <string name="aws_identity_pool">us-east-1:b9755bcf-4179-40ad-8a5e-07d7baa8914c</string>
     LIVE AWS

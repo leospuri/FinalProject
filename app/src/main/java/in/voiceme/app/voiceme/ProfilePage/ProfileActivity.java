@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -82,11 +81,16 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         followerLayout.setOnClickListener(this);
         totalPostLayout.setOnClickListener(this);
 
-        try {
-            getData();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (MySharedPreferences.getUserId(preferences) == null){
+            return;
+        } else {
+            try {
+                getData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
 
         avatarProgressFrame.setVisibility(View.GONE);
 
@@ -158,7 +162,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                         //   Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
