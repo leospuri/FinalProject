@@ -69,6 +69,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
         View v = inflater.inflate(R.layout.intro_step_four, container, false);
 
+
         scrollView = (ScrollView) v.findViewById(R.id.intro_tags_laoyut);
         selected_hashtag = (TextView) v.findViewById(R.id.intro_selected_hashtag);
 

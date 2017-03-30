@@ -4,27 +4,24 @@
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#89c982"
     android:id="@+id/drawer_layout">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/include_toolbar3" />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:orientation="vertical">
+                <include layout="@layout/include_toolbar" />
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
+                    android:layout_height="20dp"/>
                 <TextView
                     android:layout_width="match_parent"
+                    android:textColor="@color/white"
+                    android:padding="16dp"
                     android:layout_height="wrap_content"
                     android:text="Enter Status"
                     />
@@ -33,6 +30,8 @@
                     android:id="@+id/output_autofit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textColor="@color/white"
                     android:text=""
                     android:textSize="30sp"
                     android:gravity="center"
@@ -45,6 +44,8 @@
                     android:id="@+id/edit_text_status"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
+                    android:textColor="@color/white"
+                    android:padding="16dp"
                     android:maxLines="8"
                     android:textSize="20sp"
                     android:gravity="top"
@@ -65,8 +66,6 @@
 
             </LinearLayout>
         </ScrollView>
-
-    </LinearLayout>
 
     <include layout="@layout/include_main_nav_drawer" />
 

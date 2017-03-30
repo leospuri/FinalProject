@@ -1,6 +1,8 @@
 package in.voiceme.app.voiceme.login;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -23,12 +25,14 @@ public class StepSample2 extends AbstractStep {
     private EditText usernameText;
     private TextView mAutofitOutput;
     private boolean yes = false;
+    private String color;
     private String token;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.intro_step_two, container, false);
+
         usernameText = (EditText) v.findViewById(R.id.intro_username);
         token = FirebaseInstanceId.getInstance().getToken();
 
@@ -56,6 +60,10 @@ public class StepSample2 extends AbstractStep {
         });
 
         return v;
+    }
+
+    private ActionBar getActionBar() {
+        return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
 
    /* private void submitDataWithoutProfile() throws Exception {

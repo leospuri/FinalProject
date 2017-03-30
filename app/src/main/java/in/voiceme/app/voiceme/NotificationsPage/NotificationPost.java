@@ -83,6 +83,9 @@ import io.realm.annotations.RealmClass;
       case "3": //SAME
         text.append(getSenderName()).append(" felt sad for your post").append(" ").append(postId);
         break;
+      case "5": //comment
+        text.append(getSenderName()).append(" wrote comment on your post").append(" ").append(postId);
+        break;
       case "follow":
         text.append(getSenderName()).append(" followed your post").append(" ").append(postId);
         break;

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="#d1b7df"
     android:layout_height="match_parent">
 
     <FrameLayout
@@ -20,6 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="You selected this hashtag."
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:textSize="18sp"
             android:id="@+id/selected_hashtag"
@@ -33,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:textColor="@color/white"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:textSize="18sp"
@@ -42,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create a New HashTag"
+            android:textColor="@color/white"
             android:id="@+id/create_new_hashtag"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
@@ -83,7 +87,8 @@
         <android.support.v7.widget.RecyclerView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:background="@color/body_background"
+            android:background="#FFD3B0E6"
+            android:paddingLeft="12dp"
             android:visibility="gone"
             android:id="@+id/category_tag_rv" />
 
@@ -95,7 +100,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#91D4Fa"
+            android:background="#d1b7df"
             android:clickable="true"
             android:id="@+id/activity_category_progress">
             <ProgressBar

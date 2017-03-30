@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/stepFourLinear"
-    android:background="#f4ff81"
+    android:background="#d1b7df"
     android:orientation="vertical">
 
 
@@ -12,8 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You selected this hashtag."
+        android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:id="@+id/intro_selected_hashtag"
         android:visibility="visible"
@@ -26,6 +28,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:hint="Create or Search a HashTag" />
 
@@ -34,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="It is related to :-"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"/>
@@ -42,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
         android:layout_marginLeft="10dp"
         android:text="Popular HashTags:"/>
 
@@ -49,7 +54,8 @@
         android:id="@+id/intro_category_tag_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
+        android:paddingLeft="12dp"
+        android:background="#FFD3B0E6"
         android:visibility="visible" />
 
     <TextView
