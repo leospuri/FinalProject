@@ -50,15 +50,16 @@
                         android:id="@+id/textView_category"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-        <!--            <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/category_selected_audio"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text="Chosen Category: "/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -66,9 +67,9 @@
                             android:paddingLeft="10dp"
                             android:id="@+id/choosen_category"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout> -->
+                    </LinearLayout>
 
 
 
@@ -101,15 +102,16 @@
                         android:id="@+id/textView_feeling"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-     <!--               <LinearLayout
+                   <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                       android:id="@+id/selected_feeling_audio"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text="Chosen Feeling: "/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -117,9 +119,9 @@
                             android:paddingLeft="10dp"
                             android:id="@+id/choosen_feeling"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout> -->
+                    </LinearLayout>
 
 
 
@@ -152,25 +154,26 @@
                         android:id="@+id/textView_status"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-         <!--           <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:id="@+id/text_category_selected_audio"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text="Written Status: "/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:id="@+id/choosen_written"
+                            android:id="@+id/choosen_audio_written"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout> -->
+                    </LinearLayout>
 
 
 
@@ -204,15 +207,17 @@
                         android:id="@+id/recording_start_button"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-    <!--                <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/selected_audio_file"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text="Recorded Audio: "/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -220,9 +225,9 @@
                             android:paddingLeft="10dp"
                             android:id="@+id/choosen_audio"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout> -->
+                    </LinearLayout>
 
 
 

@@ -361,6 +361,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(this, "You have not selected any Hashtags", Toast.LENGTH_SHORT).show();
             } else {
                 returnIntent.putExtra("resultFromCategory", current_category);
+                returnIntent.putExtra("resultFromCategory2", selected_hashtag.getText().toString());
             }
             setResult(Activity.RESULT_OK, returnIntent);
             finish();

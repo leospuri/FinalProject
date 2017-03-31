@@ -18,9 +18,11 @@ public class FeelingActivity extends BaseActivity {
     private MaterialAnimatedSwitch happy_switch_button, relax_switch_button, angry_switch_button, sad_switch_button,
             bored_switch_button, loved_switch, sleepy_switch, flirty_switch, sick_switch, tired_switch, sexy_switch;
 
+
     private MaterialAnimatedSwitch firstSwitch = null;
 
     private String current_feeling;
+    private String current_feeling_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class FeelingActivity extends BaseActivity {
                 if (happy_switch_button.isChecked()) {
                     checkFeeling("1");
                     setFeeling("1");
+                    setFeelingName("happy");
                 }
             }
         });
@@ -65,6 +68,7 @@ public class FeelingActivity extends BaseActivity {
                 if (relax_switch_button.isChecked()) {
                     checkFeeling("2");
                     setFeeling("2");
+                    setFeelingName("relax");
                 }
             }
         });
@@ -75,6 +79,7 @@ public class FeelingActivity extends BaseActivity {
                 if (angry_switch_button.isChecked()) {
                     checkFeeling("3");
                     setFeeling("3");
+                    setFeelingName("angry");
                 }
             }
         });
@@ -85,6 +90,7 @@ public class FeelingActivity extends BaseActivity {
                 if (sad_switch_button.isChecked()) {
                     checkFeeling("4");
                     setFeeling("4");
+                    setFeelingName("sad");
                 }
             }
         });
@@ -95,6 +101,7 @@ public class FeelingActivity extends BaseActivity {
                 if (bored_switch_button.isChecked()) {
                     checkFeeling("5");
                     setFeeling("5");
+                    setFeelingName("bored");
                 }
             }
         });
@@ -105,6 +112,7 @@ public class FeelingActivity extends BaseActivity {
                 if (loved_switch.isChecked()) {
                     checkFeeling("6");
                     setFeeling("6");
+                    setFeelingName("loved");
                 }
             }
         });
@@ -115,6 +123,7 @@ public class FeelingActivity extends BaseActivity {
                 if (sleepy_switch.isChecked()) {
                     checkFeeling("7");
                     setFeeling("7");
+                    setFeelingName("sleepy");
                 }
             }
         });
@@ -125,6 +134,7 @@ public class FeelingActivity extends BaseActivity {
                 if (flirty_switch.isChecked()) {
                     checkFeeling("8");
                     setFeeling("8");
+                    setFeelingName("flirty");
                 }
             }
         });
@@ -135,6 +145,7 @@ public class FeelingActivity extends BaseActivity {
                 if (sick_switch.isChecked()) {
                     checkFeeling("9");
                     setFeeling("9");
+                    setFeelingName("sick");
                 }
             }
         });
@@ -145,6 +156,7 @@ public class FeelingActivity extends BaseActivity {
                 if (tired_switch.isChecked()) {
                     checkFeeling("10");
                     setFeeling("10");
+                    setFeelingName("tired");
                 }
             }
         });
@@ -155,6 +167,7 @@ public class FeelingActivity extends BaseActivity {
                 if (sexy_switch.isChecked()) {
                     checkFeeling("11");
                     setFeeling("11");
+                    setFeelingName("sexy");
                 }
             }
         });
@@ -163,6 +176,10 @@ public class FeelingActivity extends BaseActivity {
 
     public void setFeeling(String feelingName) {
         current_feeling = feelingName;
+    }
+
+    public void setFeelingName(String feelingName) {
+        current_feeling_name = feelingName;
     }
 
     @Override
@@ -251,6 +268,7 @@ public class FeelingActivity extends BaseActivity {
         if (id == R.id.category_menu) {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("resultFromFeeling", current_feeling);
+            returnIntent.putExtra("resultFromFeeling2", current_feeling);
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
             return true;

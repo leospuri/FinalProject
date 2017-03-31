@@ -61,6 +61,16 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
     private LinearLayout audio_feeling_back;
     private LinearLayout audio_text_status_back;
     private LinearLayout audio_record_back;
+    private LinearLayout category_selected_audio;
+    private LinearLayout selected_feeling_audio;
+    private LinearLayout text_category_selected_audio;
+
+    private LinearLayout selected_audio_file;
+
+    private TextView choosen_audio;
+    private TextView choosen_category;
+    private TextView choosen_feeling;
+    private TextView choosen_audio_written;
 
     private ImageView id_audio;
     private ImageView category_id;
@@ -88,15 +98,24 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
             }
         });
 
+        text_category_selected_audio = (LinearLayout) findViewById(R.id.text_category_selected_audio);
+        selected_feeling_audio = (LinearLayout) findViewById(R.id.selected_feeling_audio);
         audio_category_back = (LinearLayout) findViewById(R.id.audio_category_back);
         audio_feeling_back = (LinearLayout) findViewById(R.id.audio_feeling_back);
         audio_text_status_back = (LinearLayout) findViewById(R.id.audio_text_status_back);
         audio_record_back = (LinearLayout) findViewById(R.id.audio_record_back);
+        selected_audio_file = (LinearLayout) findViewById(R.id.selected_audio_file);
+        category_selected_audio = (LinearLayout) findViewById(R.id.category_selected_audio);
 
+        choosen_audio_written = (TextView) findViewById(R.id.choosen_audio_written);
+        choosen_feeling = (TextView) findViewById(R.id.choosen_feeling);
+        choosen_category = (TextView) findViewById(R.id.choosen_category);
         id_audio = (ImageView) findViewById(R.id.id_audio);
         category_id = (ImageView) findViewById(R.id.category_id);
         feeling_image = (ImageView) findViewById(R.id.feeling_image);
         id_status = (ImageView) findViewById(R.id.id_status);
+
+        choosen_audio = (TextView) findViewById(R.id.choosen_audio);
 
 
         textView_category = (TextView) findViewById(R.id.textView_category);
@@ -160,24 +179,34 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                 /************ Audio Received ******************** */
                 Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
 
-
+                selected_audio_file.setVisibility(View.VISIBLE);
+                choosen_audio.setText("Successful Record");
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == 4) {
             if (resultCode == RESULT_OK) {
+
+                category_selected_audio.setVisibility(View.VISIBLE);
                 String result = data.getStringExtra("resultFromCategory");
+                String textReturned = data.getStringExtra("resultFromCategory2");
+                choosen_category.setText(textReturned);
                 category = result;
             }
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
+                selected_feeling_audio.setVisibility(View.VISIBLE);
+                String result2 = data.getStringExtra("resultFromFeeling2");
                 String result = data.getStringExtra("resultFromFeeling");
+                choosen_feeling.setText(result2);
                 feeling = result;
 
             }
         } else if (requestCode == 3) {
             if (resultCode == RESULT_OK) {
+                text_category_selected_audio.setVisibility(View.VISIBLE);
                 String result = data.getStringExtra("resultFromStatus");
+                choosen_audio_written.setText(result);
                 textStatus = result;
             }
         }
