@@ -387,7 +387,9 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                 .setPositiveButton("Create HashTag", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
                         // ToDo get user input here
-                        Toast.makeText(CategoryActivity.this, userInputDialogEditText.getText().toString(), Toast.LENGTH_LONG).show();
+                        progressFrame.setVisibility(View.VISIBLE);
+                        insertCategory(userInputDialogEditText.getText().toString());
+                     //   Toast.makeText(CategoryActivity.this, userInputDialogEditText.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 })
 
@@ -411,7 +413,9 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(CategoryActivity.this, "Creating New HashTag", Toast.LENGTH_SHORT).show();
+                   //     Toast.makeText(CategoryActivity.this, "Creating New HashTag", Toast.LENGTH_SHORT).show();
+
+                        progressFrame.setVisibility(View.VISIBLE);
                         insertCategory(editText.getText().toString());
                         dialog.cancel();
                     }
@@ -421,7 +425,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                 "No",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(CategoryActivity.this, "Clicked No", Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(CategoryActivity.this, "Clicked No", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -444,6 +448,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                             Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
                             selected_hashtag.setText(editText.getText().toString());
                             selected_hashtag.setVisibility(View.VISIBLE);
+                            progressFrame.setVisibility(View.GONE);
                         }
                         @Override
                         public void onError(Throwable e) {

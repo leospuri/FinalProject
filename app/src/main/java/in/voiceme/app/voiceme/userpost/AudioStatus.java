@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.utils.ActivityUtils.deleteAudioFile;
 
-public class AudioStatus extends BaseActivity {
+public class AudioStatus extends BaseActivity implements View.OnClickListener {
     private static final int REQUEST_RECORD_AUDIO = 0;
    // private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
     private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/recorded_audio"+".mp3";
@@ -54,6 +56,17 @@ public class AudioStatus extends BaseActivity {
     private String category;
     private String feeling;
     private String textStatus;
+
+    private LinearLayout audio_category_back;
+    private LinearLayout audio_feeling_back;
+    private LinearLayout audio_text_status_back;
+    private LinearLayout audio_record_back;
+
+    private ImageView id_audio;
+    private ImageView category_id;
+    private ImageView id_status;
+    private ImageView feeling_image;
+
   //  private FFmpeg ffmpeg;
     private ProgressDialog progressDialog;
   //  private int audioDuration;
@@ -75,95 +88,51 @@ public class AudioStatus extends BaseActivity {
             }
         });
 
+        audio_category_back = (LinearLayout) findViewById(R.id.audio_category_back);
+        audio_feeling_back = (LinearLayout) findViewById(R.id.audio_feeling_back);
+        audio_text_status_back = (LinearLayout) findViewById(R.id.audio_text_status_back);
+        audio_record_back = (LinearLayout) findViewById(R.id.audio_record_back);
+
+        id_audio = (ImageView) findViewById(R.id.id_audio);
+        category_id = (ImageView) findViewById(R.id.category_id);
+        feeling_image = (ImageView) findViewById(R.id.feeling_image);
+        id_status = (ImageView) findViewById(R.id.id_status);
+
+
         textView_category = (TextView) findViewById(R.id.textView_category);
         textView_feeling = (TextView) findViewById(R.id.textView_feeling);
         textView_status = (TextView) findViewById(R.id.textView_status);
         textView_record_button = (TextView) findViewById(R.id.recording_start_button);
         post_status = (Button) findViewById(R.id.button_post_audio_status);
 
+        audio_category_back.setOnClickListener(this);
+        audio_feeling_back.setOnClickListener(this);
+        audio_text_status_back.setOnClickListener(this);
+        audio_record_back.setOnClickListener(this);
+
+        id_audio.setOnClickListener(this);
+        category_id.setOnClickListener(this);
+        feeling_image.setOnClickListener(this);
+        id_status.setOnClickListener(this);
+        post_status.setOnClickListener(this);
+
+        textView_category.setOnClickListener(this);
+        textView_feeling.setOnClickListener(this);
+        textView_status.setOnClickListener(this);
+        textView_record_button.setOnClickListener(this);
+
      //   ffmpeg = FFmpeg.getInstance(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(null);
-
-        textView_category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                // [START custom_event]
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("AudioStatusActivity")
-                        .setAction("Enter Category Page")
-                        .build());
-                // [END custom_event]
-                Intent categoryIntent = new Intent(AudioStatus.this, CategoryActivity.class);
-                startActivityForResult(categoryIntent, 4);
-            }
-        });
-        textView_feeling.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                // [START custom_event]
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("AudioStatusActivity")
-                        .setAction("Enter Feeling Page")
-                        .build());
-                // [END custom_event]
-                Intent feelingIntent = new Intent(AudioStatus.this, FeelingActivity.class);
-                startActivityForResult(feelingIntent, 2);
-            }
-        });
-        textView_status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                // [START custom_event]
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("AudioStatusActivity")
-                        .setAction("Enter Text Status Page")
-                        .build());
-                // [END custom_event]
-                Intent statusIntent = new Intent(AudioStatus.this, StatusActivity.class);
-                startActivityForResult(statusIntent, 3);
-            }
-        });
 
 
             post_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (processLoggedState(view)){
-                    return;
-                } else {
-                    if (category == null || feeling == null || textStatus == null || audio_time == null) {
-                        Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // [START custom_event]
-                        mTracker.send(new HitBuilders.EventBuilder()
-                                .setCategory("AudioStatusActivity")
-                                .setAction("Post Audio Status Page")
-                                .build());
-                        // [END custom_event]
-                        // network call from retrofit
-                        readAudioFileStorage();
-                    }
 
-
-                }
             }
         });
-
-        textView_record_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-      //          Intent intent = new Intent(AudioStatus.this, SecondRecordactivity.class);
-                recordActivity();
-            //    startActivityForResult(intent,4);
-            }
-        });
-
-
 
 
     }
@@ -332,5 +301,74 @@ public class AudioStatus extends BaseActivity {
         }
         return false;
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.audio_category_back ||
+                view.getId() == R.id.category_id ||
+                view.getId() == R.id.textView_category){
+            processLoggedState(view);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("AudioStatusActivity")
+                    .setAction("Enter Category Page")
+                    .build());
+            // [END custom_event]
+            Intent categoryIntent = new Intent(AudioStatus.this, CategoryActivity.class);
+            startActivityForResult(categoryIntent, 4);
+
+        } else if (view.getId() == R.id.audio_feeling_back ||
+                view.getId() == R.id.feeling_image ||
+                view.getId() == R.id.textView_feeling){
+
+            processLoggedState(view);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("AudioStatusActivity")
+                    .setAction("Enter Feeling Page")
+                    .build());
+            // [END custom_event]
+            Intent feelingIntent = new Intent(AudioStatus.this, FeelingActivity.class);
+            startActivityForResult(feelingIntent, 2);
+
+
+        } else if (view.getId() == R.id.audio_text_status_back ||
+                view.getId() == R.id.id_status ||
+                view.getId() == R.id.textView_status){
+            processLoggedState(view);
+            // [START custom_event]
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("AudioStatusActivity")
+                    .setAction("Enter Text Status Page")
+                    .build());
+            // [END custom_event]
+            Intent statusIntent = new Intent(AudioStatus.this, StatusActivity.class);
+            startActivityForResult(statusIntent, 3);
+
+        } else if (view.getId() == R.id.audio_record_back ||
+                view.getId() == R.id.id_audio ||
+                view.getId() == R.id.recording_start_button){
+            recordActivity();
+        } else if (view.getId() == R.id.button_post_audio_status){
+            if (processLoggedState(view)){
+                return;
+            } else {
+                if (category == null || feeling == null || textStatus == null || audio_time == null) {
+                    Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
+                } else {
+                    // [START custom_event]
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("AudioStatusActivity")
+                            .setAction("Post Audio Status Page")
+                            .build());
+                    // [END custom_event]
+                    // network call from retrofit
+                    readAudioFileStorage();
+                }
+
+
+            }
+        }
     }
 }
