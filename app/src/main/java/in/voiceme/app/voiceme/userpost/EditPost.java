@@ -113,7 +113,8 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(EditPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                       //     Toast.makeText(EditPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

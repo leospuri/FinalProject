@@ -39,6 +39,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 public class CategoryActivity extends BaseActivity implements View.OnClickListener {
     private TagView tagGroup;
@@ -177,7 +178,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         view.remove(position);
-                        Toast.makeText(CategoryActivity.this, "\"" + tag.text + "\" deleted", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(CategoryActivity.this, "\"" + tag.text + "\" deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -195,7 +196,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                 String id = tagList.get(i).getId();
                 String name = tagList.get(i).getName();
                 setCategory(id, name);
-                Toast.makeText(this, "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(this, "The Category ID is: " + id, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -262,7 +263,8 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onError(Throwable e) {
                             try {
-                                Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Timber.e(e.getMessage());
+                              //  Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }catch (Exception ex){
                                 ex.printStackTrace();
                             }

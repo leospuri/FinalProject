@@ -122,6 +122,7 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                                 @Override
                                 public void onError(Throwable e) {
                                     try {
+
                                         Toast.makeText(ReportAbuseActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }catch (Exception ex){
                                         ex.printStackTrace();

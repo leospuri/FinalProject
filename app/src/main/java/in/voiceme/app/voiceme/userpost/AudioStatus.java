@@ -285,7 +285,8 @@ public class AudioStatus extends BaseActivity {
                         @Override
                         public void onError(Throwable e) {
                             try {
-                                Toast.makeText(AudioStatus.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Timber.e(e.getMessage());
+                           //     Toast.makeText(AudioStatus.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }catch (Exception ex){
                                 ex.printStackTrace();
                             }
