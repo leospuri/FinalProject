@@ -327,7 +327,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
         if (view.getId() == R.id.audio_category_back ||
                 view.getId() == R.id.category_id ||
                 view.getId() == R.id.textView_category){
-            processLoggedState(view);
+       //     processLoggedState(view);
             // [START custom_event]
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("AudioStatusActivity")
@@ -341,7 +341,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                 view.getId() == R.id.feeling_image ||
                 view.getId() == R.id.textView_feeling){
 
-            processLoggedState(view);
+         //   processLoggedState(view);
             // [START custom_event]
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("AudioStatusActivity")
@@ -355,7 +355,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
         } else if (view.getId() == R.id.audio_text_status_back ||
                 view.getId() == R.id.id_status ||
                 view.getId() == R.id.textView_status){
-            processLoggedState(view);
+         //   processLoggedState(view);
             // [START custom_event]
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("AudioStatusActivity")

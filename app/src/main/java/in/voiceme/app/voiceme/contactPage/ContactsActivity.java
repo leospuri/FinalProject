@@ -359,7 +359,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         Resources r = getResources();
         Notification notification = new NotificationCompat.Builder(this)
                 .setTicker("Your Anonymous Page is ready")
-                .setSmallIcon(android.R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle("Your Page is ready")
                 .setContentText("Click to enter")
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))

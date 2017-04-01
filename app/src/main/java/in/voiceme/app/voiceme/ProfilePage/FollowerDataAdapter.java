@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -170,7 +169,7 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         protected void userNameClicked(View view) {
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }
@@ -178,7 +177,7 @@ public class FollowerDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         protected void userProfileClicked(View view) {
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }

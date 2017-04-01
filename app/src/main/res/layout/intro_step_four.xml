@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create a New HashTag"
+        android:text="Click here to Create a New HashTag"
         android:id="@+id/intro_create_new_hashtag"
         android:visibility="gone"
         android:layout_marginLeft="20dp"

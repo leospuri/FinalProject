@@ -60,7 +60,7 @@ public class UserListenCounterActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(UserListenCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                      //      Toast.makeText(UserListenCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

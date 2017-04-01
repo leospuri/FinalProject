@@ -1,5 +1,7 @@
 package in.voiceme.app.voiceme.chat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +21,10 @@ import org.joda.time.DateTimeZone;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.UserResponse;
-import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
+import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -70,30 +72,40 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
 
         input = (MessageInput) findViewById(R.id.input);
-        input.setInputListener(new MessageInput.InputListener() {
-            @Override
-            public boolean onSubmit(CharSequence input) {
-
-
-                sendMessage(input.toString());
-                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), input.toString(), new UserPojo(MySharedPreferences.getUserId(preferences),
-                                "harish", "", String.valueOf(true))), true);
-
-       //         adapter.addToStart(new MessagePojo(input.toString()), true);
-                return true;
-            }
-        });
-
-        if (isNetworkConnected()){
-            try {
-                chatMessages();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (MySharedPreferences.getUserId(preferences) == null){
+            Toast.makeText(this, "Please Login to interact  with the app", Toast.LENGTH_SHORT).show();
         } else {
-    //        startActivity(new Intent(this, OfflineActivity.class));
-            Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+            input.setInputListener(new MessageInput.InputListener() {
+                @Override
+                public boolean onSubmit(CharSequence input) {
+
+
+                    sendMessage(input.toString());
+                    adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), input.toString(), new UserPojo(MySharedPreferences.getUserId(preferences),
+                            "harish", "", String.valueOf(true))), true);
+
+                    //         adapter.addToStart(new MessagePojo(input.toString()), true);
+                    return true;
+                }
+            });
         }
+
+
+        if (MySharedPreferences.getUserId(preferences) == null){
+           Timber.e("Not Logged In");
+        } else {
+            if (isNetworkConnected()){
+                try {
+                    chatMessages();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //        startActivity(new Intent(this, OfflineActivity.class));
+                Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
 
     }
@@ -261,4 +273,23 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             adapter.unselectAllItems();
         }
     }
+
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Reminder");
+            alertDialog.setMessage("You cannot interact\nunless you logged in");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alertDialog.show();
+            return true;
+        }
+        return false;
+
+    }
+
+
 }

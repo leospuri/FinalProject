@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.infrastructure;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -18,11 +19,14 @@ import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.contactPage.ContactListActivity;
 import in.voiceme.app.voiceme.l;
 
+import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
+
 
 public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
-   // private final TextView displayNameText;
-    private final SimpleDraweeView avatarImage;
+    private TextView displayNameText;
+    private SimpleDraweeView avatarImage;
     private SharedPreferences prefs;
+    private SharedPreferences recyclerviewpreferences;
 
     public MainNavDrawer(final BaseActivity activity) {
         super(activity);
@@ -48,9 +52,20 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
             }
         });
 
-   //     displayNameText = (TextView) navDrawerView.findViewById(R.id.include_main_nav_drawer_displayName);
+        recyclerviewpreferences = activity.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+        displayNameText = (TextView) navDrawerView.findViewById(R.id.include_main_nav_drawer_displayName);
         avatarImage = (SimpleDraweeView) navDrawerView.findViewById(R.id.include_main_nav_drawer_avatar);
-        if (MySharedPreferences.getUserId())
+        if (MySharedPreferences.getImageUrl(recyclerviewpreferences) == null){
+            return;
+        } else {
+            avatarImage.setImageURI(MySharedPreferences.getImageUrl(recyclerviewpreferences));
+        }
+
+        if (MySharedPreferences.getUsername(recyclerviewpreferences) == null){
+            displayNameText.setText("");
+        } else {
+            displayNameText.setText(MySharedPreferences.getUsername(recyclerviewpreferences));
+        }
 
   //      User loggedInUser = VoicemeApplication.getAuth().getUser();
      //   displayNameText.setText(loggedInUser.getUserNickName());

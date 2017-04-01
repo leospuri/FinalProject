@@ -168,7 +168,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
                 .setContentTitle(String.valueOf(post.getSenderName() + " " + "sent private message"))
-                .setContentText(String.valueOf(post.getChatText()))
+            //    .setContentText(String.valueOf(post.getChatText()))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_launcher)
@@ -197,8 +197,8 @@ public class FCMReceiver extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-                .setContentTitle(post.getSenderName())
-                .setContentText(messageBody)
+                .setContentTitle(post.getSenderName() + " " + "liked your post")
+            //    .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_launcher)

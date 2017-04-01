@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -211,7 +210,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                       //     Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -235,7 +235,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                          //  Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -255,7 +256,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                        //    Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -276,7 +278,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                        //    Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -299,7 +302,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                         //   Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

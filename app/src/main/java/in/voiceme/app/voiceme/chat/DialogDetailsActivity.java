@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -59,12 +60,17 @@ public class DialogDetailsActivity extends BaseActivity {
 
         dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
 
-        try {
-            chatMessages();
-            dialogInit(dialogsListView);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (MySharedPreferences.getUserId(preferences) == null){
+            Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                chatMessages();
+                dialogInit(dialogsListView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
 
 
 

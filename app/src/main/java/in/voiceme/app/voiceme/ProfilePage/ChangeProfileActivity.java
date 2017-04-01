@@ -205,7 +205,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                       //     Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

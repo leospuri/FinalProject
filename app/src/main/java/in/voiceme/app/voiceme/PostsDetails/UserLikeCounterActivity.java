@@ -14,6 +14,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 public class UserLikeCounterActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
@@ -64,7 +65,8 @@ public class UserLikeCounterActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(UserLikeCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                         //   Toast.makeText(UserLikeCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

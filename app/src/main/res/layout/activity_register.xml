@@ -81,6 +81,18 @@
             android:layout_centerHorizontal="true"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:id="@+id/facebookdonotpost"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="55dp"
+            android:text="This doesn't let the app post on Facebook"
+            android:layout_centerHorizontal="true"
+            />
+
 
 
     </RelativeLayout>

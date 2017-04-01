@@ -13,10 +13,8 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
 import rx.android.schedulers.AndroidSchedulers;
-
-import static android.R.attr.id;
+import timber.log.Timber;
 
 public class UserHugCounterActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
@@ -64,7 +62,8 @@ public class UserHugCounterActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         try {
-                            Toast.makeText(UserHugCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
+                      //      Toast.makeText(UserHugCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

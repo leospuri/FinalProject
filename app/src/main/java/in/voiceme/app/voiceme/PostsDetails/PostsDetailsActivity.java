@@ -514,13 +514,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void unHugMethod() {
-        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        sendUnlikeToServer(application, 1, 0, 1, 1, "clicked unlike button");
         hugCounter--;
         hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
     }
 
     private void unLikeMethod() {
-        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
         likeCounter--;
         like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
     }
