@@ -20,7 +20,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.login.RegisterActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -141,7 +141,7 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
             alertDialog.setMessage("You cannot interact\nunless you logged in");
             alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(TextStatus.this, SecondBeforeLoginActivity.class));
+                    startActivity(new Intent(TextStatus.this, RegisterActivity.class));
                 }
             });
             alertDialog.show();

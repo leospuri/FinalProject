@@ -41,7 +41,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.login.RegisterActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
@@ -905,7 +905,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             alertDialog.setMessage("You cannot interact\nunless you logged in");
             alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(PostsDetailsActivity.this, SecondBeforeLoginActivity.class));
+                    startActivity(new Intent(PostsDetailsActivity.this, RegisterActivity.class));
                 }
             });
             alertDialog.show();

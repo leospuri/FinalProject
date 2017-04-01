@@ -10,7 +10,7 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
 import in.voiceme.app.voiceme.DTO.User;
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.login.RegisterActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -87,7 +87,7 @@ public class Auth {
         editor.clear();
         editor.commit();
 
-        Intent loginIntent = new Intent(context, SecondBeforeLoginActivity.class);
+        Intent loginIntent = new Intent(context, RegisterActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(loginIntent);
     }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.login.RegisterActivity;
 
 /**
  * Created by Harish on 7/26/2016.
@@ -23,7 +23,7 @@ public class AuthenticationActivity extends BaseActivity {
         auth = application.getAuth();
 
         if (!auth.hasAuthToken()) {
-            startActivity(new Intent(this, SecondBeforeLoginActivity.class));
+            startActivity(new Intent(this, RegisterActivity.class));
             finish();
         } else {
             refreshValues();

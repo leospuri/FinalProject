@@ -19,7 +19,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.login.RegisterActivity;
 import in.voiceme.app.voiceme.userpost.AudioStatus;
 import in.voiceme.app.voiceme.userpost.TextStatus;
 import timber.log.Timber;
@@ -125,7 +125,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
             if (application.getAuth().hasAuthToken()) {
                 return;
             } else {
-                startActivity(new Intent(this, SecondBeforeLoginActivity.class));
+                startActivity(new Intent(this, RegisterActivity.class));
                 finish();
             }
         }

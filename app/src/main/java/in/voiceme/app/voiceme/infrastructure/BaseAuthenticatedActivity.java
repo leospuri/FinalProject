@@ -3,7 +3,7 @@ package in.voiceme.app.voiceme.infrastructure;
 import android.content.Intent;
 import android.os.Bundle;
 
-import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
+import in.voiceme.app.voiceme.login.RegisterActivity;
 
 public abstract class BaseAuthenticatedActivity extends BaseActivity {
 
@@ -17,7 +17,7 @@ public abstract class BaseAuthenticatedActivity extends BaseActivity {
                 intent.putExtra(AuthenticationActivity.EXTRA_RETURN_TO_ACTIVITY, getClass().getName());
                 startActivity(intent);
             } else {
-                startActivity(new Intent(this, SecondBeforeLoginActivity.class));
+                startActivity(new Intent(this, RegisterActivity.class));
             }
 
             finish();
