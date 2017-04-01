@@ -20,7 +20,7 @@ public class AndroidAudioRecorder {
     protected static final String EXTRA_KEEP_DISPLAY_ON = "keepDisplayOn";
 
     private Activity activity;
-    private String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio"+".mp3";
+    private String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recorded_audio"+".mp3";
     private AudioSource source = AudioSource.MIC;
     private AudioChannel channel = AudioChannel.MONO;
     private AudioSampleRate sampleRate = AudioSampleRate.HZ_8000;

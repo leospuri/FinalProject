@@ -12,6 +12,10 @@ public class MySharedPreferences {
 
     public static void wipe(SharedPreferences sharedPreferences) {
         MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, AMAZON_USER_ID, null);
+        MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.EMAIL, null);
+        MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.SOCIAL_ID, null);
+        MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.IMAGE_URL, null);
+        MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.USERNAME, null);
     }
 
     protected static void storeValueInSharedPreferences(SharedPreferences sharedPreferences, String key, String value) {

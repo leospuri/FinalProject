@@ -30,7 +30,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/audio_category_back"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -53,18 +53,14 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp"
                         android:id="@+id/category_selected_audio"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="Chosen Category: "/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
                             android:id="@+id/choosen_category"
                             android:textSize="16sp"
                             android:text=""/>
@@ -82,7 +78,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/audio_feeling_back"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -105,6 +101,8 @@
                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"
+                       android:visibility="gone"
                        android:id="@+id/selected_feeling_audio"
                         android:orientation="horizontal">
                         <TextView
@@ -134,7 +132,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/audio_text_status_back"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -156,6 +154,8 @@
                         android:gravity="center_horizontal"/>
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:id="@+id/text_category_selected_audio"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -169,6 +169,7 @@
                             android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
+                            android:singleLine="true"
                             android:id="@+id/choosen_audio_written"
                             android:textSize="16sp"
                             android:text=""/>
@@ -186,7 +187,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/audio_record_back"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -203,6 +204,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="4dp"
+
                         android:text="Record Audio"
                         android:id="@+id/recording_start_button"
                         android:textSize="24sp"
@@ -211,6 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
+                        android:layout_marginTop="10dp"
                         android:id="@+id/selected_audio_file"
                         android:orientation="horizontal">
                         <TextView

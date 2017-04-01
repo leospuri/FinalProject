@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -28,14 +28,20 @@ import timber.log.Timber;
 public class TextStatus extends BaseActivity implements View.OnClickListener {
     private TextView textView_category;
     private TextView textView_feeling;
+    private LinearLayout chosen_feeling_text;
     private TextView textView_status;
     //private TextModel textModel;
+    private LinearLayout selected_text_select;
+    private LinearLayout text_chosen_status;
     private LinearLayout text_category_back;
     private LinearLayout text_feeling;
     private LinearLayout text_text_status;
     private ImageView category_id;
     private ImageView feeling_image;
     private ImageView id_status;
+    private TextView choosen_text_category;
+    private TextView choosen_feeling_text;
+    private TextView choosen_text_written;
 
     private String category;
     private String feeling;
@@ -58,8 +64,10 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
             }
         });
 
+        selected_text_select = (LinearLayout) findViewById(R.id.selected_text_select);
         text_category_back = (LinearLayout) findViewById(R.id.text_category_back);
         text_feeling = (LinearLayout) findViewById(R.id.text_feeling);
+        text_chosen_status = (LinearLayout) findViewById(R.id.text_chosen_status);
         text_text_status = (LinearLayout) findViewById(R.id.text_text_status);
 
         category_id = (ImageView) findViewById(R.id.category_id);
@@ -67,8 +75,12 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
         id_status = (ImageView) findViewById(R.id.id_status);
 
 
+        chosen_feeling_text = (LinearLayout) findViewById(R.id.chosen_feeling_text);
+        choosen_feeling_text = (TextView) findViewById(R.id.choosen_feeling_text);
+        choosen_text_category = (TextView) findViewById(R.id.choosen_text_category);
         textView_category = (TextView) findViewById(R.id.textView_category);
         textView_feeling = (TextView) findViewById(R.id.textView_feeling);
+        choosen_text_written = (TextView) findViewById(R.id.choosen_text_written);
         textView_status = (TextView) findViewById(R.id.textView_status);
         button_post_text_status = (Button) findViewById(R.id.button_post_text_status);
 
@@ -91,12 +103,18 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromCategory");
+                String result2 = data.getStringExtra("resultFromCategory2");
+                choosen_text_category.setText(result2);
+                text_chosen_status.setVisibility(View.VISIBLE);
             //    Toast.makeText(this, "Category returned: " + result, Toast.LENGTH_SHORT).show();
                 category = result;
             }
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromFeeling");
+                String result2 = data.getStringExtra("resultFromFeeling2");
+                chosen_feeling_text.setVisibility(View.VISIBLE);
+                choosen_feeling_text.setText(result2);
          //       Toast.makeText(this, "Feeling returned: " + result, Toast.LENGTH_SHORT).show();
                 feeling = result;
 
@@ -104,6 +122,8 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
         } else if (requestCode == 3) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra("resultFromStatus");
+                selected_text_select.setVisibility(View.VISIBLE);
+                choosen_text_written.setText(result);
         //        Toast.makeText(this, "text Status returned: " + result, Toast.LENGTH_SHORT).show();
                 textStatus = result;
             }
@@ -191,7 +211,7 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
                                         Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
                                         if (userResponse.getStatus() == 1) {
                                             //   Toast.makeText(TextStatus.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(TextStatus.this, MainActivity.class));
+                                            startActivity(new Intent(TextStatus.this, DiscoverActivity.class));
                                         }
                                     }
                                     @Override

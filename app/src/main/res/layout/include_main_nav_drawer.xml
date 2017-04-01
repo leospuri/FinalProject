@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,22 +16,26 @@
         android:background="@drawable/navdrawer"
         >
 
-     <!--   <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="16dp"
             android:id="@+id/include_main_nav_drawer_avatar"
-            android:src="@mipmap/ic_action_unread"/> -->
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:scaleType="fitXY"
+            fresco:placeholderImage="@drawable/user" />
 
-     <!--   <TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_below="@id/include_main_nav_drawer_avatar"
             android:id="@+id/include_main_nav_drawer_displayName"
             android:text="Nelson LaQuet"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#fff"/> -->
+            android:textColor="#fff"/>
     </RelativeLayout>
     
     <ScrollView

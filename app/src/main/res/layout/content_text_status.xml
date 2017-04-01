@@ -24,7 +24,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/text_category_back"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -44,25 +44,22 @@
                         android:id="@+id/textView_category"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-     <!--               <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:id="@+id/text_chosen_status"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="Choose"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
-                            android:id="@+id/choosen_category"
+                            android:id="@+id/choosen_text_category"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout> -->
+                    </LinearLayout>
 
 
 
@@ -75,7 +72,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/text_feeling"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -95,25 +92,28 @@
                         android:id="@+id/textView_feeling"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-        <!--            <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
+                        android:id="@+id/chosen_feeling_text"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text="Chosen Feeling: "/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:id="@+id/choosen_feeling"
+                            android:id="@+id/choosen_feeling_text"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout>  -->
+                    </LinearLayout>
 
 
 
@@ -126,7 +126,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:id="@+id/text_text_status"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
@@ -146,25 +146,29 @@
                         android:id="@+id/textView_status"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
-     <!--               <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:id="@+id/selected_text_select"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text="Written Status: "/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:id="@+id/choosen_written"
+                            android:singleLine="true"
+                            android:id="@+id/choosen_text_written"
                             android:textSize="16sp"
-                            android:text="Choose"/>
+                            android:text=""/>
 
-                    </LinearLayout> -->
+                    </LinearLayout>
 
 
 

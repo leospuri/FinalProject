@@ -268,7 +268,7 @@ public class FeelingActivity extends BaseActivity {
         if (id == R.id.category_menu) {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("resultFromFeeling", current_feeling);
-            returnIntent.putExtra("resultFromFeeling2", current_feeling);
+            returnIntent.putExtra("resultFromFeeling2", current_feeling_name);
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
             return true;

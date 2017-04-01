@@ -171,7 +171,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                 .setContentText(String.valueOf(post.getChatText()))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setSmallIcon(R.drawable.ic_done)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
@@ -201,7 +201,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setSmallIcon(R.drawable.ic_done)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =

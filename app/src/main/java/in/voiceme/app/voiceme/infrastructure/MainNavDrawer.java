@@ -5,13 +5,13 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.squareup.otto.Subscribe;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.NotificationsPage.NotificationsActivity;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
-import in.voiceme.app.voiceme.DTO.User;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
@@ -21,7 +21,7 @@ import in.voiceme.app.voiceme.l;
 
 public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
    // private final TextView displayNameText;
-   // private final ImageView avatarImage;
+    private final SimpleDraweeView avatarImage;
     private SharedPreferences prefs;
 
     public MainNavDrawer(final BaseActivity activity) {
@@ -49,9 +49,10 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         });
 
    //     displayNameText = (TextView) navDrawerView.findViewById(R.id.include_main_nav_drawer_displayName);
-   //     avatarImage = (ImageView) navDrawerView.findViewById(R.id.include_main_nav_drawer_avatar);
+        avatarImage = (SimpleDraweeView) navDrawerView.findViewById(R.id.include_main_nav_drawer_avatar);
+        if (MySharedPreferences.getUserId())
 
-        User loggedInUser = VoicemeApplication.getAuth().getUser();
+  //      User loggedInUser = VoicemeApplication.getAuth().getUser();
      //   displayNameText.setText(loggedInUser.getUserNickName());
 
         // Todo Nav Drawer Avatar

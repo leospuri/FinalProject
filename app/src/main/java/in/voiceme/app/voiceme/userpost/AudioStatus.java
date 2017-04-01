@@ -19,8 +19,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import java.io.File;
 
 import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -40,7 +40,7 @@ import static in.voiceme.app.voiceme.utils.ActivityUtils.deleteAudioFile;
 public class AudioStatus extends BaseActivity implements View.OnClickListener {
     private static final int REQUEST_RECORD_AUDIO = 0;
    // private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
-    private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/recorded_audio"+".mp3";
+    private static final String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recorded_audio"+".mp3";
 
   //  private String filePath = Environment.getExternalStorageDirectory() + "/recorded_audio"+".mp3";
 
@@ -143,17 +143,6 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
      //   ffmpeg = FFmpeg.getInstance(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(null);
-
-
-            post_status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
-
     }
 
     private void startRec() {
@@ -180,7 +169,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
 
                 selected_audio_file.setVisibility(View.VISIBLE);
-                choosen_audio.setText("Successful Record");
+                choosen_audio.setText("Successful");
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
             }
@@ -248,13 +237,14 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                         public void onNext(String response) {
                             Timber.d("file url " + response);
                             setAudioFileUrl(response);
+                            postStatus();
                         }
 
                         @Override
                         public void onCompleted() {
                             progressDialog.dismiss();
 
-                           postStatus();
+
                         }
                     });
         } catch (Exception e) {
@@ -276,7 +266,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                         public void onNext(UserResponse userResponse) {
                             Timber.e("UserResponse " + userResponse.getStatus() + "===" + userResponse.getMsg());
                             if (userResponse.getStatus() == 1) {
-                                startActivity(new Intent(AudioStatus.this, MainActivity.class));
+                                startActivity(new Intent(AudioStatus.this, DiscoverActivity.class));
                                 deleteAudio();
                             }
                         }
@@ -395,9 +385,12 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                     // network call from retrofit
                     readAudioFileStorage();
                 }
-
-
             }
+
+
+
+
+
         }
     }
 }
