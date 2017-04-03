@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     protected Boolean currentFollowing;
     private ProgressBar progressBar;
     private View progressFrame;
+    private ImageView send_private_message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         progressBar.setVisibility(View.VISIBLE);
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
 
+        send_private_message = (ImageView) findViewById(R.id.send_private_message);
 
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -99,6 +102,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         gender.setOnClickListener(this);
         total_posts.setOnClickListener(this);
         total_posts_counter.setOnClickListener(this);
+        send_private_message.setOnClickListener(this);
 
         followMe.setOnClickListener(this);
 
@@ -107,6 +111,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         try {
             getData(profileUserId);
+            if (profileUserId.equals(MySharedPreferences.getUserId(preferences))){
+                send_private_message.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,6 +197,12 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     e.printStackTrace();
                 }
             }
+        } else if (view.getId() == R.id.send_private_message){
+            if (processLoggedState(view))
+                return;
+            Intent intent = new Intent(this, MessageActivity.class);
+            intent.putExtra(Constants.YES, profileUserId);
+            startActivity(intent);
         }
 
     }
@@ -346,9 +359,4 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
     }
 
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, MessageActivity.class);
-        intent.putExtra(Constants.YES, profileUserId);
-        startActivity(intent);
-    }
 }

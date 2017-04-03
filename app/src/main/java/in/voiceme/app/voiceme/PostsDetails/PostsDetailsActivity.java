@@ -33,6 +33,7 @@ import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -426,9 +427,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         } else if (view.getId() == R.id.detail_list_item_post_userNickName ||
                 view.getId() == R.id.detail_list_item_posts_avatar){
 
-            Intent intent = new Intent(this, SecondProfile.class);
-            intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
-            startActivity(intent);
+            if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))){
+                startActivity(new Intent(view.getContext(), ProfileActivity.class));
+            } else {
+                Intent intent = new Intent(this, SecondProfile.class);
+                intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
+                startActivity(intent);
+            }
+
         } else if (view.getId() == R.id.detail_list_item_posts_feeling){
             Intent intent = new Intent(this, UserFeelingActivity.class);
             intent.putExtra(Constants.EMOTION, myList.getIdFeeling());

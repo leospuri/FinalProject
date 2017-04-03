@@ -13,6 +13,7 @@ import in.voiceme.app.voiceme.DTO.User;
 import in.voiceme.app.voiceme.login.RegisterActivity;
 
 import static android.content.Context.MODE_PRIVATE;
+import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
 /**
  * Created by Harish on 7/20/2016.
@@ -57,7 +58,11 @@ public class Auth {
     public void logout() {
         setAuthToken(null);
 
-        MySharedPreferences.wipe(preferences);
+        SharedPreferences settings = context.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+        settings.edit().clear().commit();
+
+
+    //    MySharedPreferences.wipe(preferences);
 
         if (MySharedPreferences.getUserId(preferences)!= null){
             Toast.makeText(context, "userID", Toast.LENGTH_LONG).show();

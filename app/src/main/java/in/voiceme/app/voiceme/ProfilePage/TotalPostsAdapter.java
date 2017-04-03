@@ -259,9 +259,14 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
         protected void secondUserProfileClicked(View view){
-            Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
-            view.getContext().startActivity(intent);
+            if (dataItem.getIdUserName().equals(MySharedPreferences.getUserId(totalpreference))) {
+                view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+            } else {
+                Intent intent = new Intent(view.getContext(), SecondProfile.class);
+                intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
+                view.getContext().startActivity(intent);
+            }
+
         }
 
         protected void playButton(View view){

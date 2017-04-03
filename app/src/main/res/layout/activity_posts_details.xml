@@ -263,7 +263,7 @@
                 android:layout_below="@id/detail_number_of_likes"
                 app:mfb_rotation_duration="400"
                 app:mfb_favorite_image="@drawable/like_after"
-                app:mfb_not_favorite_image="@drawable/status_before"
+                app:mfb_not_favorite_image="@drawable/like_before"
                 app:mfb_rotation_angle="360"
                 app:mfb_bounce_duration="700" />
 
@@ -369,6 +369,7 @@
             android:layout_height="match_parent"
             android:background="#91D4Fa"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/post_details_progressBar">
             <TextView
                 android:layout_width="wrap_content"

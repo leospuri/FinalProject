@@ -62,6 +62,7 @@ public class DialogDetailsActivity extends BaseActivity {
 
         if (MySharedPreferences.getUserId(preferences) == null){
             Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
+            progressFrame.setVisibility(View.GONE);
         } else {
             try {
                 chatMessages();

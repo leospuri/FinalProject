@@ -17,8 +17,8 @@
         >
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
             android:layout_margin="16dp"
             android:id="@+id/include_main_nav_drawer_avatar"
             android:layout_marginEnd="16dp"
@@ -32,7 +32,7 @@
             android:layout_marginLeft="20dp"
             android:layout_below="@id/include_main_nav_drawer_avatar"
             android:id="@+id/include_main_nav_drawer_displayName"
-            android:text="Nelson LaQuet"
+            android:text="Anonymous"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#fff"/>

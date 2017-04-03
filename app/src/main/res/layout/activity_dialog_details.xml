@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:background="#ddb4b4b4"
+            android:background="@color/body_Color"
             android:id="@+id/dialog_details">
 
             <TextView

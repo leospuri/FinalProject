@@ -29,6 +29,7 @@ import in.voiceme.app.voiceme.PostsDetails.UserFeelingActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserHugCounterActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserLikeCounterActivity;
 import in.voiceme.app.voiceme.PostsDetails.UserSameCounterActivity;
+import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
@@ -256,9 +257,14 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         protected void secondUserProfileClicked(View view){
             processLoggedState(view);
-            Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
-            view.getContext().startActivity(intent);
+            if (dataItem.getIdUserName().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
+                view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+            } else {
+                Intent intent = new Intent(view.getContext(), SecondProfile.class);
+                intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
+                view.getContext().startActivity(intent);
+            }
+
         }
 
         protected void playButton(View view){

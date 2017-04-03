@@ -78,7 +78,6 @@
                     android:layout_marginRight="35dp"
                     android:layout_marginTop="235dp"
                     android:background="@drawable/messenger_button_white_bg_round"
-                    android:onClick="sendMessage"
                     />
 
                 <LinearLayout
@@ -301,6 +300,7 @@
             android:layout_height="match_parent"
             android:background="#91D4Fa"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/activity_second_profile_progress">
             <TextView
                 android:layout_width="wrap_content"

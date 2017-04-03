@@ -133,7 +133,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
     private void saveNotificationObject(String json) {
 
-        /**
+        /*
          * Creates a realm object and sets the remote message data and stores it in db
          */
         Realm realm = Realm.getDefaultInstance();
@@ -168,7 +168,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
                 .setContentTitle(String.valueOf(post.getSenderName() + " " + "sent private message"))
-            //    .setContentText(String.valueOf(post.getChatText()))
+                .setContentText("click to view the message inside Voiceme")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_launcher)
@@ -197,8 +197,8 @@ public class FCMReceiver extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-                .setContentTitle(post.getSenderName() + " " + "liked your post")
-            //    .setContentText(messageBody)
+                .setContentTitle(post.getSenderName() + " " + "interacted with your post")
+                .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_launcher)

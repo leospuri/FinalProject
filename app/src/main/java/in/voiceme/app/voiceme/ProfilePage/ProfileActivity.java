@@ -82,6 +82,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         totalPostLayout.setOnClickListener(this);
 
         if (MySharedPreferences.getUserId(preferences) == null){
+            progressFrame.setVisibility(View.GONE);
+            avatarProgressFrame.setVisibility(View.GONE);
             return;
         } else {
             try {
@@ -92,7 +94,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
 
 
-        avatarProgressFrame.setVisibility(View.GONE);
+
 
 
         //   if (isProgressBarVisible)
@@ -157,6 +159,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);
+                        avatarProgressFrame.setVisibility(View.GONE);
                         progressFrame.setVisibility(View.GONE);
                     }
                     @Override

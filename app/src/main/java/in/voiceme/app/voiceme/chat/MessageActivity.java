@@ -93,6 +93,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
         if (MySharedPreferences.getUserId(preferences) == null){
            Timber.e("Not Logged In");
+            progressFrame.setVisibility(View.GONE);
+
         } else {
             if (isNetworkConnected()){
                 try {
