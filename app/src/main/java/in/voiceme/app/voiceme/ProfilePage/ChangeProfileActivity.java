@@ -190,29 +190,27 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     protected void sendlike() {
+        String sendChat = "senderid@" + "1" + "_contactId@" +
+                "1" + "_chat@yes";
+
         application.getWebService()
-                .sendLikeNotification("senderid@1_contactId@1_postId@1_click@2")
-                .observeOn(AndroidSchedulers.mainThread())
+                .getResponse(sendChat, "hi")
                 .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
                         Timber.d("Got user details");
+                        //        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
                     }
-                    @Override
-                    public void onError(Throwable e) {
-                        try {
-                            Timber.e(e.getMessage());
-                       //     Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }catch (Exception ex){
-                            ex.printStackTrace();
-                        }
-                    }
+
                 });
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -221,7 +219,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         if (viewId == R.id.changeimage) {
             changeProfileRequest();
-            //getChat();
+         //   sendlike();
         //    startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 

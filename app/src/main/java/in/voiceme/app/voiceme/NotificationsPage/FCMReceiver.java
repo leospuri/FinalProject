@@ -168,7 +168,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
                 .setContentTitle(String.valueOf(post.getSenderName() + " " + "sent private message"))
-                .setContentText("click to view the message inside Voiceme")
+                .setContentText("View the message inside Voiceme")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_launcher)
