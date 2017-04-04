@@ -129,6 +129,11 @@ public class DialogDetailsActivity extends BaseActivity {
                         dialogsListAdapter.setItems(response);
                         progressFrame.setVisibility(View.GONE);
                     }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        progressFrame.setVisibility(View.GONE);
+                    }
 
                 });
     }

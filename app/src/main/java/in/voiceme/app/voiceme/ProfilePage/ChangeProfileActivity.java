@@ -96,7 +96,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         } catch (Exception e) {
             e.printStackTrace();
         }
-        avatarProgressFrame.setVisibility(View.GONE);
+
     }
 
     private void changeProfileRequest() {
@@ -314,6 +314,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
+                        avatarProgressFrame.setVisibility(View.GONE);
                         changeProgress.setVisibility(View.GONE);
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
@@ -321,6 +322,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     }
                     @Override
                     public void onError(Throwable e) {
+                        avatarProgressFrame.setVisibility(View.GONE);
+                        changeProgress.setVisibility(View.GONE);
                         try {
                             Timber.e(e.getMessage());
                         //    Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

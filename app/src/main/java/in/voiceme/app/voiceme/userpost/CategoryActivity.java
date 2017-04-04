@@ -263,6 +263,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onError(Throwable e) {
                             try {
+                                progressFrame.setVisibility(View.GONE);
                                 Timber.e(e.getMessage());
                               //  Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }catch (Exception ex){
@@ -290,8 +291,11 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                         }
                         @Override
                         public void onError(Throwable e) {
+                            progressFrame.setVisibility(View.GONE);
+
                             try {
-                                Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Timber.e(e.getMessage());
+                             //   Toast.makeText(CategoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }catch (Exception ex){
                                 ex.printStackTrace();
                             }

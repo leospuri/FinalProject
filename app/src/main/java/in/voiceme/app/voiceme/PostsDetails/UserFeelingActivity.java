@@ -32,7 +32,6 @@ import in.voiceme.app.voiceme.userpost.TextStatus;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 
-import static android.R.attr.id;
 import static com.facebook.GraphRequest.TAG;
 
 
@@ -215,6 +214,8 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         showErrorView(e);
                     }
                 });
@@ -248,6 +249,8 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         activityInteractionAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });

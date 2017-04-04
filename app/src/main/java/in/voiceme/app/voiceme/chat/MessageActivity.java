@@ -194,6 +194,11 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
                     }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        progressFrame.setVisibility(View.GONE);
+                    }
 
                 });
     }
@@ -213,6 +218,11 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         initMessagesAdapter(response);
                         progressFrame.setVisibility(View.GONE);
                     }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        progressFrame.setVisibility(View.GONE);
+                    }
                 });
     }
 
@@ -229,6 +239,11 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                   //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
                      //   Toast.makeText(MessageActivity.this, "deleted message", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        progressFrame.setVisibility(View.GONE);
                     }
                 });
     }

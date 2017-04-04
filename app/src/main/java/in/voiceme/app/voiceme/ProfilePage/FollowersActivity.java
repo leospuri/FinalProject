@@ -64,6 +64,7 @@ public class FollowersActivity extends BaseActivity {
                     }
                     @Override
                     public void onError(Throwable e) {
+                        progressFrame.setVisibility(View.GONE);
                         try {
                             Timber.e(e.getMessage());
                           //  Toast.makeText(FollowersActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

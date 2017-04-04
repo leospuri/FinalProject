@@ -229,6 +229,8 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         showErrorView(e);
                     }
                 });
@@ -263,6 +265,8 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         Timber.e("error is: " + e);
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }

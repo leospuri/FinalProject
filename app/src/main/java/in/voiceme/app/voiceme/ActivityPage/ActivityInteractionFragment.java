@@ -221,6 +221,8 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     }
                     @Override
                     public void onError(Throwable e){
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         e.printStackTrace();
                         showErrorView(e);
                     }
@@ -252,6 +254,8 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     }
                     @Override
                     public void onError(Throwable e){
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         e.printStackTrace();
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }

@@ -175,6 +175,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
 
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
@@ -183,7 +184,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
-                        progressFrame.setVisibility(View.GONE);
+
 
 
                         //   showRecycleWithDataFilled(response);
@@ -195,6 +196,8 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                     }
                     @Override
                     public void onError(Throwable e){
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         e.printStackTrace();
                         showErrorView(e);
                     }
@@ -227,6 +230,8 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                     }
                     @Override
                     public void onError(Throwable e){
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         e.printStackTrace();
                         activityInteractionAdapter.showRetry(true, fetchErrorMessage(e));
                     }

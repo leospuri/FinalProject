@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginStart="4dp"
+            android:singleLine="true"
             android:text="Username"
             android:layout_marginLeft="4dp"
             android:layout_toEndOf="@id/iv_user_image"

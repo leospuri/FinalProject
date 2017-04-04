@@ -616,8 +616,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
+                        progressFrame.setVisibility(View.GONE);
                         try {
-                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                       //     Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             Timber.e("message error " + e);
                         }catch (Exception ex){
                             ex.printStackTrace();
@@ -644,11 +645,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
-                        try {
-                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }catch (Exception ex){
-                            ex.printStackTrace();
-                        }
+                        progressFrame.setVisibility(View.GONE);
                     }
                 });
     }

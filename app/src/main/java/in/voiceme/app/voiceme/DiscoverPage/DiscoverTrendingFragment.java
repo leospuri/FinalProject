@@ -221,6 +221,8 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         showErrorView(e);
                     }
                 });
@@ -251,6 +253,8 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });

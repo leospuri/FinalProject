@@ -217,6 +217,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
@@ -224,7 +225,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
                         showRecycleWithDataFilled(response);
-                        progressFrame.setVisibility(View.GONE);
+
 
 
                         //   showRecycleWithDataFilled(response);
@@ -237,6 +238,8 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         showErrorView(e);
                     }
                 });
@@ -270,6 +273,8 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         activityInteractionAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });

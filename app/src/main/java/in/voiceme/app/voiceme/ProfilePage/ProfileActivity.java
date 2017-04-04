@@ -164,6 +164,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     }
                     @Override
                     public void onError(Throwable e) {
+                        avatarProgressFrame.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         try {
                             Timber.e(e.getMessage());
                          //   Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

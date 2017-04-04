@@ -227,6 +227,8 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                     }
                     @Override
                     public void onError(Throwable e){
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         e.printStackTrace();
                         showErrorView(e);
                     }
@@ -258,6 +260,8 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });

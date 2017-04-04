@@ -111,9 +111,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         try {
             getData(profileUserId);
-            if (profileUserId.equals(MySharedPreferences.getUserId(preferences))){
-                send_private_message.setVisibility(View.GONE);
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,6 +311,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     }
                     @Override
                     public void onError(Throwable e) {
+                        progressFrame.setVisibility(View.GONE);
                         try {
                             Timber.e(e.getMessage());
                          //   Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
