@@ -410,6 +410,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                             } */
                                 startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
 
+                                if(myList.getAudioFileLink() == null || myList.getAudioFileLink().isEmpty()){
+                                    view.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+                                } else {
+                                    view.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
+
+                                }
+
 
                                 return true;
 
@@ -513,6 +520,31 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    private Intent sharedIntentMaker(){
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(myList.getUserNicName() + " " + "said:"
+                + " " + myList.getTextStatus() + " " + "inside Voiceme Android App. You can download from " +
+                "https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme"));
+        return shareIntent;
+    }
+
+    private Intent sharedAudioIntentMaker(){
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(myList.getUserNicName() + " " + "said:" + " " +
+                myList.getTextStatus() + " " + "and" + " " + "recorded:"
+                + " " + myList.getAudioFileLink() + " " + "inside Voiceme Android App." + "You can download app from" +
+                " " + "https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme"));
+        return shareIntent;
+    }
+
     private void unSameMethod() {
         sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
         sameCounter--;
@@ -529,16 +561,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
         likeCounter--;
         like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
-    }
-
-    private Intent sharedIntentMaker(){
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, myList.getTextStatus() + " " + "Voiceme");
-        return shareIntent;
     }
 
     public void flipPlayPauseButton(boolean isPlaying){

@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
+            android:singleLine="true"
             android:layout_marginTop="19dp"
             android:layout_toLeftOf="@id/dialogDate"
             android:layout_toRightOf="@id/dialogAvatar"

@@ -21,6 +21,12 @@ public class MySharedPreferences {
     protected static void storeValueInSharedPreferences(SharedPreferences sharedPreferences, String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
+        editor.apply();
+    }
+
+    protected static void storeValueInSharedPreferences2(SharedPreferences sharedPreferences, String key, String value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
         editor.commit();
     }
 
@@ -29,7 +35,7 @@ public class MySharedPreferences {
     }
 
     public static void registerUserId(SharedPreferences sharedPreferences, String userId) {
-        MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, AMAZON_USER_ID, userId);
+        MySharedPreferences.storeValueInSharedPreferences2(sharedPreferences, AMAZON_USER_ID, userId);
     }
 
     public static void registerEmail(SharedPreferences sharedPreferences, String email) {

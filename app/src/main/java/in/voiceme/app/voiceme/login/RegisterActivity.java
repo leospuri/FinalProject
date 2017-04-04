@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -63,7 +62,6 @@ public class RegisterActivity extends BaseActivity
     // Facebook
     private LoginButton facebookSignInBtn;
     private CallbackManager callbackManager;
-    private ProgressBar progressBar;
  //   private ProgressBar progressBar;
 
     private String token;
@@ -83,11 +81,6 @@ public class RegisterActivity extends BaseActivity
 
         setContentView(R.layout.activity_register);
         go_back = (ImageView) findViewById(R.id.go_back);
-
-        progressBar = (ProgressBar)findViewById(R.id.progress_register_activity);
-        if (progressBar.getVisibility() == View.VISIBLE){
-            progressBar.setVisibility(View.GONE);
-        }
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.signin_with_facebook_btn);
 
@@ -102,6 +95,9 @@ public class RegisterActivity extends BaseActivity
         this.setUpGoogleSignIn();
 
         this.setUpFacebookSignIn();
+
+        SharedPreferences prefsLcl = application.getSharedPreferences("Logged in or not", MODE_PRIVATE);
+        prefsLcl.edit().putBoolean("is this demo mode", false).apply();
 
         // initFacebookLogin();
         //   initGoogleLogin();
@@ -256,26 +252,22 @@ public class RegisterActivity extends BaseActivity
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
-                        progressBar.setVisibility(View.VISIBLE);
                         UserData(response);
                         application.getAuth().setAuthToken("token");
-                        SharedPreferences prefsLcl = application.getSharedPreferences("Logged in or not", MODE_PRIVATE);
-                        prefsLcl.edit().putBoolean("is this demo mode", false).apply();
+                        application.getAuth().getUser().setLoggedIn(true);
+
 
                         if (response.info.getPresent().equals("yes")){
                             token = FirebaseInstanceId.getInstance().getToken();
-                            application.getAuth().getUser().setLoggedIn(true);
+
                             postToken(response.info.getUserId(), token);
                             Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
 
                         } else {
-                            application.getAuth().getUser().setLoggedIn(true);
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
                         }
                         finish();

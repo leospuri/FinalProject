@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.widget.PopupMenu;
@@ -23,8 +24,11 @@ import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
+import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
@@ -45,11 +49,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private InsertMessageListener mInsertMessageListener;
     private List<PostUserCommentModel> mMessageList;
     private List<MessageViewHolder> mMessageHolderList = new ArrayList<>();
+    private static SharedPreferences recyclerviewpreferences;
 
     public MessageAdapter(Context context, List<PostUserCommentModel> mMessageList, InsertMessageListener insertMessageListener) {
         mContext = context;
         mInsertMessageListener = insertMessageListener;
         this.mMessageList = mMessageList;
+        recyclerviewpreferences = ((VoicemeApplication) context.getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -201,6 +207,27 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
 
+            username.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    userProfile(view, messageItem);
+                }
+            });
+
+            userImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    userProfile(view, messageItem);
+                }
+            });
+
+            messageCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    userProfile(view, messageItem);
+                }
+            });
+
             commentMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -223,6 +250,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 }
             }
 
+        }
+
+        private void userProfile(View view, PostUserCommentModel messageItem) {
+            if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
+                view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+            } else {
+                Intent intent = new Intent(view.getContext(), SecondProfile.class);
+                intent.putExtra(Constants.SECOND_PROFILE_ID, messageItem.getCommentUserId());
+                view.getContext().startActivity(intent);
+            }
         }
 
         public int getBoundPosition() {
