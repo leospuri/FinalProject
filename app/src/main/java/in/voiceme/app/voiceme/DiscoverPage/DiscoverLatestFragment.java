@@ -55,7 +55,9 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
     ProgressBar progressBar;
     LinearLayout errorLayout;
+    LinearLayout no_post_layout;
     TextView txtError;
+    TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
     PullRefreshLayout layout;
 
@@ -87,6 +89,8 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         progressFrame = view.findViewById(R.id.activity_discover_latest);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
+        no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
+        no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
         layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
@@ -167,6 +171,14 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         }
     }
 
+    private void showEmptyView() {
+        if (no_post_layout.getVisibility() == View.GONE) {
+            no_post_layout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            no_post_textview.setText("There are no Latest Posts");
+        }
+    }
+
     private void hideErrorView() {
         if (errorLayout.getVisibility() == View.VISIBLE) {
             errorLayout.setVisibility(View.GONE);
@@ -215,16 +227,20 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
-                        showRecycleWithDataFilled(response);
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
+                            showRecycleWithDataFilled(response);
 
-
-                        //   showRecycleWithDataFilled(response);
-                        //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
-                            isLastPage = true;
+                            //   showRecycleWithDataFilled(response);
+                            //   latestListAdapter.addAll(myModelList);
+                            if (response.size() < 25){
+                                isLastPage = true;
+                            }
+                            if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                            else isLastPage = true;
                         }
-                        if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
-                        else isLastPage = true;
+
                     }
                     @Override
                     public void onError(Throwable e){

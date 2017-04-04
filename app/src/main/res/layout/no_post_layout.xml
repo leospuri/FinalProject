@@ -17,15 +17,8 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your contacts are still syncing"/>
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            tools:text="Please Wait"/>
+            android:id="@+id/no_post_textview"
+            android:text=""/>
 
     </LinearLayout>
 

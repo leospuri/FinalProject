@@ -51,6 +51,8 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
     private int mPage;
     private RecyclerView recyclerView;
+    LinearLayout no_post_layout;
+    TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
     ProgressBar progressBar;
     LinearLayout errorLayout;
@@ -84,6 +86,8 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         View view = inflater.inflate(R.layout.fragment_activity_your_feed, container, false);
         progressFrame = view.findViewById(R.id.activity_yourfeed_progress);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
+        no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
+        no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
         layout = (PullRefreshLayout) view.findViewById(R.id.your_activity_swipeRefreshLayout);
@@ -157,6 +161,15 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         }
     }
 
+
+    private void showEmptyView() {
+        if (no_post_layout.getVisibility() == View.GONE) {
+            no_post_layout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            no_post_textview.setText("You Need to Follow Users /n To See their posts here");
+        }
+    }
+
     private void hideErrorView() {
         if (errorLayout.getVisibility() == View.VISIBLE) {
             errorLayout.setVisibility(View.GONE);
@@ -202,20 +215,26 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         progressBar.setVisibility(View.GONE);
                         progressFrame.setVisibility(View.GONE);
                         hideErrorView();
+
                       Log.e("RESPONSE:::", "Size===" + response.size());
-               //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
+                            //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
 
-                     //   List<PostsModel> model = fetchResults(response);
-                        //   showRecycleWithDataFilled(response);
-                        showRecycleWithDataFilled(response);
+                            //   List<PostsModel> model = fetchResults(response);
+                            //   showRecycleWithDataFilled(response);
+                            showRecycleWithDataFilled(response);
 
 
-                     //   showRecycleWithDataFilled(response);
-                     //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
-                            isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
-                        else isLastPage = true;
+                            //   showRecycleWithDataFilled(response);
+                            //   latestListAdapter.addAll(myModelList);
+                            if (response.size() < 25){
+                                isLastPage = true;
+                            } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                            else isLastPage = true;
+                        }
+
 
                     }
                     @Override

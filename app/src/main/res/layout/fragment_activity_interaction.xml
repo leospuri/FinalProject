@@ -32,6 +32,7 @@
             android:layout_gravity="center" />
 
         <include layout="@layout/error_layout" />
+        <include layout="@layout/no_post_layout" />
 
     </LinearLayout>
 

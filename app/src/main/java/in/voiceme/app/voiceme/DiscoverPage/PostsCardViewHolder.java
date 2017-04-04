@@ -155,7 +155,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         post_comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commentsCounterClicked(v);
+                cardBackground(v);
             }
         });
 

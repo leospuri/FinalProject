@@ -53,6 +53,8 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
     private int mPage;
     private RecyclerView recyclerView;
     private LatestListAdapter latestListAdapter;
+    LinearLayout no_post_layout;
+    TextView no_post_textview;
 
     public ActivityInteractionFragment() {
         // Required empty public constructor
@@ -79,6 +81,8 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         View view = inflater.inflate(R.layout.fragment_activity_interaction, container, false);
         progressFrame = view.findViewById(R.id.activity_interaction_progress);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
+        no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
+        no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
@@ -154,6 +158,14 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         }
     }
 
+    private void showEmptyView() {
+        if (no_post_layout.getVisibility() == View.GONE) {
+            no_post_layout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            no_post_textview.setText("You need to like or Comment other users /n posts to see their posts here");
+        }
+    }
+
     private void hideErrorView() {
         if (errorLayout.getVisibility() == View.VISIBLE) {
             errorLayout.setVisibility(View.GONE);
@@ -201,23 +213,28 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
-
+                        progressFrame.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
 
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
-                        showRecycleWithDataFilled(response);
-                        progressFrame.setVisibility(View.GONE);
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
+                            showRecycleWithDataFilled(response);
+                            progressFrame.setVisibility(View.GONE);
 
 
-                        //   showRecycleWithDataFilled(response);
-                        //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
-                            isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
-                        else isLastPage = true;
+                            //   showRecycleWithDataFilled(response);
+                            //   latestListAdapter.addAll(myModelList);
+                            if (response.size() < 25){
+                                isLastPage = true;
+                            } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                            else isLastPage = true;
+                        }
+
                     }
                     @Override
                     public void onError(Throwable e){
