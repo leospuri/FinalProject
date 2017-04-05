@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -202,8 +204,18 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
     }
 
     private void recordActivity() {
-        if (ActivityUtils.recordPermissionGranted(this)) {
-            startRec();
+        ActivityUtils.isAudioRecordingPermission(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == getResources().getInteger(R.integer.recorder_request)) {
+                startRec();
+            }
         }
     }
 

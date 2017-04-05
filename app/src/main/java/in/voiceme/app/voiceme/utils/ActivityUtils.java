@@ -78,6 +78,8 @@ public class ActivityUtils {
 
     }
 
+
+
     public static boolean recordPermissionGranted(Context activity) {
 
         if (audio_perm(activity, INT_RECORD_AUDIO_PERM)) {
