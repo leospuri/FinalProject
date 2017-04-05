@@ -23,6 +23,7 @@
             android:id="@id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:emojiSize="36sp"
             android:layout_alignWithParentIfMissing="true" />
 
         <TextView

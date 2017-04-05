@@ -55,7 +55,7 @@
                 android:layout_marginRight="7dp" />
 
 
-            <TextView
+            <com.vanniktech.emoji.EmojiTextView
                 android:id="@id/dialogLastMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
