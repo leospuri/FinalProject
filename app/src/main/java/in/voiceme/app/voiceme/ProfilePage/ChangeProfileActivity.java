@@ -105,6 +105,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         changeAvatar();
     }
 
+
+
     private void changeAvatar() {
         List<Intent> otherImageCaptureIntent = new ArrayList<>();
         List<ResolveInfo> otherImageCaptureActivities =
