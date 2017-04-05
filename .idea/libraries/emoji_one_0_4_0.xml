@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="emoji-one-0.4.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/4375d10defe8a5116e66de16b776761433efb0b3/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/4375d10defe8a5116e66de16b776761433efb0b3/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vanniktech/emoji-one/0.4.0/cd44ae270072ca9e9707b9805fa4dc7985bd0ec5/emoji-one-0.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

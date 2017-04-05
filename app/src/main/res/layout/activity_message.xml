@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/message_rootview"
         android:orientation="vertical">
 
         <include layout="@layout/include_toolbar3" />
@@ -15,18 +17,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:background="@color/white">
 
             <com.stfalcon.chatkit.messages.MessagesList
                 android:id="@+id/messagesList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/input"/>
+                android:layout_above="@+id/main_activity_emoji_bar"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_above="@+id/input"
+                android:layout_above="@+id/main_activity_emoji_bar"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:background="@color/warm_grey_two"/>
@@ -35,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
+                android:visibility="gone"
                 android:background="@color/body_Color"
                 android:id="@+id/chat_details">
                 <TextView
@@ -63,12 +67,54 @@
                     android:layout_gravity="center"/>
             </FrameLayout>
 
-            <com.stfalcon.chatkit.messages.MessageInput
+            <LinearLayout
+                android:id="@+id/main_activity_emoji_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageButton
+                    android:id="@+id/main_activity_emoji"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/emoji_ios_category_people"
+                    tools:ignore="ContentDescription"/>
+
+                <com.vanniktech.emoji.EmojiEditText
+                    android:id="@+id/messageEmojiEdittext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:imeOptions="actionSend"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLines="3"
+                    app:emojiSize="26sp"/>
+
+                <ImageButton
+                    android:id="@+id/emoji_send_message"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_action_send_now"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+
+        <!--    <com.stfalcon.chatkit.messages.MessageInput
                 android:id="@+id/input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                app:inputHint="Enter A Message"/>
+                app:inputHint="Enter A Message"/> -->
 
         </RelativeLayout>
 

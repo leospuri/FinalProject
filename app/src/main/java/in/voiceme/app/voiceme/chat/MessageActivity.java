@@ -3,21 +3,33 @@ package in.voiceme.app.voiceme.chat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
-import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
+import com.vanniktech.emoji.EmojiEditText;
+import com.vanniktech.emoji.EmojiPopup;
+import com.vanniktech.emoji.emoji.Emoji;
+import com.vanniktech.emoji.listeners.OnEmojiBackspaceClickListener;
+import com.vanniktech.emoji.listeners.OnEmojiClickedListener;
+import com.vanniktech.emoji.listeners.OnEmojiPopupDismissListener;
+import com.vanniktech.emoji.listeners.OnEmojiPopupShownListener;
+import com.vanniktech.emoji.listeners.OnSoftKeyboardCloseListener;
+import com.vanniktech.emoji.listeners.OnSoftKeyboardOpenListener;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,19 +47,26 @@ import timber.log.Timber;
 
 public class MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener {
 
+    private EmojiPopup emojiPopup;
     private MessagesList messagesList = null;
+    private ViewGroup rootView;
     public MessagesListAdapter<MessagePojo> adapter;
     public ArrayList<MessagePojo> messageArray;
-    private MessageInput input;
+   // private MessageInput input;
     private View progressFrame;
  //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
+    private EmojiEditText editText;
+    private ImageButton emojiButton;
+    private ImageButton sendButton;
+
 
     public static MessageActivity mThis = null;
     private Menu menu;
     public static String messageActivityuserId = null;
     private DateTime currentTime = new DateTime(DateTimeZone.UTC);
-   // List<MessagePojo> messages;
+    private String base64String;
+    // List<MessagePojo> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +74,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         setContentView(R.layout.activity_message);
 
         progressFrame = findViewById(R.id.chat_details);
+        rootView = (ViewGroup) findViewById(R.id.message_rootview);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
      //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
@@ -68,14 +88,25 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             }
         });
 
+        editText = (EmojiEditText) findViewById(R.id.messageEmojiEdittext);
+        emojiButton = (ImageButton) findViewById(R.id.main_activity_emoji);
+        sendButton = (ImageButton) findViewById(R.id.emoji_send_message);
+
         messagesList = (MessagesList) findViewById(R.id.messagesList);
 
 
-        input = (MessageInput) findViewById(R.id.input);
+      //  input = (MessageInput) findViewById(R.id.input);
         if (MySharedPreferences.getUserId(preferences) == null){
             Toast.makeText(this, "Please Login to interact  with the app", Toast.LENGTH_SHORT).show();
         } else {
-            input.setInputListener(new MessageInput.InputListener() {
+
+            emojiButton.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(final View v) {
+                    emojiPopup.toggle();
+                }
+            });
+
+        /*    input.setInputListener(new MessageInput.InputListener() {
                 @Override
                 public boolean onSubmit(CharSequence input) {
 
@@ -87,8 +118,29 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     //         adapter.addToStart(new MessagePojo(input.toString()), true);
                     return true;
                 }
-            });
+            }); */
         }
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                byte[] data = new byte[0];
+                try {
+                    data = editText.getText().toString().getBytes("UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                base64String = Base64.encodeToString(data, Base64.DEFAULT);
+
+
+                sendMessage(base64String);
+                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
+                        "harish", "", String.valueOf(true))), true);
+                editText.setText("");
+
+            }
+        });
 
 
         if (MySharedPreferences.getUserId(preferences) == null){
@@ -108,8 +160,53 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             }
         }
 
+        setUpEmojiPopup();
 
 
+
+    }
+
+    private void setUpEmojiPopup() {
+        emojiPopup = EmojiPopup.Builder.fromRootView(rootView)
+                .setOnEmojiBackspaceClickListener(new OnEmojiBackspaceClickListener() {
+                    @Override public void onEmojiBackspaceClicked(final View v) {
+                        Timber.d("Clicked on Backspace");
+                    }
+                })
+                .setOnEmojiClickedListener(new OnEmojiClickedListener() {
+                    @Override public void onEmojiClicked(final Emoji emoji) {
+                        Timber.d("Clicked on emoji");
+                    }
+                })
+                .setOnEmojiPopupShownListener(new OnEmojiPopupShownListener() {
+                    @Override public void onEmojiPopupShown() {
+                        emojiButton.setImageResource(R.drawable.ic_keyboard);
+                    }
+                })
+                .setOnSoftKeyboardOpenListener(new OnSoftKeyboardOpenListener() {
+                    @Override public void onKeyboardOpen(final int keyBoardHeight) {
+                        Timber.d("Opened soft keyboard");
+                    }
+                })
+                .setOnEmojiPopupDismissListener(new OnEmojiPopupDismissListener() {
+                    @Override public void onEmojiPopupDismiss() {
+                        emojiButton.setImageResource(R.drawable.emoji_ios_category_people);
+                    }
+                })
+                .setOnSoftKeyboardCloseListener(new OnSoftKeyboardCloseListener() {
+                    @Override public void onKeyboardClose() {
+                        Timber.d("Closed soft keyboard");
+                    }
+                })
+                .build(editText);
+    }
+
+    @Override protected void onStop() {
+        if (emojiPopup != null) {
+            emojiPopup.dismiss();
+        }
+
+        super.onStop();
     }
 
     @Override
@@ -176,6 +273,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     }
 
     private void sendMessage(String message){
+
+
 
         String sendChat = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
                 messageActivityuserId + "_chat@yes";
@@ -286,6 +385,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     public void onBackPressed() {
         if (selectionCount == 0) {
             super.onBackPressed();
+        } else if (emojiPopup != null && emojiPopup.isShowing()) {
+            emojiPopup.dismiss();
         } else {
             adapter.unselectAllItems();
         }
