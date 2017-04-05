@@ -71,27 +71,22 @@ public class FCMReceiver extends FirebaseMessagingService {
                     Arrays.asList(remoteMessage.getNotification().getBody().split(","));
 
             if (remoteMessage.getNotification().getBody().contains("chatText")) {
-                Timber.e("got message logged");
-                String chatMessage = getJsonFromList(notificationData, remoteMessage);
-                Timber.e(chatMessage);
-
-                Gson gson = new Gson();
-
-                ChatTextPojo chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
-
-
-                if (MessageActivity.mThis != null) {
-                    if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
-                        startingUp(chatTextPojo);
-                    }
-
-                } else {
-                    showChatNotification(remoteMessage.getNotification().getTitle(), chatTextPojo);
+                if (MessageActivity.mThis != null){
+                    Timber.e("got message logged");
+                    String chatMessage = getJsonFromList(notificationData, remoteMessage);
+                    Timber.e(chatMessage);
+                    Gson gson = new Gson();
+                    ChatTextPojo chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
+                        if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
+                            startingUp(chatTextPojo);
+                        }
+                }
+                 else {
+                  //  return;
+                    showChatNotification(remoteMessage.getNotification().getTitle());
                 }
 
             } else {
-
-
                 saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
             }
 
@@ -154,20 +149,18 @@ public class FCMReceiver extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
 
-    private void showChatNotification(String messageBody, ChatTextPojo post) {
+    private void showChatNotification(String messageBody) {
     /*
     Creates pending intent
      */
         Intent intent = new Intent(this, DialogDetailsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("chatdata", post);
-        intent.putExtra("fromNotification", true);
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-                .setContentTitle(String.valueOf(post.getSenderName() + " " + "sent private message"))
+                .setContentTitle(String.valueOf(messageBody + " " + "sent private message"))
                 .setContentText("View the message inside Voiceme")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

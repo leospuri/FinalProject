@@ -261,9 +261,8 @@ public class RegisterActivity extends BaseActivity
                             token = FirebaseInstanceId.getInstance().getToken();
 
                             postToken(response.info.getUserId(), token);
-                            Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+
+
 
                         } else {
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
@@ -284,6 +283,9 @@ public class RegisterActivity extends BaseActivity
                     .subscribe(new BaseSubscriber<OnlyToken>() {
                         @Override
                         public void onNext(OnlyToken response) {
+                            Intent intent = new Intent(RegisterActivity.this, DiscoverActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
 
                         //    MySharedPreferences.registerUsername(preferences, usernameText);
                             //Todo add network call for uploading profile_image file

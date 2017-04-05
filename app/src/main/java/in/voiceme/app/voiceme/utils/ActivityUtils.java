@@ -80,7 +80,7 @@ public class ActivityUtils {
 
 
 
-    public static boolean recordPermissionGranted(Context activity) {
+    public static boolean recordPermissionGranted(Activity activity) {
 
         if (audio_perm(activity, INT_RECORD_AUDIO_PERM)) {
 
@@ -129,21 +129,26 @@ public class ActivityUtils {
         }
     }
 
-    public static boolean audio_perm (Context activity, int storageRequestId) {
+    private static boolean audio_perm(Activity activity, int storageRequestId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED && activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Timber.d("Permission is granted");
+                return true;
+            } else {
 
-        if (ContextCompat.checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(activity, RECORD_AUDIO)
-                == PackageManager.PERMISSION_GRANTED) {
+                Timber.d("Permission is revoked");
+                ActivityCompat.requestPermissions((Activity) activity,
+                        RECORD_AUDIO_PERM, storageRequestId);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
             Timber.d("Permission is granted");
             return true;
-        } else {
-
-            Timber.d("Permission is revoked");
-            ActivityCompat.requestPermissions((Activity) activity,
-                    RECORD_AUDIO_PERM, storageRequestId);
-            return false;
         }
     }
+
 
 
     public static Uri openCamera(Activity activity) {

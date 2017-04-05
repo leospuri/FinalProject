@@ -133,7 +133,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 }
                 base64String = Base64.encodeToString(data, Base64.DEFAULT);
 
-
                 sendMessage(base64String);
                 adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
                         "harish", "", String.valueOf(true))), true);

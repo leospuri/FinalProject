@@ -204,7 +204,9 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
     }
 
     private void recordActivity() {
-        ActivityUtils.isAudioRecordingPermission(this);
+        if (ActivityUtils.recordPermissionGranted(this)) {
+            startRec();
+        }
     }
 
     @Override

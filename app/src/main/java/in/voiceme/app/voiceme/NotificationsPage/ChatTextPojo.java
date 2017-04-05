@@ -2,6 +2,9 @@ package in.voiceme.app.voiceme.NotificationsPage;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by harish on 2/22/2017.
@@ -15,6 +18,7 @@ public class ChatTextPojo implements Parcelable {
     private String chatText;
     private String chat;
     private String receiverId;
+    private String newStringWithEmojis2;
 
 
     public Long getTimeStamp() {
@@ -31,6 +35,15 @@ public class ChatTextPojo implements Parcelable {
 
     public String getChatText() {
         return chatText;
+    }
+
+    private void decodeChatMessage() {
+        byte[] data = Base64.decode(chatText, Base64.DEFAULT);
+        try {
+            newStringWithEmojis2 = new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getChat() {

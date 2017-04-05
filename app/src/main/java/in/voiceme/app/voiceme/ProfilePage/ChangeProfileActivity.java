@@ -220,8 +220,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         int viewId = view.getId();
 
         if (viewId == R.id.changeimage) {
-            changeProfileRequest();
-         //   sendlike();
+           changeProfileRequest();
+      //      sendlike();
         //    startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
