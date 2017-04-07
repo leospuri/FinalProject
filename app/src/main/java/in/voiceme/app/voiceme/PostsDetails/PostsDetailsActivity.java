@@ -448,7 +448,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             startActivity(intent);
         } else if (view.getId() == R.id.detail_list_item_posts_category){
             Intent intent = new Intent(this, UserCategoryActivity.class);
-            intent.putExtra(Constants.CATEGORY, myList.getCategory());
+            intent.putExtra(Constants.CATEGORY, myList.getIdCategory());
             startActivity(intent);
         } else if (view.getId() == R.id.detail_post_likes_counter || view.getId() == R.id.detail_emoji_above_like){
 

@@ -61,8 +61,6 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
 
     PullRefreshLayout layout;
 
-    private String currentCategoryID;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,19 +79,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
 
         categoryId = getIntent().getStringExtra(Constants.CATEGORY);
-        setFeeling(categoryId);
-
-  /*      if (categoryId.equals(family)) {
-            setFeeling("1");
-        } else if (categoryId.equals(health)) {
-            setFeeling("2");
-        } else if (categoryId.equals(work)) {
-            setFeeling("3");
-        } else if (categoryId.equals(social)) {
-            setFeeling("4");
-        } else if (categoryId.equals(others)) {
-            setFeeling("5");
-        } */
+    //    setFeeling(categoryId);
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
@@ -120,6 +106,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        loadNextPage();
                     }
                 }, 4000);
             }
@@ -210,7 +197,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         hideErrorView();
 
         application.getWebService()
-                .getCategoryPosts(currentCategoryID, MySharedPreferences.getUserId(preferences), currentPage)
+                .getCategoryPosts(categoryId,  MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
@@ -250,7 +237,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         hideErrorView();
 
         application.getWebService()
-                .getCategoryPosts(currentCategoryID, MySharedPreferences.getUserId(preferences), currentPage)
+                .getCategoryPosts(categoryId, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
@@ -281,10 +268,6 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
 
     }
 
-
-    private void setFeeling(String feelingID) {
-        this.currentCategoryID = feelingID;
-    }
 
     @Override
     public String toString() {

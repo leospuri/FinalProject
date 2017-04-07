@@ -340,7 +340,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                     .into(user_avatar);
         } */
 
-        if (dataItem.getAudioDuration() != null){
+        if (dataItem.getAudioDuration() != null && !dataItem.getAudioDuration().isEmpty()){
             post_audio_duration.setText(String.valueOf(dataItem.getAudioDuration()));
      //       post_listen.setText(String.valueOf(dataItem.getListen()));
         } else {

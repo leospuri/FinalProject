@@ -227,7 +227,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return dataSet == null ? 0 : dataSet.size()-1;
+        return dataSet == null ? 0 : dataSet.size();
     }
 
     // Provide a reference to the views for each data item
