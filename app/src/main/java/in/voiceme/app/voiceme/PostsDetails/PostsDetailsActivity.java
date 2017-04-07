@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -575,7 +574,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     void sendMessage() {
         String message = mMessageEditText.getText().toString();
 
-        if (!TextUtils.isEmpty(message)) {
+        if (!mMessageEditText.getText().toString().isEmpty()) {
             // Todo post comment on server
 
             try {
@@ -598,6 +597,19 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             mMessageEditText.setText("");
         } else {
             Toast.makeText(this, "You have not entered anything", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (postId != null){
+            try {
+                getData(postId);
+                getComments(postId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -645,7 +657,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
-                        progressFrame.setVisibility(View.GONE);
+
                     }
                 });
     }

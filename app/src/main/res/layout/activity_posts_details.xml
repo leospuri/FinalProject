@@ -373,7 +373,6 @@
             android:layout_height="match_parent"
             android:background="#91D4Fa"
             android:clickable="true"
-            android:visibility="gone"
             android:id="@+id/post_details_progressBar">
             <TextView
                 android:layout_width="wrap_content"

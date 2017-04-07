@@ -61,6 +61,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     LinearLayout errorLayout;
     LinearLayout noPostLayout;
     TextView txtError;
+    TextView no_post_textview;
     private AlertDialog.Builder builder1;
     PullRefreshLayout layout;
     private View progressFrame;
@@ -77,6 +78,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
         noPostLayout = (LinearLayout) findViewById(R.id.no_post_layout);
+        no_post_textview = (TextView) findViewById(R.id.no_post_textview);
         txtError = (TextView) findViewById(R.id.error_txt_cause);
 
         layout = (PullRefreshLayout) findViewById(R.id.contact_swipeRefreshLayout);
@@ -253,15 +255,20 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
-                        showRecycleWithDataFilled(response);
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
+                            showRecycleWithDataFilled(response);
 
 
-                        //   showRecycleWithDataFilled(response);
-                        //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
-                            isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) activityInteractionAdapter.addLoadingFooter();
-                        else isLastPage = true;
+                            //   showRecycleWithDataFilled(response);
+                            //   latestListAdapter.addAll(myModelList);
+                            if (response.size() < 25){
+                                isLastPage = true;
+                            } else if (currentPage <= TOTAL_PAGES ) activityInteractionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+                        }
+
                     }
                     @Override
                     public void onError(Throwable e){
@@ -271,6 +278,14 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                         showErrorView(e);
                     }
                 });
+    }
+
+    private void showEmptyView() {
+        if (noPostLayout.getVisibility() == View.GONE) {
+            noPostLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            no_post_textview.setText("There are no Posts From your contacts");
+        }
     }
 
     private void loadNextPage() {

@@ -1,15 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/body_Color"
     android:layout_height="match_parent">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/body_Color"
-        android:orientation="vertical"
-        tools:context=".DiscoverPage.DiscoverLatestFragment">
 
         <com.baoyz.widget.PullRefreshLayout
             android:id="@+id/discover_latest_swipeRefreshLayout"
@@ -35,9 +28,6 @@
         <include layout="@layout/error_layout" />
 
         <include layout="@layout/no_post_layout" />
-
-
-    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/activity_discover_latest"

@@ -3,14 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/body_Color"
-    tools:context="in.voiceme.app.voiceme.ActivityPage.ActivityYourFeedFragment">
+    android:layout_height="match_parent">
 
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/your_activity_swipeRefreshLayout"
@@ -35,8 +29,6 @@
     <include layout="@layout/error_layout"/>
 
     <include layout="@layout/no_post_layout" />
-
-</LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

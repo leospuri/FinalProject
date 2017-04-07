@@ -102,7 +102,11 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        loadNextPage();
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }
