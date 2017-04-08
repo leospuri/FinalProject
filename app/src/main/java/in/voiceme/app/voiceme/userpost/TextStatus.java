@@ -23,6 +23,7 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.RegisterActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class TextStatus extends BaseActivity implements View.OnClickListener {
@@ -204,6 +205,7 @@ public class TextStatus extends BaseActivity implements View.OnClickListener {
                         application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
                                 textStatus, category, feeling, "", "")
                                 .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeOn(Schedulers.io())
                                 .retryWhen(new RetryWithDelay(3,2000))
                                 .subscribe(new BaseSubscriber<UserResponse>() {
                                     @Override

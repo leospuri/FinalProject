@@ -43,6 +43,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener {
@@ -283,6 +284,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 .getResponse(sendChat, message)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
@@ -306,6 +308,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 .getChatMessages(MySharedPreferences.getUserId(preferences), messageActivityuserId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override
                     public void onNext(List<MessagePojo> response) {
@@ -329,6 +332,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 .deleteChat(messageId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse response) {

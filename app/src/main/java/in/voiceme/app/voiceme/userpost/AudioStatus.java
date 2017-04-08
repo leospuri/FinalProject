@@ -35,6 +35,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.utils.ActivityUtils.deleteAudioFile;
@@ -246,6 +247,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
             application.getWebService()
                     .uploadFile(body)
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
                     .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public void onNext(String response) {
@@ -274,6 +276,7 @@ public class AudioStatus extends BaseActivity implements View.OnClickListener {
                     .postStatus(MySharedPreferences.getUserId(preferences),
                     textStatus, category, feeling, audioFileUrl, audio_time)
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
                     .retryWhen(new RetryWithDelay(3,2000))
                     .subscribe(new BaseSubscriber<UserResponse>() {
                         @Override

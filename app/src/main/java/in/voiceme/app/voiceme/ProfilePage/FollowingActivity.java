@@ -14,6 +14,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class FollowingActivity extends BaseActivity {
@@ -54,6 +55,7 @@ public class FollowingActivity extends BaseActivity {
         application.getWebService()
                 .getUserFollowing(userId)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ProfileFollowerUserList>() {
                     @Override

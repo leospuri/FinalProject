@@ -31,6 +31,7 @@ import in.voiceme.app.voiceme.userpost.TextStatus;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -200,6 +201,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                 .getCategoryPosts(categoryId,  MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -239,6 +241,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         application.getWebService()
                 .getCategoryPosts(categoryId, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

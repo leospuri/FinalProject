@@ -17,6 +17,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
@@ -59,6 +60,7 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
             application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
                     textStatus, categoryID, feelingID, "", "")
                     .retryWhen(new RetryWithDelay(3,2000))
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<UserResponse>() {
                         @Override
@@ -88,6 +90,7 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
                     .LoginUserName(MySharedPreferences.getSocialID(preferences), usernameText,
                             "", token)
                     .retryWhen(new RetryWithDelay(3,2000))
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<ProfileAboutMe>() {
                         @Override

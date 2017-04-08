@@ -25,6 +25,7 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -171,6 +172,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         application.getWebService()
                 .getSingleUserPosts(userId, userId, currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -211,6 +213,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         application.getWebService()
                 .getSingleUserPosts(userId, userId, currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -249,6 +252,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         ((VoicemeApplication) getApplication()).getWebService()
                 .getSingleUserPosts(userId, userId, 1)  // add pagination
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {

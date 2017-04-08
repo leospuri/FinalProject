@@ -47,6 +47,7 @@ import in.voiceme.app.voiceme.userpost.EditPost;
 import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
 import in.voiceme.app.voiceme.utils.CurrentTime;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.R.id.detail_list_item_posts_avatar;
@@ -203,15 +204,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         play_button.setOnClickListener(this);
         moreButton.setOnClickListener(this);
 
+        initRecyclerView();
         try {
             getData(postId);
             getComments(postId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        initRecyclerView();
-
 
     }
 
@@ -616,8 +615,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private void getComments(String postId) throws Exception {
         application.getWebService()
                 .getUserComments(postId)
-                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostUserCommentModel>>() {
                     @Override
@@ -673,6 +672,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .getSinglePost(postId, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
@@ -874,6 +874,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
@@ -894,6 +895,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService()
                 .sendLikeNotification(likeUrl)
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -918,6 +920,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         application.getWebService().unlikes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
                     public void onNext(PostLikesResponse postLikesResponse) {

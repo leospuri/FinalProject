@@ -22,6 +22,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ReportAbuseActivity extends BaseActivity implements View.OnClickListener {
@@ -109,6 +110,7 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                     application.getWebService()
                             .reportAbuse(id_username, MySharedPreferences.getUserId(preferences), id_posts, current_problem)
                             .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
                             .retryWhen(new RetryWithDelay(3,2000))
                             .subscribe(new BaseSubscriber<ReportResponse>() {
                                 @Override

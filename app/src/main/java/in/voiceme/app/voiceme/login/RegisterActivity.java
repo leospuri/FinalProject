@@ -43,6 +43,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class RegisterActivity extends BaseActivity
@@ -247,6 +248,7 @@ public class RegisterActivity extends BaseActivity
     private void getData(String name, String email, String userId) throws Exception {
         application.getWebService()
                 .login(name, email, userId)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<LoginResponse>() {
@@ -279,6 +281,7 @@ public class RegisterActivity extends BaseActivity
             application.getWebService()
                     .onlyToken(id, token)
                     .retryWhen(new RetryWithDelay(3,2000))
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<OnlyToken>() {
                         @Override

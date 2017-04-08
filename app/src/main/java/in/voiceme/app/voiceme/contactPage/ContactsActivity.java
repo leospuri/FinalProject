@@ -47,6 +47,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.PrivacyPolicy;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ContactsActivity extends BaseActivity implements View.OnClickListener {
@@ -375,6 +376,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         application.getWebService()
                 .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override
@@ -431,6 +433,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         application.getWebService()
                 .registerMobile(MySharedPreferences.getUserId(preferences), phoneNumber)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override

@@ -39,6 +39,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class CategoryActivity extends BaseActivity implements View.OnClickListener {
@@ -253,6 +254,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     .getPopularHashTags()
                     .observeOn(AndroidSchedulers.mainThread())
                     .retryWhen(new RetryWithDelay(3,2000))
+                    .subscribeOn(Schedulers.io())
                     .subscribe(new BaseSubscriber<List<AllPopularTagsPojo>>() {
                         @Override
                         public void onNext(List<AllPopularTagsPojo> userResponse) {
@@ -282,6 +284,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
             application.getWebService()
                     .getAllHashTags()
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
                     .retryWhen(new RetryWithDelay(3,2000))
                     .subscribe(new BaseSubscriber<List<AllCategoryPojo>>() {
                         @Override

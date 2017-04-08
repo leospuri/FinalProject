@@ -31,6 +31,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -208,6 +209,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         MySharedPreferences.getUserId(preferences),
                         currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
@@ -266,6 +268,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         MySharedPreferences.getUserId(preferences),
                         currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

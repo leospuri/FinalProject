@@ -104,6 +104,7 @@ public class ContactService extends IntentService {
         ((VoicemeApplication)getApplication()).getWebService()
                 .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override

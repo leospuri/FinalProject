@@ -21,6 +21,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.CurrentTime;
 import mbanje.kurt.fabbutton.FabButton;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
@@ -408,6 +409,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         application.getWebService()
                 .likes(userId, postId, like, hug, same, listen)
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override
@@ -423,6 +425,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         application.getWebService()
                 .unlikes(userId, postId, like, hug, same, listen)
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<PostLikesResponse>() {
                     @Override

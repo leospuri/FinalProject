@@ -36,6 +36,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ChangeProfileActivity extends BaseActivity implements View.OnClickListener {
@@ -198,6 +199,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         application.getWebService()
                 .getResponse(sendChat, "hi")
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -284,6 +286,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         MySharedPreferences.getUserId(preferences), Uri.parse(image_Url), username.getText().toString(),
                         userAge.getText().toString(), this.user_gender, aboutme.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ReportResponse>() {
                     @Override
@@ -312,6 +315,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         application.getWebService()
                 .getUserProfile(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
@@ -374,6 +378,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         try {
             application.getWebService()
                     .uploadFile(body)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<String>() {
                         @Override

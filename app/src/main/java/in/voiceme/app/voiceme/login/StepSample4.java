@@ -40,6 +40,7 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.userpost.CategoryTagAdapter;
 import in.voiceme.app.voiceme.userpost.PopularCategoryClickListner;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -234,6 +235,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             ((VoicemeApplication)getActivity().getApplication()).getWebService()
                     .getPopularHashTags()
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
                     .subscribe(new BaseSubscriber<List<AllPopularTagsPojo>>() {
                         @Override
                         public void onNext(List<AllPopularTagsPojo> userResponse) {
@@ -252,6 +254,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         try {
             ((VoicemeApplication)getActivity().getApplication()).getWebService()
                     .getAllHashTags()
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<List<AllCategoryPojo>>() {
                         @Override

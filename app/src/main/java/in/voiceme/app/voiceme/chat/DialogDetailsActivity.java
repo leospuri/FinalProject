@@ -23,6 +23,7 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class DialogDetailsActivity extends BaseActivity {
 
@@ -120,6 +121,7 @@ public class DialogDetailsActivity extends BaseActivity {
                 .getAllChatMessages(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<ChatDialogPojo>>() {
                     @Override
                     public void onNext(List<ChatDialogPojo> response) {

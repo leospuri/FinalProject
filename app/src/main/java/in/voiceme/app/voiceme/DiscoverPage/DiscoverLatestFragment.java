@@ -32,6 +32,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.facebook.GraphRequest.TAG;
@@ -219,6 +220,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 .getLatestFeed(MySharedPreferences.getUserId(preferences), currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -264,6 +266,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 .getLatestFeed(MySharedPreferences.getUserId(preferences), currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {

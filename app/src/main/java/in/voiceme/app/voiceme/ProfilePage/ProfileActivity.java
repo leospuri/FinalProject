@@ -22,6 +22,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ProfileActivity extends BaseActivity implements View.OnClickListener {
@@ -151,6 +152,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         application.getWebService()
                 .getUserProfile(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override

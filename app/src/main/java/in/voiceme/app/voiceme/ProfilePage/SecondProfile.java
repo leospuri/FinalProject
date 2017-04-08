@@ -25,6 +25,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class SecondProfile extends BaseActivity implements View.OnClickListener {
@@ -208,6 +209,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .sendFollowNotification("senderid@1_contactId@21_follow@1")
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
@@ -234,6 +236,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 .sendFollowNotification("senderid@1_contactId@21_follow@1")
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
@@ -258,6 +261,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
@@ -280,6 +284,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
@@ -301,6 +306,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         application.getWebService()
                 .getOtherUserProfile(secondUserId, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override

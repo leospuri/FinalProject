@@ -31,6 +31,7 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -95,7 +96,11 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        loadNextPage();
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }
@@ -209,6 +214,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                         MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -255,6 +261,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                         MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
+                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
