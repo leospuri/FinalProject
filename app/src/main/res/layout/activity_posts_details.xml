@@ -52,7 +52,7 @@
                 android:layout_toEndOf="@id/detail_list_item_posts_avatar"
                 android:layout_toRightOf="@id/detail_list_item_posts_avatar"
                 android:paddingRight="5dp"
-                android:text="Username"
+                android:text=""
                 android:textColor="#de000000"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -135,7 +135,7 @@
                 android:layout_marginBottom="3dp"
                 android:layout_toEndOf="@id/detail_list_item_posts_avatar"
                 android:layout_toRightOf="@id/detail_list_item_posts_avatar"
-                android:text="07/21/2016"
+                android:text=""
                 android:textColor="#444"
                 android:textSize="12sp" />
 
@@ -371,7 +371,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#91D4Fa"
-            android:visibility="gone"
             android:clickable="true"
             android:id="@+id/post_details_progressBar">
             <TextView

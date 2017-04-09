@@ -150,6 +150,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             @Override
             public void onClick(View view) {
 
+
                 byte[] data = new byte[0];
                 try {
                     data = editText.getText().toString().getBytes("UTF-8");

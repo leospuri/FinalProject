@@ -320,6 +320,10 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
     @Override
     public void retryPageLoad() {
-        loadNextPage();
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

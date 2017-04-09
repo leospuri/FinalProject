@@ -317,6 +317,10 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
 
     @Override
     public void retryPageLoad() {
-        loadNextPage();
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

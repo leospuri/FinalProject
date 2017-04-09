@@ -100,7 +100,11 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        loadNextPage();
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }
@@ -347,6 +351,10 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
     @Override
     public void retryPageLoad() {
-        loadNextPage();
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

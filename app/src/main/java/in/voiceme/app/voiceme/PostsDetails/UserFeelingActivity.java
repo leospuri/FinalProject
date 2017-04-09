@@ -92,6 +92,11 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }

@@ -91,7 +91,11 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        loadNextPage();
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }

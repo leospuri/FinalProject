@@ -107,7 +107,11 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        loadNextPage();
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }
@@ -306,7 +310,11 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
 
     @Override
     public void retryPageLoad() {
-
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

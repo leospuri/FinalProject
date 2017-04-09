@@ -102,6 +102,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected MediaPlayer mediaPlayer = new MediaPlayer();
     private String idusername;
 
+    private int count;
+
 
     //animated buttons
     private MaterialFavoriteButton likeButtonMain, HugButtonMain, SameButtonMain;
@@ -116,6 +118,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
 
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -581,6 +584,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 if (idusername.equals(MySharedPreferences.getUserId(preferences))){
                     Timber.e("same user");
                 } else {
+                    for (int i = 0; i < message.length(); i++){
+                        count++;
+                    }
+
                     String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
                             idusername + "_postId@" + postId  + "_click@" + "5";
                     sendLikeNotification(application, sendLike);

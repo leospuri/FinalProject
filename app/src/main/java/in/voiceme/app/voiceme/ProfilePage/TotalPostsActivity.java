@@ -85,7 +85,11 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        loadNextPage();
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 4000);
             }
@@ -291,6 +295,10 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
 
     @Override
     public void retryPageLoad() {
-
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
