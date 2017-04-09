@@ -339,12 +339,11 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5">
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/detail_et_message"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
@@ -355,12 +354,12 @@
 
             <ImageButton
                 android:id="@+id/detail_btn_send_message"
-                android:layout_width="0dp"
+                android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="4dp"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_dialog_email" />
+                android:src="@mipmap/ic_action_send_now" />
         </LinearLayout>
 
 
@@ -372,6 +371,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#91D4Fa"
+            android:visibility="gone"
             android:clickable="true"
             android:id="@+id/post_details_progressBar">
             <TextView

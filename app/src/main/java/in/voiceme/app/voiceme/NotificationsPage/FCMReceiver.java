@@ -16,17 +16,18 @@ import com.google.gson.Gson;
 import java.util.Arrays;
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.chat.MessageActivity;
-import in.voiceme.app.voiceme.DTO.MessagePojo;
-import in.voiceme.app.voiceme.DTO.UserPojo;
 import io.realm.Realm;
 import timber.log.Timber;
 
 public class FCMReceiver extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    private String chatMesssage;
 
     /**
      * Called when message is received.
@@ -69,24 +70,25 @@ public class FCMReceiver extends FirebaseMessagingService {
             Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle());
 
             List<String> notificationData =
-                    Arrays.asList(remoteMessage.getNotification().getBody().split(","));
+                    Arrays.asList(remoteMessage.getData().toString().replace("{", "").replace("}", "").replace(" ", "").replace(" ", "").split(","));
 
-            if (remoteMessage.getNotification().getBody().contains("chatText")) {
+         //   Set<Map.Entry<String, String>> values = remoteMessage.getData().entrySet();
+
+            if (remoteMessage.getData().containsKey("chat")){
                 if (MessageActivity.mThis != null){
                     Timber.e("got message logged");
                     String chatMessage = getJsonFromList(notificationData, remoteMessage);
                     Timber.e(chatMessage);
                     Gson gson = new Gson();
                     ChatTextPojo chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
-                        if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
-                            startingUp(chatTextPojo);
-                        }
+                    if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
+                        startingUp(chatTextPojo);
+                    }
                 }
-                 else {
-                  //  return;
+                else {
+                   //   return;
                     showChatNotification(remoteMessage.getNotification().getTitle());
                 }
-
             } else {
                 saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
             }
@@ -161,7 +163,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-                .setContentTitle(String.valueOf(messageBody + " " + "sent private message"))
+                .setContentTitle(messageBody)
                 .setContentText("View the message inside Voiceme")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
