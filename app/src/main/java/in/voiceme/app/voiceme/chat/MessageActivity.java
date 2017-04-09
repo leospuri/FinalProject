@@ -1,8 +1,13 @@
 package in.voiceme.app.voiceme.chat;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +41,7 @@ import java.util.List;
 import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.NotificationsPage.ChatTextPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -61,6 +67,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private ImageButton emojiButton;
     private ImageButton sendButton;
 
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     public static MessageActivity mThis = null;
     private Menu menu;
@@ -94,6 +101,23 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         sendButton = (ImageButton) findViewById(R.id.emoji_send_message);
 
         messagesList = (MessagesList) findViewById(R.id.messagesList);
+
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(Constants.FIRST_RUN_CONTACT)) {
+
+                    ChatTextPojo chatTextPojo = (ChatTextPojo) intent.getParcelableExtra("message");
+                    // new push message is received
+
+                    adapter.addToStart(new
+                            MessagePojo(chatTextPojo.getSenderId(), chatTextPojo.getChatText(),
+                            String.valueOf(System.currentTimeMillis()), new UserPojo(chatTextPojo.getSenderId(),
+                            chatTextPojo.getSenderName(), "", String.valueOf(true))), true);
+                }
+            }
+        };
 
 
       //  input = (MessageInput) findViewById(R.id.input);
@@ -166,11 +190,19 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     }
 
+
+
     private void setUpEmojiPopup() {
         emojiPopup = EmojiPopup.Builder.fromRootView(rootView)
                 .setOnEmojiBackspaceClickListener(new OnEmojiBackspaceClickListener() {
                     @Override public void onEmojiBackspaceClicked(final View v) {
                         Timber.d("Clicked on Backspace");
+
+                        if (emojiPopup.isShowing()){
+                            emojiPopup.dismiss();
+                        }
+
+
                     }
                 })
                 .setOnEmojiClickedListener(new OnEmojiClickedListener() {
@@ -213,12 +245,18 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     protected void onResume() {
         super.onResume();
         mThis = this;
+        // registering the receiver for new notification
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.FIRST_RUN_CONTACT));
     }
     @Override
     protected void onPause() {
-        super.onPause();
+
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         mThis = null;
         messageActivityuserId = null;
+        super.onPause();
     }
 
 

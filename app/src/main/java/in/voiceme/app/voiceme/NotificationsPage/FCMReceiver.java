@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -16,11 +17,10 @@ import com.google.gson.Gson;
 import java.util.Arrays;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.MessagePojo;
-import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.chat.MessageActivity;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import io.realm.Realm;
 import timber.log.Timber;
 
@@ -101,6 +101,13 @@ public class FCMReceiver extends FirebaseMessagingService {
     // [END receive_message]
 
     private void startingUp(ChatTextPojo chatTextPojo) {
+
+        Intent pushNotification = new Intent(Constants.FIRST_RUN_CONTACT);
+        pushNotification.putExtra("message", chatTextPojo);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+
+        /*
+
         Thread timer = new Thread() { //new thread
             public void run() {
                 try {
@@ -127,6 +134,7 @@ public class FCMReceiver extends FirebaseMessagingService {
             ;
         };
         timer.start();
+        */
     }
 
     private void saveNotificationObject(String json) {
