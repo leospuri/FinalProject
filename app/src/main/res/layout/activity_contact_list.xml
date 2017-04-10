@@ -40,7 +40,6 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:background="#ddbababa"
-            android:visibility="gone"
             android:id="@+id/contact_list">
 
             <TextView

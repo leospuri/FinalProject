@@ -171,7 +171,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         if (no_post_layout.getVisibility() == View.GONE) {
             no_post_layout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
-            no_post_textview.setText("You Need to Follow Users /n To See their posts here");
+            no_post_textview.setText("You Need to Follow Users To See their posts here");
         }
     }
 

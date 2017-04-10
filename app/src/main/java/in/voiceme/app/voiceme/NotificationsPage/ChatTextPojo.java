@@ -34,8 +34,8 @@ public class ChatTextPojo implements Parcelable {
     }
 
     public String getChatText() {
-        decodeChatMessage();
-        return newStringWithEmojis2;
+      //  decodeChatMessage();
+        return chatText;
     }
 
     private void decodeChatMessage() {

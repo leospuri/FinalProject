@@ -167,7 +167,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         if (no_post_layout.getVisibility() == View.GONE) {
             no_post_layout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
-            no_post_textview.setText("You need to like or Comment other users /n posts to see their posts here");
+            no_post_textview.setText("You need to like or Comment other users posts to see their posts here");
         }
     }
 

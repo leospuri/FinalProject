@@ -1,13 +1,8 @@
 package in.voiceme.app.voiceme.chat;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +36,6 @@ import java.util.List;
 import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.DTO.UserResponse;
-import in.voiceme.app.voiceme.NotificationsPage.ChatTextPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -59,15 +53,14 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private ViewGroup rootView;
     public MessagesListAdapter<MessagePojo> adapter;
     public ArrayList<MessagePojo> messageArray;
-   // private MessageInput input;
+    // private MessageInput input;
     private View progressFrame;
- //   private List<MessageActivity.Message> chatMessages;
+    //   private List<MessageActivity.Message> chatMessages;
     private int selectionCount;
     private EmojiEditText editText;
     private ImageButton emojiButton;
     private ImageButton sendButton;
 
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     public static MessageActivity mThis = null;
     private Menu menu;
@@ -84,7 +77,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
-     //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
         getSupportActionBar().setTitle("Private Messages");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
@@ -103,24 +96,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         messagesList = (MessagesList) findViewById(R.id.messagesList);
 
 
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Constants.FIRST_RUN_CONTACT)) {
-
-                    ChatTextPojo chatTextPojo = (ChatTextPojo) intent.getParcelableExtra("message");
-                    // new push message is received
-
-                    adapter.addToStart(new
-                            MessagePojo(chatTextPojo.getSenderId(), chatTextPojo.getChatText(),
-                            String.valueOf(System.currentTimeMillis()), new UserPojo(chatTextPojo.getSenderId(),
-                            chatTextPojo.getSenderName(), "", String.valueOf(true))), true);
-                }
-            }
-        };
-
-
-      //  input = (MessageInput) findViewById(R.id.input);
+        //  input = (MessageInput) findViewById(R.id.input);
         if (MySharedPreferences.getUserId(preferences) == null){
             Toast.makeText(this, "Please Login to interact  with the app", Toast.LENGTH_SHORT).show();
         } else {
@@ -150,7 +126,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             @Override
             public void onClick(View view) {
 
-
                 byte[] data = new byte[0];
                 try {
                     data = editText.getText().toString().getBytes("UTF-8");
@@ -169,7 +144,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
 
         if (MySharedPreferences.getUserId(preferences) == null){
-           Timber.e("Not Logged In");
+            Timber.e("Not Logged In");
             progressFrame.setVisibility(View.GONE);
 
         } else {
@@ -191,19 +166,11 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     }
 
-
-
     private void setUpEmojiPopup() {
         emojiPopup = EmojiPopup.Builder.fromRootView(rootView)
                 .setOnEmojiBackspaceClickListener(new OnEmojiBackspaceClickListener() {
                     @Override public void onEmojiBackspaceClicked(final View v) {
                         Timber.d("Clicked on Backspace");
-
-                        if (emojiPopup.isShowing()){
-                            emojiPopup.dismiss();
-                        }
-
-
                     }
                 })
                 .setOnEmojiClickedListener(new OnEmojiClickedListener() {
@@ -246,18 +213,12 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     protected void onResume() {
         super.onResume();
         mThis = this;
-        // registering the receiver for new notification
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Constants.FIRST_RUN_CONTACT));
     }
     @Override
     protected void onPause() {
-
-
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
         mThis = null;
         messageActivityuserId = null;
-        super.onPause();
     }
 
 
@@ -266,8 +227,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         ImageLoader imageLoader = new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url) {
-              //  Picasso.with(MessageActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
-              //  Picasso.with(MessageActivity.this).load(url).into(imageView);
+                //  Picasso.with(MessageActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
+                //  Picasso.with(MessageActivity.this).load(url).into(imageView);
                 if (imageView.equals(null)|| url.isEmpty()){
                     Picasso.with(MessageActivity.this).load(R.drawable.user).into(imageView);
                 } else {
@@ -287,7 +248,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             Timber.e("MessagePojo null");
         } else {
             adapter.addToStart(response.get(response.size() - 1), false);
-          //  response = new ArrayList<>();
+            //  response = new ArrayList<>();
             response.remove(response.size() - 1);
             if (response.size() == 0){
                 Timber.e("Single Message inside chat");
@@ -328,7 +289,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     @Override
                     public void onNext(String response) {
                         Timber.d("Got user details");
-                //        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
+                        //        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                         Timber.d("Message from server" + response);
@@ -351,9 +312,9 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 .subscribe(new BaseSubscriber<List<MessagePojo>>() {
                     @Override
                     public void onNext(List<MessagePojo> response) {
-             //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
-                 //       String text = response.get(0).getText();
-                  //    MessagePojo pojo = response.get(0).getMessage();
+                        //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                        //       String text = response.get(0).getText();
+                        //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
                         initMessagesAdapter(response);
                         progressFrame.setVisibility(View.GONE);
@@ -375,11 +336,11 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse response) {
-             //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
-                 //       String text = response.get(0).getText();
-                  //    MessagePojo pojo = response.get(0).getMessage();
+                        //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                        //       String text = response.get(0).getText();
+                        //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
-                     //   Toast.makeText(MessageActivity.this, "deleted message", Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(MessageActivity.this, "deleted message", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onError(Throwable e){
@@ -408,10 +369,10 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                //    Toast.makeText(this, "selected IDs: " + messageArray.get(i).getId(), Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(this, "selected IDs: " + messageArray.get(i).getId(), Toast.LENGTH_SHORT).show();
                 }
                 adapter.deleteSelectedMessages();
-              //
+                //
                 break;
         }
         return true;
@@ -425,11 +386,12 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     @Override
     public void onBackPressed() {
+        if (emojiPopup != null && emojiPopup.isShowing()) {
+            emojiPopup.dismiss();
+        }
         if (selectionCount == 0) {
             super.onBackPressed();
-        } else if (emojiPopup != null && emojiPopup.isShowing()) {
-            emojiPopup.dismiss();
-        } else {
+        } {
             adapter.unselectAllItems();
         }
     }
