@@ -59,7 +59,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+     /*       Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Timber.d("message id : %s", remoteMessage.getMessageId());
             Timber.d("message notification body : %s", remoteMessage.getNotification().getBody());
             Timber.d("message data : %s", remoteMessage.getData());
@@ -67,7 +67,7 @@ public class FCMReceiver extends FirebaseMessagingService {
             Timber.d("message to : %s", remoteMessage.getTo());
             Timber.d("message type : %s", remoteMessage.getMessageType());
             Timber.d("message sent time : %s", remoteMessage.getSentTime());
-            Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle());
+            Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle()); */
 
             List<String> notificationData =
                     Arrays.asList(remoteMessage.getData().toString().replace("{", "").replace("}", "").replace(" ", "").replace(" ", "").split(","));
@@ -104,7 +104,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         Thread timer = new Thread() { //new thread
             public void run() {
                 try {
-                    sleep(1000);
+                    sleep(200);
                     MessageActivity.mThis.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

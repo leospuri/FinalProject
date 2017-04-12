@@ -211,14 +211,15 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     @Override
     protected void onResume() {
-        super.onResume();
         mThis = this;
+        super.onResume();
     }
     @Override
     protected void onPause() {
-        super.onPause();
+
         mThis = null;
         messageActivityuserId = null;
+        super.onPause();
     }
 
 
