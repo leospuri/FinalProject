@@ -28,6 +28,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
     private String chatMesssage;
+    private ChatTextPojo chatTextPojo;
 
     /**
      * Called when message is received.
@@ -59,7 +60,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-     /*       Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+           Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Timber.d("message id : %s", remoteMessage.getMessageId());
             Timber.d("message notification body : %s", remoteMessage.getNotification().getBody());
             Timber.d("message data : %s", remoteMessage.getData());
@@ -67,7 +68,7 @@ public class FCMReceiver extends FirebaseMessagingService {
             Timber.d("message to : %s", remoteMessage.getTo());
             Timber.d("message type : %s", remoteMessage.getMessageType());
             Timber.d("message sent time : %s", remoteMessage.getSentTime());
-            Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle()); */
+            Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle());
 
             List<String> notificationData =
                     Arrays.asList(remoteMessage.getData().toString().replace("{", "").replace("}", "").replace(" ", "").replace(" ", "").split(","));
@@ -80,9 +81,16 @@ public class FCMReceiver extends FirebaseMessagingService {
                     String chatMessage = getJsonFromList(notificationData, remoteMessage);
                     Timber.e(chatMessage);
                     Gson gson = new Gson();
-                    ChatTextPojo chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
-                    if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
-                        startingUp(chatTextPojo);
+                    try {
+                        synchronized (this) {
+                            chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
+                        }
+                    } catch (Exception ex){
+                        ex.printStackTrace();
+                    } finally {
+                        if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
+                            startingUp(chatTextPojo);
+                        }
                     }
                 }
                 else {

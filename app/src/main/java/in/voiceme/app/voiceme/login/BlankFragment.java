@@ -2,7 +2,6 @@ package in.voiceme.app.voiceme.login;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.widget.Button;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BlankFragment extends BaseFragment {
-    private Button skip;
+ //   private Button skip;
     private Button register;
 
 
@@ -33,15 +30,15 @@ public class BlankFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
-        skip = (Button) view.findViewById(R.id.try_it_btn);
+    //    skip = (Button) view.findViewById(R.id.try_it_btn);
         register = (Button) view.findViewById(R.id.activity_login_register);
 
-        skip.setOnClickListener(new View.OnClickListener() {
+  /*      skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tryDemoOnClick(view);
             }
-        });
+        }); */
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +51,7 @@ public class BlankFragment extends BaseFragment {
 
     }
 
-    public void tryDemoOnClick(View viewPrm) {
+  /*  public void tryDemoOnClick(View viewPrm) {
 
         // [END custom_event]
         SharedPreferences prefsLcl = application.getSharedPreferences("Logged in or not", MODE_PRIVATE);
@@ -62,6 +59,7 @@ public class BlankFragment extends BaseFragment {
         startActivity(new Intent(getActivity(), AnonymousLogin.class));
         getActivity().finish();
     }
+    */
 
 
     @Override
