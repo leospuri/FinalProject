@@ -135,8 +135,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 base64String = Base64.encodeToString(data, Base64.DEFAULT);
 
                 sendMessage(base64String);
-                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
-                        "harish", "", String.valueOf(true))), true);
+                AddMessage();
                 editText.setText("");
 
             }
@@ -166,10 +165,45 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     }
 
+    private void AddMessage() {
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                synchronized (this) {
+                    try {
+                        wait(1000);
+                        if (MessageActivity.mThis != null) {
+                            MessageActivity.mThis.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // TODO Auto-generated method stub
+
+                                    adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
+                                            "harish", "", String.valueOf(true))), true);
+                                }
+                            });
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+        };
+        thread.start();
+
+
+    }
+
+
+
     private void setUpEmojiPopup() {
         emojiPopup = EmojiPopup.Builder.fromRootView(rootView)
                 .setOnEmojiBackspaceClickListener(new OnEmojiBackspaceClickListener() {
                     @Override public void onEmojiBackspaceClicked(final View v) {
+                        if(emojiPopup.isShowing()){
+                            emojiPopup.dismiss();
+                        }
                         Timber.d("Clicked on Backspace");
                     }
                 })
@@ -195,6 +229,9 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 })
                 .setOnSoftKeyboardCloseListener(new OnSoftKeyboardCloseListener() {
                     @Override public void onKeyboardClose() {
+                        if (emojiPopup.isShowing()){
+                            emojiPopup.dismiss();
+                        }
                         Timber.d("Closed soft keyboard");
                     }
                 })

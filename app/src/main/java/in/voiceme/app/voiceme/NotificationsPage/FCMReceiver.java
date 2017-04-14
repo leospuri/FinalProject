@@ -101,32 +101,33 @@ public class FCMReceiver extends FirebaseMessagingService {
     // [END receive_message]
 
     private void startingUp(ChatTextPojo chatTextPojo) {
-        Thread timer = new Thread() { //new thread
+
+        Thread thread = new Thread(){
+            @Override
             public void run() {
                 try {
-                    sleep(200);
-                    MessageActivity.mThis.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
+                    synchronized (this) {
+                        wait(1000);
+                        if (MessageActivity.mThis != null) {
+                            MessageActivity.mThis.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // TODO Auto-generated method stub
 
-                            MessageActivity.mThis.adapter.addToStart(new
-                                    MessagePojo(chatTextPojo.getSenderId(), chatTextPojo.getChatText(),
-                                    String.valueOf(System.currentTimeMillis()), new UserPojo(chatTextPojo.getSenderId(),
-                                    chatTextPojo.getSenderName(), "", String.valueOf(true))), true);
+                                    MessageActivity.mThis.adapter.addToStart(new
+                                            MessagePojo(chatTextPojo.getSenderId(), chatTextPojo.getChatText(),
+                                            String.valueOf(System.currentTimeMillis()), new UserPojo(chatTextPojo.getSenderId(),
+                                            chatTextPojo.getSenderName(), "", String.valueOf(true))), true);
+                                }
+                            });
                         }
-                    });
-
-
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                } finally {
                 }
-            }
-
-            ;
+            };
         };
-        timer.start();
+        thread.start();
     }
 
     private void saveNotificationObject(String json) {
