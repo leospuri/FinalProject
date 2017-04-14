@@ -48,12 +48,12 @@ public class DialogDetailsActivity extends BaseActivity {
             @Override
             public void loadImage(ImageView imageView, String url) {
                 //If you using another library - write here your way to load image
-             //   Picasso.with(DialogDetailsActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
+                //   Picasso.with(DialogDetailsActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
 
-                if (url.isEmpty()  ){
-                    Picasso.with(DialogDetailsActivity.this).load(R.drawable.user).into(imageView);
-                } else {
+                if (url != null){
                     Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
+                } else {
+                    Picasso.with(DialogDetailsActivity.this).load(R.drawable.user).into(imageView);
                 }
 
             }
@@ -84,7 +84,7 @@ public class DialogDetailsActivity extends BaseActivity {
             @Override
             public void onDialogClick(ChatDialogPojo dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
-             //   startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
+                //   startActivity(new Intent(DialogDetailsActivity.this, MessageActivity.class));
 
                 Intent intent = new Intent(DialogDetailsActivity.this, MessageActivity.class);
                 intent.putExtra(Constants.YES, dialog.getId());
@@ -96,8 +96,8 @@ public class DialogDetailsActivity extends BaseActivity {
         dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<ChatDialogPojo>() {
             @Override
             public void onDialogLongClick(ChatDialogPojo dialog) {
-      //          Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
-      //                  Toast.LENGTH_SHORT).show();
+                //          Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
+                //                  Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -125,7 +125,7 @@ public class DialogDetailsActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<List<ChatDialogPojo>>() {
                     @Override
                     public void onNext(List<ChatDialogPojo> response) {
-                   //     Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
+                        //     Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //    MessagePojo pojo = response.get(0).getMessage();
                         messages = response;
                         dialogsListAdapter.setItems(response);
