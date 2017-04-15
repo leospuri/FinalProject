@@ -174,11 +174,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
                             try {
                                 deleteChat(view, mMessageList.get(mPosition).getCommentId());
+
+
                           //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             remove(position);
+                            notifyItemRemoved(position);
 
                             return true;
 
