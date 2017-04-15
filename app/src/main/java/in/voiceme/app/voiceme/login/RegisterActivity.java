@@ -105,6 +105,7 @@ public class RegisterActivity extends BaseActivity
 
         //   outputCognitoCredentials();
 
+
     }
 
     @Override
@@ -254,6 +255,7 @@ public class RegisterActivity extends BaseActivity
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
+
                         UserData(response);
                         application.getAuth().setAuthToken("token");
                         application.getAuth().getUser().setLoggedIn(true);
@@ -261,12 +263,11 @@ public class RegisterActivity extends BaseActivity
 
                         if (response.info.getPresent().equals("yes")){
                             token = FirebaseInstanceId.getInstance().getToken();
-
                             postToken(response.info.getUserId(), token);
 
 
-
                         } else {
+
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

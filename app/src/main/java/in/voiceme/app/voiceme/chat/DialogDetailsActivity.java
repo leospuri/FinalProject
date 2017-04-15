@@ -61,17 +61,23 @@ public class DialogDetailsActivity extends BaseActivity {
 
         dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
 
-        if (MySharedPreferences.getUserId(preferences) == null){
-            Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
-            progressFrame.setVisibility(View.GONE);
-        } else {
-            try {
-                chatMessages();
-                dialogInit(dialogsListView);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (isNetworkConnected()){
+            if (MySharedPreferences.getUserId(preferences) == null){
+                Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
+                progressFrame.setVisibility(View.GONE);
+            } else {
+                try {
+                    chatMessages();
+                    dialogInit(dialogsListView);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        } else {
+            Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+            progressFrame.setVisibility(View.GONE);
         }
+
 
 
 

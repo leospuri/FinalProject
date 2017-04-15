@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -141,8 +142,14 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         int itemId = item.getItemId();
 
         if (itemId == R.id.activity_profile_menuEdit) {
-            startActivity(new Intent(this, ChangeProfileActivity.class));
-            return true;
+            if (isNetworkConnected()){
+                startActivity(new Intent(this, ChangeProfileActivity.class));
+                return true;
+            } else {
+                Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
         }
 
         return false;

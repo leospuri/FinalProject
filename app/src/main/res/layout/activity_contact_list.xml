@@ -3,45 +3,52 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/body_Color"
     android:id="@+id/drawer_layout">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <include layout="@layout/include_toolbar3" />
-
-        <com.baoyz.widget.PullRefreshLayout
-            android:id="@+id/contact_swipeRefreshLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/body_Color"
+            >
+
+            <include layout="@layout/include_toolbar3" />
+
+            <com.baoyz.widget.PullRefreshLayout
+                android:id="@+id/contact_swipeRefreshLayout"
                 android:layout_width="match_parent"
-                android:id="@+id/personal_contact_recyclerview" />
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@color/body_Color"
+                    android:id="@+id/personal_contact_recyclerview" />
 
             </com.baoyz.widget.PullRefreshLayout>
 
 
-        <ProgressBar
-            android:id="@+id/main_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"/>
+            <ProgressBar
+                android:id="@+id/main_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
-        <include layout="@layout/error_layout"/>
-        <include layout="@layout/no_post_layout"/>
+            <include layout="@layout/error_layout"/>
 
+            <include layout="@layout/no_post_layout" />
+
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#91D4Fa"
             android:clickable="true"
-            android:background="#ddbababa"
             android:id="@+id/contact_list">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,15 +68,15 @@
                 android:textSize="20sp"
                 android:layout_marginBottom="40dp"
                 />
-
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminateOnly="true"
+                android:indeterminate="true"
                 android:layout_gravity="center"/>
         </FrameLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
+
 
     <include layout="@layout/include_main_nav_drawer" />
 

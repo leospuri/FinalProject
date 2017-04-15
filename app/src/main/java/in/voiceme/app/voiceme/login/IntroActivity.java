@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
     private String categoryID = null;
     private String textStatus = null;
     private String token = null;
+    private ProgressDialog loading = null;
     private SharedPreferences preferences = null;
     private VoicemeApplication application = null;
 
@@ -38,6 +40,11 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
         application = (VoicemeApplication)getApplication();
         preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         setErrorTimeout(1500);
+        loading = new ProgressDialog(this);
+        loading.setCancelable(true);
+        loading.setMessage("Loading");
+        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
         setTitle("Voiceme Community");
         addStep(createFragment(new StepSample2()));
         addStep(createFragment(new StepSample3()));
@@ -97,6 +104,7 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
                         public void onNext(ProfileAboutMe response) {
 
                             MySharedPreferences.registerUsername(preferences, usernameText);
+                            loading.dismiss();
                             //Todo add network call for uploading profile_image file
                             //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
                         }
@@ -112,6 +120,8 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
         super.onComplete();
     //    Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
        // startActivity(new Intent(this, MainActivity.class));
+
+        loading.show();
         postStatus();
         postUsername();
     }
