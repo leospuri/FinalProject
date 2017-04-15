@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.NotificationsPage;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -88,7 +89,9 @@ public class FCMReceiver extends FirebaseMessagingService {
                     } catch (Exception ex){
                         ex.printStackTrace();
                     } finally {
-                        if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
+                        if (MessageActivity.messageActivityuserId == null){
+                            showChatNotification(remoteMessage.getNotification().getTitle());
+                        } else if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
                             startingUp(chatTextPojo);
                         }
                     }
@@ -115,13 +118,11 @@ public class FCMReceiver extends FirebaseMessagingService {
             public void run() {
                 try {
                     synchronized (this) {
-                        wait(1000);
+                        wait(10);
                         if (MessageActivity.mThis != null) {
                             MessageActivity.mThis.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // TODO Auto-generated method stub
-
                                     MessageActivity.mThis.adapter.addToStart(new
                                             MessagePojo(chatTextPojo.getSenderId(), chatTextPojo.getChatText(),
                                             String.valueOf(System.currentTimeMillis()), new UserPojo(chatTextPojo.getSenderId(),
@@ -165,10 +166,6 @@ public class FCMReceiver extends FirebaseMessagingService {
     /*
     Creates pending intent
      */
-        Intent intent = new Intent(this, DialogDetailsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
@@ -176,18 +173,39 @@ public class FCMReceiver extends FirebaseMessagingService {
                 .setContentText("View the message inside Voiceme")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setSmallIcon(R.drawable.ic_launcher_notify)
-                .setContentIntent(pendingIntent);
+                .setSmallIcon(R.drawable.ic_launcher_notify);
 
-        NotificationManager notificationManager =
+        // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, DialogDetailsActivity.class);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(DialogDetailsActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
+
+        notificationBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
         long time = System.currentTimeMillis();
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationId = Integer.valueOf(last4Str);
         Log.d("Notification Id", notificationId + "");
-        notificationManager.notify(notificationId /* ID of notification */,
-                notificationBuilder.build());
+        mNotificationManager.notify(notificationId, notificationBuilder.build());
+
+
     }
 
     private void showNotification(String messageBody, NotificationPost post) {
@@ -215,7 +233,6 @@ public class FCMReceiver extends FirebaseMessagingService {
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationId = Integer.valueOf(last4Str);
-        Log.d("Notification Id", notificationId + "");
         notificationManager.notify(notificationId /* ID of notification */,
                 notificationBuilder.build());
     }

@@ -67,6 +67,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     public static String messageActivityuserId = null;
     private DateTime currentTime = new DateTime(DateTimeZone.UTC);
     private String base64String;
+    private String username;
     // List<MessagePojo> messages;
 
     @Override
@@ -77,9 +78,15 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
+        username = getIntent().getStringExtra(Constants.USERNAME);
         //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
-        getSupportActionBar().setTitle("Private Messages");
+        if (!username.isEmpty() || username != null){
+            getSupportActionBar().setTitle(username);
+        } else {
+            getSupportActionBar().setTitle("Private chat");
+        }
+
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,17 +133,24 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             @Override
             public void onClick(View view) {
 
-                byte[] data = new byte[0];
-                try {
-                    data = editText.getText().toString().getBytes("UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                base64String = Base64.encodeToString(data, Base64.DEFAULT);
+                if (editText.getText().toString().isEmpty()){
+                    Toast.makeText(MessageActivity.this, "Please enter some message", Toast.LENGTH_SHORT).show();
+                } else {
+                    byte[] data = new byte[0];
+                    try {
+                        data = editText.getText().toString().getBytes("UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    base64String = Base64.encodeToString(data, Base64.DEFAULT);
 
-                sendMessage(base64String);
-                AddMessage();
-                editText.setText("");
+                    sendMessage(base64String);
+                    AddMessage();
+                    editText.setText("");
+
+
+                }
+
 
             }
         });
@@ -172,7 +186,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             public void run() {
                 synchronized (this) {
                     try {
-                        wait(1000);
+                        wait(10);
                         if (MessageActivity.mThis != null) {
                             MessageActivity.mThis.runOnUiThread(new Runnable() {
                                 @Override
@@ -427,11 +441,18 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         if (emojiPopup != null && emojiPopup.isShowing()) {
             emojiPopup.dismiss();
         }
-        if (selectionCount == 0) {
+
+        if (adapter!= null){
+            if (selectionCount == 0) {
+                super.onBackPressed();
+            } {
+                adapter.unselectAllItems();
+            }
+
+        } else {
             super.onBackPressed();
-        } {
-            adapter.unselectAllItems();
         }
+
     }
 
     @Override

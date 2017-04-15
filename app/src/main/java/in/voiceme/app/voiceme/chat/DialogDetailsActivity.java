@@ -88,6 +88,7 @@ public class DialogDetailsActivity extends BaseActivity {
 
                 Intent intent = new Intent(DialogDetailsActivity.this, MessageActivity.class);
                 intent.putExtra(Constants.YES, dialog.getId());
+                intent.putExtra(Constants.USERNAME, dialog.getDialogName());
                 startActivity(intent);
 
             }

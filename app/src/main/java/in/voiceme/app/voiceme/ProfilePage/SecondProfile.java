@@ -44,6 +44,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
     private TextView followersCount;
     private TextView followingCount;
+    private ProfileUserList response;
 
     private TextView age;
     private TextView gender;
@@ -200,6 +201,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 return;
             Intent intent = new Intent(this, MessageActivity.class);
             intent.putExtra(Constants.YES, profileUserId);
+            intent.putExtra(Constants.USERNAME, response.getData().getName());
             startActivity(intent);
         }
 
@@ -329,6 +331,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     }
 
     private void secondProfileData(ProfileUserList response) {
+        this.response = response;
         username.setText(response.getData().getUserNickName());
         about.setText(response.getData().getAboutMe());
         total_posts_counter.setText(response.getData().getPosts());
