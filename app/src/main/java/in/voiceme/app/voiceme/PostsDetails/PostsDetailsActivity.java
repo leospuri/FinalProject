@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
@@ -634,6 +635,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Crashlytics.logException(e);
                         progressFrame.setVisibility(View.GONE);
                         try {
                        //     Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -663,6 +665,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Crashlytics.logException(e);
 
                     }
                 });
@@ -691,6 +694,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e){
+                        Crashlytics.logException(e);
                         Timber.e("error loading the contents" + e);
                         try {
                             Toast.makeText(PostsDetailsActivity.this,
@@ -889,6 +893,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Crashlytics.logException(e);
                         try {
                             Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
@@ -914,6 +919,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Crashlytics.logException(e);
                         try {
                             Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){
@@ -934,6 +940,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Crashlytics.logException(e);
                         try {
                             Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }catch (Exception ex){

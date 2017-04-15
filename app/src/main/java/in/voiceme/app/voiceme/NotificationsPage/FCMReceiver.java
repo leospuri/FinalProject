@@ -179,7 +179,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                 .setContentText("View the message inside Voiceme")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setSmallIcon(R.drawable.ic_launcher_notify)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =

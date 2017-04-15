@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -349,6 +350,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        Crashlytics.logException(e);
                         progressFrame.setVisibility(View.GONE);
                     }
 
@@ -374,6 +376,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
+                        Crashlytics.logException(e);
                         progressFrame.setVisibility(View.GONE);
                     }
                 });
@@ -420,10 +423,12 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         deleteChat(messageArray.get(i).getId());
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Crashlytics.logException(e);
                     }
                     //    Toast.makeText(this, "selected IDs: " + messageArray.get(i).getId(), Toast.LENGTH_SHORT).show();
                 }
                 adapter.deleteSelectedMessages();
+                adapter.notifyDataSetChanged();
                 //
                 break;
         }
