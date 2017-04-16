@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -61,6 +63,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private EmojiEditText editText;
     private ImageButton emojiButton;
     private ImageButton sendButton;
+    private LinearLayout no_post_layout;
+    private TextView no_post_textview;
 
 
     public static MessageActivity mThis = null;
@@ -76,6 +80,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        no_post_textview = (TextView) findViewById(R.id.no_post_textview);
+        no_post_layout = (LinearLayout) findViewById(R.id.no_post_layout);
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
@@ -180,6 +186,13 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     }
 
+    private void showEmptyView() {
+        if (no_post_layout.getVisibility() == View.GONE) {
+            no_post_layout.setVisibility(View.VISIBLE);
+            no_post_textview.setText("There are no messages with this User");
+        }
+    }
+
     private void AddMessage() {
 
         Thread thread = new Thread(){
@@ -187,7 +200,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             public void run() {
                 synchronized (this) {
                     try {
-                        wait(10);
+                        wait(500);
                         if (MessageActivity.mThis != null) {
                             MessageActivity.mThis.runOnUiThread(new Runnable() {
                                 @Override
@@ -370,7 +383,12 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
-                        initMessagesAdapter(response);
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
+                            initMessagesAdapter(response);
+                        }
+
                         progressFrame.setVisibility(View.GONE);
                     }
                     @Override

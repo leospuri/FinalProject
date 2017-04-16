@@ -79,6 +79,7 @@
         <activity
             android:name=".NotificationsPage.NotificationsActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".infrastructure.AuthenticationActivity"
@@ -131,14 +132,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="194d44ffa4364e27a990ec8091490243dafd97b2" />
-
-        <service
-            android:name=".loginV2.RefreshTokenService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -193,7 +186,6 @@
         <activity
             android:name=".userpost.PrivacyPolicy"
             android:screenOrientation="portrait" />
-        <activity android:name=".contactPage.BaseContact" />
         <activity android:name=".login.AnonymousLogin" />
         <activity android:name=".userpost.EditPost" />
         <activity android:name=".userpost.ReportAbuseActivity" />
@@ -206,7 +198,8 @@
         <activity
             android:name=".userpost.CategoryActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".chat.DialogDetailsActivity" />
+        <activity android:name=".chat.DialogDetailsActivity"
+            android:exported="true" />
         <activity android:name=".chat.MessageActivity" />
         <activity
             android:name=".login.IntroActivity"

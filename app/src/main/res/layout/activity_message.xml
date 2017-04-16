@@ -20,6 +20,7 @@
 
             android:background="@color/white">
 
+            <include layout="@layout/no_post_layout" />
             <com.stfalcon.chatkit.messages.MessagesList
                 android:id="@+id/messagesList"
                 android:layout_width="match_parent"

@@ -89,8 +89,9 @@ public class VoicemeApplication extends Application {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
+        */
 
-*/
+
 
 
         JodaTimeAndroid.init(this);
@@ -121,7 +122,7 @@ public class VoicemeApplication extends Application {
                 .penaltyLog()
                 .build());
 
-        */
+*/
 
         final TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.CONSUMER_KEY,
                 BuildConfig.CONSUMER_SECRET);
