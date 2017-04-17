@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.models.IMessage;
@@ -33,8 +30,6 @@ public class DialogDetailsActivity extends BaseActivity {
     private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter = null;
     private List<ChatDialogPojo> messages = null;
     private View progressFrame;
-    private LinearLayout no_post_layout;
-    private TextView no_post_textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +41,6 @@ public class DialogDetailsActivity extends BaseActivity {
         progressFrame = findViewById(R.id.dialog_details);
 
 
-        no_post_textview = (TextView) findViewById(R.id.no_post_textview);
-        no_post_layout = (LinearLayout) findViewById(R.id.no_post_layout);
 
         DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogsList);
 
@@ -58,9 +51,15 @@ public class DialogDetailsActivity extends BaseActivity {
                 //   Picasso.with(DialogDetailsActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
 
                 if (url != null){
-                    Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
+                    if (url.isEmpty()){
+                        Picasso.with(DialogDetailsActivity.this).load(R.drawable.user).into(imageView);
+                    } else {
+                        Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
+                    }
+
+
                 } else {
-                    Picasso.with(DialogDetailsActivity.this).load(R.drawable.user).into(imageView);
+                    Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
                 }
 
             }
@@ -68,35 +67,16 @@ public class DialogDetailsActivity extends BaseActivity {
 
         dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
 
-        if (isNetworkConnected()){
-            if (MySharedPreferences.getUserId(preferences) == null){
-                Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
-                progressFrame.setVisibility(View.GONE);
-            } else {
-                try {
-                    chatMessages();
-                    dialogInit(dialogsListView);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Crashlytics.logException(e);
-                }
-            }
-        } else {
-            Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+        if (MySharedPreferences.getUserId(preferences) == null){
+            Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
             progressFrame.setVisibility(View.GONE);
-        }
-
-
-
-
-
-
-    }
-
-    private void showEmptyView() {
-        if (no_post_layout.getVisibility() == View.GONE) {
-            no_post_layout.setVisibility(View.VISIBLE);
-            no_post_textview.setText("There are no messages with this User");
+        } else {
+            try {
+                chatMessages();
+                dialogInit(dialogsListView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -149,14 +129,9 @@ public class DialogDetailsActivity extends BaseActivity {
                     public void onNext(List<ChatDialogPojo> response) {
                         //     Toast.makeText(DialogDetailsActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //    MessagePojo pojo = response.get(0).getMessage();
-                        if (response.size() == 0){
-                            showEmptyView();
-                        } else {
-                            messages = response;
-                            dialogsListAdapter.setItems(response);
-                            progressFrame.setVisibility(View.GONE);
-                        }
-
+                        messages = response;
+                        dialogsListAdapter.setItems(response);
+                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e){

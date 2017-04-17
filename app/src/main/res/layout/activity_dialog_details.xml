@@ -65,8 +65,6 @@
                 android:layout_gravity="center"/>
         </FrameLayout>
 
-        <include layout="@layout/no_post_layout" />
-
     </RelativeLayout>
 
 
