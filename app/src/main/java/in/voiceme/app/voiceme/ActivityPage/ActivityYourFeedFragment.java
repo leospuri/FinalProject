@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
     private int mPage;
     private RecyclerView recyclerView;
     LinearLayout no_post_layout;
+    Button error_btn_retry;
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
     ProgressBar progressBar;
@@ -87,6 +89,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         View view = inflater.inflate(R.layout.fragment_activity_your_feed, container, false);
         progressFrame = view.findViewById(R.id.activity_yourfeed_progress);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
+        error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
         no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
@@ -116,6 +119,17 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return view;
     }
@@ -222,7 +236,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         progressFrame.setVisibility(View.GONE);
                         hideErrorView();
 
-                      Log.e("RESPONSE:::", "Size===" + response.size());
+                        Log.e("RESPONSE:::", "Size===" + response.size());
                         if (response.size() == 0){
                             showEmptyView();
                         } else {
@@ -281,19 +295,19 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;
 
-                     //   List<PostsModel> body = (List<PostsModel>) response.get(0).body();
+                        //   List<PostsModel> body = (List<PostsModel>) response.get(0).body();
 
-                   //     Type listType = new TypeToken<List<PostsModel>>(){}.getType();
+                        //     Type listType = new TypeToken<List<PostsModel>>(){}.getType();
                         //    List<PostsModel> posts = (List<PostsModel>) gson.fromJson(response, listType);
-                     //   List<PostsModel> myModelList = gson.fromJson(response.toString(), listType);
+                        //   List<PostsModel> myModelList = gson.fromJson(response.toString(), listType);
 
 
-                       // List<PostsModel> model = fetchResults(response);
-                       //    showRecycleWithDataFilled(response);
+                        // List<PostsModel> model = fetchResults(response);
+                        //    showRecycleWithDataFilled(response);
 
                         latestListAdapter.addAll(response);
 
-                      //  showRecycleWithDataFilled(response);
+                        //  showRecycleWithDataFilled(response);
                         if (response.size() < 25){
                             isLastPage = true;
                         } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();

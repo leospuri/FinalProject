@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     TextView txtError;
 
     FloatingActionButton textStatus;
+    Button error_btn_retry;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
     PullRefreshLayout layout;
@@ -77,6 +79,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         });
 
         progressFrame = findViewById(R.id.activity_feeling_progress);
+        error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
         feelingID = getIntent().getStringExtra(Constants.EMOTION);
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
@@ -114,6 +117,17 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 

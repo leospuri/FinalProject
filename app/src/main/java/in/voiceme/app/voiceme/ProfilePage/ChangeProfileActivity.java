@@ -227,11 +227,20 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         //    startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
+            if (image_Url == null){
                 try {
-                    submitData();
+                    submitData("");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                try {
+                    submitData(image_Url);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
 
         } else if(viewId == R.id.user_gender_text_box || viewId == R.id.user_gender){
             CreateAlertDialogWithRadioButtonGroup();
@@ -280,10 +289,10 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
 
-    private void submitData() throws Exception {
+    private void submitData(String imageurl) throws Exception {
         application.getWebService()
                 .updateProfile(
-                        MySharedPreferences.getUserId(preferences), Uri.parse(image_Url), username.getText().toString(),
+                        MySharedPreferences.getUserId(preferences), Uri.parse(imageurl), username.getText().toString(),
                         userAge.getText().toString(), this.user_gender, aboutme.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

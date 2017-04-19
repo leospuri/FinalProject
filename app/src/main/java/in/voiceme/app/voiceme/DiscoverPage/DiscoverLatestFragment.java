@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     private View progressFrame;
 
     ProgressBar progressBar;
+    Button error_btn_retry;
     LinearLayout errorLayout;
     LinearLayout no_post_layout;
     TextView txtError;
@@ -88,6 +90,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover_latest, container, false);
         progressFrame = view.findViewById(R.id.activity_discover_latest);
+        error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
@@ -120,6 +123,16 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
             e.printStackTrace();
         }
 
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         //recyclerview
 //        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_recyclerview);

@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.chat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,7 +30,9 @@ public class DialogDetailsActivity extends BaseActivity {
 
     private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter = null;
     private List<ChatDialogPojo> messages = null;
+  //  private View progressFrame;
     private View progressFrame;
+    private Button error_btn_retry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,7 @@ public class DialogDetailsActivity extends BaseActivity {
         setNavDrawer(new MainNavDrawer(this));
 
         progressFrame = findViewById(R.id.dialog_details);
-
-
+        error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
 
         DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogsList);
 
@@ -77,6 +79,18 @@ public class DialogDetailsActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    chatMessages();
+                    dialogInit(dialogsListView);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void dialogInit(DialogsList dialogsListView) {

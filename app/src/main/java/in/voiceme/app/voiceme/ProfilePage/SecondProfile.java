@@ -201,7 +201,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 return;
             Intent intent = new Intent(this, MessageActivity.class);
             intent.putExtra(Constants.YES, profileUserId);
-            intent.putExtra(Constants.USERNAME, response.getData().getName());
+            intent.putExtra(Constants.USERNAME, response.getData().getUserNickName());
             startActivity(intent);
         }
 

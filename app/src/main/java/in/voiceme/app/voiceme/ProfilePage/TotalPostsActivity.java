@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
     private int currentPage = PAGE_START;
 
     ProgressBar progressBar;
+    Button error_btn_retry;
     LinearLayout errorLayout;
     TextView txtError;
 
@@ -66,6 +68,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         });
         progressFrame = findViewById(R.id.activity_total_post_progress);
 
+        error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
         txtError = (TextView) findViewById(R.id.error_txt_cause);
@@ -92,6 +95,18 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                         }
                     }
                 }, 4000);
+            }
+        });
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    initUiView();
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

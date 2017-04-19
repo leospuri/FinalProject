@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -66,6 +67,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     private AlertDialog.Builder builder1;
     PullRefreshLayout layout;
     private View progressFrame;
+    private Button error_btn_retry;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         progressFrame = findViewById(R.id.contact_list);
 
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
+        error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
         noPostLayout = (LinearLayout) findViewById(R.id.no_post_layout);
         no_post_textview = (TextView) findViewById(R.id.no_post_textview);
@@ -101,11 +104,22 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
             }
         });
 
-  //      if (!secondPage()){
-    //        noPostLayout.setVisibility(View.VISIBLE);
-      //  } else {
-            loadDesign();
+        //      if (!secondPage()){
+        //        noPostLayout.setVisibility(View.VISIBLE);
+        //  } else {
+        loadDesign();
 //        }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
 
@@ -166,7 +180,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
     private BroadcastReceiver onNotice=new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent i) {
-         //   showNotification(); Remove still syncing
+            //   showNotification(); Remove still syncing
             loadDesign();
 
         }
@@ -207,8 +221,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         if (isNetworkConnected()) {
             errorMsg = getResources().getString(R.string.msg_no_contacts);
         } else  {
-           errorMsg = getResources().getString(R.string.error_msg_timeout);
-          //  startActivity(new Intent(this, OfflineActivity.class));
+            errorMsg = getResources().getString(R.string.error_msg_timeout);
+            //  startActivity(new Intent(this, OfflineActivity.class));
 
         }
 
@@ -232,7 +246,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
 
         if (!isNetworkConnected()) {
             errorMsg = getResources().getString(R.string.error_msg_no_internet);
-        //    startActivity(new Intent(this, OfflineActivity.class));
+            //    startActivity(new Intent(this, OfflineActivity.class));
         } else if (throwable instanceof TimeoutException) {
             errorMsg = getResources().getString(R.string.error_msg_timeout);
         }
@@ -359,8 +373,8 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         int itemId = item.getItemId();
 
         if (itemId == R.id.refresh_new_contact) {
-         //   startActivity(new Intent(this, ChangeProfileActivity.class));
-        //    Toast.makeText(this, "clicked refresh new contacts", Toast.LENGTH_SHORT).show();
+            //   startActivity(new Intent(this, ChangeProfileActivity.class));
+            //    Toast.makeText(this, "clicked refresh new contacts", Toast.LENGTH_SHORT).show();
             readContacts();
             return true;
         } else if (itemId == R.id.more_info){

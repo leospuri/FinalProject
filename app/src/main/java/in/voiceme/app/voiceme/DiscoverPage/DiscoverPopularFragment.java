@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ import static com.facebook.GraphRequest.TAG;
 public class DiscoverPopularFragment extends BaseFragment implements PaginationAdapterCallback {
     public static final String ARG_POPULAR_PAGE = "ARG_YOUR_FEED_PAGE";
     PullRefreshLayout layout;
+    private Button error_btn_retry;
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
@@ -83,6 +85,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover_popular, container, false);
         progressFrame = view.findViewById(R.id.activity_discover_popular);
+        error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
@@ -112,6 +115,17 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
+    Button error_btn_retry;
     private View progressFrame;
 
     PullRefreshLayout layout;
@@ -80,11 +82,12 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
 
         categoryId = getIntent().getStringExtra(Constants.CATEGORY);
-    //    setFeeling(categoryId);
+        //    setFeeling(categoryId);
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
+        error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
 
         textStatus.setOnClickListener(this);
         audioStatus.setOnClickListener(this);
@@ -124,6 +127,17 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void initUiView() {
@@ -189,7 +203,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
 
         if (!isNetworkConnected()) {
             errorMsg = getResources().getString(R.string.error_msg_no_internet);
-      //      startActivity(new Intent(this, OfflineActivity.class));
+            //      startActivity(new Intent(this, OfflineActivity.class));
         } else if (throwable instanceof TimeoutException) {
             errorMsg = getResources().getString(R.string.error_msg_timeout);
         }

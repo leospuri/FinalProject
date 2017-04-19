@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
 
     private int mPage;
     private RecyclerView recyclerView;
+    private Button error_btn_retry;
     private LatestListAdapter latestListAdapter;
 
     public DiscoverTrendingFragment() {
@@ -80,6 +82,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
         View view = inflater.inflate(R.layout.fragment_discover_trending, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         progressFrame = view.findViewById(R.id.activity_trending_progress);
+        error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
@@ -108,6 +111,17 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return view;
     }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
 
     private int mPage;
     private RecyclerView recyclerView;
+    private Button error_btn_retry;
     private LatestListAdapter latestListAdapter;
     LinearLayout no_post_layout;
     TextView no_post_textview;
@@ -81,6 +83,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_interaction, container, false);
         progressFrame = view.findViewById(R.id.activity_interaction_progress);
+        error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
         no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
@@ -112,6 +115,17 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        error_btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    loadFirstPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return view;
     }
