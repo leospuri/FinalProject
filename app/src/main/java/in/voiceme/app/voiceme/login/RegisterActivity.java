@@ -274,6 +274,7 @@ public class RegisterActivity extends BaseActivity
                             startActivity(intent);
                         }
                         Intent returnIntent = new Intent();
+                        returnIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         setResult(Activity.RESULT_OK, returnIntent);
                         finish();
                     }

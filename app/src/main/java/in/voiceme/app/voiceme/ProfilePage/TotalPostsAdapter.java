@@ -192,7 +192,10 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
       //  dataSet.getItemViewType(position);
-        return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+
+
+     //   return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        return 0;
     }
 
     @Override

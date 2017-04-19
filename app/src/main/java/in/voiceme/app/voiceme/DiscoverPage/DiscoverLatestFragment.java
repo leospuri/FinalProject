@@ -106,6 +106,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {
@@ -246,19 +247,15 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
-                        if (response.size() == 0){
-                            showEmptyView();
-                        } else {
-                            showRecycleWithDataFilled(response);
+                        showRecycleWithDataFilled(response);
 
-                            //   showRecycleWithDataFilled(response);
-                            //   latestListAdapter.addAll(myModelList);
-                            if (response.size() < 25){
-                                isLastPage = true;
-                            }
-                            if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
-                            else isLastPage = true;
-                        }
+
+                        //   showRecycleWithDataFilled(response);
+                        //   latestListAdapter.addAll(myModelList);
+                        if (response.size() < 25){
+                            isLastPage = true;
+                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                        else isLastPage = true;
 
                     }
                     @Override

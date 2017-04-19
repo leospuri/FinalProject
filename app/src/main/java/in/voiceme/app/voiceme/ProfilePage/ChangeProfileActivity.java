@@ -57,6 +57,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     AlertDialog alertDialog1;
     private View changeProgress;
     CharSequence[] values = {" Male "," Female "," Transgender "};
+    CharSequence[] removeImage = {" Remove profile image "," Add new profile image "};
 
     private SimpleDraweeView avatarView;
     private View avatarProgressFrame;
@@ -222,7 +223,13 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         int viewId = view.getId();
 
         if (viewId == R.id.changeimage) {
-           changeProfileRequest();
+
+            if (MySharedPreferences.getImageUrl(preferences) != null && !MySharedPreferences.getImageUrl(preferences).isEmpty()){
+                removeImage();
+            } else {
+                changeProfileRequest();
+            }
+
       //      sendlike();
         //    startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
@@ -245,6 +252,40 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         } else if(viewId == R.id.user_gender_text_box || viewId == R.id.user_gender){
             CreateAlertDialogWithRadioButtonGroup();
         }
+    }
+
+
+
+    public void removeImage(){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ChangeProfileActivity.this);
+
+        builder.setTitle("Please select your option");
+
+        builder.setSingleChoiceItems(removeImage, -1, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+
+                switch(item)
+                {
+                    case 0:
+
+                        image_Url = null;
+
+                        break;
+                    case 1:
+
+                        changeProfileRequest();
+                        break;
+
+                }
+                alertDialog1.dismiss();
+            }
+        });
+        alertDialog1 = builder.create();
+        alertDialog1.show();
+
     }
 
     public void CreateAlertDialogWithRadioButtonGroup(){

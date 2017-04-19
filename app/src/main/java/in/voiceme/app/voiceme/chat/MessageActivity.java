@@ -152,7 +152,12 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     base64String = Base64.encodeToString(data, Base64.DEFAULT);
 
                     sendMessage(base64String);
-                    AddMessage();
+                    if (isNetworkConnected()){
+                        AddMessage();
+                    } else {
+                        Toast.makeText(MessageActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                    }
+
                     editText.setText("");
 
 
@@ -201,17 +206,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 synchronized (this) {
                     try {
                         wait(500);
-                        if (MessageActivity.mThis != null) {
-                            MessageActivity.mThis.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // TODO Auto-generated method stub
-
-                                    adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
-                                            "harish", "", String.valueOf(true))), true);
-                                }
-                            });
-                        }
+                        adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
+                                "harish", "", String.valueOf(true))), true);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

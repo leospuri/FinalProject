@@ -171,7 +171,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("fromNotification", true);
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 222 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.getActivity(this, 1 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
@@ -200,7 +200,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("fromNotification", true);
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 111 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
