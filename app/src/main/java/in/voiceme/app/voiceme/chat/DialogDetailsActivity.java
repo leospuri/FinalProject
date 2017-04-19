@@ -56,11 +56,10 @@ public class DialogDetailsActivity extends BaseActivity {
                     } else {
                         Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
                     }
-
-
                 } else {
                     Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
                 }
+
 
             }
         };

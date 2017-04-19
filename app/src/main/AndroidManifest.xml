@@ -79,7 +79,6 @@
         <activity
             android:name=".NotificationsPage.NotificationsActivity"
             android:screenOrientation="portrait"
-            android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".infrastructure.AuthenticationActivity"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class StepSample5 extends AbstractStep {
 
     private TextView mAutofitOutput;
     private EditText text_status;
+    private ProgressBar step5progressbar;
     private boolean yes = false;
 
     @Override
@@ -30,9 +32,9 @@ public class StepSample5 extends AbstractStep {
         View v = inflater.inflate(R.layout.intro_step_five, container, false);
 
         text_status = (EditText) v.findViewById(R.id.intro_edit_text_status);
+        step5progressbar = (ProgressBar) v.findViewById(R.id.step5progressbar);
         mAutofitOutput = (TextView) v.findViewById(R.id.intro_output_autofit);
         mAutofitOutput.setGravity(Gravity.CENTER);
-        mAutofitOutput.setVisibility(View.GONE);
 
         editTextChangeListener();
 
@@ -87,6 +89,7 @@ public class StepSample5 extends AbstractStep {
         if (text_status.getText().toString().isEmpty()){
             Toast.makeText(getActivity(), "Please enter your status", Toast.LENGTH_LONG).show();
         } else {
+            step5progressbar.setVisibility(View.VISIBLE);
             String status = text_status.getText().toString();
             StepFourInterface stepOneInterface = (StepFourInterface) getActivity();
             stepOneInterface.sendTextStatus(status);
