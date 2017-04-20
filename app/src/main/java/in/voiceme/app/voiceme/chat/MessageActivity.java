@@ -65,6 +65,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private ImageButton sendButton;
     private LinearLayout no_post_layout;
     private TextView no_post_textview;
+    private int messageCount;
 
 
     public static MessageActivity mThis = null;
@@ -150,20 +151,20 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         e.printStackTrace();
                     }
                     base64String = Base64.encodeToString(data, Base64.DEFAULT);
-
-                    sendMessage(base64String);
-                    if (isNetworkConnected()){
-                        AddMessage();
+                    messageCount = base64String.length();
+                    if (messageCount > 799){
+                        Toast.makeText(MessageActivity.this, "Please enter short messages", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MessageActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                        sendMessage(base64String);
+                        if (isNetworkConnected()){
+                            adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
+                                    "harish", "", String.valueOf(true))), true);
+                        } else {
+                            Toast.makeText(MessageActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                        }
+                        editText.setText("");
                     }
-
-                    editText.setText("");
-
-
                 }
-
-
             }
         });
 
@@ -196,27 +197,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             no_post_layout.setVisibility(View.VISIBLE);
             no_post_textview.setText("There are no messages with this User");
         }
-    }
-
-    private void AddMessage() {
-
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                synchronized (this) {
-                    try {
-                        wait(500);
-                        adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
-                                "harish", "", String.valueOf(true))), true);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-        };
-        thread.start();
-
-
     }
 
 
@@ -291,8 +271,13 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             public void loadImage(ImageView imageView, String url) {
                 //  Picasso.with(MessageActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
                 //  Picasso.with(MessageActivity.this).load(url).into(imageView);
-                if (imageView.equals(null)|| url.isEmpty()){
-                    Picasso.with(MessageActivity.this).load(R.drawable.user).into(imageView);
+
+                if (url != null){
+                    if (url.isEmpty()){
+                        Picasso.with(MessageActivity.this).load(R.drawable.user).into(imageView);
+                    } else {
+                        Picasso.with(MessageActivity.this).load(url).into(imageView);
+                    }
                 } else {
                     Picasso.with(MessageActivity.this).load(url).into(imageView);
                 }
@@ -379,11 +364,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();
                         //messages = response;
-                        if (response.size() == 0){
-                            showEmptyView();
-                        } else {
-                            initMessagesAdapter(response);
-                        }
+                        initMessagesAdapter(response);
 
                         progressFrame.setVisibility(View.GONE);
                     }

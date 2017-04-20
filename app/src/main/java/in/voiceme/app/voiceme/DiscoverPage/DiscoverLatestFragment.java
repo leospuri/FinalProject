@@ -106,7 +106,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        currentPage = PAGE_START;
+
                         try {
                             loadFirstPage();
                         } catch (Exception e) {
@@ -156,7 +156,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 currentPage += 1;
 
                 loadNextPage();
-
             }
 
             @Override
@@ -174,7 +173,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 return isLoading;
             }
         });
-
     }
 
     @Override
@@ -230,6 +228,9 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
 
+        if(currentPage > PAGE_START){
+            currentPage = PAGE_START;
+        }
         application.getWebService()
                 .getLatestFeed(MySharedPreferences.getUserId(preferences), currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
@@ -331,7 +332,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     @Override
     public void retryPageLoad() {
         try {
-            loadFirstPage();
+            loadNextPage();
         } catch (Exception e) {
             e.printStackTrace();
         }

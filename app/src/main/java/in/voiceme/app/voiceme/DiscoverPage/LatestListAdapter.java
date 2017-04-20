@@ -202,10 +202,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemViewType(int position) {
      //   return (position == dataSet.size() - 1) ? VIEW_ITEM : VIEW_PROG;
      // current   return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
-        /* &&& current ******************8 */
-      //  return dataSet.get((dataSet.size() - 1)) != null ? VIEW_ITEM : VIEW_PROG;
-        return 0;
-
+        return dataSet.get((dataSet.size() - 1)) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
     @Override

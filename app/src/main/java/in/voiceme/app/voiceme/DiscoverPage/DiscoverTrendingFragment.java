@@ -95,7 +95,6 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {
@@ -212,6 +211,10 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
 
+        if(currentPage > PAGE_START){
+            currentPage = PAGE_START;
+        }
+
         application.getWebService()
                 .getTrending(MySharedPreferences.getUserId(preferences),"true", currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -314,7 +317,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
     @Override
     public void retryPageLoad() {
         try {
-            loadFirstPage();
+            loadNextPage();
         } catch (Exception e) {
             e.printStackTrace();
         }

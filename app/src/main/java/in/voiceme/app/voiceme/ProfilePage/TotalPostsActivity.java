@@ -101,8 +101,8 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
-                    initUiView();
                     loadFirstPage();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -187,6 +187,10 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
     private void loadFirstPage() throws Exception {
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
+
+        if(currentPage > PAGE_START){
+            currentPage = PAGE_START;
+        }
 
         application.getWebService()
                 .getSingleUserPosts(userId, userId, currentPage)
@@ -311,7 +315,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
     @Override
     public void retryPageLoad() {
         try {
-            loadFirstPage();
+            loadNextPage();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -99,7 +99,6 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {
@@ -120,6 +119,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
                     loadFirstPage();
                 } catch (Exception e) {
@@ -223,6 +223,10 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
     private void loadFirstPage() throws Exception {
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
+
+        if(currentPage > PAGE_START){
+            currentPage = PAGE_START;
+        }
 
         application.getWebService()
                 .getActivityPosts(MySharedPreferences.getUserId(preferences),"true",
@@ -333,7 +337,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
     @Override
     public void retryPageLoad() {
         try {
-            loadFirstPage();
+            loadNextPage();
         } catch (Exception e) {
             e.printStackTrace();
         }

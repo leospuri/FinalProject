@@ -65,6 +65,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private PostsModel myList = null;
     List<PostUserCommentModel> myCommentList = null;
     private boolean doDislike;
+    private int commentCount;
 
     private SimpleDraweeView user_avatar = null;
     private ImageView play_button = null;
@@ -119,6 +120,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
 
     };
+
 
 
     @Override
@@ -580,27 +582,33 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         if (!mMessageEditText.getText().toString().isEmpty()) {
             // Todo post comment on server
 
-            try {
-                postComment(message);
-                if (idusername.equals(MySharedPreferences.getUserId(preferences))){
-                    Timber.e("same user");
-                } else {
-                    for (int i = 0; i < message.length(); i++){
-                        count++;
+            commentCount = mMessageEditText.getText().toString().length();
+            if (commentCount > 299){
+                Toast.makeText(this, "Please enter short messages", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    postComment(message);
+                    if (idusername.equals(MySharedPreferences.getUserId(preferences))){
+                        Timber.e("same user");
+                    } else {
+                        for (int i = 0; i < message.length(); i++){
+                            count++;
+                        }
+
+                        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                                idusername + "_postId@" + postId  + "_click@" + "5";
+                        sendLikeNotification(application, sendLike);
                     }
 
-                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                            idusername + "_postId@" + postId  + "_click@" + "5";
-                    sendLikeNotification(application, sendLike);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                mMessageAdapter.addMessage(new PostUserCommentModel(message,
+                        MySharedPreferences.getImageUrl(preferences),
+                        MySharedPreferences.getUsername(preferences)));
             }
-            mMessageAdapter.addMessage(new PostUserCommentModel(message,
-                    MySharedPreferences.getImageUrl(preferences),
-                    MySharedPreferences.getUsername(preferences)));
+
             mMessageEditText.setText("");
         } else {
             Toast.makeText(this, "You have not entered anything", Toast.LENGTH_SHORT).show();

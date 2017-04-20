@@ -203,7 +203,6 @@
         <activity
             android:name=".login.IntroActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ActivityPage.OfflineActivity" />
         <activity android:name=".login.SecondBeforeLoginActivity" />
         <activity android:name=".userpost.SecondRecordactivity" />
         <activity android:name=".login.AfterRegisterActivity"></activity>

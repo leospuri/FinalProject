@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -199,10 +200,16 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         } else if (view.getId() == R.id.send_private_message){
             if (processLoggedState(view))
                 return;
-            Intent intent = new Intent(this, MessageActivity.class);
-            intent.putExtra(Constants.YES, profileUserId);
-            intent.putExtra(Constants.USERNAME, response.getData().getUserNickName());
-            startActivity(intent);
+
+            if (isNetworkConnected()){
+                Intent intent = new Intent(this, MessageActivity.class);
+                intent.putExtra(Constants.YES, profileUserId);
+                intent.putExtra(Constants.USERNAME, response.getData().getUserNickName());
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Not connected to internet", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
     }

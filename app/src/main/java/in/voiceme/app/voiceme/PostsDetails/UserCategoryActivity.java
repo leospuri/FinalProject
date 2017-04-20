@@ -215,6 +215,10 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
 
+        if(currentPage > PAGE_START){
+            currentPage = PAGE_START;
+        }
+
         application.getWebService()
                 .getCategoryPosts(categoryId,  MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -325,7 +329,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     @Override
     public void retryPageLoad() {
         try {
-            loadFirstPage();
+            loadNextPage();
         } catch (Exception e) {
             e.printStackTrace();
         }

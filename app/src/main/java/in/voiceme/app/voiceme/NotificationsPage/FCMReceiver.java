@@ -117,7 +117,7 @@ public class FCMReceiver extends FirebaseMessagingService {
             public void run() {
                 try {
                     synchronized (this) {
-                        wait(10);
+                        wait(500);
                         if (MessageActivity.mThis != null) {
                             MessageActivity.mThis.runOnUiThread(new Runnable() {
                                 @Override
