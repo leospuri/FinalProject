@@ -113,7 +113,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                             e.printStackTrace();
                         }
                     }
-                }, 4000);
+                }, 2000);
             }
         });
 
