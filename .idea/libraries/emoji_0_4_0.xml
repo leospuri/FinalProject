@@ -1,11 +1,12 @@
 <component name="libraryTable">
   <library name="emoji-0.4.0">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/4220056c358694f72e7acfccd88ee48572e81bbd/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/4220056c358694f72e7acfccd88ee48572e81bbd/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/2512ff1d187442a2ce7ddb2edda9e2589993a0fb/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/2512ff1d187442a2ce7ddb2edda9e2589993a0fb/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vanniktech/emoji/0.4.0/9878807e4f93e906145b8ba19e62d4295ab8f489/emoji-0.4.0-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vanniktech/emoji/0.4.0/9878807e4f93e906145b8ba19e62d4295ab8f489/emoji-0.4.0-sources.jar!/" />
     </SOURCES>
   </library>

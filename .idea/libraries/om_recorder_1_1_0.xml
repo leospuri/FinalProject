@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="om-recorder-1.1.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/e86697410886d8e356dcfc91b8db59cf527159f3/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/e86697410886d8e356dcfc91b8db59cf527159f3/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/4c26d963b0d09672e5391e5ce417c30f888815c3/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/4c26d963b0d09672e5391e5ce417c30f888815c3/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

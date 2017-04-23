@@ -1,8 +1,11 @@
 <component name="libraryTable">
   <library name="floatingactionbutton-1.10.1">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.android/build-cache/20ce629befd91caf0d1a1f4567ccd5171d69196f/output/annotations.zip!/" />
+    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/5a360b13c13f6475ea9824511fddbb2f868fb103/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/5a360b13c13f6475ea9824511fddbb2f868fb103/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/20ce629befd91caf0d1a1f4567ccd5171d69196f/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/20ce629befd91caf0d1a1f4567ccd5171d69196f/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
