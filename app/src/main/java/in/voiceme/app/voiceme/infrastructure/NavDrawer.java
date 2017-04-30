@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.l;
@@ -211,7 +210,7 @@ public class NavDrawer {
             navDrawer.setOpen(false);
             final BaseActivity activity = navDrawer.activity;
 
-            if (activity.getClass() == DiscoverActivity.class)
+            if (activity.getClass() == targetActivity)
                 return;
 
             super.onClick(view);

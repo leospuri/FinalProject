@@ -75,6 +75,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
             //   Set<Map.Entry<String, String>> values = remoteMessage.getData().entrySet();
 
+            /*
             if (remoteMessage.getData().containsKey("chat")){
                 if (MessageActivity.mThis != null){
                     Timber.e("got message logged");
@@ -102,6 +103,9 @@ public class FCMReceiver extends FirebaseMessagingService {
             } else {
                 saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
             }
+            */
+
+            saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
 
         }
 
