@@ -333,8 +333,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private void submitData(String imageurl) throws Exception {
         application.getWebService()
                 .updateProfile(
-                        MySharedPreferences.getUserId(preferences), Uri.parse(imageurl), username.getText().toString(),
-                        userAge.getText().toString(), this.user_gender, aboutme.getText().toString())
+                        MySharedPreferences.getUserId(preferences), Uri.parse(imageurl), username.getText().toString().trim(),
+                        userAge.getText().toString().trim(), this.user_gender.trim(), aboutme.getText().toString().trim())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
@@ -397,11 +397,12 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 response.getData().getGender(),
                 response.getData().getAvatarPics());
 
-        username.setText(response.getData().getUserNickName());
-        aboutme.setText(response.getData().getAboutMe());
-        userAge.setText(response.getData().getUserDateOfBirth());
-        genderSelection.setText(response.getData().getGender());
-        avatarView.setImageURI(response.getData().getAvatarPics());
+        response.getData().getUserNickName().trim();
+        username.setText(response.getData().getUserNickName().trim());
+        aboutme.setText(response.getData().getAboutMe().trim());
+        userAge.setText(response.getData().getUserDateOfBirth().trim());
+        genderSelection.setText(response.getData().getGender().trim());
+        avatarView.setImageURI(response.getData().getAvatarPics().trim());
 
     }
 

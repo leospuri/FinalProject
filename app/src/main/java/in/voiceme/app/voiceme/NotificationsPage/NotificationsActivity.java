@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.NotificationsPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
@@ -71,5 +73,13 @@ public class NotificationsActivity extends BaseActivity {
     @Override protected void onDestroy() {
         super.onDestroy();
         realm.removeAllChangeListeners();
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent myActivityIntent = new Intent(NotificationsActivity.this, DiscoverActivity.class);
+        startActivity(myActivityIntent);
+        finish();
     }
 }

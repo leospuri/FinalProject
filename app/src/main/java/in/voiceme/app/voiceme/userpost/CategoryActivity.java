@@ -144,7 +144,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (editText.getText().toString().isEmpty()){
+                if (editText.getText().toString().trim().isEmpty()){
                     scrollView.setVisibility(View.GONE);
                     rv.setVisibility(View.VISIBLE);
                 }
@@ -368,7 +368,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(this, "You have not selected any Hashtags", Toast.LENGTH_SHORT).show();
             } else {
                 returnIntent.putExtra("resultFromCategory", current_category);
-                returnIntent.putExtra("resultFromCategory2", selected_hashtag.getText().toString());
+                returnIntent.putExtra("resultFromCategory2", selected_hashtag.getText().toString().trim());
             }
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
@@ -381,8 +381,8 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.create_new_hashtag){
-            if (!editText.getText().toString().isEmpty()){
-                dialogBox(editText.getText().toString());
+            if (!editText.getText().toString().trim().isEmpty()){
+                dialogBox(editText.getText().toString().trim());
             } else {
                 editDialog();
             }
@@ -396,7 +396,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     public void onClick(DialogInterface dialogBox, int id) {
                         // ToDo get user input here
                         progressFrame.setVisibility(View.VISIBLE);
-                        insertCategory(userInputDialogEditText.getText().toString());
+                        insertCategory(userInputDialogEditText.getText().toString().trim());
                      //   Toast.makeText(CategoryActivity.this, userInputDialogEditText.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 })
@@ -424,7 +424,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                    //     Toast.makeText(CategoryActivity.this, "Creating New HashTag", Toast.LENGTH_SHORT).show();
 
                         progressFrame.setVisibility(View.VISIBLE);
-                        insertCategory(editText.getText().toString());
+                        insertCategory(editText.getText().toString().trim());
                         dialog.cancel();
                     }
                 });
@@ -452,9 +452,9 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     .subscribe(new BaseSubscriber<NewCategoryAdded>() {
                         @Override
                         public void onNext(NewCategoryAdded userResponse) {
-                            setCategory(userResponse.getId(), editText.getText().toString());
+                            setCategory(userResponse.getId(), editText.getText().toString().trim());
                             Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
-                            selected_hashtag.setText(editText.getText().toString());
+                            selected_hashtag.setText(editText.getText().toString().trim());
                             selected_hashtag.setVisibility(View.VISIBLE);
                             progressFrame.setVisibility(View.GONE);
                         }

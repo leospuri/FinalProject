@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -214,5 +215,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
         return false;
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent myActivityIntent = new Intent(ProfileActivity.this, DiscoverActivity.class);
+        startActivity(myActivityIntent);
+        finish();
     }
 }

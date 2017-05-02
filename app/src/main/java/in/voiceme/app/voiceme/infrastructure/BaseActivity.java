@@ -183,4 +183,9 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     public interface FadeOutListener {
         void onFadeOutEnd();
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
 }

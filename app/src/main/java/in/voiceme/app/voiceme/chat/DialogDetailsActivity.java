@@ -16,6 +16,7 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -153,6 +154,14 @@ public class DialogDetailsActivity extends BaseActivity {
                     }
 
                 });
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent myActivityIntent = new Intent(DialogDetailsActivity.this, DiscoverActivity.class);
+        startActivity(myActivityIntent);
+        finish();
     }
 
 

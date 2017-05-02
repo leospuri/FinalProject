@@ -141,18 +141,19 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             @Override
             public void onClick(View view) {
 
-                if (editText.getText().toString().isEmpty()){
+                if (editText.getText().toString().trim().isEmpty()){
                     Toast.makeText(MessageActivity.this, "Please enter some message", Toast.LENGTH_SHORT).show();
                 } else {
                     byte[] data = new byte[0];
                     try {
-                        data = editText.getText().toString().getBytes("UTF-8");
+                        String editData = editText.getText().toString().trim();
+                        data = editData.getBytes("UTF-8");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
                     base64String = Base64.encodeToString(data, Base64.DEFAULT);
                     messageCount = base64String.length();
-                    if (messageCount > 799){
+                    if (messageCount > 1499){
                         Toast.makeText(MessageActivity.this, "Please enter short messages", Toast.LENGTH_SHORT).show();
                     } else {
                         sendMessage(base64String);
