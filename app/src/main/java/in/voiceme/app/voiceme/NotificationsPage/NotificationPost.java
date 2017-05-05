@@ -1,9 +1,6 @@
 package in.voiceme.app.voiceme.NotificationsPage;
 
-import io.realm.RealmObject;
-import io.realm.annotations.RealmClass;
-
-@RealmClass public class NotificationPost extends RealmObject {
+public class NotificationPost {
 
   private Long sentTime;
   private String senderName;
@@ -67,32 +64,5 @@ import io.realm.annotations.RealmClass;
 
   public void setReceiverId(String receiverId) {
     this.receiverId = receiverId;
-  }
-
-  String initWithNotification() {
-
-    StringBuilder text = new StringBuilder();
-
-    switch (getActivity()) {
-      case "1": //LIKE
-        text.append(getSenderName()).append(" liked your post").append(" ").append(postId);
-        break;
-      case "2": //HUG
-        text.append(getSenderName()).append(" hugged your post").append(" ").append(postId);
-        break;
-      case "3": //SAME
-        text.append(getSenderName()).append(" felt sad for your post").append(" ").append(postId);
-        break;
-      case "5": //comment
-        text.append(getSenderName()).append(" wrote comment on your post").append(" ").append(postId);
-        break;
-      case "follow":
-        text.append(getSenderName()).append(" followed your post").append(" ").append(postId);
-        break;
-      case "unfollow":
-        text.append(getSenderName()).append(" un-followed your post").append(" ").append(postId);
-    }
-
-    return text.toString();
   }
 }

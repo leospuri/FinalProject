@@ -21,6 +21,8 @@ public class StepSample3 extends AbstractStep {
     private String current_feeling = null;
     private boolean yes = false;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

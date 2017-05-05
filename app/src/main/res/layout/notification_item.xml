@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/notification_background"
+    android:padding="5dp"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/notification_avatar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        fresco:placeholderImage="@drawable/user" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_user"
+        android:singleLine="true"
+        android:text="username"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/notification_avatar"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_feeling_text"
+        android:layout_marginLeft="10dp"
+        android:singleLine="true"
+        android:text="liked or hugged"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/notification_user"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_post_time"
+        android:singleLine="true"
+        android:text="time"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/notification_avatar"
+        android:layout_below="@+id/notification_user"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_post_text"
+        android:singleLine="true"
+        android:text="post text"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/notification_avatar"
+        android:layout_below="@+id/notification_post_time"
+        android:textSize="18sp"
+        />
+
+</RelativeLayout>
+

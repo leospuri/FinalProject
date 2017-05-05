@@ -90,6 +90,9 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:layout_below="@+id/verfied_single"
         android:layout_centerHorizontal="true" />
 
+
+
+
 </com.redbooth.WelcomePageLayout>
 
 

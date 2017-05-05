@@ -54,6 +54,14 @@ public class MySharedPreferences {
         MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.USERNAME, username);
     }
 
+    public static void registerContact(SharedPreferences sharedPreferences, String username) {
+        MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.CONTACT, username);
+    }
+
+    public static String getContact(SharedPreferences sharedPreferences) {
+        return MySharedPreferences.getValueFromSharedPreferences(sharedPreferences, Constants.CONTACT);
+    }
+
     public static String getUsername(SharedPreferences sharedPreferences) {
         return MySharedPreferences.getValueFromSharedPreferences(sharedPreferences, Constants.USERNAME);
     }

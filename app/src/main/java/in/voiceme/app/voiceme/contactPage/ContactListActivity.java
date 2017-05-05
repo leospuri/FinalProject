@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -450,6 +451,14 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent myActivityIntent = new Intent(ContactListActivity.this, DiscoverActivity.class);
+        startActivity(myActivityIntent);
+        finish();
     }
 
 

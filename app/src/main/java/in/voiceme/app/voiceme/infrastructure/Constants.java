@@ -15,6 +15,7 @@ public interface Constants {
     String SOCIAL_ID = "SOCIAL_ID";
     String IMAGE_URL = "IMAGE_URL";
     String USERNAME = "USERNAME";
+    String CONTACT = "CONTACT";
 
     String PREF_FILE = "prefs.xml";
     String CONSTANT_PREF_FILE = "constant_prefs.xml";

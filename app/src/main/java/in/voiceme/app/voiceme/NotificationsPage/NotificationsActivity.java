@@ -4,26 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
+import in.voiceme.app.voiceme.PostsDetails.RVAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
-import io.realm.Realm;
-import io.realm.RealmChangeListener;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 
 public class NotificationsActivity extends BaseActivity {
-    public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
-    public static final int REQUEST_IMAGE_DELETED = 100;
-    public static final String RESULT_EXTRA_MESSAGE_ID = "RESULT_EXTRA_MESSAGE_ID";
+    private static final int REQUEST_VIEW_MESSAGE = 1;
+    private RecyclerView rv;
+    private View progressFrame;
 
-    private NotificationRecyclerAdapter recyclerAdapter;
     private ArrayList data = new ArrayList<>();
-    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -32,48 +39,48 @@ public class NotificationsActivity extends BaseActivity {
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("Notifications");
         setNavDrawer(new MainNavDrawer(this));
 
-        initUI();
+        progressFrame = findViewById(R.id.activity_notification_progress);
 
-        this.data = getData();
+        rv = (RecyclerView) findViewById(R.id.recycler_view);
 
-        recyclerAdapter.swap(data);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        rv.setHasFixedSize(true);
 
+        initializeData();
     }
 
-    private void initUI() {
+    private void initializeData() {
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerAdapter = new NotificationRecyclerAdapter(data);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(recyclerAdapter);
+        application.getWebService()
+                .getNotificationPosts(MySharedPreferences.getUserId(preferences), "1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<List<NotificationPojo>>() {
+                    @Override
+                    public void onNext(List<NotificationPojo> response) {
+                        showRecycleWithDataFilled(response);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        progressFrame.setVisibility(View.GONE);
+                        try {
+                            Timber.e(e.getMessage());
+                            //      Toast.makeText(UserHugCounterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
     }
 
-    private ArrayList getData() {
-
-        realm = Realm.getDefaultInstance();
-
-        RealmChangeListener realmListener = element -> refreshData();
-
-        realm.addChangeListener(realmListener);
-
-        ArrayList posts = new ArrayList<>(realm.where(NotificationPost.class).findAll());
-        Collections.reverse(posts);
-        return posts;
+    private void showRecycleWithDataFilled(final List<NotificationPojo> myList) {
+        NotificationAdapter adapter = new NotificationAdapter(myList);
+        rv.setAdapter(adapter);
     }
 
-    private void refreshData() {
-        this.data.clear();
-        this.data = new ArrayList<>(realm.where(NotificationPost.class).findAll());
-        Collections.reverse(data);
-        recyclerAdapter.swap(data);
-    }
-
-    @Override protected void onDestroy() {
-        super.onDestroy();
-        realm.removeAllChangeListeners();
-    }
 
     @Override
     public void onBackPressed(){

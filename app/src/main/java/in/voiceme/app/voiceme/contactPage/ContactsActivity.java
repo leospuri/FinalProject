@@ -22,7 +22,9 @@ import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.AuthConfig;
@@ -62,6 +64,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     //  private Button digitsAuthButton;
     // private TextView personalContact;
     private TextView allPersonalContact;
+    private ProgressBar activity_allcontacts_progressbar;
     private TextView verified;
     private TextView singlePrivacyPolicy;
     private boolean givenPersonalContact = false;
@@ -87,6 +90,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
 
         coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.coordinator);
+        activity_allcontacts_progressbar = (ProgressBar) findViewById(R.id.activity_allcontacts_progressbar);
         initializeListeners();
         initializePages();
         initializeBackgroundTransitions();
@@ -127,6 +131,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 verified.setVisibility(View.VISIBLE);
                 givenPersonalContact = true;
 
+                MySharedPreferences.registerContact(preferences, phoneNumber);
                 String newPhoneNumber = removeSpecialCharacters(phoneNumber);
                 //             personalContact.setVisibility(View.VISIBLE);
                 //   phoneNumber.toString().replace("+", "");
@@ -256,16 +261,20 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        if (processLoggedState(view)) {
-            return;
-        } else {
+
             if (view.getId() == R.id.button_get_all_contacts){
-                readContacts();
+                if (MySharedPreferences.getContact(preferences) == null){
+                    Toast.makeText(ContactsActivity.this, "You need to enter your number first", Toast.LENGTH_LONG).show();
+                    coordinatorLayout.setCurrentPage(3, true);
+                } else {
 
-            }
-        }
+                    activity_allcontacts_progressbar.setVisibility(View.VISIBLE);
+                    getAllContacts.setVisibility(View.GONE);
 
-        if (view.getId() == R.id.skip){
+                    readContacts();
+                }
+
+            } else if (view.getId() == R.id.skip){
             startActivity(new Intent(this, DiscoverActivity.class));
             finish();
             return;

@@ -22,6 +22,7 @@ import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
 import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
 import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
+import in.voiceme.app.voiceme.NotificationsPage.NotificationPojo;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -176,6 +177,11 @@ public interface WebService {
     Observable<PostSuperUserListModel> getInteractionPosts(
             @Query("id_posts") String id_posts);
 
+    @GET("get_notification.php")
+    Observable<List<NotificationPojo>> getNotificationPosts(
+            @Query("id_user_name") String id_posts,
+            @Query("page") String page);
+
     @FormUrlEncoded
     @POST("register_mobile.php")
     Observable<BaseResponse> registerMobile(
@@ -270,6 +276,13 @@ public interface WebService {
     Observable<ReportResponse> deletePost(
             @Field("id_posts") String category,
             @Field("action") String action
+    );
+
+    @FormUrlEncoded
+    @POST("update_contact.php")
+    Observable<ReportResponse> updateContact(
+            @Field("id_user_name") String id_user_name,
+            @Field("contact") String contact
     );
 
     @FormUrlEncoded

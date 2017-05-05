@@ -12,6 +12,7 @@ public class LoginResponse extends AbstractResponse {
         @SerializedName("user_id") @Expose private String userId;
         @SerializedName("present") @Expose private String present;
         @SerializedName("imageurl") @Expose private String imageurl;
+        @SerializedName("contact") @Expose private String givenContact;
 
         public String getId() {
             return id;
@@ -31,6 +32,10 @@ public class LoginResponse extends AbstractResponse {
 
         public String getImageurl() {
             return imageurl;
+        }
+
+        public String getGivenContact() {
+            return givenContact;
         }
     }
 }

@@ -261,6 +261,9 @@ public class RegisterActivity extends BaseActivity
                         application.getAuth().setAuthToken("token");
                         application.getAuth().getUser().setLoggedIn(true);
 
+                        if (response.info.getGivenContact().equals("true")){
+                            setAuthToken("token");
+                        }
 
                         if (response.info.getPresent().equals("yes")){
                             token = FirebaseInstanceId.getInstance().getToken();
@@ -271,9 +274,10 @@ public class RegisterActivity extends BaseActivity
 
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
                         }
-                        Intent returnIntent = new Intent();
+                        Intent returnIntent = new Intent(RegisterActivity.this, DiscoverActivity.class);
                         returnIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         setResult(Activity.RESULT_OK, returnIntent);
                         finish();

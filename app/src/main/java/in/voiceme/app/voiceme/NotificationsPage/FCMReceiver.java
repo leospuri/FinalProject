@@ -21,7 +21,6 @@ import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.chat.MessageActivity;
-import io.realm.Realm;
 import timber.log.Timber;
 
 public class FCMReceiver extends FirebaseMessagingService {
@@ -39,8 +38,6 @@ public class FCMReceiver extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
-        System.out.println("FCM Message recieved>"+remoteMessage);
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -71,6 +68,7 @@ public class FCMReceiver extends FirebaseMessagingService {
             Timber.d("message type : %s", remoteMessage.getMessageType());
             Timber.d("message sent time : %s", remoteMessage.getSentTime());
             Timber.d("message notification title : %s", remoteMessage.getNotification().getTitle());
+            Timber.d("message click action : %s", remoteMessage.getNotification().getClickAction());
 
             List<String> notificationData =
                     Arrays.asList(remoteMessage.getData().toString().replace("{", "").replace("}", "").replace(" ", "").replace(" ", "").split(","));
@@ -102,7 +100,8 @@ public class FCMReceiver extends FirebaseMessagingService {
                     showChatNotification(remoteMessage.getNotification().getTitle());
                 }
             } else {
-                saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
+                showNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
+           //     saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
             }
 
         }
@@ -140,23 +139,6 @@ public class FCMReceiver extends FirebaseMessagingService {
         thread.start();
     }
 
-    private void saveNotificationObject(String json) {
-
-        /*
-         * Creates a realm object and sets the remote message data and stores it in db
-         */
-        Realm realm = Realm.getDefaultInstance();
-
-        realm.beginTransaction();
-        NotificationPost post = realm.createObjectFromJson(NotificationPost.class, json);
-        realm.copyToRealm(post);
-        realm.commitTransaction();
-
-        showNotification(post.initWithNotification(), post);
-
-        Timber.d("saved notification object to db : %s", json);
-    }
-
     /**
      * Create and show a simple notification containing the received FCM message.
      *
@@ -168,15 +150,13 @@ public class FCMReceiver extends FirebaseMessagingService {
     Creates pending intent
      */
 
-
-    /*##
-        Intent intent = new Intent(this, DialogDetailsActivity.class);
-
+        Intent intent = new Intent();
+        intent.setAction("in.voiceme.app.voiceme.CHAT");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("fromNotification", true);
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 1 /* Request code *//*##, intent, PendingIntent.FLAG_ONE_SHOT);
-
+                PendingIntent.getActivity(
+                        this, 1 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
@@ -193,66 +173,24 @@ public class FCMReceiver extends FirebaseMessagingService {
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationId = Integer.valueOf(last4Str);
-        notificationManager.notify(notificationId /* ID of notification *//*##,
-               /* notificationBuilder.build());
-
-
-        ##*/
-
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        .setContentTitle(messageBody)
-                        .setContentText("View the message inside Voiceme")
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setSmallIcon(R.drawable.ic_stat_name);
-
-
-        Intent notificationIntent = new Intent(this, DialogDetailsActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notificationIntent.putExtra("fromNotification", true);
-        notificationIntent.putExtra("notification_code", "chat");
-
-
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 1, notificationIntent,
-                PendingIntent.FLAG_ONE_SHOT);
-       // PendingIntent contentIntent = PendingIntent.getActivity(this, 1, notificationIntent,
-        //        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-       // NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-       // manager.notify(0, builder.build());
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        long time = System.currentTimeMillis();
-        String tmpStr = String.valueOf(time);
-        String last4Str = tmpStr.substring(tmpStr.length() - 5);
-        int notificationId = Integer.valueOf(last4Str);
         notificationManager.notify(notificationId /* ID of notification */,
-                builder.build());
+                notificationBuilder.build());
     }
 
-
-    private void showNotification(String messageBody, NotificationPost post) {
+    private void showNotification(String messageBody, String post) {
     /*
     Creates pending intent
      */
-    /*
-        Intent intent = new Intent(this, NotificationsActivity.class);
+        Intent intent = new Intent();
+        intent.setAction("in.voiceme.app.voiceme.REACTIONS");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("fromNotification", true);
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0 /* Request code *//*, intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
-                .setContentTitle(post.getSenderName() + " " + "interacted with your post")
+                .setContentTitle(post)
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -265,53 +203,9 @@ public class FCMReceiver extends FirebaseMessagingService {
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationId = Integer.valueOf(last4Str);
-        notificationManager.notify(notificationId /* ID of notification *//*,
-                notificationBuilder.build());
-
-        */
-
-        //***************New
-
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        .setContentTitle(post.getSenderName() + " " + "interacted with your post")
-                        .setContentText(messageBody)
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setSmallIcon(R.drawable.ic_launcher);
-
-
-        Intent notificationIntent = new Intent(this, NotificationsActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notificationIntent.putExtra("fromNotification", true);
-        notificationIntent.putExtra("notification_code", "notification");
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_ONE_SHOT);
-        //PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-              //  PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-        // NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // manager.notify(0, builder.build());
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        long time = System.currentTimeMillis();
-        String tmpStr = String.valueOf(time);
-        String last4Str = tmpStr.substring(tmpStr.length() - 5);
-        int notificationId = Integer.valueOf(last4Str);
         notificationManager.notify(notificationId /* ID of notification */,
-                builder.build());
-
+                notificationBuilder.build());
     }
-
-
-
 
     private String getJsonFromList(List<String> notificationData, RemoteMessage remoteMessage) {
         String json = "{";

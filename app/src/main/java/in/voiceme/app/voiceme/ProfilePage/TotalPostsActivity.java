@@ -21,6 +21,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
@@ -193,7 +194,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         }
 
         application.getWebService()
-                .getSingleUserPosts(userId, userId, currentPage)
+                .getSingleUserPosts(userId, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
@@ -234,7 +235,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         hideErrorView();
 
         application.getWebService()
-                .getSingleUserPosts(userId, userId, currentPage)
+                .getSingleUserPosts(userId, MySharedPreferences.getUserId(preferences), currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {

@@ -24,8 +24,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
 import io.fabric.sdk.android.Fabric;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -133,7 +131,7 @@ public class VoicemeApplication extends Application {
 
         Fabric.with(fabric);
 
-        initDatabase();
+        // initDatabase();
     }
 
     synchronized public Tracker getDefaultTracker() {
@@ -155,6 +153,7 @@ public class VoicemeApplication extends Application {
         MultiDex.install(this);
     }
 
+    /*
     private void initDatabase() {
 
         Realm.init(instance);
@@ -164,6 +163,8 @@ public class VoicemeApplication extends Application {
 
         Realm.setDefaultConfiguration(realmConfiguration);
     }
+
+    */
 
 
 }

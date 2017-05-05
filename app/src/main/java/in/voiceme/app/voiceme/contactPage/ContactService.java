@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
+import in.voiceme.app.voiceme.DTO.ReportResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
@@ -91,6 +92,7 @@ public class ContactService extends IntentService {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contacts -> {
                     try {
+
                         sendAllContacts(contacts.toString().replace("[", "").replace("]", "").replace(" ", ""));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -110,8 +112,26 @@ public class ContactService extends IntentService {
                     @Override
                     public void onNext(ContactAddResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
+                        try {
+                            sendContactTrue();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         LocalBroadcastManager.getInstance(ContactService.this).sendBroadcast(broadcast);
 
+                    }
+                });
+    }
+
+    private void sendContactTrue() throws Exception {
+        ((VoicemeApplication)getApplication()).getWebService()
+                .updateContact(MySharedPreferences.getUserId(preferences), "true")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<ReportResponse>() {
+                    @Override
+                    public void onNext(ReportResponse response) {
                     }
                 });
     }

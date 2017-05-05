@@ -28,6 +28,8 @@ public class StepSample2 extends AbstractStep {
     private String color;
     private String token;
 
+    /* save username    */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
