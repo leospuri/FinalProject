@@ -51,7 +51,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 5;
+    private int TOTAL_PAGES = 50;
     private int currentPage = PAGE_START;
     private View progressFrame;
 
@@ -105,6 +105,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 layout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        isLastPage = false;
                         layout.setRefreshing(false);
 
                         try {

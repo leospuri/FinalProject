@@ -24,11 +24,10 @@
         android:id="@+id/notification_user"
         android:singleLine="true"
         android:text="username"
-        android:layout_marginTop="10dp"
+        android:textColor="@color/md_blue_500"
         android:layout_toRightOf="@+id/notification_avatar"
         android:layout_alignParentTop="true"
         android:textSize="18sp"
-        android:textStyle="bold"
         />
 
     <TextView
@@ -36,11 +35,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/notification_feeling_text"
         android:layout_marginLeft="10dp"
-        android:singleLine="true"
         android:text="liked or hugged"
-        android:layout_marginTop="10dp"
+        android:singleLine="true"
         android:layout_toRightOf="@+id/notification_user"
         android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_feeling_status"
+        android:text="liked or hugged"
+        android:singleLine="true"
+        android:layout_toRightOf="@+id/notification_avatar"
+        android:layout_below="@+id/notification_user"
         android:textSize="18sp"
         />
 
@@ -52,19 +61,22 @@
         android:text="time"
         android:layout_marginTop="3dp"
         android:layout_toRightOf="@+id/notification_avatar"
-        android:layout_below="@+id/notification_user"
+        android:layout_below="@+id/notification_feeling_status"
         android:textSize="16sp"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/notification_post_text"
+        android:id="@+id/notification_view_post"
         android:singleLine="true"
-        android:text="post text"
+        android:textColor="@color/md_blue_400"
+        android:text="View Post"
         android:layout_marginTop="3dp"
-        android:layout_toRightOf="@+id/notification_avatar"
-        android:layout_below="@+id/notification_post_time"
-        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/notification_post_time"
+        android:layout_below="@+id/notification_feeling_status"
+        android:textSize="16sp"
         />
 
 </RelativeLayout>

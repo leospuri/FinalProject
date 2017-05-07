@@ -56,5 +56,23 @@
         android:hint="Example cool_marx"
         android:id="@+id/intro_username"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:textColor="@color/white"
+        android:text="Your confession will be posted in this name."/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:text="SWIPE RIGHT TO CONFESS"/>
+
 
 </LinearLayout>

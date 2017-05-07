@@ -267,8 +267,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(ContactsActivity.this, "You need to enter your number first", Toast.LENGTH_LONG).show();
                     coordinatorLayout.setCurrentPage(3, true);
                 } else {
-
-                    activity_allcontacts_progressbar.setVisibility(View.VISIBLE);
+               //     activity_allcontacts_progressbar.setVisibility(View.VISIBLE);
                     getAllContacts.setVisibility(View.GONE);
 
                     readContacts();

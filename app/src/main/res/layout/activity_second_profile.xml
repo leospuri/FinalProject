@@ -77,7 +77,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="35dp"
                     android:layout_marginTop="235dp"
-                    android:background="@drawable/messenger_button_white_bg_round"
+                    android:background="@drawable/message_icon"
                     />
 
                 <LinearLayout

@@ -40,15 +40,17 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:textSize="18sp"
-            android:hint="Create or Search a HashTag" />
+            android:hint="Choose your interest" />
 
-        <TextView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Click here to Create a New HashTag"
-            android:textColor="@color/white"
+            android:text="Create new Interest"
             android:id="@+id/create_new_hashtag"
+            android:gravity="center_horizontal"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_tag"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="20dp"
             android:textSize="18sp"/>

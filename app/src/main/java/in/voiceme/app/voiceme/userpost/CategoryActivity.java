@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -48,7 +49,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
     private AlertDialog.Builder builder1;
     private EditText editText;
-    private TextView createNewHashTag;
+    private Button createNewHashTag;
     private RecyclerView rv;
     private ScrollView scrollView;
     private String current_category;
@@ -67,7 +68,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category2);
-        getSupportActionBar().setTitle("Choose Category");
+        getSupportActionBar().setTitle("Choose Interest");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         progressFrame = findViewById(R.id.activity_category_progress);
 
@@ -104,7 +105,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
-        createNewHashTag = (TextView) findViewById(R.id.create_new_hashtag);
+        createNewHashTag = (Button) findViewById(R.id.create_new_hashtag);
         createNewHashTag.setOnClickListener(this);
         if (isNetworkConnected()){
             getAllHashTags();

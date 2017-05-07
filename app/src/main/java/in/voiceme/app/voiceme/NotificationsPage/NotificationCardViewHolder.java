@@ -9,6 +9,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import in.voiceme.app.voiceme.DTO.PostUserListModel;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.utils.CurrentTime;
+import in.voiceme.app.voiceme.utils.CurrentTimeLong;
 
 /**
  * Created by harishpc on 5/5/2017.
@@ -19,7 +21,8 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
     RelativeLayout notification_background;
     TextView notificationFeeling;
     TextView notificationTime;
-    TextView notificationPostText;
+    TextView notification_view_post;
+    TextView notification_feeling_status;
     SimpleDraweeView personPhoto;
 
     public NotificationCardViewHolder(View itemView) {
@@ -28,7 +31,8 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
         notificationFeeling = (TextView) itemView.findViewById(R.id.notification_feeling_text);
         notification_background = (RelativeLayout) itemView.findViewById(R.id.notification_background);
         notificationTime = (TextView) itemView.findViewById(R.id.notification_post_time);
-        notificationPostText = (TextView) itemView.findViewById(R.id.notification_post_text);
+        notification_feeling_status = (TextView) itemView.findViewById(R.id.notification_feeling_status);
+        notification_view_post = (TextView) itemView.findViewById(R.id.notification_view_post);
         personPhoto = (SimpleDraweeView) itemView.findViewById(R.id.notification_avatar);
 
         personName.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +56,7 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        notificationPostText.setOnClickListener(new View.OnClickListener() {
+        notification_view_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 notificationBackClick(view);
@@ -73,6 +77,13 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        notification_feeling_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notificationBackClick(view);
+            }
+        });
+
     }
 
     protected void notificationBackClick(View view) {
@@ -90,14 +101,24 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
 
         personName.setText(dataItem.getUsername());
         // Todo Write the logic to get activity as per the feeling name
-        notificationFeeling.setText(dataItem.getActivity());
-        notificationTime.setText(dataItem.getTime());
-        notificationPostText.setText(dataItem.getTextStatus());
+        notificationFeeling.setText(String.valueOf(" just " + getEmotionValue(dataItem) + " your post: "));
+        notificationTime.setText(CurrentTimeLong.getCurrentTime(dataItem.getTime().trim(), itemView.getContext()));
+        notification_feeling_status.setText(dataItem.getTextStatus().trim());
+        personPhoto.setImageURI(dataItem.getAvatarPic());
+    }
 
-        if (dataItem.getAvatarPic().equals("") || dataItem.getAvatarPic() == null){
-            personPhoto.setImageDrawable(itemView.getResources().getDrawable(R.drawable.user));
-        } else {
-            dataItem.getAvatarPic();
+    private String getEmotionValue(NotificationPojo dataItem){
+        String emotion = null;
+        if(dataItem.getActivity().equals("1")){
+            emotion = "liked";
+        } else if(dataItem.getActivity().equals("2")){
+            emotion = "hugged";
+        } else if (dataItem.getActivity().equals("3")){
+            emotion = "felt sad for";
+        } else if(dataItem.getActivity().equals("5")){
+            emotion = "commented on";
         }
+
+        return emotion;
     }
 }

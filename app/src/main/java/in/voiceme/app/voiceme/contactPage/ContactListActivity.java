@@ -57,7 +57,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 5;
+    private int TOTAL_PAGES = 50;
     private int currentPage = PAGE_START;
 
     ProgressBar progressBar;
@@ -94,6 +94,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                 layout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        isLastPage = false;
                         layout.setRefreshing(false);
                         try {
                             loadFirstPage();
@@ -410,11 +411,11 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     public void dialogBox(){
         builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("All your contacts are used only for getting anonymous posts from your friends. " +
-                "We donot share you numbers with third party.");
+                "Click Refresh to Update your current contact list.");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
-                "Yes",
+                "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

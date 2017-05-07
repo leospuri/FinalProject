@@ -40,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="4dp"
-                        android:text="Category"
+                        android:text="Interest"
                         android:id="@+id/textView_category"
                         android:textSize="24sp"
                         android:gravity="center_horizontal"/>
