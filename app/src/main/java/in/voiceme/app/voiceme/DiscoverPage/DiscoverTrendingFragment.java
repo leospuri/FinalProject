@@ -44,7 +44,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 50;
+    private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
     ProgressBar progressBar;
     LinearLayout errorLayout;
@@ -96,7 +96,6 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                     public void run() {
                         layout.setRefreshing(false);
                         try {
-                            isLastPage = false;
                             loadFirstPage();
                         } catch (Exception e) {
                             e.printStackTrace();

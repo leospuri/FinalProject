@@ -64,6 +64,7 @@ public class StepSample2 extends AbstractStep {
         return v;
     }
 
+
     private ActionBar getActionBar() {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }

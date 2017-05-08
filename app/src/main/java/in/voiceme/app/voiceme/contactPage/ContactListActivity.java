@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
-import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -57,7 +56,7 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 50;
+    private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
 
     ProgressBar progressBar;
@@ -94,7 +93,6 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
                 layout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        isLastPage = false;
                         layout.setRefreshing(false);
                         try {
                             loadFirstPage();
@@ -411,11 +409,11 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
     public void dialogBox(){
         builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("All your contacts are used only for getting anonymous posts from your friends. " +
-                "Click Refresh to Update your current contact list.");
+                "We donot share you numbers with third party.");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
-                "OK",
+                "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -452,14 +450,6 @@ public class ContactListActivity extends BaseContact implements PaginationAdapte
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        Intent myActivityIntent = new Intent(ContactListActivity.this, DiscoverActivity.class);
-        startActivity(myActivityIntent);
-        finish();
     }
 
 

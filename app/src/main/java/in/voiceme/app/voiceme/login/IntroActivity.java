@@ -61,6 +61,18 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
         return fragment;
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        AbstractStep step = this.mSteps.getCurrent();
+
+        if (count < 5) {
+            step.onPrevious();
+            //additional code
+        } else if (count == 0){
+            super.onBackPressed();
+        }
+    }
 
     private void postStatus(){
         try {

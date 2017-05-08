@@ -4,7 +4,6 @@
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#89c982"
     android:id="@+id/drawer_layout">
 
         <ScrollView
@@ -14,24 +13,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <include layout="@layout/include_toolbar" />
+
+                <include layout="@layout/include_toolbar3" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="20dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textColor="@color/white"
-                    android:padding="16dp"
-                    android:layout_height="wrap_content"
-                    android:text="Enter Status"
-                    />
 
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/output_autofit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:textColor="@color/white"
                     android:text=""
                     android:textSize="30sp"
                     android:gravity="center"
@@ -44,12 +36,12 @@
                     android:id="@+id/edit_text_status"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:textColor="@color/white"
+                    android:backgroundTint="@color/md_grey_500"
                     android:padding="16dp"
                     android:maxLines="8"
                     android:textSize="20sp"
                     android:gravity="top"
-                    android:hint="Enter Status here"
+                    android:hint="Click here"
                     android:text=""/>
                 <View
 
@@ -59,6 +51,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/button_tag"
                     android:id="@+id/btn_status"
                     android:text="Done"/>
 

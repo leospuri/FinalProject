@@ -3,109 +3,112 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:background="#d1b7df"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFD3B0E6"
-        android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You selected this hashtag."
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:id="@+id/selected_hashtag"
-            android:visibility="visible"
-            />
-
-
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="18sp"
-            android:hint="Choose your interest" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Create new Interest"
-            android:id="@+id/create_new_hashtag"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_tag"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="18sp"/>
-
-        <ScrollView
-            android:id="@+id/tags_laoyut"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="6dp"
-            android:background="#FFD3B0E6"
-            android:visibility="gone">
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <com.cunoraz.tagview.TagView
-                android:id="@+id/tag_group"
+            <include layout="@layout/include_toolbar3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You selected this Interest."
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:id="@+id/selected_hashtag"
+                android:visibility="visible"
+                />
+
+
+
+            <EditText
+                android:id="@+id/editText"
+                android:backgroundTint="@color/md_grey_500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="18sp"
+                android:hint="Choose your interest" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:text="Create new Interest"
+                android:id="@+id/create_new_hashtag"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_tag"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="16sp"/>
+
+            <ScrollView
+                android:id="@+id/tags_laoyut"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp" />
+                android:layout_marginLeft="6dp"
+                android:background="@color/white"
+                android:visibility="gone">
 
-        </ScrollView>
+                <com.cunoraz.tagview.TagView
+                    android:id="@+id/tag_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Popular HashTags:"/>
+            </ScrollView>
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/getAllHashTagProgress"
-            android:layout_marginTop="30dp"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Popular Interests:"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:background="#FFD3B0E6"
-            android:paddingLeft="12dp"
-            android:visibility="gone"
-            android:id="@+id/category_tag_rv" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/getAllHashTagProgress"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:paddingLeft="12dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                android:id="@+id/category_tag_rv" />
 
 
 
 
-    </LinearLayout>
+
+        </LinearLayout>
 
 
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#d1b7df"
+            android:background="#909fe9"
             android:clickable="true"
             android:id="@+id/activity_category_progress">
             <TextView

@@ -30,6 +30,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.login.IntroActivity;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
@@ -224,14 +225,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         if (viewId == R.id.changeimage) {
 
-            if (MySharedPreferences.getImageUrl(preferences) != null && !MySharedPreferences.getImageUrl(preferences).isEmpty()){
+       /*     if (MySharedPreferences.getImageUrl(preferences) != null && !MySharedPreferences.getImageUrl(preferences).isEmpty()){
                 removeImage();
             } else {
                 changeProfileRequest();
             }
+            */
 
       //      sendlike();
-        //    startActivity(new Intent(this, IntroActivity.class));
+            startActivity(new Intent(this, IntroActivity.class));
         } else if (viewId == R.id.submit_button_profile) {
 
             if (image_Url == null){

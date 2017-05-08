@@ -21,7 +21,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
-import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
@@ -43,7 +42,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 50;
+    private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
 
     ProgressBar progressBar;
@@ -88,7 +87,6 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
                 layout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        isLastPage = false;
                         layout.setRefreshing(false);
                         try {
                             loadFirstPage();
@@ -195,7 +193,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         }
 
         application.getWebService()
-                .getSingleUserPosts(userId, MySharedPreferences.getUserId(preferences), currentPage)
+                .getSingleUserPosts(userId, userId, currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
@@ -236,7 +234,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         hideErrorView();
 
         application.getWebService()
-                .getSingleUserPosts(userId, MySharedPreferences.getUserId(preferences), currentPage)
+                .getSingleUserPosts(userId, userId, currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {

@@ -77,6 +77,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         pager.setAdapter(adapter);
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
