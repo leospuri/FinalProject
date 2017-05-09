@@ -21,7 +21,6 @@ import in.voiceme.app.voiceme.R;
  */
 public class StepSample5 extends AbstractStep {
 
-    private TextView mAutofitOutput;
     private EditText text_status;
     private ProgressBar step5progressbar;
     private boolean yes = false;
@@ -33,8 +32,6 @@ public class StepSample5 extends AbstractStep {
 
         text_status = (EditText) v.findViewById(R.id.intro_edit_text_status);
         step5progressbar = (ProgressBar) v.findViewById(R.id.step5progressbar);
-        mAutofitOutput = (TextView) v.findViewById(R.id.intro_output_autofit);
-        mAutofitOutput.setGravity(Gravity.CENTER);
 
         editTextChangeListener();
 
@@ -47,18 +44,19 @@ public class StepSample5 extends AbstractStep {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 // do nothing
-                mAutofitOutput.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                mAutofitOutput.setText(charSequence);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                yes = true;
-                // do nothing
+                if (text_status.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getActivity(), "Please Enter Username", Toast.LENGTH_SHORT).show();
+                } else {
+                    yes = true;
+                }                // do nothing
             }
         });
     }

@@ -266,7 +266,7 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("insertCategory.php")
+    @POST("insertCategory_new.php")
     Observable<NewCategoryAdded> insertCategory(
             @Field("category") String category
     );

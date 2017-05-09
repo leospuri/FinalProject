@@ -70,6 +70,7 @@
             <EditText
                 android:id="@+id/edittext_profile_username"
                 android:layout_width="match_parent"
+                android:backgroundTint="@color/md_grey_500"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="20dp"
@@ -87,6 +88,7 @@
 
             <EditText
                 android:id="@+id/edittext_profile_age"
+                android:backgroundTint="@color/md_grey_500"
                 android:layout_width="match_parent"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"

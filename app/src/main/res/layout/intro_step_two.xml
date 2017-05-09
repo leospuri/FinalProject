@@ -27,16 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
 
-    <me.grantland.widget.AutofitTextView
-        android:id="@+id/intro_output_autofitpage2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="30sp"
-        android:gravity="center"
-        android:maxLines="5"
-        autofit:minTextSize="8sp"
-        />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
@@ -47,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:backgroundTint="@color/md_grey_500"
         android:singleLine="true"
         android:hint="Example cool_marx"
         android:id="@+id/intro_username"/>
@@ -58,16 +50,16 @@
         android:gravity="center"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="200dp"
         android:text="Your confession will be posted in this name."/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:gravity="center"
         android:layout_marginTop="50dp"
-        android:text="SWIPE RIGHT TO CONFESS"/>
+        android:text="CLICK NEXT TO CONFESS"/>
 
 
 </LinearLayout>

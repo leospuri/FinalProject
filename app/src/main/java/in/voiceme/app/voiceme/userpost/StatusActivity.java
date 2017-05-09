@@ -15,7 +15,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
 public class StatusActivity extends BaseActivity {
-    private TextView mAutofitOutput;
     private EditText text_status;
 
     @Override
@@ -51,36 +50,10 @@ public class StatusActivity extends BaseActivity {
             }
         });
 
-        mAutofitOutput = (TextView) findViewById(R.id.output_autofit);
-        mAutofitOutput.setGravity(Gravity.CENTER);
-        mAutofitOutput.setVisibility(View.GONE);
-
         text_status = (EditText) findViewById(R.id.edit_text_status);
 
-        editTextChangeListener();
-
     }
 
-
-    private void editTextChangeListener() {
-        text_status.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                // do nothing
-                mAutofitOutput.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                mAutofitOutput.setText(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                // do nothing
-            }
-        });
-    }
 
 //    @Override
 //     public boolean processLoggedState(View viewPrm) {

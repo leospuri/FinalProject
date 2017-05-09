@@ -19,19 +19,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"/>
 
-                <me.grantland.widget.AutofitTextView
-                    android:id="@+id/output_autofit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text=""
-                    android:textSize="30sp"
-                    android:gravity="center"
-                    android:maxLines="5"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    autofit:minTextSize="8sp"
-                    />
                 <EditText
                     android:id="@+id/edit_text_status"
                     android:layout_width="match_parent"

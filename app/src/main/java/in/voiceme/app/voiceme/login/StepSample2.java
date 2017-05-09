@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -23,7 +24,6 @@ import timber.log.Timber;
  */
 public class StepSample2 extends AbstractStep {
     private EditText usernameText;
-    private TextView mAutofitOutput;
     private boolean yes = false;
     private String color;
     private String token;
@@ -40,24 +40,24 @@ public class StepSample2 extends AbstractStep {
 
         Timber.d(String.valueOf("token from fcm: " + token));
 
-        mAutofitOutput = (TextView) v.findViewById(R.id.intro_output_autofitpage2);
-        mAutofitOutput.setGravity(Gravity.CENTER);
-        mAutofitOutput.setVisibility(View.GONE);
 
         usernameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mAutofitOutput.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                yes = true;
-                mAutofitOutput.setText(charSequence);
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if (usernameText.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getActivity(), "Please Enter Username", Toast.LENGTH_SHORT).show();
+                } else {
+                    yes = true;
+                }
             }
         });
 

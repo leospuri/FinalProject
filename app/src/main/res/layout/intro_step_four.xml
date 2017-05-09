@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/stepFourLinear"
-    android:background="#d1b7df"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -15,7 +15,6 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
         android:textSize="18sp"
         android:id="@+id/intro_selected_hashtag"
         android:visibility="visible"
@@ -23,12 +22,12 @@
 
     <EditText
         android:id="@+id/intro_editText"
+        android:backgroundTint="@color/md_grey_500"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/white"
         android:textSize="18sp"
         android:hint="Create or Search a HashTag" />
 
@@ -48,7 +47,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="It is related to :-"
-        android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"/>
@@ -57,7 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
         android:layout_marginLeft="10dp"
         android:text="Popular HashTags:"/>
 
@@ -66,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="12dp"
-        android:background="#FFD3B0E6"
+        android:background="@color/white"
         android:visibility="visible" />
 
 

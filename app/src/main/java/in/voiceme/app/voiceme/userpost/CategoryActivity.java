@@ -10,9 +10,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -94,10 +96,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         rv.setHasFixedSize(true);
 
         getPopularHashTags();
-        mView = getLayoutInflater().inflate(R.layout.user_input_dialog_box, null);
 
-        alertDialogBuilderUserInput = new AlertDialog.Builder(this);
-        alertDialogBuilderUserInput.setView(mView);
 
         userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
 
@@ -133,7 +132,16 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
 
                 if (isNetworkConnected()){
-                    setTags(s);
+                    try {
+                        setTags(s);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                        Toast.makeText(CategoryActivity.this, "Your device has low internet speed", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(CategoryActivity.this, "Unknown Error", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     Toast.makeText(CategoryActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
               //      startActivity(new Intent(CategoryActivity.this, OfflineActivity.class));
@@ -366,7 +374,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
         if (id == R.id.category_menu) {
             Intent returnIntent = new Intent();
             if (current_category == null){
-                Toast.makeText(this, "You have not selected any Hashtags", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You have not selected any Interest", Toast.LENGTH_SHORT).show();
             } else {
                 returnIntent.putExtra("resultFromCategory", current_category);
                 returnIntent.putExtra("resultFromCategory2", selected_hashtag.getText().toString().trim());
@@ -391,9 +399,14 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void editDialog(){
+        mView = getLayoutInflater().inflate(R.layout.user_input_dialog_box, null);
+
+        alertDialogBuilderUserInput = new AlertDialog.Builder(this);
+        alertDialogBuilderUserInput.setView(mView);
+
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton("Create HashTag", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Create Interest", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
                         // ToDo get user input here
                         progressFrame.setVisibility(View.VISIBLE);
@@ -415,7 +428,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
     public void dialogBox(String message){
         builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Do you want to Create a New HashTag: " + message + " ?");
+        builder1.setMessage("Do you want to Create a New Interest: " + message + " ?");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
@@ -453,11 +466,20 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     .subscribe(new BaseSubscriber<NewCategoryAdded>() {
                         @Override
                         public void onNext(NewCategoryAdded userResponse) {
-                            setCategory(userResponse.getId(), editText.getText().toString().trim());
-                            Toast.makeText(CategoryActivity.this, "New Hash Tag Created", Toast.LENGTH_SHORT).show();
-                            selected_hashtag.setText(editText.getText().toString().trim());
-                            selected_hashtag.setVisibility(View.VISIBLE);
-                            progressFrame.setVisibility(View.GONE);
+                            if (userResponse.getSuccess()){
+                                setCategory(userResponse.getId(), editText.getText().toString().trim());
+                                Toast.makeText(CategoryActivity.this, "New Interest Created", Toast.LENGTH_SHORT).show();
+                                selected_hashtag.setText(editText.getText().toString().trim());
+                                selected_hashtag.setVisibility(View.VISIBLE);
+                                progressFrame.setVisibility(View.GONE);
+                            } else {
+                                setCategory(userResponse.getId(), editText.getText().toString().trim());
+                                Toast.makeText(CategoryActivity.this, "This Interest already exists", Toast.LENGTH_SHORT).show();
+                                selected_hashtag.setText(editText.getText().toString().trim());
+                                selected_hashtag.setVisibility(View.VISIBLE);
+                                progressFrame.setVisibility(View.GONE);
+                            }
+
                         }
                         @Override
                         public void onError(Throwable e) {
