@@ -4,11 +4,7 @@
 
     <color name="dialog_divider">#ebebeb</color>
     <color name="login_sample">#5c6bc0</color>
-    <color name="login_step01">#4285F4</color>
-    <color name="login_step02">#4285F4</color>
-    <color name="login_step03">#d1b7df</color>
-    <color name="login_step04">#89c982</color>
-    <color name="login_sample2">#00bcd4</color>
+    <color name="emotion_color">#4285F4</color>
     <color name="login_background2">#475b68</color>
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#303F9F</color>

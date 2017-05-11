@@ -107,7 +107,7 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
 
 
         // Todo Write the logic to get activity as per the feeling name
-        notificationFeeling.setText(String.valueOf(" just " + getEmotionValue(dataItem) + " your post: "));
+        notificationFeeling.setText(String.valueOf(getEmotionValue(dataItem) + " your post: "));
         notificationTime.setText(CurrentTimeLong.getCurrentTime(dataItem.getTime().trim(), itemView.getContext()));
 
         if (dataItem.getTextStatus() != null){

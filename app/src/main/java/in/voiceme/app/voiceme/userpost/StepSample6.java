@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.userpost;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +32,9 @@ import timber.log.Timber;
 public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private boolean yes = false;
     private TextView textview_ask_audio_perm;
+    private TextView textview_audio_success;
     private Button request_record_audio_perm;
+    private String audio_time;
     Toolbar toolbar;
 
     public static final int REQUEST_CODE = 1;
@@ -42,6 +45,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         View v = inflater.inflate(R.layout.fragment_step_sample6, container, false);
 
         textview_ask_audio_perm = (TextView) v.findViewById(R.id.textview_ask_audio_perm);
+        textview_audio_success = (TextView) v.findViewById(R.id.textview_audio_success);
         request_record_audio_perm = (Button) v.findViewById(R.id.request_record_audio_perm);
 
         request_record_audio_perm.setOnClickListener(this);
@@ -69,6 +73,27 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         } else {
             textview_ask_audio_perm.setText("You need to give permission to Record Audio");
             return false;
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == getActivity().RESULT_OK) {
+
+                audio_time = data.getExtras().getString("audioTime");
+                //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
+
+                //     path.setText(data.getExtras().getString("path"));
+
+                /************ Audio Received ******************** */
+                Toast.makeText(getActivity(), "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
+                textview_audio_success.setText("Successful");
+            } else if (resultCode == getActivity().RESULT_CANCELED) {
+                Toast.makeText(getActivity(), "Audio was not recorded", Toast.LENGTH_SHORT).show();
+            }
 
         }
     }

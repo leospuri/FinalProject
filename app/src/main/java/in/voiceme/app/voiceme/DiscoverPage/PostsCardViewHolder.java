@@ -56,9 +56,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 //    protected TextView post_listen;
 
     //emoji for like, hug and same above
-    protected ImageView likeCounterImage;
-    protected ImageView hugCounterImage;
-    protected ImageView sameCounterImage;
     protected ImageView commentCounterImage;
   //  protected ImageView listenCounterImage;
     protected MediaPlayer mediaPlayer = new MediaPlayer();
@@ -99,9 +96,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     //    post_listen = (TextView) itemView.findViewById(R.id.post_listen_counter);
 
         //emoji for like, hug and same above
-        likeCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_like);
-        hugCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_hug);
-        sameCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_same);
         commentCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_comment);
        // listenCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_listen);
 
@@ -204,24 +198,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             }
         });
 
-        likeCounterImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                likeCounterClicked(v);
-            }
-        });
-        hugCounterImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hugCounterClicked(v);
-            }
-        });
-        sameCounterImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sameCounterClicked(v);
-            }
-        });
         commentCounterImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -142,9 +142,10 @@
             <TextView
                 android:id="@+id/detail_list_item_posts_message"
                 android:layout_width="250dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/detail_list_item_posts_timeStamp"
                 android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/posts_text"
                 android:textSize="12sp" />
 
@@ -372,6 +373,7 @@
             android:layout_height="match_parent"
             android:background="#91D4Fa"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/post_details_progressBar">
             <TextView
                 android:layout_width="wrap_content"

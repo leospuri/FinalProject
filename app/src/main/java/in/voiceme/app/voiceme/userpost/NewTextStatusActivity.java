@@ -47,6 +47,10 @@ public class NewTextStatusActivity extends DotStepper implements StepTwoInterfac
         loading.setMessage("Loading");
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
+  //      ViewSwitcher switcher_layout = (ViewSwitcher)findViewById(com.github.fcannizzaro.materialstepper.R.id.stepSwitcher);
+  //      switcher_layout.setBackgroundColor(getResources().getColor(R.color.emotion_color));
+
+
         setTitle("Post Text Status");
         addStep(createFragment(new StepSample3()));
         addStep(createFragment(new StepSample4()));
@@ -70,19 +74,6 @@ public class NewTextStatusActivity extends DotStepper implements StepTwoInterfac
         b.putInt("position", i++);
         fragment.setArguments(b);
         return fragment;
-    }
-
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        AbstractStep step = this.mSteps.getCurrent();
-
-        if (count < 5) {
-            step.onPrevious();
-            //additional code
-        } else if (count == 0){
-            super.onBackPressed();
-        }
     }
 
     private void postStatus(){

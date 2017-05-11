@@ -10,7 +10,7 @@
         android:id="@+id/intro_activity_feeling"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4285F4"
+        android:background="@color/emotion_color"
         tools:context=".userpost.FeelingActivity">
 
         <include layout="@layout/include_toolbar"
