@@ -4,11 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +46,7 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.login.StepThreeInterface;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -60,6 +66,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     private LinearLayout mLinearLayout;
     private View mView;
     private EditText userInputDialogEditText;
+    Toolbar toolbar;
 
     /**
      * sample country list
@@ -185,6 +192,40 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         });
 
         return v;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        toolbar = mStepper.getToolbar();
+        if(toolbar==null){
+            Timber.d("toolbar is null");
+        }
+        else{
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            try {
+                actionBar.setHomeAsUpIndicator(R.mipmap.ic_ab_close);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     private void checkId(String text){

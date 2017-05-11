@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
@@ -46,6 +47,9 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
         loading.setMessage("Loading");
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         setTitle("Post Text Status");
         addStep(createFragment(new StepSample3()));
         addStep(createFragment(new StepSample4()));
@@ -53,6 +57,16 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
         addStep(createFragment(new StepSample6()));
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     private AbstractStep createFragment(AbstractStep fragment) {

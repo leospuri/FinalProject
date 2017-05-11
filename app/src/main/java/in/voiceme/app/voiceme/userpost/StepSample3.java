@@ -1,7 +1,11 @@
 package in.voiceme.app.voiceme.userpost;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,6 +14,7 @@ import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.login.StepTwoInterface;
+import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -20,6 +25,7 @@ public class StepSample3 extends AbstractStep {
 
     private String current_feeling = null;
     private boolean yes = false;
+    Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -196,6 +202,40 @@ public class StepSample3 extends AbstractStep {
             if (sexy_switch.isChecked()) {
                 sexy_switch.toggle();
             }}
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        toolbar = mStepper.getToolbar();
+        if(toolbar==null){
+            Timber.d("toolbar is null");
+        }
+        else{
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            try {
+                actionBar.setHomeAsUpIndicator(R.mipmap.ic_ab_close);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void setFeeling(String feelingName) {

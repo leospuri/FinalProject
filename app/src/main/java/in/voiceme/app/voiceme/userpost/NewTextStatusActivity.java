@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
@@ -46,14 +47,22 @@ public class NewTextStatusActivity extends DotStepper implements StepTwoInterfac
         loading.setMessage("Loading");
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-
-
         setTitle("Post Text Status");
         addStep(createFragment(new StepSample3()));
         addStep(createFragment(new StepSample4()));
         addStep(createFragment(new StepSample5()));
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     private AbstractStep createFragment(AbstractStep fragment) {

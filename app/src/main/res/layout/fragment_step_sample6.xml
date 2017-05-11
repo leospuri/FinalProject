@@ -5,9 +5,28 @@
     tools:context="in.voiceme.app.voiceme.userpost.StepSample6">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/textview_ask_audio_perm"
+            android:layout_centerInParent="true"
+            android:text="To Record Audio, We need your permission" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/textview_ask_audio_perm"
+            android:id="@+id/request_record_audio_perm"
+            android:text="Record Audio"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
 
 </FrameLayout>

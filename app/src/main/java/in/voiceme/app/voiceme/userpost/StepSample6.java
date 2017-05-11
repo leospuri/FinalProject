@@ -1,13 +1,21 @@
 package in.voiceme.app.voiceme.userpost;
 
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
@@ -15,12 +23,17 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StepSample6 extends AbstractStep {
+public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private boolean yes = false;
+    private TextView textview_ask_audio_perm;
+    private Button request_record_audio_perm;
+    Toolbar toolbar;
+
     public static final int REQUEST_CODE = 1;
 
     @Override
@@ -28,10 +41,62 @@ public class StepSample6 extends AbstractStep {
 
         View v = inflater.inflate(R.layout.fragment_step_sample6, container, false);
 
-        recordActivity();
+        textview_ask_audio_perm = (TextView) v.findViewById(R.id.textview_ask_audio_perm);
+        request_record_audio_perm = (Button) v.findViewById(R.id.request_record_audio_perm);
+
+        request_record_audio_perm.setOnClickListener(this);
+
+        checkIfAlreadyhavePermission();
 
         return v;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    private boolean checkIfAlreadyhavePermission() {
+        int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            textview_ask_audio_perm.setText("Click below to record audio");
+            return true;
+        } else {
+            textview_ask_audio_perm.setText("You need to give permission to Record Audio");
+            return false;
+
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        toolbar = mStepper.getToolbar();
+        if(toolbar==null){
+            Timber.d("toolbar is null");
+        }
+        else{
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            try {
+                actionBar.setHomeAsUpIndicator(R.mipmap.ic_ab_close);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
 
     private void recordActivity() {
         if (ActivityUtils.recordPermissionGranted(getActivity())) {
@@ -71,7 +136,6 @@ public class StepSample6 extends AbstractStep {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "IsOptional is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -114,4 +178,10 @@ public class StepSample6 extends AbstractStep {
         return "<b>You must click!</b> <small>this is the condition!</small>";
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.request_record_audio_perm){
+            recordActivity();
+        }
+    }
 }
