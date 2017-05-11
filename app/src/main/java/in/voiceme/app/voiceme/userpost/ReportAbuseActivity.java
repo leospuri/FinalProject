@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -112,9 +112,9 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeOn(Schedulers.io())
                             .retryWhen(new RetryWithDelay(3,2000))
-                            .subscribe(new BaseSubscriber<ReportResponse>() {
+                            .subscribe(new BaseSubscriber<SuccessResponse>() {
                                 @Override
-                                public void onNext(ReportResponse userResponse) {
+                                public void onNext(SuccessResponse userResponse) {
                                     Timber.e("UserResponse " + userResponse.getSuccess());
                                     if (userResponse.getSuccess()) {
                                         Toast.makeText(ReportAbuseActivity.this, "Successfully posted message to our team", Toast.LENGTH_SHORT).show();

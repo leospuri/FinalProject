@@ -210,7 +210,7 @@ public interface WebServiceMain {
 
     @FormUrlEncoded
     @POST("testing/server/report_abuse.php")
-    Observable<ReportResponse> reportAbuse(
+    Observable<SuccessResponse> reportAbuse(
             @Field("id_posts") String id_posts,
             @Field("id_user_name") String id_user_name,
             @Field("sender_user_id") String sender_user_id,
@@ -219,7 +219,7 @@ public interface WebServiceMain {
 
     @FormUrlEncoded
     @POST("testing/server/updatePosts.php")
-    Observable<ReportResponse> EditPosts(
+    Observable<SuccessResponse> EditPosts(
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts,
             @Field("audio_file_link") String audio_file_link
@@ -227,7 +227,7 @@ public interface WebServiceMain {
 
     @FormUrlEncoded
     @POST("testing/server/updatePostWithoutAudio.php")
-    Observable<ReportResponse> updatePostWithoutAudio(
+    Observable<SuccessResponse> updatePostWithoutAudio(
             @Field("id_posts") String user_id,
             @Field("text_status") String id_posts
     );

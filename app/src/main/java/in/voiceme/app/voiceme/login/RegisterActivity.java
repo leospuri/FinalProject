@@ -1,6 +1,5 @@
 package in.voiceme.app.voiceme.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -261,26 +260,17 @@ public class RegisterActivity extends BaseActivity
                         application.getAuth().setAuthToken("token");
                         application.getAuth().getUser().setLoggedIn(true);
 
-                        if (response.info.getGivenContact().equals("true")){
-                            setAuthToken("token");
-                        }
 
                         if (response.info.getPresent().equals("yes")){
                             token = FirebaseInstanceId.getInstance().getToken();
                             postToken(response.info.getUserId(), token);
 
-
                         } else {
 
                             Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            setResult(Activity.RESULT_OK, intent);
-                            finish();
+                            startActivity(intent);
                         }
-                        Intent returnIntent = new Intent(RegisterActivity.this, DiscoverActivity.class);
-                        returnIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        setResult(Activity.RESULT_OK, returnIntent);
-                        finish();
                     }
                 });
     }

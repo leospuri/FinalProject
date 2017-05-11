@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.login;
+package in.voiceme.app.voiceme.userpost;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.login.StepTwoInterface;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).

@@ -10,11 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -97,10 +95,7 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
         getPopularHashTags();
 
-
         userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
-
-
 
         tagGroup = (TagView) findViewById(R.id.tag_group);
         editText = (EditText) findViewById(R.id.editText);
@@ -129,7 +124,6 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
                     scrollView.setVisibility(View.VISIBLE);
                     rv.setVisibility(View.GONE);
                 }
-
 
                 if (isNetworkConnected()){
                     try {
@@ -349,11 +343,10 @@ public class CategoryActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    public void setCategory(String current_category, String category_name) {
-        selected_hashtag.setText(String.valueOf("You have selected : " + category_name));
-
+    private void setCategory(String id, String category_name) {
         selected_hashtag.setVisibility(View.VISIBLE);
-        this.current_category = current_category;
+        selected_hashtag.setText(String.valueOf("You have selected : " + category_name));
+        this.current_category = id;
     }
 
     @Override

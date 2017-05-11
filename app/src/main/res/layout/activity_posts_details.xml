@@ -347,7 +347,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
-                android:backgroundTint="@color/md_grey_500"
                 android:layout_weight="4"
                 android:background="@android:color/white"
                 android:hint="Say something..."

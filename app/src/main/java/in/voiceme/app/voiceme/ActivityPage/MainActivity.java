@@ -16,8 +16,8 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
-import in.voiceme.app.voiceme.userpost.TextStatus;
+import in.voiceme.app.voiceme.userpost.NewAudioStatusActivity;
+import in.voiceme.app.voiceme.userpost.NewTextStatusActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     FloatingActionButton textStatus;
@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     .build());
             // [END custom_event]
 
-            startActivity(new Intent(MainActivity.this, TextStatus.class));
+            startActivity(new Intent(MainActivity.this, NewTextStatusActivity.class));
             rightLabels.toggle();
         } else if (view.getId() == R.id.action_b){
             processLoggedState(view);
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             // [END custom_event]
 
 
-            startActivity(new Intent(MainActivity.this, AudioStatus.class));
+            startActivity(new Intent(MainActivity.this, NewAudioStatusActivity.class));
             rightLabels.toggle();
         }
     }

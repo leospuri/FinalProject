@@ -27,7 +27,7 @@ public class UserHugCounterActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_hug_counter);
-        getSupportActionBar().setTitle("User Hugs");
+        getSupportActionBar().setTitle("User Hugged the post");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

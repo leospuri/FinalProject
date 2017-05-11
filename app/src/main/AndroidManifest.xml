@@ -91,13 +91,13 @@
         <activity
             android:name=".NotificationsPage.NotificationsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="in.voiceme.app.voiceme.REACTIONS" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".infrastructure.AuthenticationActivity"
             android:screenOrientation="portrait"
@@ -105,16 +105,19 @@
         <activity
             android:name=".userpost.TextStatus"
             android:label="@string/title_activity_text_status"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".userpost.AudioStatus"
             android:label="@string/title_activity_audio_status"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".PostsDetails.UserLikeCounterActivity"
             android:label="@string/title_activity_feeling_details"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -214,20 +217,35 @@
 
         <activity
             android:name=".userpost.CategoryActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".chat.DialogDetailsActivity">
+        <activity
+            android:name=".chat.DialogDetailsActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="in.voiceme.app.voiceme.CHAT" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".chat.MessageActivity" />
+        <activity
+            android:name=".chat.MessageActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.IntroActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".login.SecondBeforeLoginActivity" />
-        <activity android:name=".userpost.SecondRecordactivity" />
-        <activity android:name=".login.AfterRegisterActivity"></activity>
+        <activity
+            android:name=".login.SecondBeforeLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".userpost.SecondRecordactivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.AfterRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".userpost.NewTextStatusActivity" />
+        <activity android:name=".userpost.NewAudioStatusActivity"></activity>
     </application>
 
 </manifest>

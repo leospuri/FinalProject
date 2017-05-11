@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.login;
+package in.voiceme.app.voiceme.userpost;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -38,8 +38,7 @@ import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
-import in.voiceme.app.voiceme.userpost.CategoryTagAdapter;
-import in.voiceme.app.voiceme.userpost.PopularCategoryClickListner;
+import in.voiceme.app.voiceme.login.StepThreeInterface;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -141,9 +140,9 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             public void afterTextChanged(Editable s) {
                 if (editText.getText().toString().isEmpty()){
                     scrollView.setVisibility(View.GONE);
-                    intro_step_four_popular.setVisibility(View.VISIBLE);
                     createNewHashTag.setVisibility(View.VISIBLE);
                     rv.setVisibility(View.VISIBLE);
+                    intro_step_four_popular.setVisibility(View.VISIBLE);
                 }
             }
         });

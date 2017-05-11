@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
-import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
@@ -129,9 +129,9 @@ public class ContactService extends IntentService {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
-                .subscribe(new BaseSubscriber<ReportResponse>() {
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
                     @Override
-                    public void onNext(ReportResponse response) {
+                    public void onNext(SuccessResponse response) {
                     }
                 });
     }

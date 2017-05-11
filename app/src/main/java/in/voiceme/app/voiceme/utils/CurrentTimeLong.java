@@ -14,25 +14,25 @@ public class CurrentTimeLong {
     public static String getCurrentTime(String currentTimeInSeconds, Context context) {
         String currentTimeForPost;
         DateTime now = DateTime.now();
-        int currentTime = (int) (System.currentTimeMillis() - Long.parseLong(currentTimeInSeconds));
+        int currentTime = (int) (System.currentTimeMillis() - Long.parseLong(currentTimeInSeconds))/1000;
 
-        if (currentTime < 60000){
+        if (currentTime < 60){
             String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusSeconds(currentTime));
             currentTimeForPost = relativeTime;
-        } else if (currentTime < 3600000){
-            int currentTimeInMinutes = currentTime/60000;
+        } else if (currentTime < 3600){
+            int currentTimeInMinutes = currentTime/60;
             String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusMinutes(currentTimeInMinutes));
             currentTimeForPost = relativeTime;
-        } else if (currentTime < 86400000){
-            int currentTimeInHours = currentTime/3600000;
+        } else if (currentTime < 86400){
+            int currentTimeInHours = currentTime/3600;
             String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusHours(currentTimeInHours));
             currentTimeForPost = relativeTime;
-        } else if (currentTime < 604800000){
-            int currentTimeInDays = currentTime/86400000;
+        } else if (currentTime < 604800){
+            int currentTimeInDays = currentTime/86400;
             String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusDays(currentTimeInDays));
             currentTimeForPost = relativeTime;
         } else{
-            int currentTimeInMonths = currentTime/604800000;
+            int currentTimeInMonths = currentTime/604800;
             String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusMonths(currentTimeInMonths));
             currentTimeForPost = relativeTime;
         }

@@ -3,20 +3,23 @@ package in.voiceme.app.voiceme.login;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+import in.voiceme.app.voiceme.services.RetryWithDelay;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -27,8 +30,8 @@ public class StepSample2 extends AbstractStep {
     private boolean yes = false;
     private String color;
     private String token;
-
-    /* save username    */
+    private Button checkUsername;
+    private TextView usernameCheck;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,33 +40,56 @@ public class StepSample2 extends AbstractStep {
 
         usernameText = (EditText) v.findViewById(R.id.intro_username);
         token = FirebaseInstanceId.getInstance().getToken();
+        checkUsername = (Button) v.findViewById(R.id.check_user_name);
+        usernameCheck = (TextView) v.findViewById(R.id.check_user_available);
+        usernameCheck.setVisibility(View.GONE);
 
-        Timber.d(String.valueOf("token from fcm: " + token));
-
-
-        usernameText.addTextChangedListener(new TextWatcher() {
+        checkUsername.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void onClick(View v) {
+                usernameCheck.setVisibility(View.VISIBLE);
+                usernameCheck.setText("");
+                if (!usernameText.getText().toString().trim().isEmpty()){
+                    checkUsername(usernameText.getText().toString().trim());
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (usernameText.getText().toString().trim().isEmpty()){
-                    Toast.makeText(getActivity(), "Please Enter Username", Toast.LENGTH_SHORT).show();
-                } else {
-                    yes = true;
                 }
             }
         });
 
+        Timber.d(String.valueOf("token from fcm: " + token));
+
         return v;
     }
 
+    private void checkUsername(String username){
+        try {
+            ((VoicemeApplication)getActivity().getApplication()).getWebService()
+                    .checkUsername(username)
+                    .retryWhen(new RetryWithDelay(3,2000))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<SuccessResponse>() {
+                        @Override
+                        public void onNext(SuccessResponse response) {
+
+                            if (response.getSuccess()){
+                                usernameCheck.setText("Username already exists");
+                                usernameCheck.setTextColor(getActivity().getResources().getColor(R.color.md_red_300));
+                            } else {
+                                usernameCheck.setText("Username is available");
+                                usernameCheck.setTextColor(getActivity().getResources().getColor(R.color.md_green_300));
+                                yes = true;
+                            }
+                            //    MySharedPreferences.registerUsername(preferences, usernameText);
+                            //Todo add network call for uploading profile_image file
+                            //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private ActionBar getActionBar() {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
-import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -340,9 +340,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
-                .subscribe(new BaseSubscriber<ReportResponse>() {
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
                     @Override
-                    public void onNext(ReportResponse response) {
+                    public void onNext(SuccessResponse response) {
                         MySharedPreferences.registerUsername(preferences, username.getText().toString());
                         //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));

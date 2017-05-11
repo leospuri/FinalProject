@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You selected this hashtag."
+        android:text="You selected this Interest."
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -29,34 +29,29 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
         android:textSize="18sp"
-        android:hint="Create or Search a HashTag" />
+        android:hint="Choose your interest" />
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Click here to Create a New HashTag"
+        android:layout_height="37dp"
+        android:text="Create new Interest"
         android:id="@+id/intro_create_new_hashtag"
-        android:visibility="gone"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_tag"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="20dp"
-        android:textSize="18sp"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="It is related to :-"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:id="@+id/intro_step_four_popular"
         android:layout_marginLeft="10dp"
-        android:text="Popular HashTags:"/>
+        android:text="Popular Interests:"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/intro_category_tag_rv"

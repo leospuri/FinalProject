@@ -28,7 +28,7 @@ public class UserSameCounterActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_same_counter);
-        getSupportActionBar().setTitle("User Clicked Same");
+        getSupportActionBar().setTitle("User Clicked Sad");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

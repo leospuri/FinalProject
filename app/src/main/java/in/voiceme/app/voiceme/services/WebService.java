@@ -15,7 +15,7 @@ import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.ProfileAboutMe;
 import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
-import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 import in.voiceme.app.voiceme.DTO.MessagePojo;
@@ -212,12 +212,11 @@ public interface WebService {
     @GET("follower.php")
     Observable<ProfileFollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
 
+    @GET("duplicate_user_name.php")
+    Observable<SuccessResponse> checkUsername(@Query("user_nick_name") String user_nick_name);
+
     @GET("get_user.php")
     Observable<ProfileUserList> getUserProfile(
-            @Query("user_id") String user_id);
-
-    @GET("check_username_availability.php")
-    Observable<String> checkUsername(
             @Query("user_id") String user_id);
 
     @GET("get_user.php")
@@ -258,7 +257,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("report_abuse.php")
-    Observable<ReportResponse> reportAbuse(
+    Observable<SuccessResponse> reportAbuse(
             @Field("id_user_name") String id_user_name,
             @Field("sender_user_id") String sender_user_id,
             @Field("id_posts") String id_posts,
@@ -273,21 +272,21 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("update_post.php")
-    Observable<ReportResponse> deletePost(
+    Observable<SuccessResponse> deletePost(
             @Field("id_posts") String category,
             @Field("action") String action
     );
 
     @FormUrlEncoded
     @POST("update_contact.php")
-    Observable<ReportResponse> updateContact(
+    Observable<SuccessResponse> updateContact(
             @Field("id_user_name") String id_user_name,
             @Field("contact") String contact
     );
 
     @FormUrlEncoded
     @POST("update_post.php")
-    Observable<ReportResponse> updatePost(
+    Observable<SuccessResponse> updatePost(
             @Field("id_posts") String category,
             @Field("action") String action,
             @Field("text_status") String text_status
@@ -295,7 +294,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("update_profile.php")
-    Observable<ReportResponse> updateProfile(
+    Observable<SuccessResponse> updateProfile(
             @Field("id_user_name") String id_user_name,
             @Field("avatar_url") Uri avatar_url,
             @Field("user_nick_name") String user_nick_name,
@@ -318,7 +317,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("save_token.php")
-    Observable<ReportResponse> save_token(
+    Observable<SuccessResponse> save_token(
             @Field("id_user_name") String id_user_name,
             @Field("pushnotificationToken") String pushnotificationToken
     );

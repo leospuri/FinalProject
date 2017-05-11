@@ -90,6 +90,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         postMessage = (TextView) itemView.findViewById(R.id.list_item_posts_message);
         postReadMore = (TextView) itemView.findViewById(R.id.list_item_posts_read_more);
 
+        postReadMore.setVisibility(View.GONE);
         //counter numbers
         like_counter = (TextView) itemView.findViewById(R.id.post_likes_counter);
         hug_counter = (TextView) itemView.findViewById(R.id.post_hugs_counter);
@@ -112,6 +113,19 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         parent_row = (View) itemView.findViewById(R.id.parent_row);
 
         //OnClickListeners
+
+        postReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardBackground(v);
+            }
+        });
+        postMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardBackground(v);
+            }
+        });
         likeButtonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -320,8 +334,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             timeStamp.setText(CurrentTime.getCurrentTime(dataItem.getPostTime(), itemView.getContext()));
         }
 
-
-
+        if (dataItem.getTextStatus().length() > 140){
+            postReadMore.setVisibility(View.VISIBLE);
+        }
         postMessage.setText(dataItem.getTextStatus());
         post_comments.setText(String.valueOf(dataItem.getComments()));
         like_counter.setText(String.valueOf(dataItem.getLikes()));

@@ -7,9 +7,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import in.voiceme.app.voiceme.DTO.PostUserListModel;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.utils.CurrentTime;
 import in.voiceme.app.voiceme.utils.CurrentTimeLong;
 
 /**
@@ -99,16 +97,33 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
     public void bind(NotificationPojo dataItem) {
         this.dataItem = dataItem;
 
-        personName.setText(dataItem.getUsername());
+        if (dataItem.getUsername() != null){
+            if(dataItem.getUsername().trim().isEmpty()){
+                personName.setText("Anonymous");
+            } else {
+                personName.setText(dataItem.getUsername());
+            }
+        }
+
+
         // Todo Write the logic to get activity as per the feeling name
         notificationFeeling.setText(String.valueOf(" just " + getEmotionValue(dataItem) + " your post: "));
         notificationTime.setText(CurrentTimeLong.getCurrentTime(dataItem.getTime().trim(), itemView.getContext()));
-        notification_feeling_status.setText(dataItem.getTextStatus().trim());
+
+        if (dataItem.getTextStatus() != null){
+            if (!(dataItem.getTextStatus().trim().isEmpty())){
+                notification_feeling_status.setText(dataItem.getTextStatus().trim());
+            } else {
+                notification_feeling_status.setText("No status");
+            }
+        }
+
         personPhoto.setImageURI(dataItem.getAvatarPic());
     }
 
     private String getEmotionValue(NotificationPojo dataItem){
         String emotion = null;
+
         if(dataItem.getActivity().equals("1")){
             emotion = "liked";
         } else if(dataItem.getActivity().equals("2")){
@@ -117,6 +132,8 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
             emotion = "felt sad for";
         } else if(dataItem.getActivity().equals("5")){
             emotion = "commented on";
+        } else {
+            emotion = "other";
         }
 
         return emotion;

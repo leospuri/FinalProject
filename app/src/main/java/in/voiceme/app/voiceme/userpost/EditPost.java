@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import in.voiceme.app.voiceme.DTO.ReportResponse;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -102,9 +102,9 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                 .deletePost(postID, action)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
-                .subscribe(new BaseSubscriber<ReportResponse>() {
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
                     @Override
-                    public void onNext(ReportResponse response) {
+                    public void onNext(SuccessResponse response) {
                         Timber.d("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
@@ -127,9 +127,9 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                 .updatePost(postID, action, text_status)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<ReportResponse>() {
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
                     @Override
-                    public void onNext(ReportResponse response) {
+                    public void onNext(SuccessResponse response) {
                         Timber.d("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
