@@ -34,10 +34,9 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private TextView textview_ask_audio_perm;
     private TextView textview_audio_success;
     private Button request_record_audio_perm;
-    private String audio_time;
     Toolbar toolbar;
 
-    public static final int REQUEST_CODE = 1;
+    public static final int REQUEST_CODE = 5000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +48,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         request_record_audio_perm = (Button) v.findViewById(R.id.request_record_audio_perm);
 
         request_record_audio_perm.setOnClickListener(this);
+        textview_audio_success.setVisibility(View.GONE);
 
         checkIfAlreadyhavePermission();
 
@@ -81,21 +81,22 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
-            if (resultCode == getActivity().RESULT_OK) {
 
-                audio_time = data.getExtras().getString("audioTime");
+                textview_audio_success.setVisibility(View.VISIBLE);
+
+                textview_ask_audio_perm.setText("Recording done");
                 //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
 
                 //     path.setText(data.getExtras().getString("path"));
 
                 /************ Audio Received ******************** */
+
                 Toast.makeText(getActivity(), "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
                 textview_audio_success.setText("Successful");
+
             } else if (resultCode == getActivity().RESULT_CANCELED) {
                 Toast.makeText(getActivity(), "Audio was not recorded", Toast.LENGTH_SHORT).show();
             }
-
-        }
     }
 
     @Override
@@ -191,7 +192,6 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "nextIf is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -207,6 +207,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId()==R.id.request_record_audio_perm){
             recordActivity();
+            textview_ask_audio_perm.setText("Click Below to Record Again.");
         }
     }
 }
