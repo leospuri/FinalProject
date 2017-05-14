@@ -90,6 +90,7 @@
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="80dp"
+            android:id="@+id/play_button_layout"
             android:layout_alignEnd="@+id/list_item_posts_category"
             android:layout_alignRight="@+id/list_item_posts_category"
             android:layout_below="@+id/list_item_posts_category"
@@ -176,17 +177,28 @@
             android:layout_below="@id/number_of_likes"
             app:mfb_rotation_duration="400"
             app:mfb_favorite_image="@drawable/like_after"
-            app:mfb_not_favorite_image="@drawable/like_before"
+            app:mfb_not_favorite_image="@drawable/like_after"
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:padding="3dp"
+            android:textSize="8sp"
+            android:background="@drawable/post_like"
+            android:layout_below="@+id/list_item_like_button"
+            android:text="LIKE"/>
 
         <TextView
             android:id="@+id/post_likes_counter"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="23dp"
-            android:layout_below="@+id/list_item_like_button"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toEndOf="@+id/list_item_like_button"
+            android:layout_toRightOf="@+id/list_item_like_button"
             android:textSize="12sp"
             tools:text="0" />
 
@@ -195,21 +207,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
-            android:layout_toEndOf="@+id/list_item_like_button"
-            android:layout_toRightOf="@+id/list_item_like_button"
+            android:layout_toEndOf="@+id/post_likes_counter"
+            android:layout_toRightOf="@+id/post_likes_counter"
             app:mfb_rotation_duration="400"
             app:mfb_favorite_image="@drawable/hug_after"
-            app:mfb_not_favorite_image="@drawable/status_before"
+            app:mfb_not_favorite_image="@drawable/hug_after"
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:padding="3dp"
+            android:textSize="8sp"
+            android:background="@drawable/post_like"
+            android:backgroundTint="@color/md_blue_400"
+            android:textColor="@color/white"
+            android:layout_below="@+id/list_item_hug_button"
+            android:text="HUG "/>
 
         <TextView
             android:id="@+id/post_hugs_counter"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="77dp"
-            android:layout_below="@+id/list_item_hug_button"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toEndOf="@+id/list_item_hug_button"
+            android:layout_toRightOf="@+id/list_item_hug_button"
             android:textSize="12sp"
             tools:text="0" />
 
@@ -218,21 +243,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
-            android:layout_toEndOf="@+id/list_item_hug_button"
-            android:layout_toRightOf="@+id/list_item_hug_button"
+            android:layout_toEndOf="@+id/post_hugs_counter"
+            android:layout_toRightOf="@+id/post_hugs_counter"
             app:mfb_rotation_duration="400"
             app:mfb_favorite_image="@drawable/sad"
-            app:mfb_not_favorite_image="@drawable/status_before"
+            app:mfb_not_favorite_image="@drawable/sad"
             app:mfb_rotation_angle="360"
             app:mfb_bounce_duration="700" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="163dp"
+            android:padding="3dp"
+            android:textSize="8sp"
+            android:background="@drawable/post_like"
+            android:layout_below="@+id/list_item_same_button"
+            android:text="SAD "/>
+
 
         <TextView
             android:id="@+id/post_same_counter"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="132dp"
-            android:layout_below="@+id/list_item_hug_button"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toEndOf="@+id/list_item_same_button"
+            android:layout_toRightOf="@+id/list_item_same_button"
             android:textSize="12sp"
             tools:text="0" />
 
@@ -243,19 +280,30 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_below="@id/number_of_likes"
-            android:layout_toEndOf="@+id/list_item_same_button"
-            android:layout_toRightOf="@+id/list_item_same_button"
+            android:layout_toEndOf="@+id/post_same_counter"
+            android:layout_toRightOf="@+id/post_same_counter"
             android:scaleType="fitCenter"
             android:src="@drawable/comment_small" />
 
         <TextView
-            android:id="@+id/post_comment_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="182dp"
-            android:layout_below="@+id/list_item_hug_button"
-            android:paddingTop="2dp"
+            android:layout_marginLeft="230dp"
+            android:padding="3dp"
+            android:textSize="8sp"
+            android:background="@drawable/post_like"
+            android:layout_below="@+id/list_item_same_button"
+            android:text="COMMENT "/>
+
+        <TextView
+            android:id="@+id/post_comment_counter"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toEndOf="@+id/emoji_above_comment"
+            android:layout_toRightOf="@+id/emoji_above_comment"
             android:textSize="12sp"
             tools:text="0" />
 
@@ -266,7 +314,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="10dp"
-            android:layout_below="@id/number_of_likes"
+            android:layout_below="@id/play_button_layout"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_more_grey" />
 

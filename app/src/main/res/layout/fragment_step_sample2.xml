@@ -37,7 +37,7 @@
                 android:id="@+id/happy_emotion_text"
                 android:text="Happy"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:text="Sad"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -94,7 +94,7 @@
                 android:id="@+id/sexy_emotion_text"
                 android:text="Sexy"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -121,7 +121,7 @@
                 android:gravity="center"
                 android:text="Tired"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -149,7 +149,7 @@
                 android:id="@+id/loved_emotion_text"
                 android:text="Loved"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -178,7 +178,7 @@
                 android:gravity="center"
                 android:text="Angry"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -206,7 +206,7 @@
                 android:gravity="center"
                 android:text="Flirty"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -233,7 +233,7 @@
                 android:id="@+id/sleepy_emotion_text"
                 android:text="Sleepy"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -262,7 +262,7 @@
                 android:gravity="center"
                 android:text="Relaxed"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -289,7 +289,7 @@
                 android:gravity="center"
                 android:text="Sick"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -318,7 +318,7 @@
                 android:gravity="center"
                 android:text="Bored"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 

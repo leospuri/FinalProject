@@ -76,6 +76,11 @@
             android:name=".ProfilePage.ProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notify_new" />
+
         <!--
         <activity
             android:name=".NotificationsPage.NotificationsActivity"

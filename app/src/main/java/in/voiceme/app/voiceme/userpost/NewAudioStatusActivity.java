@@ -148,7 +148,7 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
     private void postStatus(){
         try {
             application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
-                    textStatus, categoryID, feelingID, "", "")
+                    textStatus, categoryID, feelingID, audioFileUrl, audio_time)
                     .retryWhen(new RetryWithDelay(3,2000))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -181,8 +181,8 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
         // startActivity(new Intent(this, MainActivity.class));
 
         loading.show();
-        postStatus();
         readAudioFileStorage();
+
     }
 
     @Override
@@ -193,7 +193,7 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
 
 
        //     textview_audio_success.setVisibility(View.VISIBLE);
-       //     audio_time = data.getExtras().getString("audioTime");
+            audio_time = data.getExtras().getString("audioTime");
       //      textview_ask_audio_perm.setText("Recording done");
             //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
 

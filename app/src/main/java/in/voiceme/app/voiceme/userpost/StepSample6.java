@@ -23,8 +23,10 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 
 import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.utils.ActivityUtils;
 import timber.log.Timber;
+
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +37,8 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private TextView textview_audio_success;
     private Button request_record_audio_perm;
     Toolbar toolbar;
+    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE};
+    private static final int INT_RECORD_AUDIO_PERM = 1235;
 
     public static final int REQUEST_CODE = 5000;
 
@@ -125,9 +129,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
 
 
     private void recordActivity() {
-        if (ActivityUtils.recordPermissionGranted(getActivity())) {
-            startRec();
-        }
+        requestPermissions(RECORD_AUDIO_PERM,INT_RECORD_AUDIO_PERM);
     }
 
     private void startRec() {
@@ -145,8 +147,9 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (requestCode == getResources().getInteger(R.integer.recorder_request)) {
+            if (requestCode == INT_RECORD_AUDIO_PERM) {
                 startRec();
+                yes = true;
             }
         }
     }
