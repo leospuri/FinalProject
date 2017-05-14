@@ -67,7 +67,7 @@ public class NewTextStatusActivity extends DotStepper implements StepTwoInterfac
 
 
         setTitle("Post Text Status");
-        addStep(createFragment(new StepSample3()));
+        addStep(createFragment(new StepSample2()));
         addStep(createFragment(new StepSample4()));
         addStep(createFragment(new StepSample5()));
 

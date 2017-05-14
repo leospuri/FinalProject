@@ -10,4 +10,9 @@
         <attr name="mtf_openKeyboardOnFocus" format="boolean"/>
         <attr name="mtf_backgroundColor" format="color"/>
     </declare-styleable>
+    <declare-styleable name="AutoFitGridLayout">
+        <attr name="columnCount" format="integer"/>
+        <attr name="horizontalSpace" format="dimension"/>
+        <attr name="verticalSpace" format="dimension"/>
+    </declare-styleable>
 </resources>
