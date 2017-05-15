@@ -525,7 +525,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
        //     likeCounter = Integer.parseInt(like_counter.getText().toString());
 
             if (likeButtonMain.isFavorite()){
-                Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
                 likeButtonMain.setFavorite(false);
                 unlikeMethod();
             } else {
@@ -556,7 +556,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
             }
 
         }
@@ -569,7 +569,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             likeCounter--;
-            like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+            like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
         }
 
         protected void hugButtonMethod(View view) {
@@ -607,7 +607,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                     }
                 }
-                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+                hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter) + " " + "HUGS"));
             }
         }
 
@@ -619,7 +619,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
             }
 
-            hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)) + " " + "HUGS");
         }
 
         protected void sameButtonMethod(View view) {
@@ -656,7 +656,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                     }
                 }
-                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+                same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
             }
         }
 
@@ -667,7 +667,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
-            same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
         }
 
 

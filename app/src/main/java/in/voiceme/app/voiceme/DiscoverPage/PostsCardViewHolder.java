@@ -53,6 +53,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected TextView hug_counter;
     protected TextView same_counter;
     protected TextView post_comments;
+
 //    protected TextView post_listen;
 
     //emoji for like, hug and same above
@@ -93,6 +94,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         hug_counter = (TextView) itemView.findViewById(R.id.post_hugs_counter);
         same_counter = (TextView) itemView.findViewById(R.id.post_same_counter);
         post_comments = (TextView) itemView.findViewById(R.id.post_comment_counter);
+
+        //counter numbers
     //    post_listen = (TextView) itemView.findViewById(R.id.post_listen_counter);
 
         //emoji for like, hug and same above
@@ -301,7 +304,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         }
 
         user_name.setText(dataItem.getUserNicName());
-        feeling.setText(dataItem.getEmotions());
+        feeling.setText(String.valueOf("Feeling" + " " + dataItem.getEmotions()));
         category.setText(dataItem.getCategory());
 
         if (dataItem.getPostTime() == null){
@@ -314,15 +317,12 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             postReadMore.setVisibility(View.VISIBLE);
         }
         postMessage.setText(dataItem.getTextStatus());
-        post_comments.setText(String.valueOf(dataItem.getComments()));
-        like_counter.setText(String.valueOf(dataItem.getLikes()));
-        hug_counter.setText(String.valueOf(dataItem.getHug()));
-        same_counter.setText(String.valueOf(dataItem.getSame()));
+        post_comments.setText(String.valueOf(dataItem.getComments() + " " + "COMMENTS"));
+        like_counter.setText(String.valueOf(dataItem.getLikes() + " " + "LIKES"));
+        hug_counter.setText(String.valueOf(dataItem.getHug() + " " + "HUGS"));
+        same_counter.setText(String.valueOf(dataItem.getSame() + " " + "SAD"));
 
-
-            user_avatar.setImageURI(dataItem.getAvatarPics());
-
-
+        user_avatar.setImageURI(dataItem.getAvatarPics());
 
        /* if (!dataItem.getAvatarPics().equals("") || dataItem.getAvatarPics() != null) {
             Picasso.with(itemView.getContext())
@@ -342,9 +342,14 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         if (dataItem.getUserLike() != null){
             if (dataItem.getUserLike()){
                 likeButtonMain.setFavorite(true, false);
+                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                like_counter.setTextColor(itemView.getResources().getColor(R.color.white));
              //   likeButtonMain.setFavoriteResource(like_after);
             } else {
                 likeButtonMain.setFavorite(false, false);
+                like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+                like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+
              //   likeButtonMain.setFavoriteResource(like_before);
             }
 
@@ -352,17 +357,25 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             if (dataItem.getUserHuge()){
             //    HugButtonMain.setFavoriteResource(hug_after);
                 HugButtonMain.setFavorite(true, false);
+                hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             } else {
                 HugButtonMain.setFavorite(false, false);
+                hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+                hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
            //     HugButtonMain.setFavoriteResource(status_before);
             }
 
 
             if (dataItem.getUserSame()){
                 SameButtonMain.setFavorite(true, false);
+                same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                same_counter.setTextColor(itemView.getResources().getColor(R.color.white));
           //      SameButtonMain.setFavoriteResource(sad);
             } else {
                 SameButtonMain.setFavorite(false, false);
+                same_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+                same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
               //  SameButtonMain.setFavoriteResource(status_before);
             }
         } else {

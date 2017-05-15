@@ -91,6 +91,39 @@ public class StepSample2 extends AbstractStep {
 
     }
 
+    private void checkUsername2(String username){
+        try {
+            ((VoicemeApplication)getActivity().getApplication()).getWebService()
+                    .checkUsername(username)
+                    .retryWhen(new RetryWithDelay(3,2000))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<SuccessResponse>() {
+                        @Override
+                        public void onNext(SuccessResponse response) {
+
+                            if (response.getSuccess()){
+                                usernameCheck.setText("Username already exists");
+                                usernameCheck.setTextColor(getActivity().getResources().getColor(R.color.md_red_300));
+                            } else {
+                                usernameCheck.setText("Username is available");
+                                usernameCheck.setTextColor(getActivity().getResources().getColor(R.color.md_green_300));
+                                StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
+                                stepOneInterface.username(usernameText.getText().toString());
+                                stepOneInterface.sendToken(token);
+                                yes = true;
+                            }
+                            //    MySharedPreferences.registerUsername(preferences, usernameText);
+                            //Todo add network call for uploading profile_image file
+                            //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private ActionBar getActionBar() {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
@@ -122,6 +155,11 @@ public class StepSample2 extends AbstractStep {
 
     @Override
     public boolean isOptional() {
+        if (!yes){
+            if (!usernameText.getText().toString().trim().isEmpty()){
+                checkUsername2(usernameText.getText().toString().trim());
+            }
+        }
         return yes;
     }
 
@@ -132,10 +170,9 @@ public class StepSample2 extends AbstractStep {
 
     @Override
     public void onNext() {
-        StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
-        stepOneInterface.username(usernameText.getText().toString());
-        stepOneInterface.sendToken(token);
-
+            StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
+            stepOneInterface.username(usernameText.getText().toString());
+            stepOneInterface.sendToken(token);
     }
 
     @Override
@@ -157,7 +194,7 @@ public class StepSample2 extends AbstractStep {
 
     @Override
     public String error() {
-        return "<b>You must enter username!</b>";
+        return "<b>Please Check Username Availability!</b>";
     }
 
 

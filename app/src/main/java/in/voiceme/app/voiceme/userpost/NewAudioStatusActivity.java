@@ -190,22 +190,25 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
 
+            if (resultCode == RESULT_OK){
 
+                if (data.getExtras().getString("audioTime") != null){
+                    //     textview_audio_success.setVisibility(View.VISIBLE)
+                    audio_time = data.getExtras().getString("audioTime");
+                    //      textview_ask_audio_perm.setText("Recording done");
+                    //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
 
-       //     textview_audio_success.setVisibility(View.VISIBLE);
-            audio_time = data.getExtras().getString("audioTime");
-      //      textview_ask_audio_perm.setText("Recording done");
-            //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
+                    //     path.setText(data.getExtras().getString("path"));
 
-            //     path.setText(data.getExtras().getString("path"));
+                    /************ Audio Received ******************** */
 
-            /************ Audio Received ******************** */
+                    Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
+                    //    textview_audio_success.setText("Successful");
+                }
 
-            Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
-        //    textview_audio_success.setText("Successful");
-
-        } else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

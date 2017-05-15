@@ -176,7 +176,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             listenStop();
 
         } else if(v.getId() == R.id.cancel_recording){
-            Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
+            Intent intent = new Intent(AudioRecordingActivity.this, NewAudioStatusActivity.class);
             setResult(Activity.RESULT_CANCELED, intent);
             finish();
             return;
@@ -280,7 +280,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     }
 
     private void done() {
-        Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
+        Intent intent = new Intent(AudioRecordingActivity.this, NewAudioStatusActivity.class);
         intent.putExtra("path", filePath);
         intent.putExtra("audioTime", time);
         setResult(Activity.RESULT_OK, intent);

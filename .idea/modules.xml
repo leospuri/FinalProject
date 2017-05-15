@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/chatkit/chatkit.iml" filepath="$PROJECT_DIR$/chatkit/chatkit.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/licenseLib/licenseLib.iml" filepath="$PROJECT_DIR$/licenseLib/licenseLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialanimatedswitch/materialanimatedswitch.iml" filepath="$PROJECT_DIR$/materialanimatedswitch/materialanimatedswitch.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialfavoritebutton/materialfavoritebutton.iml" filepath="$PROJECT_DIR$/materialfavoritebutton/materialfavoritebutton.iml" />
     </modules>
   </component>

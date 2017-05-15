@@ -20,8 +20,8 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.login.SecondBeforeLoginActivity;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
-import in.voiceme.app.voiceme.userpost.TextStatus;
+import in.voiceme.app.voiceme.userpost.NewAudioStatusActivity;
+import in.voiceme.app.voiceme.userpost.NewTextStatusActivity;
 import timber.log.Timber;
 
 public class DiscoverActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, Constants {
@@ -78,7 +78,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
                         .build());
                 // [END custom_event]
 
-                startActivity(new Intent(DiscoverActivity.this, TextStatus.class));
+                startActivity(new Intent(DiscoverActivity.this, NewTextStatusActivity.class));
                 rightLabels.toggle();
 
             }
@@ -99,7 +99,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
 
 
-                startActivity(new Intent(DiscoverActivity.this, AudioStatus.class));
+                startActivity(new Intent(DiscoverActivity.this, NewAudioStatusActivity.class));
                 rightLabels.toggle();
             }
         });

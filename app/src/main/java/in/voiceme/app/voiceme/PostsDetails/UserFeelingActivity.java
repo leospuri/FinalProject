@@ -28,8 +28,8 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.userpost.AudioStatus;
-import in.voiceme.app.voiceme.userpost.TextStatus;
+import in.voiceme.app.voiceme.userpost.NewAudioStatusActivity;
+import in.voiceme.app.voiceme.userpost.NewTextStatusActivity;
 import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -322,11 +322,11 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.action_a) {
             processLoggedState(view);
-            startActivity(new Intent(UserFeelingActivity.this, TextStatus.class));
+            startActivity(new Intent(UserFeelingActivity.this, NewTextStatusActivity.class));
             rightLabels.toggle();
         } else if (view.getId() == R.id.action_b) {
             processLoggedState(view);
-            startActivity(new Intent(UserFeelingActivity.this, AudioStatus.class));
+            startActivity(new Intent(UserFeelingActivity.this, NewAudioStatusActivity.class));
             rightLabels.toggle();
         }
     }
