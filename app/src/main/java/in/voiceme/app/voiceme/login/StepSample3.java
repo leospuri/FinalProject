@@ -1,9 +1,6 @@
 package in.voiceme.app.voiceme.login;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 
 import in.voiceme.app.voiceme.R;
-import timber.log.Timber;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -73,8 +69,6 @@ public class StepSample3 extends AbstractStep implements View.OnClickListener {
 
     private ProgressBar step5progressbar;
     private boolean yes = false;
-
-    Toolbar toolbar;
 
     public static final int REQUEST_CODE = 1;
 
@@ -173,24 +167,6 @@ public class StepSample3 extends AbstractStep implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toolbar = mStepper.getToolbar();
-        if(toolbar==null){
-            Timber.d("toolbar is null");
-        }
-        else{
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            try {
-                actionBar.setHomeAsUpIndicator(R.mipmap.ic_ab_close);
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            } catch (NullPointerException e){
-                e.printStackTrace();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-
-
-        }
 
     }
 

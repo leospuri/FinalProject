@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -89,9 +88,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 //    private TextView post_listen;
 
     //emoji for like, hug and same above
-    private ImageView likeCounterImage;
-    private ImageView hugCounterImage;
-    private ImageView sameCounterImage;
     private ImageView commentCounterImage;
  //   private ImageView listenCounterImage;
     private ImageView moreButton;
@@ -108,7 +104,16 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
     //animated buttons
-    private MaterialFavoriteButton likeButtonMain, HugButtonMain, SameButtonMain;
+    private ImageView likeButtonMain, HugButtonMain, SameButtonMain;
+
+    private boolean like_button_true;
+    private boolean hug_button_true;
+    private boolean sad_button_true;
+
+    protected TextView new_counter_like_number;
+    protected TextView new_counter_hug_number;
+    protected TextView new_counter_same_number;
+    protected TextView new_counter_cmt_number;
 
 
 
@@ -161,6 +166,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         postMessage = (TextView) findViewById(R.id.detail_list_item_posts_message);
       //  postReadMore = (TextView) findViewById(R.id.detail_list_item_posts_read_more);
 
+        new_counter_like_number = (TextView) findViewById(R.id.new_counter_like_number_detail);
+        new_counter_hug_number = (TextView) findViewById(R.id.new_counter_hug_number_detail);
+        new_counter_same_number = (TextView) findViewById(R.id.new_counter_same_number_detail);
+        new_counter_cmt_number = (TextView) findViewById(R.id.new_counter_cmt_number_detail);
+      //  postReadMore = (TextView) findViewById(R.id.detail_list_item_posts_read_more);
+
         //counter numbers
         like_counter = (TextView) findViewById(R.id.detail_post_likes_counter);
         hug_counter = (TextView) findViewById(R.id.detail_post_hugs_counter);
@@ -169,16 +180,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
      //   post_listen = (TextView) findViewById(R.id.detail_post_listen_counter);
 
         //emoji for like, hug and same above
-        likeCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_like);
-        hugCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_hug);
-        sameCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_same);
         commentCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_comment);
       //  listenCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_listen);
 
         //animated buttons
-        likeButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_like_button);
-        HugButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_hug_button);
-        SameButtonMain = (MaterialFavoriteButton) findViewById(R.id.detail_list_item_same_button);
+        likeButtonMain = (ImageView) findViewById(R.id.detail_list_item_like_button);
+        HugButtonMain = (ImageView) findViewById(R.id.detail_list_item_hug_button);
+        SameButtonMain = (ImageView) findViewById(R.id.detail_list_item_same_button);
 
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
@@ -200,9 +208,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
      //   post_listen.setOnClickListener(this);
         category.setOnClickListener(this);
         feeling.setOnClickListener(this);
-        likeCounterImage.setOnClickListener(this);
-        hugCounterImage.setOnClickListener(this);
-        sameCounterImage.setOnClickListener(this);
+
         commentCounterImage.setOnClickListener(this);
      //   listenCounterImage.setOnClickListener(this);
         user_name.setOnClickListener(this);
@@ -254,18 +260,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 return;
             } else {
 
-                if (likeButtonMain.isFavorite()){
-                    likeButtonMain.setFavorite(false);
+                if (like_button_true){
+                    like_button_true = false;
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                     unLikeMethod();
                 } else {
-                    likeButtonMain.setFavorite(true);
-                    if (HugButtonMain.isFavorite()){
-                        HugButtonMain.setFavorite(false);
+                    like_button_true = true;
+                    if (hug_button_true){
+                        hug_button_true = false;
                         unHugMethod();
                     }
-                    if (SameButtonMain.isFavorite()){
-                        SameButtonMain.setFavorite(false);
+                    if (sad_button_true){
+                        sad_button_true = false;
                         unSameMethod();
                     }
                     likeCounter++;
@@ -287,18 +293,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (processLoggedState(view)) {
                 return;
             } else {
-                if (HugButtonMain.isFavorite()){
-                    HugButtonMain.setFavorite(false);
+                if (hug_button_true){
+                    hug_button_true = false;
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                     unHugMethod();
                 } else {
-                    HugButtonMain.setFavorite(true);
-                    if (likeButtonMain.isFavorite()){
-                        likeButtonMain.setFavorite(false);
+                    hug_button_true = true;
+                    if (like_button_true){
+                        like_button_true = false;
                         unLikeMethod();
                     }
-                    if (SameButtonMain.isFavorite()){
-                        SameButtonMain.setFavorite(false);
+                    if (sad_button_true){
+                        sad_button_true = false;
                         unSameMethod();
                     }
                     hugCounter++;
@@ -317,23 +323,24 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
 
+
         } else if(view.getId() == R.id.detail_list_item_same_button){
             if (processLoggedState(view)) {
                 return;
             } else {
 
-                if (SameButtonMain.isFavorite()){
-                    SameButtonMain.setFavorite(false);
+                if (sad_button_true){
+                    sad_button_true = false;
                     // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                     unSameMethod();
                 } else {
-                    SameButtonMain.setFavorite(true);
-                    if (likeButtonMain.isFavorite()){
-                        likeButtonMain.setFavorite(false);
+                    sad_button_true = true;
+                    if (like_button_true){
+                        like_button_true = false;
                         unLikeMethod();
                     }
-                    if (HugButtonMain.isFavorite()){
-                        HugButtonMain.setFavorite(false);
+                    if (hug_button_true){
+                        hug_button_true = false;
                         unHugMethod();
                     }
 
@@ -454,16 +461,16 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             Intent intent = new Intent(this, UserCategoryActivity.class);
             intent.putExtra(Constants.CATEGORY, myList.getIdCategory());
             startActivity(intent);
-        } else if (view.getId() == R.id.detail_post_likes_counter || view.getId() == R.id.detail_emoji_above_like){
+        } else if (view.getId() == R.id.detail_post_likes_counter){
 
             Intent intent = new Intent(this, UserLikeCounterActivity.class);
             intent.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_hugs_counter || view.getId() == R.id.detail_emoji_above_hug){
+        } else if(view.getId() == R.id.detail_post_hugs_counter){
             Intent intent = new Intent(this, UserHugCounterActivity.class);
             intent.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_same_counter || view.getId() == R.id.detail_emoji_above_same){
+        } else if(view.getId() == R.id.detail_post_same_counter){
             Intent intent = new Intent(this, UserSameCounterActivity.class);
             intent.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
             startActivity(intent);
@@ -751,10 +758,16 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         postMessage.setText(myList.getTextStatus());
         feeling.setText(myList.getEmotions());
         category.setText(myList.getCategory());
-        post_comments.setText(String.valueOf(myList.getComments()));
-        like_counter.setText(String.valueOf(myList.getLikes()));
-        same_counter.setText(String.valueOf(myList.getSame()));
-        hug_counter.setText(String.valueOf(myList.getHug()));
+
+        new_counter_like_number.setText(String.valueOf(myList.getLikes()));
+        new_counter_hug_number.setText(String.valueOf(myList.getHug()));
+        new_counter_same_number.setText(String.valueOf(myList.getSame()));
+        new_counter_cmt_number.setText(String.valueOf(myList.getComments()));
+
+        post_comments.setText("REPLY");
+        like_counter.setText("LIKE");
+        same_counter.setText("SAD");
+        hug_counter.setText("HUG");
 
 
         if (myList.getAudioDuration() != null){
@@ -774,30 +787,33 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             hideAudioButton(View.VISIBLE);
         }
 
+
+
+
         if (myList.getUserLike() != null){
             if (myList.getUserLike()){
-                likeButtonMain.setFavorite(true, false);
+                like_button_true = true;
                 //   likeButtonMain.setFavoriteResource(like_after);
             } else {
-                likeButtonMain.setFavorite(false, false);
+                like_button_true = false;
                 //   likeButtonMain.setFavoriteResource(like_before);
             }
 
 
             if (myList.getUserHuge()){
                 //    HugButtonMain.setFavoriteResource(hug_after);
-                HugButtonMain.setFavorite(true, false);
+                hug_button_true = true;
             } else {
-                HugButtonMain.setFavorite(false, false);
+                hug_button_true = false;
                 //     HugButtonMain.setFavoriteResource(status_before);
             }
 
 
             if (myList.getUserSame()){
-                SameButtonMain.setFavorite(true, false);
+                sad_button_true = true;
                 //      SameButtonMain.setFavoriteResource(sad);
             } else {
-                SameButtonMain.setFavorite(false, false);
+                sad_button_true = false;
                 //  SameButtonMain.setFavoriteResource(status_before);
             }
         }

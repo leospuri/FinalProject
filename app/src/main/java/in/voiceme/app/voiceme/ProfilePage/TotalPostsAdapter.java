@@ -479,20 +479,22 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             v.getContext().startActivity(intent);
         }
 
-        protected void likeButtonMethod(View view) {
-            likeCounter = Integer.parseInt(like_counter.getText().toString());
 
-            if (likeButtonMain.isFavorite()){
-                likeButtonMain.setFavorite(false);
+
+        protected void likeButtonMethod(View view) {
+        //    likeCounter = Integer.parseInt(like_counter.getText().toString());
+
+            if (like_button_true){
+                like_button_true = false;
                 unLikeMethod();
             } else {
-                likeButtonMain.setFavorite(true);
-                if (HugButtonMain.isFavorite()){
-                    HugButtonMain.setFavorite(false);
+                like_button_true = true;
+                if (hug_button_true){
+                    hug_button_true = false;
                     unHugMethod();
                 }
-                if (SameButtonMain.isFavorite()){
-                    SameButtonMain.setFavorite(false);
+                if (sad_button_true){
+                    sad_button_true = false;
                     unSameMethod();
                 }
                 likeCounter++;
@@ -513,7 +515,9 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
+                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                like_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
 
             // if (favorite){
@@ -529,23 +533,28 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             likeCounter--;
-            like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+
+            like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
+            like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
 
-        protected void hugButtonMethod(View view) {
-            hugCounter = Integer.parseInt(hug_counter.getText().toString());
 
-            if (HugButtonMain.isFavorite()){
-                HugButtonMain.setFavorite(false);
+
+        protected void hugButtonMethod(View view) {
+       //     hugCounter = Integer.parseInt(hug_counter.getText().toString());
+
+            if (hug_button_true){
+                hug_button_true = false;
                 unHugMethod();
             } else {
-                HugButtonMain.setFavorite(true);
-                if (likeButtonMain.isFavorite()){
-                    likeButtonMain.setFavorite(false);
+                hug_button_true = true;
+                if (like_button_true){
+                    like_button_true = false;
                     unLikeMethod();
                 }
-                if (SameButtonMain.isFavorite()){
-                    SameButtonMain.setFavorite(false);
+                if (sad_button_true){
+                    sad_button_true = false;
                     unSameMethod();
                 }
 
@@ -566,7 +575,9 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+                hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter) + " " + "HUGS"));
+                hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
         }
 
@@ -578,22 +589,27 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
             }
-            hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)) + " " + "HUGS");
+            hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
 
+
+
         protected void sameButtonMethod(View view) {
-            sameCounter = Integer.parseInt(same_counter.getText().toString());
-            if (SameButtonMain.isFavorite()){
-                SameButtonMain.setFavorite(false);
+         //   sameCounter = Integer.parseInt(same_counter.getText().toString());
+            if (sad_button_true){
+                sad_button_true = false;
                 unSameMethod();
             } else {
-                SameButtonMain.setFavorite(true);
-                if (likeButtonMain.isFavorite()){
-                    likeButtonMain.setFavorite(false);
+                sad_button_true = true;
+                if (like_button_true){
+                    like_button_true = false;
                     unLikeMethod();
+
                 }
-                if (HugButtonMain.isFavorite()){
-                    HugButtonMain.setFavorite(false);
+                if (hug_button_true){
+                    hug_button_true = false;
                     unHugMethod();
                 }
                 sameCounter++;
@@ -612,7 +628,9 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+                same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
+                same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                same_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
         }
 
@@ -624,7 +642,9 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
-            same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
+            same_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
    /*     @Override
         public void liked(LikeButton likeButton) {

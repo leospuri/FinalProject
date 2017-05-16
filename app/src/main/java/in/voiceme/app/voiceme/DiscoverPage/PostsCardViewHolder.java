@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostsModel;
@@ -54,6 +53,14 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected TextView same_counter;
     protected TextView post_comments;
 
+    protected boolean like_button_true;
+    protected boolean hug_button_true;
+    protected boolean sad_button_true;
+
+    protected TextView new_counter_like_number;
+    protected TextView new_counter_hug_number;
+    protected TextView new_counter_same_number;
+    protected TextView new_counter_cmt_number;
 //    protected TextView post_listen;
 
     //emoji for like, hug and same above
@@ -63,7 +70,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
 
     //animated buttons
-    protected MaterialFavoriteButton likeButtonMain, HugButtonMain, SameButtonMain;
+    protected ImageView likeButtonMain, HugButtonMain, SameButtonMain;
 
     protected View parent_row;
 
@@ -88,6 +95,12 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         postMessage = (TextView) itemView.findViewById(R.id.list_item_posts_message);
         postReadMore = (TextView) itemView.findViewById(R.id.list_item_posts_read_more);
 
+        //post data
+        new_counter_like_number = (TextView) itemView.findViewById(R.id.new_counter_like_number);
+        new_counter_hug_number = (TextView) itemView.findViewById(R.id.new_counter_hug_number);
+        new_counter_same_number = (TextView) itemView.findViewById(R.id.new_counter_same_number);
+        new_counter_cmt_number = (TextView) itemView.findViewById(R.id.new_counter_cmt_number);
+
         postReadMore.setVisibility(View.GONE);
         //counter numbers
         like_counter = (TextView) itemView.findViewById(R.id.post_likes_counter);
@@ -103,9 +116,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
        // listenCounterImage = (ImageView) itemView.findViewById(R.id.emoji_above_listen);
 
         //animated buttons
-        likeButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_like_button);
-        HugButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_hug_button);
-        SameButtonMain = (MaterialFavoriteButton) itemView.findViewById(R.id.list_item_same_button);
+        likeButtonMain = (ImageView) itemView.findViewById(R.id.list_item_like_button);
+        HugButtonMain = (ImageView) itemView.findViewById(R.id.list_item_hug_button);
+        SameButtonMain = (ImageView) itemView.findViewById(R.id.list_item_same_button);
 
         parent_row = (View) itemView.findViewById(R.id.parent_row);
 
@@ -304,7 +317,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         }
 
         user_name.setText(dataItem.getUserNicName());
-        feeling.setText(String.valueOf("Feeling" + " " + dataItem.getEmotions()));
+        feeling.setText(String.valueOf(dataItem.getEmotions()));
         category.setText(dataItem.getCategory());
 
         if (dataItem.getPostTime() == null){
@@ -316,11 +329,17 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         if (dataItem.getTextStatus().length() > 140){
             postReadMore.setVisibility(View.VISIBLE);
         }
+
+        new_counter_like_number.setText(String.valueOf(dataItem.getLikes()));
+        new_counter_hug_number.setText(String.valueOf(dataItem.getHug()));
+        new_counter_same_number.setText(String.valueOf(dataItem.getSame()));
+        new_counter_cmt_number.setText(String.valueOf(dataItem.getComments()));
+
         postMessage.setText(dataItem.getTextStatus());
-        post_comments.setText(String.valueOf(dataItem.getComments() + " " + "COMMENTS"));
-        like_counter.setText(String.valueOf(dataItem.getLikes() + " " + "LIKES"));
-        hug_counter.setText(String.valueOf(dataItem.getHug() + " " + "HUGS"));
-        same_counter.setText(String.valueOf(dataItem.getSame() + " " + "SAD"));
+        post_comments.setText(String.valueOf("COMMENTS"));
+        like_counter.setText(String.valueOf("LIKES"));
+        hug_counter.setText(String.valueOf("HUGS"));
+        same_counter.setText(String.valueOf("SAD"));
 
         user_avatar.setImageURI(dataItem.getAvatarPics());
 
@@ -339,16 +358,18 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             post_audio_duration.setText(null);
         }
 
+
+
         if (dataItem.getUserLike() != null){
             if (dataItem.getUserLike()){
-                likeButtonMain.setFavorite(true, false);
                 like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 like_counter.setTextColor(itemView.getResources().getColor(R.color.white));
+                like_button_true = true;
              //   likeButtonMain.setFavoriteResource(like_after);
             } else {
-                likeButtonMain.setFavorite(false, false);
                 like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
                 like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+                like_button_true = false;
 
              //   likeButtonMain.setFavoriteResource(like_before);
             }
@@ -356,26 +377,26 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
             if (dataItem.getUserHuge()){
             //    HugButtonMain.setFavoriteResource(hug_after);
-                HugButtonMain.setFavorite(true, false);
                 hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
+                hug_button_true = true;
             } else {
-                HugButtonMain.setFavorite(false, false);
                 hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
            //     HugButtonMain.setFavoriteResource(status_before);
+                hug_button_true = false;
             }
 
 
             if (dataItem.getUserSame()){
-                SameButtonMain.setFavorite(true, false);
                 same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 same_counter.setTextColor(itemView.getResources().getColor(R.color.white));
+                sad_button_true = true;
           //      SameButtonMain.setFavoriteResource(sad);
             } else {
-                SameButtonMain.setFavorite(false, false);
                 same_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
                 same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+                sad_button_true = false;
               //  SameButtonMain.setFavoriteResource(status_before);
             }
         } else {

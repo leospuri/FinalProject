@@ -521,21 +521,23 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             v.getContext().startActivity(intent);
         }
 
+
+
         protected void likeButtonMethod(View view) {
        //     likeCounter = Integer.parseInt(like_counter.getText().toString());
 
-            if (likeButtonMain.isFavorite()){
+            if (like_button_true){
             //    Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
-                likeButtonMain.setFavorite(false);
+                like_button_true = false;
                 unlikeMethod();
             } else {
-                likeButtonMain.setFavorite(true);
-                if (HugButtonMain.isFavorite()){
-                    HugButtonMain.setFavorite(false);
+                like_button_true = true;
+                if (hug_button_true){
+                    hug_button_true = false;
                     unHugMethod();
                 }
-                if (SameButtonMain.isFavorite()){
-                    SameButtonMain.setFavorite(false);
+                if (sad_button_true){
+                    sad_button_true = false;
                     unSameMethod();
                 }
                 likeCounter++;
@@ -557,6 +559,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
+                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                like_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
 
         }
@@ -570,23 +574,27 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             likeCounter--;
             like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
+            like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
+
+
 
         protected void hugButtonMethod(View view) {
         //    hugCounter = Integer.parseInt(hug_counter.getText().toString());
 
-            if (HugButtonMain.isFavorite()){
-                HugButtonMain.setFavorite(false);
+            if (hug_button_true){
+                hug_button_true = false;
 
                 unHugMethod();
             } else {
-                HugButtonMain.setFavorite(true);
-                if (likeButtonMain.isFavorite()){
-                    likeButtonMain.setFavorite(false);
+                hug_button_true = false;
+                if (like_button_true){
+                    like_button_true = false;
                     unlikeMethod();
                 }
-                if (SameButtonMain.isFavorite()){
-                    SameButtonMain.setFavorite(false);
+                if (sad_button_true){
+                    sad_button_true = false;
                     unSameMethod();
                 }
 
@@ -608,6 +616,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
                 hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter) + " " + "HUGS"));
+                hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
         }
 
@@ -620,22 +630,26 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)) + " " + "HUGS");
+            hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
+
+
 
         protected void sameButtonMethod(View view) {
          //   sameCounter = Integer.parseInt(same_counter.getText().toString());
-            if (SameButtonMain.isFavorite()){
+            if (sad_button_true){
                 Toast.makeText(itemView.getContext(), "unLiked", Toast.LENGTH_SHORT).show();
-                SameButtonMain.setFavorite(false);
+                sad_button_true = false;
                 unSameMethod();
             } else {
-                SameButtonMain.setFavorite(true);
-                if (likeButtonMain.isFavorite()){
-                    likeButtonMain.setFavorite(false);
+                sad_button_true = true;
+                if (like_button_true){
+                    like_button_true = false;
                     unlikeMethod();
                 }
-                if (HugButtonMain.isFavorite()){
-                    HugButtonMain.setFavorite(false);
+                if (hug_button_true){
+                    hug_button_true = false;
                     unHugMethod();
                 }
 
@@ -657,6 +671,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
                 same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
+                same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
+                same_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
         }
 
@@ -668,6 +684,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
             same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
+        same_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+        same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
 
 

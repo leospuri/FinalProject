@@ -12,7 +12,6 @@
             <option value="$PROJECT_DIR$/chatkit" />
             <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/licenseLib" />
-            <option value="$PROJECT_DIR$/materialfavoritebutton" />
           </set>
         </option>
         <option name="myModules">
@@ -22,7 +21,6 @@
             <option value="$PROJECT_DIR$/chatkit" />
             <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/licenseLib" />
-            <option value="$PROJECT_DIR$/materialfavoritebutton" />
           </set>
         </option>
       </GradleProjectSettings>

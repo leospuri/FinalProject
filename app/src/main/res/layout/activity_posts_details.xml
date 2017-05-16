@@ -102,6 +102,7 @@
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="80dp"
+                android:id="@+id/play_detail_back"
                 android:layout_alignEnd="@+id/detail_list_item_posts_category"
                 android:layout_alignRight="@+id/detail_list_item_posts_category"
                 android:layout_below="@+id/detail_list_item_posts_category"
@@ -159,151 +160,176 @@
                 android:textSize="12sp" /> -->
 
             <LinearLayout
-                android:id="@+id/detail_number_of_likes"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/detail_list_item_posts_message"
-                android:orientation="horizontal">
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:id="@+id/like_back_layout"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/detail_emoji_above_like"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
+                    android:id="@+id/detail_list_item_like_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/like_small" />
+                    android:src="@drawable/like_after"
+                    />
 
                 <TextView
                     android:id="@+id/detail_post_likes_counter"
-                    android:layout_width="20dp"
+                    android:layout_width="wrap_content"
+                    android:padding="4dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginRight="7dp"
-                    android:paddingTop="2dp"
-                    android:textSize="12sp"
-                    tools:text="0" />
-
-                <ImageView
-                    android:id="@+id/detail_emoji_above_hug"
-                    android:layout_width="24dp"
-                    android:layout_height="23dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/hug_small" />
-
-                <TextView
-                    android:id="@+id/detail_post_hugs_counter"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginRight="7dp"
-                    android:paddingTop="2dp"
-                    android:textSize="12sp"
-                    tools:text="0" />
-
-                <ImageView
-                    android:id="@+id/detail_emoji_above_same"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/sad_small" />
-
-                <TextView
-                    android:id="@+id/detail_post_same_counter"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginRight="7dp"
-                    android:paddingTop="2dp"
-                    android:textSize="12sp"
-                    tools:text="0" />
-
-                <ImageView
-                    android:id="@+id/detail_emoji_above_comment"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/comment_small" />
-
-                <TextView
-                    android:id="@+id/detail_post_comment_counter"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginRight="7dp"
-                    android:paddingTop="2dp"
-                    android:textSize="12sp"
-                    tools:text="0" />
-
-        <!--        <ImageView
-                    android:id="@+id/detail_emoji_above_listen"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/listen" />
-
-                <TextView
-                    android:id="@+id/detail_post_listen_counter"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="2dp"
-                    android:textSize="12sp"
-                    tools:text="0" /> -->
+                    android:textSize="10sp"
+                    tools:text="LIKE" />
 
             </LinearLayout>
 
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
-                android:id="@+id/detail_list_item_like_button"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detail_number_of_likes"
-                app:mfb_rotation_duration="400"
-                app:mfb_favorite_image="@drawable/like_after"
-                app:mfb_not_favorite_image="@drawable/like_before"
-                app:mfb_rotation_angle="360"
-                app:mfb_bounce_duration="700" />
+                android:text="000"
+                android:layout_marginTop="25dp"
+                android:id="@+id/new_counter_like_number_detail"
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/like_back_layout"/>
 
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
-                android:id="@+id/detail_list_item_hug_button"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detail_number_of_likes"
-                android:layout_toEndOf="@+id/detail_list_item_like_button"
-                android:layout_toRightOf="@+id/detail_list_item_like_button"
-                app:mfb_rotation_duration="400"
-                app:mfb_favorite_image="@drawable/hug_after"
-                app:mfb_not_favorite_image="@drawable/status_before"
-                app:mfb_rotation_angle="360"
-                app:mfb_bounce_duration="700" />
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/new_counter_like_number_detail"
+                android:id="@+id/hug_back_layout"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
-                android:id="@+id/detail_list_item_same_button"
+                <ImageView
+                    android:id="@+id/detail_list_item_hug_button"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
+                    android:padding="4dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/hug_after"
+                    />
+
+                <TextView
+                    android:id="@+id/detail_post_hugs_counter"
+                    android:layout_width="wrap_content"
+                    android:padding="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    tools:text="HUG" />
+
+            </LinearLayout>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detail_number_of_likes"
-                android:layout_toEndOf="@+id/detail_list_item_hug_button"
-                android:layout_toRightOf="@+id/detail_list_item_hug_button"
-                app:mfb_rotation_duration="400"
-                app:mfb_favorite_image="@drawable/sad"
-                app:mfb_not_favorite_image="@drawable/status_before"
-                app:mfb_rotation_angle="360"
-                app:mfb_bounce_duration="700" />
+                android:text="000"
+                android:layout_marginTop="25dp"
+                android:id="@+id/new_counter_hug_number_detail"
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/hug_back_layout"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/new_counter_hug_number_detail"
+                android:id="@+id/same_back_layout"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/detail_list_item_same_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sad"
+                    />
+
+                <TextView
+                    android:id="@+id/detail_post_same_counter"
+                    android:layout_width="wrap_content"
+                    android:padding="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    tools:text="SAD" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                android:layout_marginTop="25dp"
+                android:id="@+id/new_counter_same_number_detail"
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/same_back_layout"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/new_counter_same_number_detail"
+                android:id="@+id/comment_back_layout"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/detail_emoji_above_comment"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/comment_small"
+                    />
+
+                <TextView
+                    android:id="@+id/detail_post_comment_counter"
+                    android:layout_width="wrap_content"
+                    android:padding="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    tools:text="reply" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/new_counter_cmt_number_detail"
+                android:layout_below="@id/detail_list_item_posts_message"
+                android:layout_toRightOf="@+id/comment_back_layout"/>
+
+
 
             <ImageView
                 android:id="@+id/detail_status_more"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:padding="10dp"
-                android:layout_below="@id/detail_number_of_likes"
+                android:layout_below="@id/play_detail_back"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_more_grey" />
 

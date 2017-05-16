@@ -147,7 +147,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_posts_timeStamp"
             android:layout_marginTop="3dp"
-            android:maxLines="4"
+            android:minLines="2"
+            android:maxLines="3"
             android:text=""
             android:textSize="12sp" />
 
@@ -175,96 +176,132 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
             android:id="@+id/like_back_layout"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
+            <ImageView
                 android:id="@+id/list_item_like_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mfb_rotation_duration="400"
-                app:mfb_favorite_image="@drawable/like_after"
-                app:mfb_not_favorite_image="@drawable/like_after"
-                app:mfb_rotation_angle="360"
-                app:mfb_bounce_duration="700" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="4dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/like_after"
+                />
 
             <TextView
                 android:id="@+id/post_likes_counter"
                 android:layout_width="wrap_content"
                 android:padding="4dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/post_like"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
-                tools:text="0" />
+                tools:text="LIKE" />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:layout_marginTop="25dp"
+            android:id="@+id/new_counter_like_number"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toRightOf="@+id/like_back_layout"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
-            android:layout_toRightOf="@+id/like_back_layout"
+            android:layout_toRightOf="@+id/new_counter_like_number"
             android:id="@+id/hug_back_layout"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
+            <ImageView
                 android:id="@+id/list_item_hug_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mfb_rotation_duration="400"
-                app:mfb_favorite_image="@drawable/hug_after"
-                app:mfb_not_favorite_image="@drawable/hug_after"
-                app:mfb_rotation_angle="360"
-                app:mfb_bounce_duration="700" />
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:padding="4dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/hug_after"
+                />
 
             <TextView
                 android:id="@+id/post_hugs_counter"
                 android:layout_width="wrap_content"
                 android:padding="4dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/post_like"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
-                tools:text="0" />
+                tools:text="HUG" />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:layout_marginTop="25dp"
+            android:id="@+id/new_counter_hug_number"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toRightOf="@+id/hug_back_layout"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
-            android:layout_toRightOf="@+id/hug_back_layout"
+            android:layout_toRightOf="@+id/new_counter_hug_number"
             android:id="@+id/same_back_layout"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
-            <com.github.ivbaranov.mfb.MaterialFavoriteButton
+            <ImageView
                 android:id="@+id/list_item_same_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mfb_rotation_duration="400"
-                app:mfb_favorite_image="@drawable/sad"
-                app:mfb_not_favorite_image="@drawable/sad"
-                app:mfb_rotation_angle="360"
-                app:mfb_bounce_duration="700" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="4dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sad"
+                />
+
 
             <TextView
                 android:id="@+id/post_same_counter"
                 android:layout_width="wrap_content"
                 android:padding="4dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/post_like"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
-                tools:text="0" />
+                tools:text="SAD" />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:layout_marginTop="25dp"
+            android:id="@+id/new_counter_same_number"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toRightOf="@+id/same_back_layout"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/number_of_likes"
-            android:layout_toRightOf="@+id/same_back_layout"
+            android:layout_toRightOf="@+id/new_counter_same_number"
             android:id="@+id/comment_back_layout"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <ImageView
@@ -273,8 +310,7 @@
                 android:layout_height="30dp"
                 android:padding="4dp"
                 android:layout_marginTop="11dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
+                android:layout_gravity="center_horizontal"
                 android:scaleType="fitCenter"
                 android:src="@drawable/comment_small"
                  />
@@ -283,15 +319,21 @@
                 android:id="@+id/post_comment_counter"
                 android:layout_width="wrap_content"
                 android:padding="4dp"
-                android:layout_marginTop="12dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/post_like"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
-                tools:text="0" />
+                tools:text="REPLY" />
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:layout_marginTop="25dp"
+            android:id="@+id/new_counter_cmt_number"
+            android:layout_below="@id/number_of_likes"
+            android:layout_toRightOf="@+id/comment_back_layout"/>
 
 
         <ImageView
