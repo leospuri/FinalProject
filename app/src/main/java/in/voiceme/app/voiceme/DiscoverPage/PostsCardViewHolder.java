@@ -101,7 +101,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         new_counter_same_number = (TextView) itemView.findViewById(R.id.new_counter_same_number);
         new_counter_cmt_number = (TextView) itemView.findViewById(R.id.new_counter_cmt_number);
 
-        postReadMore.setVisibility(View.GONE);
+        postReadMore.setVisibility(View.INVISIBLE);
         //counter numbers
         like_counter = (TextView) itemView.findViewById(R.id.post_likes_counter);
         hug_counter = (TextView) itemView.findViewById(R.id.post_hugs_counter);
@@ -367,8 +367,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 like_button_true = true;
              //   likeButtonMain.setFavoriteResource(like_after);
             } else {
-                like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
                 like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
                 like_button_true = false;
 
              //   likeButtonMain.setFavoriteResource(like_before);
@@ -381,8 +381,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
                 hug_button_true = true;
             } else {
-                hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
            //     HugButtonMain.setFavoriteResource(status_before);
                 hug_button_true = false;
             }
@@ -394,7 +394,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 sad_button_true = true;
           //      SameButtonMain.setFavoriteResource(sad);
             } else {
-                same_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
                 same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
                 sad_button_true = false;
               //  SameButtonMain.setFavoriteResource(status_before);

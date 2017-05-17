@@ -34,7 +34,7 @@ public class NavDrawer {
             throw new RuntimeException("To use this class, you must have views with the ids of drawer_layout and nav_drawer");
 
         Toolbar toolbar = activity.getToolbar();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_navigation_menu);
+        toolbar.setNavigationIcon(R.drawable.ic_navigation_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

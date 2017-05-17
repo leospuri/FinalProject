@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/body_Color"
+    android:background="@color/md_blue_grey_50"
     tools:context="in.voiceme.app.voiceme.DiscoverPage.DiscoverTrendingFragment">
 
     <com.baoyz.widget.PullRefreshLayout
@@ -29,7 +29,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/body_Color"
+        android:background="@color/md_blue_grey_50"
         android:clickable="true"
         android:id="@+id/activity_trending_progress">
 

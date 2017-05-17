@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/body_Color"
+            android:background="@color/md_blue_grey_50"
             >
 
          <!--   <ImageView
@@ -22,21 +22,21 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/backnew"/> -->
 
-            <include layout="@layout/include_toolbar3" />
+            <include layout="@layout/include_toolbar2" />
 
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tabs_main_activity"
-                android:background="@color/body_Color"
+                android:background="@color/md_blue_grey_50"
                 android:layout_below="@+id/include_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:clipToPadding="false"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                app:stl_defaultTabTextColor="@color/white"
+                app:stl_defaultTabTextColor="@color/black"
                 app:stl_defaultTabTextHorizontalPadding="18dp"
                 app:stl_dividerColor="@color/transparent"
                 app:stl_dividerThickness="0dp"

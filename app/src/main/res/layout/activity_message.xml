@@ -12,7 +12,7 @@
         android:id="@+id/message_rootview"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar3" />
+        <include layout="@layout/include_toolbar2" />
 
         <RelativeLayout
             android:layout_width="match_parent"
