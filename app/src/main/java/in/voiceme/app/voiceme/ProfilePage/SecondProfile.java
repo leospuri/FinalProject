@@ -67,7 +67,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         send_private_message = (ImageView) findViewById(R.id.send_private_message);
 
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

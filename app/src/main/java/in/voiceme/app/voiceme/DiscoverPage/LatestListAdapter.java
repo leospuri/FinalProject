@@ -576,7 +576,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             likeCounter--;
             like_counter.setText(String.valueOf("LIKES"));
             new_counter_like_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter)));
-            like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
             like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
 
@@ -634,7 +634,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             hug_counter.setText(String.valueOf("HUGS"));
             new_counter_hug_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)));
-            hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
+            hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
             hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
 
@@ -674,7 +674,9 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                     }
                 }
-                same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
+
+                new_counter_same_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter)));
+                same_counter.setText(String.valueOf("SAD"));
                 same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 same_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
@@ -687,9 +689,10 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
-            same_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter) + " " + "SAD"));
-        same_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
-        same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+            new_counter_same_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter)));
+            same_counter.setText(String.valueOf("SAD"));
+            same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
+            same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
 
 

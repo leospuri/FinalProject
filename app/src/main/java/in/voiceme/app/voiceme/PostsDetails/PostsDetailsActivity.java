@@ -136,7 +136,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         progressFrame = findViewById(R.id.post_details_progressBar);
 
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -69,7 +69,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_profile);
         getSupportActionBar().setTitle("Edit Profile Page");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

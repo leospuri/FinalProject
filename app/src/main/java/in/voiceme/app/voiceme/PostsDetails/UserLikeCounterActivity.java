@@ -28,7 +28,7 @@ public class UserLikeCounterActivity extends BaseActivity {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_like_counter);
         getSupportActionBar().setTitle("User Liked Post");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

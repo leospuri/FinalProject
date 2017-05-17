@@ -95,7 +95,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             getSupportActionBar().setTitle("Private chat");
         }
 
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

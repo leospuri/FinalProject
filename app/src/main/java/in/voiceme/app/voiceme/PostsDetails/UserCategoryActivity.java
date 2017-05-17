@@ -71,7 +71,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         setContentView(R.layout.activity_user_category);
 
         getSupportActionBar().setTitle("Category Posts");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

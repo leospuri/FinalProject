@@ -41,7 +41,7 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_abuse);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("Report Abuse Page");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
 
         Intent intent = getIntent();
         id_username = intent.getStringExtra(Constants.IDUSERNAME);

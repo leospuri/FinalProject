@@ -59,7 +59,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         userId = getIntent().getStringExtra(Constants.TOTAL_POST);
 
         getSupportActionBar().setTitle("Total Posts");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

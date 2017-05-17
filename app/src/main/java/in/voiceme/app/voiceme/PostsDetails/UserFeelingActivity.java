@@ -69,7 +69,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_feeling);
         getSupportActionBar().setTitle("Feelings Posts");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

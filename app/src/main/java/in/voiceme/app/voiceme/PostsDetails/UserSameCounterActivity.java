@@ -29,7 +29,7 @@ public class UserSameCounterActivity extends BaseActivity {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_same_counter);
         getSupportActionBar().setTitle("User Clicked Sad");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

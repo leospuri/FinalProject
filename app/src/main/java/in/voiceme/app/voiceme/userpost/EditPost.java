@@ -34,7 +34,7 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("Edit Post");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

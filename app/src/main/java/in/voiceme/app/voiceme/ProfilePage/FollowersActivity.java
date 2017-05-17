@@ -28,7 +28,7 @@ public class FollowersActivity extends BaseActivity {
         setContentView(R.layout.activity_followers);
         userId = getIntent().getStringExtra(Constants.USER_FOLLOW);
 
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         getSupportActionBar().setTitle("Followers Details");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
