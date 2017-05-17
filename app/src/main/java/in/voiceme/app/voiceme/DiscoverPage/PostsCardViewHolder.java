@@ -336,7 +336,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         new_counter_cmt_number.setText(String.valueOf(dataItem.getComments()));
 
         postMessage.setText(dataItem.getTextStatus());
-        post_comments.setText(String.valueOf("COMMENTS"));
+        post_comments.setText(String.valueOf("REPLY"));
         like_counter.setText(String.valueOf("LIKES"));
         hug_counter.setText(String.valueOf("HUGS"));
         same_counter.setText(String.valueOf("SAD"));

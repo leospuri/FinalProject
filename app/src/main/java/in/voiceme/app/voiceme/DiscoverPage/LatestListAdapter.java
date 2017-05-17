@@ -558,7 +558,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
 
-                like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
+                like_counter.setText(String.valueOf("LIKES"));
+                new_counter_like_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter)));
                 like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 like_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
@@ -573,7 +574,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             likeCounter--;
-            like_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter) + " " + "LIKES"));
+            like_counter.setText(String.valueOf("LIKES"));
+            new_counter_like_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter)));
             like_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
             like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }
@@ -615,7 +617,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
                     }
                 }
-                hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter) + " " + "HUGS"));
+                hug_counter.setText(String.valueOf("HUGS"));
+                new_counter_hug_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)));
                 hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
             }
@@ -629,7 +632,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
             }
 
-            hug_counter.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)) + " " + "HUGS");
+            hug_counter.setText(String.valueOf("HUGS"));
+            new_counter_hug_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)));
             hug_counter.setBackground(itemView.getResources().getDrawable(R.drawable.post_like));
             hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
         }

@@ -13,29 +13,27 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="180dp"
-        android:background="@drawable/navdrawer"
         >
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:layout_margin="16dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
             android:id="@+id/include_main_nav_drawer_avatar"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:scaleType="fitXY"
             fresco:placeholderImage="@drawable/user" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_below="@id/include_main_nav_drawer_avatar"
             android:id="@+id/include_main_nav_drawer_displayName"
             android:text="Anonymous"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#fff"/>
+            android:textStyle="bold" />
     </RelativeLayout>
     
     <ScrollView
