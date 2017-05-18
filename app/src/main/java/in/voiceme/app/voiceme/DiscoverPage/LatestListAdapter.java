@@ -561,6 +561,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 new_counter_like_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter)));
                 like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 like_counter.setTextColor(itemView.getResources().getColor(R.color.white));
+                like_counter.setText("LIKE");
             }
 
         }
@@ -577,6 +578,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             new_counter_like_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(likeCounter)));
             like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
             like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+            like_counter.setText("LIKE");
         }
 
 
@@ -618,6 +620,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 new_counter_hug_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)));
                 hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
+                hug_counter.setText("HUG");
             }
         }
 
@@ -633,6 +636,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             new_counter_hug_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(hugCounter)));
             hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
             hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+            hug_counter.setText("HUG");
         }
 
 
@@ -674,6 +678,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 new_counter_same_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter)));
                 same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_300));
                 same_counter.setTextColor(itemView.getResources().getColor(R.color.white));
+                same_counter.setText("SAD");
             }
         }
 
@@ -687,6 +692,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             new_counter_same_number.setText(String.valueOf(NumberFormat.getIntegerInstance().format(sameCounter)));
             same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
             same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+            same_counter.setText("SAD");
         }
 
 

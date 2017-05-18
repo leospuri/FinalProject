@@ -175,7 +175,7 @@
                 android:padding="4dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/like_after"
+                android:src="@drawable/like_ojas"
                 />
 
 
@@ -309,7 +309,7 @@
                 android:padding="4dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitCenter"
-                android:src="@drawable/speech_bubble"
+                android:src="@drawable/speech_bubble_comment"
                  />
 
             <TextView

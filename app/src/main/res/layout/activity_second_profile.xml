@@ -71,13 +71,13 @@
                     android:background="@mipmap/ic_ab_close" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
                     android:id="@+id/send_private_message"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="35dp"
                     android:layout_marginTop="235dp"
-                    android:background="@drawable/message_icon"
+                    android:background="@drawable/speech_bubbles02"
                     />
 
                 <LinearLayout
@@ -300,6 +300,7 @@
             android:layout_height="match_parent"
             android:background="#91D4Fa"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/activity_second_profile_progress">
             <TextView
                 android:layout_width="wrap_content"

@@ -752,6 +752,11 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         user_name.setText(myList.getUserNicName());
 
+        like_counter.setText("LIKE");
+        hug_counter.setText("HUG");
+        same_counter.setText("SAD");
+        post_comments.setText("REPLY");
+
         // Todo make JodaTIme
 
         if (myList.getPostTime() == null){
@@ -761,6 +766,33 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
         postMessage.setText(myList.getTextStatus());
         feeling.setText(myList.getEmotions());
+
+        switch (myList.getIdFeeling()){
+            case 1: feeling.setBackgroundColor(getResources().getColor(R.color.md_blue_200)); //happy
+                break;
+            case 2: feeling.setBackgroundColor(getResources().getColor(R.color.md_blue_200)); //relaxed
+                break;
+            case 3: feeling.setBackgroundColor(getResources().getColor(R.color.md_red_200)); // angry
+                break;
+            case 4: feeling.setBackgroundColor(getResources().getColor(R.color.md_red_200)); // sad
+                break;
+            case 5: feeling.setBackgroundColor(getResources().getColor(R.color.md_green_200)); // bored
+                break;
+            case 6: feeling.setBackgroundColor(getResources().getColor(R.color.md_blue_200)); // loved
+                break;
+            case 7: feeling.setBackgroundColor(getResources().getColor(R.color.md_blue_200)); // sleepy
+                break;
+            case 8: feeling.setBackgroundColor(getResources().getColor(R.color.md_green_200)); // flirty
+                break;
+            case 9: feeling.setBackgroundColor(getResources().getColor(R.color.md_red_200)); // sick
+                break;
+            case 10: feeling.setBackgroundColor(getResources().getColor(R.color.md_red_200)); // tired
+                break;
+            case 11: feeling.setBackgroundColor(getResources().getColor(R.color.md_green_200)); // sexy
+                break;
+
+        }
+
         category.setText(myList.getCategory());
 
         new_counter_like_number.setText(String.valueOf(myList.getLikes()));
@@ -787,12 +819,22 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
 
+        like_counter.setText("LIKE");
+        hug_counter.setText("HUG");
+        same_counter.setText("SAD");
+        post_comments.setText("REPLY");
+
 
         if (myList.getUserLike() != null){
             if (myList.getUserLike()){
-                like_button_true = true;
+                like_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
+                like_counter.setTextColor(getResources().getColor(R.color.white));
+                like_counter.setText("LIKE");
                 //   likeButtonMain.setFavoriteResource(like_after);
             } else {
+                like_counter.setBackgroundColor(getResources().getColor(R.color.white));
+                like_counter.setTextColor(getResources().getColor(R.color.black));
+                like_counter.setText("LIKE");
                 like_button_true = false;
                 //   likeButtonMain.setFavoriteResource(like_before);
             }
@@ -800,17 +842,31 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
             if (myList.getUserHuge()){
                 //    HugButtonMain.setFavoriteResource(hug_after);
+                hug_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
+                hug_counter.setTextColor(getResources().getColor(R.color.white));
+                hug_counter.setText("HUG");
                 hug_button_true = true;
             } else {
+                hug_counter.setBackgroundColor(getResources().getColor(R.color.white));
+                hug_counter.setTextColor(getResources().getColor(R.color.black));
+                hug_counter.setText("HUG");
+
+                //     HugButtonMain.setFavoriteResource(status_before);
                 hug_button_true = false;
                 //     HugButtonMain.setFavoriteResource(status_before);
             }
 
 
             if (myList.getUserSame()){
+                same_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
+                same_counter.setTextColor(getResources().getColor(R.color.white));
+                same_counter.setText("SAD");
                 sad_button_true = true;
                 //      SameButtonMain.setFavoriteResource(sad);
             } else {
+                same_counter.setTextColor(getResources().getColor(R.color.black));
+                same_counter.setBackgroundColor(getResources().getColor(R.color.white));
+                same_counter.setText("SAD");
                 sad_button_true = false;
                 //  SameButtonMain.setFavoriteResource(status_before);
             }
