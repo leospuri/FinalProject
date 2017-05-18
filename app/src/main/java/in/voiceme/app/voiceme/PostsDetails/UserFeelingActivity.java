@@ -61,7 +61,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     PullRefreshLayout layout;
     private View progressFrame;
 
-    private String feelingID;
+    private int feelingID;
 
 
     @Override
@@ -80,7 +80,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
 
         progressFrame = findViewById(R.id.activity_feeling_progress);
         error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
-        feelingID = getIntent().getStringExtra(Constants.EMOTION);
+        feelingID = getIntent().getIntExtra(Constants.EMOTION, 1);
 
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
@@ -280,7 +280,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    private void setFeeling(String feelingID) {
+    private void setFeeling(int feelingID) {
         this.feelingID = feelingID;
     }
 

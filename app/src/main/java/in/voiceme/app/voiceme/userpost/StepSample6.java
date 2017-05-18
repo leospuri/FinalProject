@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +35,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private boolean yes = false;
     private TextView textview_ask_audio_perm;
     private TextView textview_audio_success;
-    private Button request_record_audio_perm;
+    private ImageView request_record_audio_perm;
     Toolbar toolbar;
     private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE};
     private static final int INT_RECORD_AUDIO_PERM = 1235;
@@ -49,7 +49,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
 
         textview_ask_audio_perm = (TextView) v.findViewById(R.id.textview_ask_audio_perm);
         textview_audio_success = (TextView) v.findViewById(R.id.textview_audio_success);
-        request_record_audio_perm = (Button) v.findViewById(R.id.request_record_audio_perm);
+        request_record_audio_perm = (ImageView) v.findViewById(R.id.request_record_audio_perm);
 
         request_record_audio_perm.setOnClickListener(this);
         textview_audio_success.setVisibility(View.GONE);

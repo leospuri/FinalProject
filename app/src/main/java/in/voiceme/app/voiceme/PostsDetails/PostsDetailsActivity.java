@@ -176,11 +176,11 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         like_counter = (TextView) findViewById(R.id.detail_post_likes_counter);
         hug_counter = (TextView) findViewById(R.id.detail_post_hugs_counter);
         same_counter = (TextView) findViewById(R.id.detail_post_same_counter);
-        post_comments = (TextView) findViewById(R.id.detail_post_comment_counter);
+        post_comments = (TextView) findViewById(R.id.post_comment_counter);
      //   post_listen = (TextView) findViewById(R.id.detail_post_listen_counter);
 
         //emoji for like, hug and same above
-        commentCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_comment);
+        commentCounterImage = (ImageView) findViewById(R.id.detail_post_comment_counter);
       //  listenCounterImage = (ImageView) findViewById(R.id.detail_emoji_above_listen);
 
         //animated buttons
@@ -767,12 +767,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         new_counter_hug_number.setText(String.valueOf(myList.getHug()));
         new_counter_same_number.setText(String.valueOf(myList.getSame()));
         new_counter_cmt_number.setText(String.valueOf(myList.getComments()));
-
-        post_comments.setText("REPLY");
-        like_counter.setText("LIKE");
-        same_counter.setText("SAD");
-        hug_counter.setText("HUG");
-
 
         if (myList.getAudioDuration() != null){
             post_audio_duration.setText(myList.getAudioDuration());

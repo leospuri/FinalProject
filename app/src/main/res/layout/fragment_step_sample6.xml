@@ -31,14 +31,16 @@
 
 
 
-        <Button
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="100dp"
             android:layout_centerHorizontal="true"
+            android:padding="5dp"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/textview_ask_audio_perm"
             android:id="@+id/request_record_audio_perm"
             android:text="Record Audio"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/voice_recorder"
+            android:layout_height="100dp" />
     </RelativeLayout>
 
 

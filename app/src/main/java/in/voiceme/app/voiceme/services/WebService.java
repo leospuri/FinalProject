@@ -101,7 +101,7 @@ public interface WebService {
 
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id,
+    Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") int feeling_id,
                                                  @Query("user_id") String userID,
                                                  @Query("page") int page);
 

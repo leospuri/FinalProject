@@ -16,7 +16,7 @@ public class PostsModel {
     @SerializedName("user_nic_name") @Expose private String userNicName;
     @SerializedName("avatar_pics") @Expose private String avatarPics;
     @SerializedName("emotions") @Expose private String emotions;
-    @SerializedName("id_feeling_table") @Expose private String idFeeling;
+    @SerializedName("id_feeling_table") @Expose private int idFeeling;
     @SerializedName("id_categories") @Expose private String idCategory;
     @SerializedName("category") @Expose private String category;
     @SerializedName("likes") @Expose private Integer likes;
@@ -37,7 +37,7 @@ public class PostsModel {
         return userLike;
     }
 
-    public String getIdFeeling() {
+    public int getIdFeeling() {
         return idFeeling;
     }
 

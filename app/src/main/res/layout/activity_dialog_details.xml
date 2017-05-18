@@ -7,6 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -19,6 +20,7 @@
 
             <com.stfalcon.chatkit.dialogs.DialogsList
                 android:id="@+id/dialogsList"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
@@ -35,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:background="@color/body_Color"
+            android:background="@color/white"
             android:id="@+id/dialog_details">
 
             <TextView

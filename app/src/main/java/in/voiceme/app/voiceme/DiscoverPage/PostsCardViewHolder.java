@@ -341,7 +341,35 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         }
 
         user_name.setText(dataItem.getUserNicName());
+
+
         feeling.setText(String.valueOf(dataItem.getEmotions()));
+        switch (dataItem.getIdFeeling()){
+            case 1: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_200)); //happy
+                break;
+            case 2: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_200)); //relaxed
+                break;
+            case 3: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_red_200)); // angry
+                break;
+            case 4: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_red_200)); // sad
+                break;
+            case 5: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_green_200)); // bored
+                break;
+            case 6: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_200)); // loved
+                break;
+            case 7: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_blue_200)); // sleepy
+                break;
+            case 8: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_green_200)); // flirty
+                break;
+            case 9: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_red_200)); // sick
+                break;
+            case 10: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_red_200)); // tired
+                break;
+            case 11: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_green_200)); // sexy
+                break;
+
+        }
+
         category.setText(dataItem.getCategory());
 
         if (dataItem.getPostTime() == null){

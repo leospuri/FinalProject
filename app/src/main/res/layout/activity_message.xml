@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/message_rootview"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <include layout="@layout/include_toolbar4" />
@@ -39,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
-                android:background="@color/body_Color"
+                android:background="@color/white"
                 android:id="@+id/chat_details">
                 <TextView
                     android:layout_width="wrap_content"

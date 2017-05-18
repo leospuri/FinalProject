@@ -33,10 +33,10 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
 
         addItem(new ActivityNavDrawerItem(ProfileActivity.class, "Profile", null, R.mipmap.ic_action_unread, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(NotificationsActivity.class, "Notification", null, R.mipmap.ic_action_send_now, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.mipmap.ic_action_group, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.drawable.activity_icon, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.drawable.discover, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.contacts, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.drawable.chat_icon, R.id.include_main_nav_drawer_topItems));
      //    addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         prefs = activity.getSharedPreferences("Logged in or not", Context.MODE_PRIVATE);
         String sLcl = "Logout";
