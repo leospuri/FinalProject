@@ -205,6 +205,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         hug_counter.setOnClickListener(this);
         same_counter.setOnClickListener(this);
         post_comments.setOnClickListener(this);
+        new_counter_like_number.setOnClickListener(this);
+        new_counter_hug_number.setOnClickListener(this);
+        new_counter_same_number.setOnClickListener(this);
+        new_counter_cmt_number.setOnClickListener(this);
      //   post_listen.setOnClickListener(this);
         category.setOnClickListener(this);
         feeling.setOnClickListener(this);
@@ -285,7 +289,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         sendLikeNotification(application, sendLike);
                     }
                     sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
-                    like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                    new_counter_like_number.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                 }
             }
 
@@ -317,7 +321,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         sendLikeNotification(application, sendLike);
                     }
                     sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
-                    hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+                    new_counter_hug_number.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 }
             }
 
@@ -353,7 +357,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         sendLikeNotification(application, sendLike);
                     }
                     sendLikeToServer(application, 0, 0, 1, 0, "clicked sad button");
-                    same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+                    new_counter_same_number.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 }
 
             }
@@ -461,16 +465,16 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             Intent intent = new Intent(this, UserCategoryActivity.class);
             intent.putExtra(Constants.CATEGORY, myList.getIdCategory());
             startActivity(intent);
-        } else if (view.getId() == R.id.detail_post_likes_counter){
+        } else if (view.getId() == R.id.detail_post_likes_counter || view.getId() == R.id.new_counter_like_number_detail){
 
             Intent intent = new Intent(this, UserLikeCounterActivity.class);
             intent.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_hugs_counter){
+        } else if(view.getId() == R.id.detail_post_hugs_counter || view.getId() == R.id.new_counter_hug_number_detail){
             Intent intent = new Intent(this, UserHugCounterActivity.class);
             intent.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
             startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_same_counter){
+        } else if(view.getId() == R.id.detail_post_same_counter || view.getId() == R.id.new_counter_same_number_detail ){
             Intent intent = new Intent(this, UserSameCounterActivity.class);
             intent.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
             startActivity(intent);
@@ -559,19 +563,19 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private void unSameMethod() {
         sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
         sameCounter--;
-        same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+        new_counter_same_number.setText(NumberFormat.getIntegerInstance().format(sameCounter));
     }
 
     private void unHugMethod() {
         sendUnlikeToServer(application, 1, 0, 1, 1, "clicked unlike button");
         hugCounter--;
-        hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+        new_counter_hug_number.setText(NumberFormat.getIntegerInstance().format(hugCounter));
     }
 
     private void unLikeMethod() {
         sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
         likeCounter--;
-        like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+        new_counter_like_number.setText(NumberFormat.getIntegerInstance().format(likeCounter));
     }
 
     public void flipPlayPauseButton(boolean isPlaying){

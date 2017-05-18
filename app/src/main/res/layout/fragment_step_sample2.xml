@@ -54,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/sad_emotion_icon"
-                android:layout_marginLeft="15dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/sad_after" />
 
@@ -62,9 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginLeft="18dp"
-                android:id="@+id/sad_emotion_text"
                 android:gravity="center"
+                android:id="@+id/sad_emotion_text"
                 android:text="Sad"
                 android:textColor="@android:color/black"
                 android:textSize="16dp" />
@@ -77,6 +75,7 @@
             android:id="@+id/sexy_emotion_back"
             android:background="@drawable/outline"
             android:orientation="horizontal">
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -165,17 +164,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/angry_emotion_icon"
-                android:layout_marginLeft="15dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/angry_after" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="15dp"
-                android:id="@+id/angry_emotion_text"
+                android:layout_marginTop="12dp"
                 android:gravity="center"
+                android:id="@+id/angry_emotion_text"
                 android:text="Angry"
                 android:textColor="@android:color/black"
                 android:textSize="16dp" />
@@ -249,17 +246,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/relax_emotion_icon"
-                android:layout_marginLeft="15dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/relax_after" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_marginTop="12dp"
-                android:id="@+id/relax_emotion_text"
                 android:gravity="center"
+                android:id="@+id/relax_emotion_text"
                 android:text="Relaxed"
                 android:textColor="@android:color/black"
                 android:textSize="16dp" />
@@ -305,17 +300,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/bored_emotion_icon"
-                android:layout_marginLeft="15dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/bored_after" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/bored_emotion_text"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
+                android:id="@+id/bored_emotion_text"
                 android:text="Bored"
                 android:textColor="@android:color/black"
                 android:textSize="16dp" />

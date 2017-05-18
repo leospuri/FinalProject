@@ -165,7 +165,19 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 likeCounterClicked(v);
             }
         });
+        new_counter_like_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                likeCounterClicked(v);
+            }
+        });
         hug_counter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hugCounterClicked(v);
+            }
+        });
+        new_counter_hug_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hugCounterClicked(v);
@@ -177,7 +189,19 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 sameCounterClicked(v);
             }
         });
+        new_counter_same_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sameCounterClicked(v);
+            }
+        });
         post_comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardBackground(v);
+            }
+        });
+        new_counter_cmt_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cardBackground(v);
@@ -336,10 +360,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         new_counter_cmt_number.setText(String.valueOf(dataItem.getComments()));
 
         postMessage.setText(dataItem.getTextStatus());
-        post_comments.setText(String.valueOf("REPLY"));
-        like_counter.setText(String.valueOf("LIKES"));
-        hug_counter.setText(String.valueOf("HUGS"));
-        same_counter.setText(String.valueOf("SAD"));
 
         user_avatar.setImageURI(dataItem.getAvatarPics());
 
@@ -367,8 +387,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 like_button_true = true;
              //   likeButtonMain.setFavoriteResource(like_after);
             } else {
-                like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
                 like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
+                like_counter.setTextColor(itemView.getResources().getColor(R.color.black));
                 like_button_true = false;
 
              //   likeButtonMain.setFavoriteResource(like_before);
@@ -381,8 +401,9 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.white));
                 hug_button_true = true;
             } else {
+                hug_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
                 hug_counter.setTextColor(itemView.getResources().getColor(R.color.black));
-                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
+
            //     HugButtonMain.setFavoriteResource(status_before);
                 hug_button_true = false;
             }
@@ -394,8 +415,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 sad_button_true = true;
           //      SameButtonMain.setFavoriteResource(sad);
             } else {
-                like_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
                 same_counter.setTextColor(itemView.getResources().getColor(R.color.black));
+                same_counter.setBackgroundColor(itemView.getResources().getColor(R.color.white));
                 sad_button_true = false;
               //  SameButtonMain.setFavoriteResource(status_before);
             }

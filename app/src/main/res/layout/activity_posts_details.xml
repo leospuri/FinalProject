@@ -164,164 +164,177 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_list_item_posts_message"
                 android:id="@+id/like_back_layout"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/detail_list_item_like_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:id="@+id/list_item_like_button"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:padding="4dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:scaleType="fitCenter"
                     android:src="@drawable/like_after"
                     />
 
+
                 <TextView
-                    android:id="@+id/detail_post_likes_counter"
-                    android:layout_width="wrap_content"
-                    android:padding="4dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    tools:text="LIKE" />
+                    android:layout_gravity="center_vertical"
+                    android:text="000"
+                    android:textSize="12sp"
+                    android:id="@+id/new_counter_like_number_detail"
+                    android:layout_below="@id/list_item_posts_read_more"
+                    android:layout_toRightOf="@+id/like_back_layout"/>
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/detail_post_likes_counter"
                 android:layout_width="wrap_content"
+                android:layout_below="@+id/like_back_layout"
                 android:layout_height="wrap_content"
-                android:text="000"
-                android:layout_marginTop="25dp"
-                android:id="@+id/new_counter_like_number_detail"
-                android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/like_back_layout"/>
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:textSize="8sp"
+                tools:text="LIKE" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/new_counter_like_number_detail"
+                android:layout_toRightOf="@+id/like_back_layout"
                 android:id="@+id/hug_back_layout"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/detail_list_item_hug_button"
-                    android:layout_width="31dp"
-                    android:layout_height="31dp"
+                    android:id="@+id/list_item_hug_button"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:padding="4dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/hug_after"
+                    android:src="@drawable/hug_new"
                     />
 
                 <TextView
-                    android:id="@+id/detail_post_hugs_counter"
-                    android:layout_width="wrap_content"
-                    android:padding="4dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    tools:text="HUG" />
+                    android:text="000"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/new_counter_hug_number_detail"
+                    android:layout_below="@id/list_item_posts_read_more"
+                    android:layout_toRightOf="@+id/hug_back_layout"/>
+
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/detail_post_hugs_counter"
                 android:layout_width="wrap_content"
+                android:layout_below="@+id/hug_back_layout"
                 android:layout_height="wrap_content"
-                android:text="000"
-                android:layout_marginTop="25dp"
-                android:id="@+id/new_counter_hug_number_detail"
-                android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/hug_back_layout"/>
+                android:layout_marginLeft="75dp"
+                android:padding="5dp"
+                android:textSize="8sp"
+                tools:text="HUG" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/new_counter_hug_number_detail"
+                android:layout_toRightOf="@+id/hug_back_layout"
                 android:id="@+id/same_back_layout"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/detail_list_item_same_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:padding="4dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/sad"
+                    android:src="@drawable/sad_new"
                     />
 
                 <TextView
-                    android:id="@+id/detail_post_same_counter"
-                    android:layout_width="wrap_content"
-                    android:padding="4dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    tools:text="SAD" />
+                    android:text="000"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/detail_post_same_counter"
+                    android:layout_below="@id/list_item_posts_read_more"
+                    android:layout_toRightOf="@+id/same_back_layout"/>
+
+
+
+
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/new_counter_same_number"
                 android:layout_width="wrap_content"
+                android:layout_below="@+id/same_back_layout"
                 android:layout_height="wrap_content"
-                android:text="000"
-                android:layout_marginTop="25dp"
-                android:id="@+id/new_counter_same_number_detail"
-                android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/same_back_layout"/>
+                android:layout_marginLeft="140dp"
+                android:padding="5dp"
+                android:textSize="8sp"
+                tools:text="SAD" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/new_counter_same_number_detail"
+                android:layout_toRightOf="@+id/same_back_layout"
                 android:id="@+id/comment_back_layout"
-                android:orientation="vertical">
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/detail_emoji_above_comment"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:id="@+id/detail_post_comment_counter"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:padding="4dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/comment_small"
+                    android:src="@drawable/speech_bubble"
                     />
 
                 <TextView
-                    android:id="@+id/detail_post_comment_counter"
-                    android:layout_width="wrap_content"
-                    android:padding="4dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    tools:text="reply" />
+                    android:text="000"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/new_counter_cmt_number_detail"
+                    android:layout_below="@id/list_item_posts_read_more"
+                    android:layout_toRightOf="@+id/comment_back_layout"/>
+
+
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/post_comment_counter"
                 android:layout_width="wrap_content"
+                android:layout_below="@+id/comment_back_layout"
                 android:layout_height="wrap_content"
-                android:text="000"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/new_counter_cmt_number_detail"
-                android:layout_below="@id/detail_list_item_posts_message"
-                android:layout_toRightOf="@+id/comment_back_layout"/>
-
+                android:layout_marginLeft="203dp"
+                android:padding="5dp"
+                android:textSize="8sp"
+                tools:text="REPLY" />
 
 
             <ImageView

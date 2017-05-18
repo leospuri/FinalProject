@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             fab:fab_icon="@drawable/listtext"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="Text Status"
+            fab:fab_title="Text Confession"
             fab:fab_colorPressed="@color/white_pressed"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
             fab:fab_icon="@drawable/audiostatus"
-            fab:fab_title="Audio Status"
+            fab:fab_title="Audio Confession"
             fab:fab_colorPressed="@color/white_pressed"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
