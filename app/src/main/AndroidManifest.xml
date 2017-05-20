@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="in.voiceme.app.voiceme">
 
     <uses-sdk
@@ -79,7 +80,8 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_notify_new" />
+            android:resource="@drawable/ic_notify_new"
+            tools:ignore="ManifestResource"/>
 
         <!--
         <activity
@@ -186,12 +188,8 @@
             android:name=".ProfilePage.SecondProfile"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".userpost.AudioRecordingActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".userpost.PrivacyPolicy"
             android:screenOrientation="portrait" />
-        <activity android:name=".login.AnonymousLogin" />
         <activity android:name=".userpost.EditPost" />
         <activity android:name=".userpost.ReportAbuseActivity" />
 
@@ -219,12 +217,6 @@
         <activity
             android:name=".login.SecondBeforeLoginActivity"
             android:noHistory="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".userpost.SecondRecordactivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".login.AfterRegisterActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".userpost.NewTextStatusActivity" />
         <activity android:name=".userpost.NewAudioStatusActivity"></activity>

@@ -35,7 +35,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         addItem(new ActivityNavDrawerItem(NotificationsActivity.class, "Notification", null, R.drawable.notification_blue, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.drawable.ic_device_hub_black_24dp, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.drawable.worker, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.phone_book, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.nav_new_phone_book, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.drawable.chat_menu, R.id.include_main_nav_drawer_topItems));
      //    addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         prefs = activity.getSharedPreferences("Logged in or not", Context.MODE_PRIVATE);

@@ -11,19 +11,19 @@
     android:gravity="start|center_vertical">
 
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:id="@+id/list_item_nav_drawer_icon"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:src="@mipmap/ic_action_unread"/>
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:layout_marginLeft="10dp"
         android:textColor="#de000000"
         android:text="Inbox"
@@ -36,7 +36,7 @@
         android:text="30"
         android:background="#444444"
         android:textColor="#eeeeee"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:padding="5dp"
         android:id="@+id/list_item_nav_drawer_badge"/>
 

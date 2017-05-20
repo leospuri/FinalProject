@@ -7,16 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
-import in.voiceme.app.voiceme.PostsDetails.RVAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
@@ -45,6 +41,7 @@ public class NotificationsActivity extends BaseActivity {
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
+        rv.addItemDecoration(new SimpleDividerItemDecoration(this));
         rv.setHasFixedSize(true);
 
         initializeData();

@@ -18,8 +18,8 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
     TextView personName;
     RelativeLayout notification_background;
     TextView notificationFeeling;
+    TextView notification_like_left;
     TextView notificationTime;
-    TextView notification_view_post;
     TextView notification_feeling_status;
     SimpleDraweeView personPhoto;
 
@@ -27,10 +27,10 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         personName = (TextView) itemView.findViewById(R.id.notification_user);
         notificationFeeling = (TextView) itemView.findViewById(R.id.notification_feeling_text);
+        notification_like_left = (TextView) itemView.findViewById(R.id.notification_like_left);
         notification_background = (RelativeLayout) itemView.findViewById(R.id.notification_background);
         notificationTime = (TextView) itemView.findViewById(R.id.notification_post_time);
         notification_feeling_status = (TextView) itemView.findViewById(R.id.notification_feeling_status);
-        notification_view_post = (TextView) itemView.findViewById(R.id.notification_view_post);
         personPhoto = (SimpleDraweeView) itemView.findViewById(R.id.notification_avatar);
 
         personName.setOnClickListener(new View.OnClickListener() {
@@ -54,12 +54,6 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        notification_view_post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationBackClick(view);
-            }
-        });
 
         notification_background.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +104,7 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
         notificationFeeling.setText(String.valueOf(getEmotionValue(dataItem) + " your post: "));
         notificationTime.setText(CurrentTimeLong.getCurrentTime(dataItem.getTime().trim(), itemView.getContext()));
 
+        notification_like_left.setText(String.valueOf(getImageValue(dataItem)));
         if (dataItem.getTextStatus() != null){
             if (!(dataItem.getTextStatus().trim().isEmpty())){
                 notification_feeling_status.setText(dataItem.getTextStatus().trim());
@@ -132,6 +127,24 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
             emotion = "felt sad for";
         } else if(dataItem.getActivity().equals("5")){
             emotion = "commented on";
+        } else {
+            emotion = "other";
+        }
+
+        return emotion;
+    }
+
+    private String getImageValue(NotificationPojo dataItem){
+        String emotion = null;
+
+        if(dataItem.getActivity().equals("1")){
+            emotion = "LIKE";
+        } else if(dataItem.getActivity().equals("2")){
+            emotion = "HUG";
+        } else if (dataItem.getActivity().equals("3")){
+            emotion = "SAD";
+        } else if(dataItem.getActivity().equals("5")){
+            emotion = "CMT";
         } else {
             emotion = "other";
         }

@@ -790,6 +790,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 break;
             case 11: feeling.setBackgroundColor(getResources().getColor(R.color.md_green_200)); // sexy
                 break;
+            case 12: feeling.setBackgroundColor(getResources().getColor(R.color.md_brown_200)); // sexy
+                break;
+            case 13: feeling.setBackgroundColor(getResources().getColor(R.color.md_brown_200)); // sexy
+                break;
+            case 14: feeling.setBackgroundColor(getResources().getColor(R.color.md_green_200)); // sexy
+                break;
 
         }
 
@@ -973,7 +979,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onError(Throwable e) {
                         Crashlytics.logException(e);
                         try {
-                            Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e(e.getMessage());
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }

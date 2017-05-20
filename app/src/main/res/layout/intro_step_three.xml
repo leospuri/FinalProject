@@ -354,6 +354,99 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="6"
+
+            android:id="@+id/heartbroken_emotion_back"
+            android:background="@drawable/outline"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/heartbroken_emotion_icon"
+                android:scaleType="centerInside"
+                android:src="@drawable/heartbroken" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:id="@+id/heartbroken_emotion_text"
+                android:text="Heartbroken"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="6"
+
+            android:id="@+id/optimistic_emotion_back"
+            android:background="@drawable/outline"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/optimistic_emotion_icon"
+                android:scaleType="centerInside"
+                android:src="@drawable/optimistic" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:id="@+id/optimistic_emotion_text"
+                android:text="Optimistic"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="6"
+
+            android:id="@+id/blessed_emotion_back"
+            android:background="@drawable/outline"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/blessed_emotion_icon"
+                android:scaleType="centerInside"
+                android:src="@drawable/blessed" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:id="@+id/blessed_emotion_text"
+                android:text="Blessed"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
 
     </in.voiceme.app.voiceme.userpost.AutoFitGridLayout>
 

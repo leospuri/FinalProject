@@ -36,6 +36,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
     private boolean angry;
     private boolean sick;
     private boolean bored;
+    private boolean heartbroken;
+    private boolean optimistic;
+    private boolean blessed;
     private String current_feeling = null;
 
     private LinearLayout sad_emotion_back;
@@ -49,6 +52,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
     private LinearLayout angry_emotion_back;
     private LinearLayout sick_emotion_back;
     private LinearLayout bored_emotion_back;
+    private LinearLayout heartbroken_emotion_back;
+    private LinearLayout optimistic_emotion_back;
+    private LinearLayout blessed_emotion_back;
 
     private ImageView sad_emotion_icon;
     private ImageView happy_emotion_icon;
@@ -61,6 +67,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
     private ImageView relax_emotion_icon;
     private ImageView sick_emotion_icon;
     private ImageView bored_emotion_icon;
+    private ImageView heartbroken_emotion_icon;
+    private ImageView optimistic_emotion_icon;
+    private ImageView blessed_emotion_icon;
 
     private TextView sad_emotion_text;
     private TextView happy_emotion_text;
@@ -73,6 +82,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
     private TextView relax_emotion_text;
     private TextView sick_emotion_text;
     private TextView bored_emotion_text;
+    private TextView heartbroken_emotion_text;
+    private TextView optimistic_emotion_text;
+    private TextView blessed_emotion_text;
 
     private ProgressBar step5progressbar;
     private boolean yes = false;
@@ -97,6 +109,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         relax_emotion_back = (LinearLayout) v.findViewById(R.id.relax_emotion_back);
         sick_emotion_back = (LinearLayout) v.findViewById(R.id.sick_emotion_back);
         bored_emotion_back = (LinearLayout) v.findViewById(R.id.bored_emotion_back);
+        heartbroken_emotion_back = (LinearLayout) v.findViewById(R.id.heartbroken_emotion_back);
+        optimistic_emotion_back = (LinearLayout) v.findViewById(R.id.optimistic_emotion_back);
+        blessed_emotion_back = (LinearLayout) v.findViewById(R.id.blessed_emotion_back);
 
         sad_emotion_icon = (ImageView) v.findViewById(R.id.sad_emotion_icon);
         happy_emotion_icon = (ImageView) v.findViewById(R.id.happy_emotion_icon);
@@ -109,6 +124,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         relax_emotion_icon = (ImageView) v.findViewById(R.id.relax_emotion_icon);
         sick_emotion_icon = (ImageView) v.findViewById(R.id.sick_emotion_icon);
         bored_emotion_icon = (ImageView) v.findViewById(R.id.bored_emotion_icon);
+        heartbroken_emotion_icon = (ImageView) v.findViewById(R.id.heartbroken_emotion_icon);
+        optimistic_emotion_icon = (ImageView) v.findViewById(R.id.optimistic_emotion_icon);
+        blessed_emotion_icon = (ImageView) v.findViewById(R.id.blessed_emotion_icon);
 
         happy_emotion_text = (TextView) v.findViewById(R.id.happy_emotion_text);
         sad_emotion_text = (TextView) v.findViewById(R.id.sad_emotion_text);
@@ -121,6 +139,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         sick_emotion_text = (TextView) v.findViewById(R.id.sick_emotion_text);
         relax_emotion_text = (TextView) v.findViewById(R.id.relax_emotion_text);
         bored_emotion_text = (TextView) v.findViewById(R.id.bored_emotion_text);
+        heartbroken_emotion_text = (TextView) v.findViewById(R.id.heartbroken_emotion_text);
+        optimistic_emotion_text = (TextView) v.findViewById(R.id.optimistic_emotion_text);
+        blessed_emotion_text = (TextView) v.findViewById(R.id.blessed_emotion_text);
 
         sad_emotion_back.setOnClickListener(this);
         happy_emotion_back.setOnClickListener(this);
@@ -133,6 +154,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         relax_emotion_back.setOnClickListener(this);
         sick_emotion_back.setOnClickListener(this);
         bored_emotion_back.setOnClickListener(this);
+        heartbroken_emotion_back.setOnClickListener(this);
+        optimistic_emotion_back.setOnClickListener(this);
+        blessed_emotion_back.setOnClickListener(this);
 
         sad_emotion_icon.setOnClickListener(this);
         happy_emotion_icon.setOnClickListener(this);
@@ -145,6 +169,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         relax_emotion_icon.setOnClickListener(this);
         sick_emotion_icon.setOnClickListener(this);
         bored_emotion_icon.setOnClickListener(this);
+        heartbroken_emotion_icon.setOnClickListener(this);
+        optimistic_emotion_icon.setOnClickListener(this);
+        blessed_emotion_icon.setOnClickListener(this);
 
         happy_emotion_text.setOnClickListener(this);
         sad_emotion_text.setOnClickListener(this);
@@ -157,6 +184,9 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         sick_emotion_text.setOnClickListener(this);
         relax_emotion_text.setOnClickListener(this);
         bored_emotion_text.setOnClickListener(this);
+        heartbroken_emotion_text.setOnClickListener(this);
+        optimistic_emotion_text.setOnClickListener(this);
+        blessed_emotion_text.setOnClickListener(this);
 
         step5progressbar = (ProgressBar) v.findViewById(R.id.step5progressbar);
 
@@ -267,7 +297,7 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return "<b>You must select one Feeling!</b>";
     }
 
     private void removeChecked(){
@@ -316,6 +346,18 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
             bored_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
             bored_emotion_back.setBackground(getActivity().getResources().getDrawable(R.drawable.outline));
             bored = false;
+        } else if (heartbroken){
+            heartbroken_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+            heartbroken_emotion_back.setBackground(getActivity().getResources().getDrawable(R.drawable.outline));
+            heartbroken = false;
+        }else if (optimistic){
+            optimistic_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+            optimistic_emotion_back.setBackground(getActivity().getResources().getDrawable(R.drawable.outline));
+            optimistic = false;
+        }else if (blessed){
+            blessed_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+            blessed_emotion_back.setBackground(getActivity().getResources().getDrawable(R.drawable.outline));
+            blessed = false;
         }
     }
 
@@ -340,6 +382,60 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
                 removeChecked();
                 setFeeling("4");
                 sad = true;
+                break;
+            case R.id.blessed_emotion_back:
+                blessed_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("14");
+                blessed = true;
+                break;
+            case R.id.blessed_emotion_icon:
+                blessed_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("14");
+                blessed = true;
+                break;
+            case R.id.blessed_emotion_text:
+                blessed_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("14");
+                blessed = true;
+                break;
+            case R.id.optimistic_emotion_back:
+                optimistic_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("13");
+                optimistic = true;
+                break;
+            case R.id.optimistic_emotion_icon:
+                optimistic_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("13");
+                optimistic = true;
+                break;
+            case R.id.optimistic_emotion_text:
+                optimistic_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("13");
+                optimistic = true;
+                break;
+            case R.id.heartbroken_emotion_back:
+                heartbroken_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("12");
+                heartbroken = true;
+                break;
+            case R.id.heartbroken_emotion_icon:
+                heartbroken_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("12");
+                heartbroken = true;
+                break;
+            case R.id.heartbroken_emotion_text:
+                heartbroken_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_brown_200));
+                removeChecked();
+                setFeeling("12");
+                heartbroken = true;
                 break;
             case R.id.happy_emotion_back:
                 happy_emotion_back.setBackgroundColor(getActivity().getResources().getColor(R.color.md_blue_200));

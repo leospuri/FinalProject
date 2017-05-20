@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private TextView textview_audio_success;
     private ImageView request_record_audio_perm;
     Toolbar toolbar;
+    RelativeLayout audio_record_back;
     private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE};
     private static final int INT_RECORD_AUDIO_PERM = 1235;
 
@@ -50,6 +52,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         textview_ask_audio_perm = (TextView) v.findViewById(R.id.textview_ask_audio_perm);
         textview_audio_success = (TextView) v.findViewById(R.id.textview_audio_success);
         request_record_audio_perm = (ImageView) v.findViewById(R.id.request_record_audio_perm);
+        audio_record_back = (RelativeLayout) v.findViewById(R.id.audio_record_back);
 
         request_record_audio_perm.setOnClickListener(this);
         textview_audio_success.setVisibility(View.GONE);
@@ -203,12 +206,12 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return "<b>You must grant Audio Recording Permission!</b>";
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.request_record_audio_perm){
+        if (v.getId()==R.id.request_record_audio_perm || v.getId() == R.id.audio_record_back){
             recordActivity();
             textview_ask_audio_perm.setText("Click Below to Record Again.");
         }

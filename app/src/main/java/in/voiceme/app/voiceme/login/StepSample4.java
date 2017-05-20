@@ -475,7 +475,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return "<b>You must click one category!</b>";
     }
 
 

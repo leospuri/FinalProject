@@ -148,6 +148,7 @@ dependencies {
     compile 'com.github.fcannizzaro:material-stepper:1.2.2'
     compile 'com.github.paolorotolo:appintro:4.1.0'
     compile 'com.vanniktech:emoji-one:0.4.0'
+    compile 'com.joanfuentes:HintCase:1.0.4'
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'

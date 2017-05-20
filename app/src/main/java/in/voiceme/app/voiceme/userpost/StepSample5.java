@@ -35,7 +35,7 @@ public class StepSample5 extends AbstractStep {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.intro_step_five, container, false);
+        View v = inflater.inflate(R.layout.new_intro_step_five, container, false);
 
         text_status = (EditText) v.findViewById(R.id.intro_edit_text_status);
         step5progressbar = (ProgressBar) v.findViewById(R.id.step5progressbar);
@@ -161,7 +161,7 @@ public class StepSample5 extends AbstractStep {
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return "<b>You must Enter username!</b>";
     }
 
 }

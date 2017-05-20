@@ -69,7 +69,7 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
     //    switcher_layout.setBackgroundColor(getResources().getColor(R.color.emotion_color));
 
 
-        setTitle("Post Text Status");
+        setTitle("Post Audio Status");
         addStep(createFragment(new StepSample2()));
         addStep(createFragment(new StepSample4()));
         addStep(createFragment(new StepSample5()));

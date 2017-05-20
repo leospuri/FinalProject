@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/login_background2"
+    android:background="@color/md_blue_grey_100"
     tools:context="in.voiceme.app.voiceme.login.BlankFragment">
 
     <include
@@ -40,7 +40,8 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="35dp"
-            android:background="@color/white"
+            android:textColor="@color/white"
+            android:background="@color/md_blue_500"
             android:text="Register" />
 
         <ProgressBar

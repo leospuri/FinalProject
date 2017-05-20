@@ -367,6 +367,12 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 break;
             case 11: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_green_200)); // sexy
                 break;
+            case 12: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_brown_200)); // sexy
+                break;
+            case 13: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_brown_200)); // sexy
+                break;
+            case 14: feeling.setBackgroundColor(itemView.getResources().getColor(R.color.md_brown_200)); // sexy
+                break;
 
         }
 

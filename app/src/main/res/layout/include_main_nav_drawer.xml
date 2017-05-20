@@ -20,6 +20,7 @@
             android:layout_height="64dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
+            android:clickable="false"
             android:id="@+id/include_main_nav_drawer_avatar"
             android:scaleType="fitXY"
             fresco:placeholderImage="@drawable/user" />

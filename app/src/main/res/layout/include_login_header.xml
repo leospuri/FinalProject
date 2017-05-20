@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/login_register_header"
-    android:background="@color/login_background2">
+    android:background="@color/md_blue_grey_100">
 
     <ImageView
         android:layout_width="80dp"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/layout_login_logo"
-        android:src="@drawable/logoold"
+        android:src="@drawable/logoold_black"
         android:id="@+id/layout_login_header"
         android:layout_centerHorizontal="true"/>
 

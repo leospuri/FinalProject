@@ -147,7 +147,7 @@
                 android:layout_below="@id/detail_list_item_posts_timeStamp"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/posts_text"
+                android:text= "@string/posts_text"
                 android:textSize="12sp" />
 
      <!--       <TextView

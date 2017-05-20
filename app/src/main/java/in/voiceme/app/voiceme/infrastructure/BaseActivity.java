@@ -18,7 +18,6 @@ import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.login.OnBackPressedListener;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -27,7 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected VoicemeApplication application;
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
-    protected OnBackPressedListener onBackPressedListener;
     protected Bus bus;
     protected ActionScheduler scheduler;
     protected SharedPreferences preferences;
@@ -62,9 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
          * Initializes the sync client. This must be call before you can use it. */
     }
 
-    public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
-        this.onBackPressedListener = onBackPressedListener;
-    }
 
     public boolean hasContactNumber() {
         return givenContact != null && !givenContact.isEmpty();
@@ -192,9 +187,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
     @Override
     public void onBackPressed(){
-        if (onBackPressedListener != null)
-            onBackPressedListener.doBack();
-        else
             super.onBackPressed();
     }
 }

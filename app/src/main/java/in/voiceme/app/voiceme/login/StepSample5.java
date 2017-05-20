@@ -3,13 +3,13 @@ package in.voiceme.app.voiceme.login;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
@@ -23,6 +23,9 @@ public class StepSample5 extends AbstractStep {
     private EditText text_status;
     private ProgressBar step5progressbar;
     private boolean yes = false;
+    private RadioGroup radio_group_report;
+    private RadioButton report_other;
+    private String current_problem = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +34,29 @@ public class StepSample5 extends AbstractStep {
 
         text_status = (EditText) v.findViewById(R.id.intro_edit_text_status);
         step5progressbar = (ProgressBar) v.findViewById(R.id.step5progressbar);
+
+        if (text_status.getVisibility() == View.VISIBLE){
+            text_status.setVisibility(View.GONE);
+        }
+
+        radio_group_report = (RadioGroup) v.findViewById(R.id.radio_group_report);
+        report_other = (RadioButton) v.findViewById(R.id.report_other);
+
+        radio_group_report.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int id=group.getCheckedRadioButtonId();
+                RadioButton rb=(RadioButton) v.findViewById(id);
+
+                String radioText=rb.getText().toString();
+                current_problem = radioText;
+                if (rb == report_other){
+                    text_status.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
 
         editTextChangeListener();
 
@@ -54,6 +80,7 @@ public class StepSample5 extends AbstractStep {
             @Override
             public void afterTextChanged(Editable editable) {
                 yes = true;
+                current_problem = text_status.getText().toString();
                 // do nothing
             }
         });
@@ -82,11 +109,11 @@ public class StepSample5 extends AbstractStep {
     @Override
     public void onNext() {
         // get the Entered  message
-        if (text_status.getText().toString().isEmpty()){
+        if (current_problem.trim() == null || current_problem.trim().isEmpty()){
             Toast.makeText(getActivity(), "Please enter your status", Toast.LENGTH_LONG).show();
         } else {
             step5progressbar.setVisibility(View.VISIBLE);
-            String status = text_status.getText().toString();
+            String status = current_problem;
             StepFourInterface stepOneInterface = (StepFourInterface) getActivity();
             stepOneInterface.sendTextStatus(status);
         }
@@ -118,7 +145,7 @@ public class StepSample5 extends AbstractStep {
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return "<b>You must select one status to post!</b>";
     }
 
 }

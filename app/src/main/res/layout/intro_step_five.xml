@@ -25,16 +25,51 @@
 
 
 
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:id="@+id/radio_group_report"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/report_irrelevant"
+                        android:text=" I am here just to check out "/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/report_nothing"
+                        android:text=" Nothing to Confess "/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/report_good"
+                        android:text=" Not in Good MindSet "/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/report_feeling"
+                        android:text=" Feeling Ok for the day "/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/report_other"
+                        android:text=" Other "/>
+                </RadioGroup>
+
                 <EditText
                     android:id="@+id/intro_edit_text_status"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:backgroundTint="@color/md_grey_500"
                     android:maxLines="8"
-                    android:textSize="20sp"
                     android:gravity="top"
+                    android:textSize="20sp"
                     android:hint="Enter Status here"
                     android:text=""/>
+
+
+
 
                 <ProgressBar
                     android:id="@+id/step5progressbar"
