@@ -42,7 +42,7 @@
             android:layout_alignParentBottom="true"
             android:layout_height="48dp"
             android:visibility="visible"
-            android:layout_marginBottom="180dp"
+            android:layout_marginBottom="200dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"/>
@@ -61,7 +61,7 @@
             android:id="@+id/signin_with_facebook_btn"
             android:layout_width="240dp"
             android:layout_height="48dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="120dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
@@ -76,7 +76,7 @@
             android:textColor="@color/black"
             android:id="@+id/disclaimer_login"
             android:layout_marginLeft="70dp"
-            android:layout_marginBottom="75dp"
+            android:layout_marginBottom="95dp"
             android:text="Disclaimer: You are anonymous inside App."
             android:layout_centerHorizontal="true"
             />
@@ -88,8 +88,20 @@
             android:textColor="@color/black"
             android:id="@+id/facebookdonotpost"
             android:layout_marginLeft="70dp"
-            android:layout_marginBottom="55dp"
+            android:layout_marginBottom="75dp"
             android:text="This doesn't let the app post on Facebook"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:id="@+id/app_terms"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="45dp"
+            android:text="By Login, you accept our terms and Conditions"
             android:layout_centerHorizontal="true"
             />
 

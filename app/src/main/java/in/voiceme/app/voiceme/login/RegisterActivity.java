@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,11 +38,13 @@ import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.OnlyToken;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.contactPage.ContactsActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.userpost.PrivacyPolicy;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -59,6 +62,7 @@ public class RegisterActivity extends BaseActivity
     private SignInButton googleSignInBtn;
     private GoogleApiClient googleApiClient;
     private ImageView go_back;
+    private TextView app_terms;
 
     // Facebook
     private LoginButton facebookSignInBtn;
@@ -84,7 +88,14 @@ public class RegisterActivity extends BaseActivity
         go_back = (ImageView) findViewById(R.id.go_back);
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.signin_with_facebook_btn);
+        app_terms = (TextView) this.findViewById(R.id.app_terms);
 
+        app_terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, PrivacyPolicy.class));
+            }
+        });
 
         go_back.setOnClickListener(new View.OnClickListener() {
             @Override

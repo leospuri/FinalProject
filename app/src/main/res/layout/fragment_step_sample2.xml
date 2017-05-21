@@ -6,12 +6,24 @@
     android:background="@color/white"
     tools:context="in.voiceme.app.voiceme.userpost.StepSample2">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How are you Feeling Today?"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/feeling_heading_main"
+        />
+
+
     <in.voiceme.app.voiceme.userpost.AutoFitGridLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/feeling_heading_main"
         android:paddingBottom="8dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         app:columnCount="2">
 
         <LinearLayout
@@ -381,7 +393,7 @@
                 android:id="@+id/heartbroken_emotion_text"
                 android:text="Heartbroke"
                 android:textColor="@android:color/black"
-                android:textSize="16dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 

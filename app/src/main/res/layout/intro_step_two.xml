@@ -11,17 +11,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:text="Who are you"
-        android:textSize="28sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Your Username inside the community?"
-        android:textSize="16sp"/>
+        android:text="Please select an Avatar name to make Confession"
+        android:textSize="20sp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -30,7 +21,7 @@
         android:layout_marginRight="16dp"
         android:backgroundTint="@color/md_grey_500"
         android:singleLine="true"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:hint="Example cool_marx"
         android:id="@+id/intro_username"/>
 
@@ -53,24 +44,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="80dp"
-        android:text="Your confession will be posted in this name."/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="CLICK NEXT TO CONFESS"/>
 
 
 </LinearLayout>
