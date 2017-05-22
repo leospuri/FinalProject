@@ -356,7 +356,13 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     public void setCategory(String current_category, String categoryName) {
         selected_hashtag.setVisibility(View.VISIBLE);
-        yes = true;
+        if (categoryName.trim().length() > 25){
+            Toast.makeText(getActivity(), "Please Select Category with shorter names", Toast.LENGTH_SHORT).show();
+            yes = true;
+        } else {
+            yes = true;
+        }
+
         selected_hashtag.setText(String.valueOf("You have selected : " + categoryName));
         this.current_category = current_category;
     }
@@ -429,9 +435,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean isOptional() {
-        if (!selected_hashtag.getText().toString().isEmpty()){
-            yes = true;
-        }
         if (yes){
             return true;
         } else {
@@ -449,7 +452,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void onNext() {
         StepThreeInterface stepOneInterface = (StepThreeInterface) getActivity();
         stepOneInterface.setCategory(this.current_category);
-        if (!editText.getText().toString().trim().isEmpty() && selected_hashtag.getText().toString().isEmpty()){
+        if (!editText.getText().toString().trim().isEmpty() && selected_hashtag.getText().toString().isEmpty()) {
             dialogBox(editText.getText().toString());
         }
 
@@ -499,9 +502,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean nextIf() {
-        if (!selected_hashtag.getText().toString().isEmpty()){
-            yes = true;
-        }
         if (yes){
             return true;
         } else {
@@ -514,7 +514,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public String error() {
-        return "<b>You must click one category!</b>";
+        return "<b>You must click or create a new category!</b>";
     }
 
 

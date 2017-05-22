@@ -95,6 +95,7 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {

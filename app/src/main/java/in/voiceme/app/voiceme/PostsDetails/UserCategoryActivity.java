@@ -110,6 +110,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {

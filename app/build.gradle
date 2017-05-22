@@ -43,8 +43,8 @@ android {
         applicationId "in.voiceme.app.voiceme"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 53
-        versionName "3.3"
+        versionCode 54
+        versionName "3.4"
         multiDexEnabled true
         buildConfigField "String", "BASE_URL", "\"http://34.193.8.53/\""
         signingConfig signingConfigs.config

@@ -317,7 +317,12 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     public void setCategory(String current_category, String categoryName) {
         selected_hashtag.setVisibility(View.VISIBLE);
-        yes = true;
+        if (categoryName.trim().length() > 1500){
+            Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
+            yes = false;
+        } else {
+            yes = true;
+        }
         selected_hashtag.setText(String.valueOf("You have selected : " + categoryName));
         this.current_category = current_category;
     }
@@ -390,13 +395,9 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean isOptional() {
-        if (!selected_hashtag.getText().toString().isEmpty()){
-            yes = true;
-        }
         if (yes){
             return true;
         } else {
-        //    Toast.makeText(getActivity(), "IsOptional is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -460,9 +461,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     @Override
     public boolean nextIf() {
-        if (!selected_hashtag.getText().toString().isEmpty()){
-            yes = true;
-        }
         if (yes){
             return true;
         } else {

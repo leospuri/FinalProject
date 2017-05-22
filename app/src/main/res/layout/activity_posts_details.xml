@@ -66,6 +66,7 @@
                 android:layout_toRightOf="@id/detail_list_item_post_userNickName"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:maxLength="12"
                 android:singleLine="true"
                 android:text="is"
                 android:textColor="#de000000"
@@ -146,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_list_item_posts_timeStamp"
                 android:layout_marginTop="3dp"
+                android:maxLength="1000"
                 android:layout_marginBottom="5dp"
                 android:text= "@string/posts_text"
                 android:textSize="12sp" />

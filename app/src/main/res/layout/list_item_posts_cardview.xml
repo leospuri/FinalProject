@@ -38,6 +38,7 @@
             android:paddingRight="5dp"
             android:singleLine="true"
             android:text=""
+            android:maxLength="12"
             android:textColor="#de000000"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -53,6 +54,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="is"
+            android:maxLength="12"
             android:textColor="#de000000"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -145,6 +147,7 @@
             android:layout_below="@id/list_item_posts_timeStamp"
             android:layout_marginTop="3dp"
             android:maxLines="3"
+            android:maxLength="1000"
             android:text=""
             android:textSize="12sp" />
 

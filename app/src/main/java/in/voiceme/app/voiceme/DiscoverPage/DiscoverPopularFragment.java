@@ -99,6 +99,7 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {

@@ -50,6 +50,7 @@ public class StepSample5 extends AbstractStep {
                 RadioButton rb=(RadioButton) v.findViewById(id);
 
                 String radioText=rb.getText().toString();
+                yes = true;
                 current_problem = radioText;
                 if (rb == report_other){
                     text_status.setVisibility(View.VISIBLE);
@@ -96,7 +97,6 @@ public class StepSample5 extends AbstractStep {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "IsOptional is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -109,8 +109,8 @@ public class StepSample5 extends AbstractStep {
     @Override
     public void onNext() {
         // get the Entered  message
-        if (current_problem.trim() == null || current_problem.trim().isEmpty()){
-            Toast.makeText(getActivity(), "Please enter your status", Toast.LENGTH_LONG).show();
+        if (current_problem.trim().length() > 1000){
+            Toast.makeText(getActivity(), "Please enter short status within 1000 words", Toast.LENGTH_LONG).show();
         } else {
             step5progressbar.setVisibility(View.VISIBLE);
             String status = current_problem;
@@ -136,7 +136,6 @@ public class StepSample5 extends AbstractStep {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "nextIf is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
 

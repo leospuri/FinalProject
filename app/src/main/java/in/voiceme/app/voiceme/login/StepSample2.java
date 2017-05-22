@@ -3,12 +3,15 @@ package in.voiceme.app.voiceme.login;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -43,6 +46,31 @@ public class StepSample2 extends AbstractStep {
         checkUsername = (Button) v.findViewById(R.id.check_user_name);
         usernameCheck = (TextView) v.findViewById(R.id.check_user_available);
         usernameCheck.setVisibility(View.GONE);
+
+        usernameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                // do nothing
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (usernameText.getText().toString().trim().length() > 25){
+                    Toast.makeText(getActivity(), "Please Enter shorter username", Toast.LENGTH_SHORT).show();
+                    yes = false;
+                } else {
+                    yes = true;
+                }
+
+                // do nothing
+            }
+        });
 
         checkUsername.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,9 +198,11 @@ public class StepSample2 extends AbstractStep {
 
     @Override
     public void onNext() {
+
             StepOneInterface stepOneInterface = (StepOneInterface) getActivity();
             stepOneInterface.username(usernameText.getText().toString());
             stepOneInterface.sendToken(token);
+
     }
 
     @Override

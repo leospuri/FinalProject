@@ -99,6 +99,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        currentPage = PAGE_START;
                         try {
                             loadFirstPage();
                         } catch (Exception e) {

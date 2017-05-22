@@ -97,6 +97,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
                         layout.setRefreshing(false);
                         try {
                             loadFirstPage();
+                            currentPage = PAGE_START;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

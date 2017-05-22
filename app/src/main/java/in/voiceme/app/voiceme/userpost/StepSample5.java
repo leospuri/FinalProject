@@ -95,7 +95,13 @@ public class StepSample5 extends AbstractStep {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                yes = true;
+                if (text_status.getText().toString().trim().length() > 1500){
+                    Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
+                    yes = false;
+                } else {
+                    yes = true;
+                }
+
                 // do nothing
             }
         });
@@ -111,7 +117,6 @@ public class StepSample5 extends AbstractStep {
         if (yes){
             return true;
         } else {
-            Toast.makeText(getActivity(), "IsOptional is false- step 01", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -124,15 +129,10 @@ public class StepSample5 extends AbstractStep {
     @Override
     public void onNext() {
         // get the Entered  message
-        if (text_status.getText().toString().isEmpty()){
-            Toast.makeText(getActivity(), "Please enter your status", Toast.LENGTH_LONG).show();
-        } else {
             step5progressbar.setVisibility(View.VISIBLE);
-            String status = text_status.getText().toString();
+            String status = text_status.getText().toString().trim();
             StepFourInterface stepOneInterface = (StepFourInterface) getActivity();
             stepOneInterface.sendTextStatus(status);
-        }
-
 
     }
 
@@ -150,6 +150,7 @@ public class StepSample5 extends AbstractStep {
 
     @Override
     public boolean nextIf() {
+
         if (yes){
             return true;
         } else {
@@ -161,7 +162,7 @@ public class StepSample5 extends AbstractStep {
 
     @Override
     public String error() {
-        return "<b>You must Enter username!</b>";
+        return "<b>You must Enter your post within 1000 words!</b>";
     }
 
 }

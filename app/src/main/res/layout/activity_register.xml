@@ -101,12 +101,9 @@
             android:id="@+id/app_terms"
             android:layout_marginLeft="70dp"
             android:layout_marginBottom="45dp"
-            android:text="By Login, you accept our terms and Conditions"
+            android:text="I agree to the terms and Conditions"
             android:layout_centerHorizontal="true"
             />
-
-
-
 
 
     </RelativeLayout>

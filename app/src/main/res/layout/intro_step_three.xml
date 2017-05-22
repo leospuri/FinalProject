@@ -17,452 +17,460 @@
         />
 
 
-    <in.voiceme.app.voiceme.userpost.AutoFitGridLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/feeling_heading"
         android:paddingBottom="8dp"
         android:paddingTop="10dp"
-        app:columnCount="2">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <in.voiceme.app.voiceme.userpost.AutoFitGridLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/happy_emotion_back"
-            android:background="@drawable/outline"
-            android:weightSum="6"
-            android:orientation="horizontal">
-
-
-
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="35dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/happy_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/emoji_after" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/happy_emotion_text"
-                android:text="Happy"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/sad_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/sad_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/sad_after" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/sad_emotion_text"
-                android:text="Sad"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-            android:id="@+id/sexy_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/sexy_emotion_icon"
-                android:layout_weight="3"
-                android:layout_marginTop="5dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/sexy" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_weight="2"
-                android:gravity="left"
-                android:id="@+id/sexy_emotion_text"
-                android:text="Sexy"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/tired_emotion_back"
-            android:weightSum="6"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/tired_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/tired" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_marginTop="12dp"
-                android:id="@+id/tired_emotion_text"
-                android:gravity="left"
-                android:text="Tired"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-            android:id="@+id/loved_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="3"
-                android:id="@+id/loved_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/loved" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_weight="2"
-                android:gravity="left"
-                android:id="@+id/loved_emotion_text"
-                android:text="Loved"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/angry_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:layout_marginTop="5dp"
-                android:id="@+id/angry_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/angry_after" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/angry_emotion_text"
-                android:text="Angry"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/flirty_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/flirty_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/flirty" />
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_marginTop="12dp"
-                android:id="@+id/flirty_emotion_text"
-                android:gravity="left"
-                android:text="Flirty"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-            android:id="@+id/sleepy_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/sleepy_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/sleepy" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/sleepy_emotion_text"
-                android:text="Sleepy"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/relax_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="3"
-                android:id="@+id/relax_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/relax_after" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/relax_emotion_text"
-                android:text="Relaxed"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/sick_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/sick_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/sick" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:id="@+id/sick_emotion_text"
-                android:gravity="left"
-                android:text="Sick"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/bored_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/bored_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/bored_after" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/bored_emotion_text"
-                android:text="Bored"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/heartbroken_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/heartbroken_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/heartbroken" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/heartbroken_emotion_text"
-                android:text="Heartbroke"
-                android:textColor="@android:color/black"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/optimistic_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/optimistic_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/optimistic" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/optimistic_emotion_text"
-                android:text="Optimistic"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="6"
-
-            android:id="@+id/blessed_emotion_back"
-            android:background="@drawable/outline"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:id="@+id/blessed_emotion_icon"
-                android:scaleType="centerInside"
-                android:src="@drawable/blessed" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="left"
-                android:id="@+id/blessed_emotion_text"
-                android:text="Blessed"
-                android:textColor="@android:color/black"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-
-    </in.voiceme.app.voiceme.userpost.AutoFitGridLayout>
+            android:layout_height="wrap_content"
+
+            app:columnCount="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/happy_emotion_back"
+                android:background="@drawable/outline"
+                android:weightSum="6"
+                android:orientation="horizontal">
+
+
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/happy_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emoji_after" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/happy_emotion_text"
+                    android:text="Happy"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/sad_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/sad_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sad_after" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/sad_emotion_text"
+                    android:text="Sad"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+                android:id="@+id/sexy_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sexy_emotion_icon"
+                    android:layout_weight="3"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sexy" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:id="@+id/sexy_emotion_text"
+                    android:text="Sexy"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/tired_emotion_back"
+                android:weightSum="6"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tired_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/tired" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/tired_emotion_text"
+                    android:gravity="left"
+                    android:text="Tired"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+                android:id="@+id/loved_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="3"
+                    android:id="@+id/loved_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/loved" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:id="@+id/loved_emotion_text"
+                    android:text="Loved"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/angry_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/angry_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/angry_after" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/angry_emotion_text"
+                    android:text="Angry"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/flirty_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/flirty_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/flirty" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/flirty_emotion_text"
+                    android:gravity="left"
+                    android:text="Flirty"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+                android:id="@+id/sleepy_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/sleepy_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sleepy" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/sleepy_emotion_text"
+                    android:text="Sleepy"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/relax_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="3"
+                    android:id="@+id/relax_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/relax_after" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/relax_emotion_text"
+                    android:text="Relaxed"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/sick_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/sick_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sick" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/sick_emotion_text"
+                    android:gravity="left"
+                    android:text="Sick"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/bored_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/bored_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bored_after" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/bored_emotion_text"
+                    android:text="Bored"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/heartbroken_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/heartbroken_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/heartbroken" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/heartbroken_emotion_text"
+                    android:text="Heartbroke"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/optimistic_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/optimistic_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/optimistic" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/optimistic_emotion_text"
+                    android:text="Optimistic"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="6"
+
+                android:id="@+id/blessed_emotion_back"
+                android:background="@drawable/outline"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/blessed_emotion_icon"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/blessed" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:id="@+id/blessed_emotion_text"
+                    android:text="Blessed"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+
+        </in.voiceme.app.voiceme.userpost.AutoFitGridLayout>
+
+    </ScrollView>
+
 
 </RelativeLayout>
