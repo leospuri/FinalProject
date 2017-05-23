@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.login;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,6 +37,7 @@ public class StepSample2 extends AbstractStep {
     private String token;
     private Button checkUsername;
     private TextView usernameCheck;
+    private String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class StepSample2 extends AbstractStep {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
+                username = usernameText.getText().toString().trim();
             }
 
             @Override
@@ -87,6 +90,24 @@ public class StepSample2 extends AbstractStep {
         Timber.d(String.valueOf("token from fcm: " + token));
 
         return v;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.USERNAME, username);
+        outState.putString(Constants.TOKEN, token);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            username = savedInstanceState.getString(Constants.USERNAME);
+            token = savedInstanceState.getString(Constants.TOKEN);
+        }
+
     }
 
     private void checkUsername(String username){
@@ -170,11 +191,6 @@ public class StepSample2 extends AbstractStep {
                         //    startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
                     }
                 }); */
-
-    @Override
-    public void onSaveInstanceState(Bundle state) {
-        super.onSaveInstanceState(state);
-    }
 
     @Override
     public String name() {

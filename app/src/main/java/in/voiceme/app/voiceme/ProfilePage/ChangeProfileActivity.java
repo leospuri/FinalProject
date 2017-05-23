@@ -220,9 +220,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         processLoggedState(view);
-        int viewId = view.getId();
 
-        if (viewId == R.id.changeimage) {
+        switch (view.getId()){
+            case R.id.changeimage:
 
            if (MySharedPreferences.getImageUrl(preferences) != null && !MySharedPreferences.getImageUrl(preferences).isEmpty()){
                 removeImage();
@@ -231,37 +231,43 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             }
 
 
-      //      sendlike();
-     //       startActivity(new Intent(this, IntroActivity.class));
-        } else if (viewId == R.id.submit_button_profile) {
 
-            if (image_Url == null){
-                if (user_name.trim().length() > 20){
-                    Toast.makeText(ChangeProfileActivity.this, "Please Enter Short usernames within 20 letters", Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        submitData("");
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                //      sendlike();
+            //    startActivity(new Intent(this, IntroActivity.class));
+                break;
+            case R.id.submit_button_profile:
+                if (image_Url == null){
+                    if (user_name.trim().length() > 20){
+                        Toast.makeText(ChangeProfileActivity.this, "Please Enter Short usernames within 20 letters", Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            submitData("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
-            } else {
-                if (user_name.trim().length() > 20){
-                    Toast.makeText(ChangeProfileActivity.this, "Please Enter Short usernames within 20 letters", Toast.LENGTH_SHORT).show();
                 } else {
-                    try {
-                        submitData(image_Url);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (user_name.trim().length() > 20){
+                        Toast.makeText(ChangeProfileActivity.this, "Please Enter Short usernames within 20 letters", Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            submitData(image_Url);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 }
+                break;
+            case R.id.user_gender_text_box:
+                CreateAlertDialogWithRadioButtonGroup();
+                break;
+            case R.id.user_gender:
+                CreateAlertDialogWithRadioButtonGroup();
+                break;
 
-            }
 
-
-        } else if(viewId == R.id.user_gender_text_box || viewId == R.id.user_gender){
-            CreateAlertDialogWithRadioButtonGroup();
         }
     }
 

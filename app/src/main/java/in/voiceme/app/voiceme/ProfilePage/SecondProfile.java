@@ -204,7 +204,13 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             if (isNetworkConnected()){
                 Intent intent = new Intent(this, MessageActivity.class);
                 intent.putExtra(Constants.YES, profileUserId);
-                intent.putExtra(Constants.USERNAME, response.getData().getUserNickName());
+                if (!response.getData().getUserNickName().trim().isEmpty() && response.getData().getUserNickName().trim() != null){
+
+                    intent.putExtra(Constants.USERNAME, response.getData().getUserNickName());
+                } else {
+                    intent.putExtra(Constants.USERNAME, "");
+                }
+
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Not connected to internet", Toast.LENGTH_SHORT).show();

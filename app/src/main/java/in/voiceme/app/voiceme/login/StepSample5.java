@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.login;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -80,8 +82,16 @@ public class StepSample5 extends AbstractStep {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                yes = true;
-                current_problem = text_status.getText().toString();
+
+                if (text_status.getText().toString().trim().length() > 1500){
+                    Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
+                    current_problem = text_status.getText().toString();
+                    yes = false;
+                } else {
+                    yes = true;
+                }
+
+
                 // do nothing
             }
         });
@@ -103,20 +113,32 @@ public class StepSample5 extends AbstractStep {
 
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.SOCIAL_ID, current_problem);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            current_problem = savedInstanceState.getString(Constants.CATEGORY);
+        }
+
+    }
+
+    @Override
     public void onStepVisible() {
     }
 
     @Override
     public void onNext() {
         // get the Entered  message
-        if (current_problem.trim().length() > 1000){
-            Toast.makeText(getActivity(), "Please enter short status within 1000 words", Toast.LENGTH_LONG).show();
-        } else {
+
             step5progressbar.setVisibility(View.VISIBLE);
             String status = current_problem;
             StepFourInterface stepOneInterface = (StepFourInterface) getActivity();
             stepOneInterface.sendTextStatus(status);
-        }
 
 
     }

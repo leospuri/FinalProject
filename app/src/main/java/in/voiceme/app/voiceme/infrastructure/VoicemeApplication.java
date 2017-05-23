@@ -2,7 +2,6 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 
 import com.crashlytics.android.Crashlytics;
@@ -22,6 +21,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import in.voiceme.app.voiceme.BuildConfig;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.ReleaseTree;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
 import io.fabric.sdk.android.Fabric;
@@ -79,8 +79,8 @@ public class VoicemeApplication extends Application {
 
         EmojiManager.install(new EmojiOneProvider());
 
-        /* ************************************** */
-       Timber.plant(new Timber.DebugTree() {
+        /* **************************************
+        Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
             @Override
             protected String createStackElementTag(StackTraceElement element) {
@@ -88,6 +88,7 @@ public class VoicemeApplication extends Application {
             }
         });
 
+*/
 
 
 
@@ -100,8 +101,8 @@ public class VoicemeApplication extends Application {
 
         sAnalytics = GoogleAnalytics.getInstance(this);
         /* *****************************************/
-   //     Fabric.with(this, new Crashlytics());
-     //   Timber.plant(new ReleaseTree());
+        //     Fabric.with(this, new Crashlytics());
+           Timber.plant(new ReleaseTree());
 
 
         context = getApplicationContext();
@@ -109,9 +110,9 @@ public class VoicemeApplication extends Application {
          *Creates a periodic job to refresh token
          */
 
-     //   LeakCanary.install(this);
+        //   LeakCanary.install(this);
 
-        Timber.d("Setting up StrictMode policy checking.");
+      /*  Timber.d("Setting up StrictMode policy checking.");
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectAll()
                 .penaltyLog()
@@ -121,6 +122,7 @@ public class VoicemeApplication extends Application {
                 .detectAll()
                 .penaltyLog()
                 .build());
+                */
 
 
 
@@ -158,15 +160,11 @@ public class VoicemeApplication extends Application {
 
     /*
     private void initDatabase() {
-
         Realm.init(instance);
-
         RealmConfiguration realmConfiguration =
                 new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
-
         Realm.setDefaultConfiguration(realmConfiguration);
     }
-
     */
 
 

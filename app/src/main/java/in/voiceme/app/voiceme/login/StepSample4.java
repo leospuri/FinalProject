@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -37,6 +38,7 @@ import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
 import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.userpost.CategoryTagAdapter;
 import in.voiceme.app.voiceme.userpost.PopularCategoryClickListner;
@@ -338,6 +340,21 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
 
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.CATEGORY, current_category);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            current_category = savedInstanceState.getString(Constants.CATEGORY);
+        }
+
     }
 
     public void dialogBox(){

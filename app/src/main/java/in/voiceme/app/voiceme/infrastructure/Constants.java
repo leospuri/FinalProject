@@ -7,7 +7,7 @@ package in.voiceme.app.voiceme.infrastructure;
 public interface Constants {
 
     String YES = "YES";
-    String GOOGLE_LOGIN = "accounts.google.com";
+    String TOKEN = "TOKEN";
     String FACEBOOK_LOGIN = "graph.facebook.com";
     String MESSAGECHAT = "MESSAGECHAT";
 

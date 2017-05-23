@@ -178,9 +178,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#91D4Fa"
+            android:background="@color/white"
             android:clickable="true"
-            android:visibility="gone"
             android:id="@+id/activity_change_profile_progress">
             <TextView
                 android:layout_width="wrap_content"

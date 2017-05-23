@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.login;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 
 /**
  * @author Francesco Cannizzaro (fcannizzaro).
@@ -246,6 +248,20 @@ public class StepSample3 extends AbstractStep implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.EMOTION, current_feeling);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            current_feeling = savedInstanceState.getString(Constants.EMOTION);
+        }
+
+    }
 
     @Override
     public void onPrevious() {

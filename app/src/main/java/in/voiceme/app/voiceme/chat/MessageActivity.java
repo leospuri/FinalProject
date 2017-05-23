@@ -86,10 +86,11 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
+
         username = getIntent().getStringExtra(Constants.USERNAME);
         //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
-        if (!username.isEmpty() || username != null){
+        if (!username.isEmpty() && username != null){
             getSupportActionBar().setTitle(username);
         } else {
             getSupportActionBar().setTitle("Private chat");
