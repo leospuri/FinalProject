@@ -85,10 +85,10 @@ public class StepSample5 extends AbstractStep {
 
                 if (text_status.getText().toString().trim().length() > 1500){
                     Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
-                    current_problem = text_status.getText().toString();
                     yes = false;
                 } else {
                     yes = true;
+                    current_problem = text_status.getText().toString();
                 }
 
 
@@ -123,6 +123,7 @@ public class StepSample5 extends AbstractStep {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             current_problem = savedInstanceState.getString(Constants.CATEGORY);
+            text_status.setText(current_problem);
         }
 
     }

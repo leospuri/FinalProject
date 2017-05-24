@@ -18,6 +18,7 @@ import java.io.File;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.login.StepFourInterface;
@@ -37,7 +38,6 @@ import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE
 public class NewAudioStatusActivity extends DotStepper implements StepTwoInterface, StepThreeInterface, StepFourInterface {
 
     private int i = 1;
-    private String usernameText = null;
     private String feelingID = null;
     private String categoryID = null;
     private String textStatus = null;
@@ -186,11 +186,39 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
     }
 
     @Override
+    protected void onStop() {
+        loading.dismiss();
+        super.onStop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.CONTACT, feelingID);
+        outState.putString(Constants.HUG_FEELING, categoryID);
+        outState.putString(Constants.LIKE_FEELING, textStatus);
+        outState.putString(Constants.SAME_FEELING, audio_time);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            feelingID = savedInstanceState.getString(Constants.CONTACT);
+            categoryID = savedInstanceState.getString(Constants.HUG_FEELING);
+            textStatus = savedInstanceState.getString(Constants.LIKE_FEELING);
+            audio_time = savedInstanceState.getString(Constants.SAME_FEELING);
+        }
+
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
 
             if (resultCode == RESULT_OK){
+
 
                 if (data.getExtras().getString("audioTime") != null){
                     //     textview_audio_success.setVisibility(View.VISIBLE)

@@ -12,23 +12,23 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:text="Please select an Avatar name to make Confession"
-        android:textSize="20sp"/>
+        android:textSize="22sp"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:backgroundTint="@color/md_grey_500"
         android:singleLine="true"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:hint="Example cool_marx"
         android:id="@+id/intro_username"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="17dp"
         android:id="@+id/check_user_available"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"

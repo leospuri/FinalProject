@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.userpost;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.login.StepTwoInterface;
 import timber.log.Timber;
 
@@ -269,6 +271,21 @@ public class StepSample2 extends AbstractStep implements View.OnClickListener {
         StepTwoInterface stepOneInterface = (StepTwoInterface) getActivity();
         stepOneInterface.sendFeeling(current_feeling);
 
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.EMOTION, current_feeling);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            current_feeling = savedInstanceState.getString(Constants.EMOTION);
+        }
 
     }
 

@@ -1,6 +1,7 @@
 package in.voiceme.app.voiceme.userpost;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.login.StepFourInterface;
 import timber.log.Timber;
 
@@ -29,6 +31,7 @@ public class StepSample5 extends AbstractStep {
     private boolean yes = false;
 
     Toolbar toolbar;
+    private String current_problem = null;
 
     public static final int REQUEST_CODE = 1;
 
@@ -52,6 +55,22 @@ public class StepSample5 extends AbstractStep {
                 getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.SOCIAL_ID, current_problem);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            current_problem = savedInstanceState.getString(Constants.CATEGORY);
+             text_status.setText(current_problem);
+        }
 
     }
 
@@ -99,6 +118,7 @@ public class StepSample5 extends AbstractStep {
                     Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
                     yes = false;
                 } else {
+                    current_problem = text_status.getText().toString();
                     yes = true;
                 }
 

@@ -250,169 +250,164 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        processLoggedState(view);
-        if (view.getId() == R.id.detail_btn_send_message) {
-            if (processLoggedState(view)) {
-                return;
-            } else {
-                sendMessage();
-            }
+   //     processLoggedState(view);
 
-        }  else if(view.getId() == R.id.detail_list_item_like_button){
-
-            if (processLoggedState(view)) {
-                return;
-            } else {
-
-                if (like_button_true){
-                    like_button_true = false;
-                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    unLikeMethod();
+        switch (view.getId()) {
+            case R.id.detail_btn_send_message:
+                if (processLoggedState(view)) {
+                    return;
                 } else {
-                    like_button_true = true;
-                    if (hug_button_true){
-                        hug_button_true = false;
-                        unHugMethod();
-                    }
-                    if (sad_button_true){
-                        sad_button_true = false;
-                        unSameMethod();
-                    }
-                    likeCounter++;
-
-                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "1";
-
-                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
-                        Timber.e("Same user");
-                    } else {
-                        sendLikeNotification(application, sendLike);
-                    }
-                    sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
-                    new_counter_like_number.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                    sendMessage();
                 }
-            }
-
-        } else if(view.getId() == R.id.detail_list_item_hug_button){
-            if (processLoggedState(view)) {
-                return;
-            } else {
-                if (hug_button_true){
-                    hug_button_true = false;
-                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    unHugMethod();
+                break;
+            case R.id.detail_list_item_like_button:
+                if (processLoggedState(view)) {
+                    return;
                 } else {
-                    hug_button_true = true;
-                    if (like_button_true){
+
+                    if (like_button_true) {
                         like_button_true = false;
+                        // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                         unLikeMethod();
-                    }
-                    if (sad_button_true){
-                        sad_button_true = false;
-                        unSameMethod();
-                    }
-                    hugCounter++;
-                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "2";
-
-                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
-
                     } else {
-                        sendLikeNotification(application, sendLike);
+                        like_button_true = true;
+                        if (hug_button_true) {
+                            hug_button_true = false;
+                            unHugMethod();
+                        }
+                        if (sad_button_true) {
+                            sad_button_true = false;
+                            unSameMethod();
+                        }
+                        likeCounter++;
+
+                        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                                myList.getIdUserName() + "_postId@" + myList.getIdPosts() + "_click@" + "1";
+
+                        if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())) {
+                            Timber.e("Same user");
+                        } else {
+                            sendLikeNotification(application, sendLike);
+                        }
+                        sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+                        new_counter_like_number.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                     }
-                    sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
-                    new_counter_hug_number.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 }
-            }
-
-
-
-
-        } else if(view.getId() == R.id.detail_list_item_same_button){
-            if (processLoggedState(view)) {
-                return;
-            } else {
-
-                if (sad_button_true){
-                    sad_button_true = false;
-                    // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
-                    unSameMethod();
+                break;
+            case R.id.detail_list_item_hug_button:
+                if (processLoggedState(view)) {
+                    return;
                 } else {
-                    sad_button_true = true;
-                    if (like_button_true){
-                        like_button_true = false;
-                        unLikeMethod();
-                    }
-                    if (hug_button_true){
+                    if (hug_button_true) {
                         hug_button_true = false;
+                        // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
                         unHugMethod();
-                    }
-
-                    sameCounter++;
-                    String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                            myList.getIdUserName() + "_postId@" + myList.getIdPosts()  + "_click@" + "3";
-
-                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
                     } else {
-                        sendLikeNotification(application, sendLike);
+                        hug_button_true = true;
+                        if (like_button_true) {
+                            like_button_true = false;
+                            unLikeMethod();
+                        }
+                        if (sad_button_true) {
+                            sad_button_true = false;
+                            unSameMethod();
+                        }
+                        hugCounter++;
+                        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                                myList.getIdUserName() + "_postId@" + myList.getIdPosts() + "_click@" + "2";
+
+                        if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())) {
+
+                        } else {
+                            sendLikeNotification(application, sendLike);
+                        }
+                        sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
+                        new_counter_hug_number.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                     }
-                    sendLikeToServer(application, 0, 0, 1, 0, "clicked sad button");
-                    new_counter_same_number.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                 }
-
-            }
-
-        }
-
-        else if(view.getId() == R.id.detail_status_more){
-
-            if (processLoggedState(view)) {
-                return;
-            } else {
-                popupMenu = new PopupMenu(view.getContext(), view);
-                MenuInflater inflater = popupMenu.getMenuInflater();
-                inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
-                //    this.menu = popupMenu.getMenu();
-
-                SharedPreferences preferences;
-                preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
-
-                if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())){
-                    if(popupMenu.getMenu() == null)
-                        return;
-                    popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
+                break;
+            case R.id.detail_list_item_same_button:
+                if (processLoggedState(view)) {
+                    return;
                 } else {
-                    popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
+
+                    if (sad_button_true) {
+                        sad_button_true = false;
+                        // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                        unSameMethod();
+                    } else {
+                        sad_button_true = true;
+                        if (like_button_true) {
+                            like_button_true = false;
+                            unLikeMethod();
+                        }
+                        if (hug_button_true) {
+                            hug_button_true = false;
+                            unHugMethod();
+                        }
+
+                        sameCounter++;
+                        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                                myList.getIdUserName() + "_postId@" + myList.getIdPosts() + "_click@" + "3";
+
+                        if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())) {
+                        } else {
+                            sendLikeNotification(application, sendLike);
+                        }
+                        sendLikeToServer(application, 0, 0, 1, 0, "clicked sad button");
+                        new_counter_same_number.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+                    }
+
                 }
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.edit_post:
+                break;
+            case R.id.detail_status_more:
+                if (processLoggedState(view)) {
+                    return;
+                } else {
+                    popupMenu = new PopupMenu(view.getContext(), view);
+                    MenuInflater inflater = popupMenu.getMenuInflater();
+                    inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+                    //    this.menu = popupMenu.getMenu();
 
-                                Intent editIntent = new Intent(PostsDetailsActivity.this, EditPost.class);
-                                editIntent.putExtra(Constants.IDPOST, myList.getIdPosts());
-                                editIntent.putExtra(Constants.STATUS_POST, myList.getTextStatus());
-                                if (myList.getAudioFileLink().isEmpty() || myList.getAudioFileLink() == null){
-                                    Timber.e("No audio attached");
-                                } else {
-                                    editIntent.putExtra(Constants.AUDIO, myList.getAudioFileLink());
-                                }
-                                startActivity(editIntent);
-                                return true;
+                    SharedPreferences preferences;
+                    preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
-                            case R.id.report_post:
+                    if (MySharedPreferences.getUserId(preferences).equals(myList.getIdUserName())) {
+                        if (popupMenu.getMenu() == null)
+                            return;
+                        popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
+                    } else {
+                        popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
+                    }
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.edit_post:
 
-                                Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
-                                reportIntent.putExtra(Constants.IDPOST, postId);
-                                reportIntent.putExtra(Constants.IDUSERNAME, myList.getIdUserName());
-                                reportIntent.putExtra(Constants.STATUS_POST, myList.getTextStatus());
-                                startActivity(reportIntent);
-                                return true;
+                                    Intent editIntent = new Intent(PostsDetailsActivity.this, EditPost.class);
+                                    editIntent.putExtra(Constants.IDPOST, myList.getIdPosts());
+                                    editIntent.putExtra(Constants.STATUS_POST, myList.getTextStatus());
+                                    if (myList.getAudioFileLink().isEmpty() || myList.getAudioFileLink() == null) {
+                                        Timber.e("No audio attached");
+                                    } else {
+                                        editIntent.putExtra(Constants.AUDIO, myList.getAudioFileLink());
+                                    }
+                                    startActivity(editIntent);
+                                    return true;
 
-                            case R.id.menu_item_share:
-                                //            MenuItem menuItem = popupMenu.getMenu().findItem(R.id.menu_item_share);
-                                //            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
+                                case R.id.report_post:
+
+                                    Intent reportIntent = new Intent(PostsDetailsActivity.this, ReportAbuseActivity.class);
+                                    reportIntent.putExtra(Constants.IDPOST, postId);
+                                    reportIntent.putExtra(Constants.IDUSERNAME, myList.getIdUserName());
+                                    reportIntent.putExtra(Constants.STATUS_POST, myList.getTextStatus());
+                                    startActivity(reportIntent);
+                                    return true;
+
+                                case R.id.menu_item_share:
+                                    //            MenuItem menuItem = popupMenu.getMenu().findItem(R.id.menu_item_share);
+                                    //            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
 
                   /*          mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
                         //    int currentViewPagerItem = ((ViewPager) itemView.findViewById(R.id.viewpager)).getCurrentItem();
@@ -423,116 +418,138 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                                 Toast.makeText(itemView.getContext(), "Share Action Provider is null", Toast.LENGTH_SHORT).show();
                               //  Log.d(LOG_TAG, "Share Action Provider is null?");
                             } */
-                                startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+                                    startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
 
-                                if(myList.getAudioFileLink() == null || myList.getAudioFileLink().isEmpty()){
-                                    view.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
-                                } else {
-                                    view.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
+                                    if (myList.getAudioFileLink() == null || myList.getAudioFileLink().isEmpty()) {
+                                        view.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
+                                    } else {
+                                        view.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
 
-                                }
-
-
-                                return true;
-
-                            default:
-                                return false;
-
-                        }
-                    }
-                });
-                popupMenu.show();
-
-            }
+                                    }
 
 
-        } else if (view.getId() == R.id.detail_list_item_post_userNickName ||
-                view.getId() == R.id.detail_list_item_posts_avatar){
+                                    return true;
 
-            if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))){
-                startActivity(new Intent(view.getContext(), ProfileActivity.class));
-            } else {
-                Intent intent = new Intent(this, SecondProfile.class);
-                intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
-                startActivity(intent);
-            }
+                                default:
+                                    return false;
 
-        } else if (view.getId() == R.id.detail_list_item_posts_feeling){
-            Intent intent = new Intent(this, UserFeelingActivity.class);
-            intent.putExtra(Constants.EMOTION, myList.getIdFeeling());
-            startActivity(intent);
-        } else if (view.getId() == R.id.detail_list_item_posts_category){
-            Intent intent = new Intent(this, UserCategoryActivity.class);
-            intent.putExtra(Constants.CATEGORY, myList.getIdCategory());
-            startActivity(intent);
-        } else if (view.getId() == R.id.detail_post_likes_counter || view.getId() == R.id.new_counter_like_number_detail){
-
-            Intent intent = new Intent(this, UserLikeCounterActivity.class);
-            intent.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
-            startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_hugs_counter || view.getId() == R.id.new_counter_hug_number_detail){
-            Intent intent = new Intent(this, UserHugCounterActivity.class);
-            intent.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
-            startActivity(intent);
-        } else if(view.getId() == R.id.detail_post_same_counter || view.getId() == R.id.new_counter_same_number_detail ){
-            Intent intent = new Intent(this, UserSameCounterActivity.class);
-            intent.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
-            startActivity(intent);
-
-        }
-
-   /*     else if(view.getId() == R.id.detail_post_listen_counter){
-            Intent intent = new Intent(this, UserListenCounterActivity.class);
-            intent.putExtra(Constants.LISTEN_FEELING, myList.getIdPosts());
-            startActivity(intent); */
-
-
-    //    }
-        else if(view.getId() == R.id.detail_list_item_posts_play_button){
-            if (!mediaPlayer.isPlaying()){
-                if (mediaPlayer != null){
-                    try {
-                        mediaPlayer.stop();
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    mediaPlayer = null;
-                }
-
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                try {
-                    mediaPlayer.setDataSource(myList.getAudioFileLink());
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            try {
-                                mediaPlayer.start();
-                                flipPlayPauseButton(true);
-                            } catch (Exception e){
-                                e.printStackTrace();
                             }
                         }
                     });
-                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mediaPlayer) {
-                            flipPlayPauseButton(false);
+                    popupMenu.show();
+
+                }
+                break;
+            case R.id.detail_list_item_post_userNickName:
+                if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))) {
+                    startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                } else {
+                    Intent intent = new Intent(this, SecondProfile.class);
+                    intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
+                    startActivity(intent);
+                }
+                break;
+            case R.id.detail_list_item_posts_avatar:
+                if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))) {
+                    startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                } else {
+                    Intent intent = new Intent(this, SecondProfile.class);
+                    intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
+                    startActivity(intent);
+                }
+                break;
+            case R.id.detail_list_item_posts_feeling:
+                Intent intent = new Intent(this, UserFeelingActivity.class);
+                intent.putExtra(Constants.EMOTION, myList.getIdFeeling());
+                startActivity(intent);
+                break;
+            case R.id.detail_list_item_posts_category:
+                Intent in = new Intent(this, UserCategoryActivity.class);
+                in.putExtra(Constants.CATEGORY, myList.getIdCategory());
+                startActivity(in);
+                break;
+            case R.id.detail_post_likes_counter:
+                Intent intent02 = new Intent(this, UserLikeCounterActivity.class);
+                intent02.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
+                startActivity(intent02);
+                break;
+            case R.id.new_counter_like_number_detail:
+                Intent intent03 = new Intent(this, UserLikeCounterActivity.class);
+                intent03.putExtra(Constants.LIKE_FEELING, myList.getIdPosts());
+                startActivity(intent03);
+                break;
+            case R.id.detail_post_hugs_counter:
+                Intent intent04 = new Intent(this, UserHugCounterActivity.class);
+                intent04.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
+                startActivity(intent04);
+                break;
+            case R.id.new_counter_hug_number_detail:
+                Intent intent05 = new Intent(this, UserHugCounterActivity.class);
+                intent05.putExtra(Constants.HUG_FEELING, myList.getIdPosts());
+                startActivity(intent05);
+                break;
+            case R.id.detail_post_same_counter:
+                Intent intent06 = new Intent(this, UserSameCounterActivity.class);
+                intent06.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
+                startActivity(intent06);
+                break;
+            case R.id.new_counter_same_number_detail:
+                Intent intent07 = new Intent(this, UserSameCounterActivity.class);
+                intent07.putExtra(Constants.SAME_FEELING, myList.getIdPosts());
+                startActivity(intent07);
+                break;
+
+            /*     else if(view.getId() == R.id.detail_post_listen_counter){
+            Intent intent = new Intent(this, UserListenCounterActivity.class);
+            intent.putExtra(Constants.LISTEN_FEELING, myList.getIdPosts());
+            startActivity(intent); */
+            case R.id.detail_list_item_posts_play_button:
+                if (!mediaPlayer.isPlaying()){
+                    if (mediaPlayer != null){
+                        try {
+                            mediaPlayer.stop();
+                        } catch (Exception e){
+                            e.printStackTrace();
                         }
-                    });
-                    mediaPlayer.prepareAsync();
-                } catch (IOException e){
-                    e.printStackTrace();
+                        mediaPlayer = null;
+                    }
+
+                    mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    try {
+                        mediaPlayer.setDataSource(myList.getAudioFileLink());
+                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mediaPlayer) {
+                                try {
+                                    mediaPlayer.start();
+                                    flipPlayPauseButton(true);
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mediaPlayer) {
+                                flipPlayPauseButton(false);
+                            }
+                        });
+                        mediaPlayer.prepareAsync();
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        mediaPlayer.pause();
+                        flipPlayPauseButton(false);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
-            } else {
-                try {
-                    mediaPlayer.pause();
-                    flipPlayPauseButton(false);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
+                break;
         }
+
     }
 
     private Intent sharedIntentMaker(){

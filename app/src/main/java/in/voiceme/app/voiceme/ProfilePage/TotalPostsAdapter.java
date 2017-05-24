@@ -245,7 +245,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public EventViewHolder(View itemView) {
             super(itemView);
-            totalpreference = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+            totalpreference = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
         }
 
         @Override
@@ -388,7 +388,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             //    this.menu = popupMenu.getMenu();
 
             SharedPreferences preferences;
-            preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+            preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
             if (MySharedPreferences.getUserId(preferences) == null){
                 Toast.makeText(itemView.getContext(), "You are not logged In", Toast.LENGTH_SHORT).show();

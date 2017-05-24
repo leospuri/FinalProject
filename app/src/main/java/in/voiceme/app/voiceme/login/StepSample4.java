@@ -63,6 +63,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     private LinearLayout mLinearLayout;
     private View mView;
     private EditText userInputDialogEditText;
+    private String category_name;
 
     /**
      * sample country list
@@ -318,6 +319,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     }
 
     public void setCategory(String current_category, String categoryName) {
+        this.category_name = categoryName;
         selected_hashtag.setVisibility(View.VISIBLE);
         if (categoryName.trim().length() > 1500){
             Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
@@ -346,6 +348,8 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(Constants.CATEGORY, current_category);
+        outState.putString(Constants.IDUSERNAME, category_name);
+
     }
 
     @Override
@@ -353,6 +357,8 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             current_category = savedInstanceState.getString(Constants.CATEGORY);
+            category_name = savedInstanceState.getString(Constants.IDUSERNAME);
+            setCategory(current_category, category_name);
         }
 
     }

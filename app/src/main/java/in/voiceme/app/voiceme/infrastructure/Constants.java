@@ -17,12 +17,15 @@ public interface Constants {
     String USERNAME = "USERNAME";
     String CONTACT = "CONTACT";
 
+    String AUDIO_DURATION = "AUDIO_DURATION";
+
     String PREF_FILE = "prefs.xml";
     String CONSTANT_PREF_FILE = "constant_prefs.xml";
 
     String KEY_LAST_USED_PROVIDER = "last_used_provider";
     String KEY_PROVIDER_TOKEN = "last_provider_token";
     String GET_CONTACT_NUMBER = "GET_CONTACT_NUMBER";
+    String AUDIO_TIME = "AUDIO_TIME";
 
     String HUG_FEELING = "HUG_FEELING";
     String LIKE_FEELING = "LIKE_FEELING";

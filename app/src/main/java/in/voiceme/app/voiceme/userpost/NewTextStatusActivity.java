@@ -14,6 +14,7 @@ import com.github.fcannizzaro.materialstepper.style.DotStepper;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.login.StepFourInterface;
@@ -62,6 +63,25 @@ public class NewTextStatusActivity extends DotStepper implements StepTwoInterfac
         addStep(createFragment(new StepSample5()));
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.CONTACT, feelingID);
+        outState.putString(Constants.HUG_FEELING, categoryID);
+        outState.putString(Constants.LIKE_FEELING, textStatus);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            feelingID = savedInstanceState.getString(Constants.CONTACT);
+            categoryID = savedInstanceState.getString(Constants.HUG_FEELING);
+            textStatus = savedInstanceState.getString(Constants.LIKE_FEELING);
+        }
+
     }
 
     @Override

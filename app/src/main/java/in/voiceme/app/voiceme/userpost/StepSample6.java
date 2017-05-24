@@ -75,7 +75,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private boolean checkIfAlreadyhavePermission() {
         int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO);
         if (result == PackageManager.PERMISSION_GRANTED) {
-            textview_ask_audio_perm.setText("Click below on below mic to record audio");
+            textview_ask_audio_perm.setText("Click on mic below");
             return true;
         } else {
             textview_ask_audio_perm.setText("You need to give permission to Record Audio");
