@@ -100,8 +100,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected MediaPlayer mediaPlayer = new MediaPlayer();
     private String idusername;
 
-    private int count;
-
 
     //animated buttons
     private ImageView likeButtonMain, HugButtonMain, SameButtonMain;
@@ -114,8 +112,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected TextView new_counter_hug_number;
     protected TextView new_counter_same_number;
     protected TextView new_counter_cmt_number;
-
-
 
     private MessageAdapter.InsertMessageListener mInsertMessageListener = new MessageAdapter.InsertMessageListener() {
 
@@ -189,9 +185,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         SameButtonMain = (ImageView) findViewById(R.id.detail_list_item_same_button);
 
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
-        mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
-        mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
-        mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mSendMessageImageButton = (ImageButton) findViewById(R.id.detail_btn_send_message);
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.detail_rv_messages);
 
@@ -219,6 +212,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         user_avatar.setOnClickListener(this);
         play_button.setOnClickListener(this);
         moreButton.setOnClickListener(this);
+
 
         initRecyclerView();
         try {
@@ -254,11 +248,11 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         switch (view.getId()) {
             case R.id.detail_btn_send_message:
-                if (processLoggedState(view)) {
-                    return;
-                } else {
+          //      if (processLoggedState(view)) {
+         //           return;
+         //       } else {
                     sendMessage();
-                }
+         //       }
                 break;
             case R.id.detail_list_item_like_button:
                 if (processLoggedState(view)) {
@@ -289,6 +283,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         } else {
                             sendLikeNotification(application, sendLike);
                         }
+                        like_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
+                        like_counter.setTextColor(getResources().getColor(R.color.white));
+                        like_counter.setText("LIKE");
                         sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
                         new_counter_like_number.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                     }
@@ -321,6 +318,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         } else {
                             sendLikeNotification(application, sendLike);
                         }
+                        hug_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
+                        hug_counter.setTextColor(getResources().getColor(R.color.white));
+                        hug_counter.setText("HUG");
                         sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
                         new_counter_hug_number.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                     }
@@ -354,6 +354,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         } else {
                             sendLikeNotification(application, sendLike);
                         }
+                        same_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
+                        same_counter.setTextColor(getResources().getColor(R.color.white));
+                        same_counter.setText("SAD");
                         sendLikeToServer(application, 0, 0, 1, 0, "clicked sad button");
                         new_counter_same_number.setText(NumberFormat.getIntegerInstance().format(sameCounter));
                     }
@@ -578,20 +581,30 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void unSameMethod() {
-        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
         sameCounter--;
+        same_counter.setBackgroundColor(getResources().getColor(R.color.white));
+        same_counter.setTextColor(getResources().getColor(R.color.black));
+        same_counter.setText("SAD");
+
         new_counter_same_number.setText(NumberFormat.getIntegerInstance().format(sameCounter));
     }
 
     private void unHugMethod() {
         sendUnlikeToServer(application, 1, 0, 1, 1, "clicked unlike button");
         hugCounter--;
+        hug_counter.setBackgroundColor(getResources().getColor(R.color.white));
+        hug_counter.setTextColor(getResources().getColor(R.color.black));
+        hug_counter.setText("HUG");
         new_counter_hug_number.setText(NumberFormat.getIntegerInstance().format(hugCounter));
     }
 
     private void unLikeMethod() {
-        sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
+        sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
         likeCounter--;
+        like_counter.setBackgroundColor(getResources().getColor(R.color.white));
+        like_counter.setTextColor(getResources().getColor(R.color.black));
+        like_counter.setText("LIKE");
         new_counter_like_number.setText(NumberFormat.getIntegerInstance().format(likeCounter));
     }
 
@@ -606,23 +619,20 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     void sendMessage() {
         String message = mMessageEditText.getText().toString();
+        String currentUser = MySharedPreferences.getUserId(preferences);
 
         if (!mMessageEditText.getText().toString().isEmpty()) {
             // Todo post comment on server
 
             commentCount = mMessageEditText.getText().toString().length();
-            if (commentCount > 299){
+            if (commentCount > 450){
                 Toast.makeText(this, "Please enter short messages", Toast.LENGTH_SHORT).show();
             } else {
                 try {
                     postComment(message);
-                    if (idusername.equals(MySharedPreferences.getUserId(preferences))){
+                    if (idusername.equals(currentUser)){
                         Timber.e("same user");
                     } else {
-                        for (int i = 0; i < message.length(); i++){
-                            count++;
-                        }
-
                         String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
                                 idusername + "_postId@" + postId  + "_click@" + "5";
                         sendLikeNotification(application, sendLike);
@@ -840,18 +850,11 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             hideAudioButton(View.VISIBLE);
         }
 
-
-
-        like_counter.setText("LIKE");
-        hug_counter.setText("HUG");
-        same_counter.setText("SAD");
-        post_comments.setText("REPLY");
-
-
         if (myList.getUserLike() != null){
             if (myList.getUserLike()){
                 like_counter.setBackgroundColor(getResources().getColor(R.color.md_blue_300));
                 like_counter.setTextColor(getResources().getColor(R.color.white));
+                like_button_true = true;
                 like_counter.setText("LIKE");
                 //   likeButtonMain.setFavoriteResource(like_after);
             } else {

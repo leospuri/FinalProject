@@ -359,6 +359,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return;
             Intent intent = new Intent(view.getContext(), PostsDetailsActivity.class);
             intent.putExtra(Constants.POST_BACKGROUND, dataItem.getIdPosts());
+            intent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }
 

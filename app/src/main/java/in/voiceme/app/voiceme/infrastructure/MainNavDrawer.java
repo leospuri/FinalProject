@@ -41,7 +41,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         prefs = activity.getSharedPreferences("Logged in or not", Context.MODE_PRIVATE);
         String sLcl = "Logout";
         if (prefs.getBoolean("is this demo mode", false)) sLcl = "Quit";
-        addItem(new BasicNavDrawerItem(sLcl, null, R.mipmap.ic_action_backspace, R.id.include_main_nav_drawer_bottomItems) {
+        addItem(new BasicNavDrawerItem(sLcl, null, R.drawable.logout_button, R.id.include_main_nav_drawer_bottomItems) {
             @Override
             public void onClick(View view) {
                 if (processLoggedState(view))
