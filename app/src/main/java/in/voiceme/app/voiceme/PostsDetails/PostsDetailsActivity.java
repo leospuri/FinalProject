@@ -233,7 +233,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 return false;
             }
         };
-        mLinearLayoutManager.setStackFromEnd(true);
+      //  mLinearLayoutManager.setStackFromEnd(true);
         mLinearLayoutManager.setReverseLayout(true);
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -625,7 +625,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             // Todo post comment on server
 
             commentCount = mMessageEditText.getText().toString().length();
-            if (commentCount > 450){
+            if (commentCount > 500){
                 Toast.makeText(this, "Please enter short messages", Toast.LENGTH_SHORT).show();
             } else {
                 try {

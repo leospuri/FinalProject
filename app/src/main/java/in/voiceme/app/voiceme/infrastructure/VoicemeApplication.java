@@ -78,7 +78,7 @@ public class VoicemeApplication extends Application {
 
         EmojiManager.install(new EmojiOneProvider());
 
-        /* ************************************** */
+        /* **************************************
         Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
             @Override
@@ -86,6 +86,7 @@ public class VoicemeApplication extends Application {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
+         */
 
 
 

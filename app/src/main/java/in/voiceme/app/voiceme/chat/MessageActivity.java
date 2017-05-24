@@ -154,7 +154,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     }
                     base64String = Base64.encodeToString(data, Base64.DEFAULT);
                     messageCount = base64String.length();
-                    if (messageCount > 950){
+                    if (messageCount > 800){
                         Toast.makeText(MessageActivity.this, "Please enter short messages", Toast.LENGTH_SHORT).show();
                     } else {
                         sendMessage(base64String);

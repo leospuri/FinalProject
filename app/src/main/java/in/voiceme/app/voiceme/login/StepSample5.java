@@ -83,8 +83,8 @@ public class StepSample5 extends AbstractStep {
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (text_status.getText().toString().trim().length() > 1500){
-                    Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
+                if (text_status.getText().toString().trim().length() > 1000){
+                    Toast.makeText(getActivity(), "Please Enter Status less than 1000 words", Toast.LENGTH_SHORT).show();
                     yes = false;
                 } else {
                     yes = true;
