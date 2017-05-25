@@ -360,6 +360,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void setCategory(String current_category, String categoryName) {
         this.category_name = categoryName;
         selected_hashtag.setVisibility(View.VISIBLE);
+        createNewHashTag.setVisibility(View.GONE);
         if (categoryName.trim().length() > 25){
             Toast.makeText(getActivity(), "Please Select Category with shorter names", Toast.LENGTH_SHORT).show();
             yes = true;

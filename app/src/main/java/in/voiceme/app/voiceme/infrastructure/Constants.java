@@ -26,6 +26,7 @@ public interface Constants {
     String KEY_PROVIDER_TOKEN = "last_provider_token";
     String GET_CONTACT_NUMBER = "GET_CONTACT_NUMBER";
     String AUDIO_TIME = "AUDIO_TIME";
+    String AUDIO_TIME02 = "AUDIO_TIME02";
 
     String HUG_FEELING = "HUG_FEELING";
     String LIKE_FEELING = "LIKE_FEELING";

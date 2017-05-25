@@ -42,7 +42,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE};
     private static final int INT_RECORD_AUDIO_PERM = 1235;
 
-    public static final int REQUEST_CODE = 5000;
+    private static final int REQUEST_CODE = 5000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -124,10 +124,7 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
             } catch (Exception e){
                 e.printStackTrace();
             }
-
-
         }
-
     }
 
 

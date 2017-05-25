@@ -49,7 +49,7 @@ public class NewAudioStatusActivity extends DotStepper implements StepTwoInterfa
     private ProgressDialog progressDialog;
     private static final String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recorded_audio"+".mp3";
 
-    public static final int REQUEST_CODE = 5000;
+    private static final int REQUEST_CODE = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
