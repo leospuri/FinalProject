@@ -320,7 +320,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     public void setCategory(String current_category, String categoryName) {
         this.category_name = categoryName;
-        selected_hashtag.setVisibility(View.VISIBLE);
+        createNewHashTag.setVisibility(View.INVISIBLE);
         if (categoryName.trim().length() > 1500){
             Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
             yes = false;
@@ -377,6 +377,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getActivity(), "Created New Interest", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString());
+                        createNewHashTag.setVisibility(View.INVISIBLE);
                         dialog.cancel();
                     }
                 });
@@ -454,6 +455,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getActivity(), "Creating New Interest", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString().trim());
+                        createNewHashTag.setVisibility(View.INVISIBLE);
                         yes = true;
                         dialog.cancel();
                     }

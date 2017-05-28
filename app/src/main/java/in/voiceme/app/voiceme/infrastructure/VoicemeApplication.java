@@ -103,7 +103,7 @@ public class VoicemeApplication extends Application {
         sAnalytics = GoogleAnalytics.getInstance(this);
         /* *****************************************/
         //     Fabric.with(this, new Crashlytics());
-      //     Timber.plant(new ReleaseTree());
+        // Timber.plant(new ReleaseTree());
 
 
         context = getApplicationContext();

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Voiceme</string>
 
-    <!-- Testing AWS and facebook  -->
+    <!-- Testing AWS and facebook -->
 
 
     <string name="FACEBOOK_APP_ID">634759186722635</string>

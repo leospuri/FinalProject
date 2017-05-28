@@ -262,13 +262,18 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
         protected void secondUserProfileClicked(View view){
-            if (dataItem.getIdUserName().equals(MySharedPreferences.getUserId(totalpreference))) {
-                view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+            if (dataItem.getIdUserName() != null){
+                if (dataItem.getIdUserName().equals(MySharedPreferences.getUserId(totalpreference))) {
+                    view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                } else {
+                    Intent intent = new Intent(view.getContext(), SecondProfile.class);
+                    intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
+                    view.getContext().startActivity(intent);
+                }
             } else {
-                Intent intent = new Intent(view.getContext(), SecondProfile.class);
-                intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
-                view.getContext().startActivity(intent);
+                Toast.makeText(itemView.getContext(), "User doesn't exists", Toast.LENGTH_SHORT).show();
             }
+
 
         }
 

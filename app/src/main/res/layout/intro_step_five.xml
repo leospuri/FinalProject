@@ -42,7 +42,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:id="@+id/report_nothing"
-                        android:text=" Nothing to Confess "/>
+                        android:text=" I am Struggling, I need to Talk "/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

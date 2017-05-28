@@ -417,6 +417,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getActivity(), "Created New Interest", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString());
+                        createNewHashTag.setVisibility(View.GONE);
                         dialog.cancel();
                     }
                 });
@@ -496,6 +497,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                         Toast.makeText(getActivity(), "Creating New Interest", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString().trim());
                         yes = true;
+                        createNewHashTag.setVisibility(View.GONE);
                         dialog.cancel();
                     }
                 });

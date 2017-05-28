@@ -257,13 +257,18 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         protected void secondUserProfileClicked(View view){
             processLoggedState(view);
-            if (dataItem.getIdUserName().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
-                view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+            if (dataItem.getIdUserName() != null){
+                if (dataItem.getIdUserName().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
+                    view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                } else {
+                    Intent intent = new Intent(view.getContext(), SecondProfile.class);
+                    intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
+                    view.getContext().startActivity(intent);
+                }
             } else {
-                Intent intent = new Intent(view.getContext(), SecondProfile.class);
-                intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
-                view.getContext().startActivity(intent);
+                Toast.makeText(itemView.getContext(), "User Doesn't Exists", Toast.LENGTH_SHORT).show();
             }
+
 
         }
 

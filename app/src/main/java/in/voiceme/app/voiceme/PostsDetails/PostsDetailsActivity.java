@@ -32,6 +32,7 @@ import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
@@ -444,22 +445,33 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.detail_list_item_post_userNickName:
-                if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))) {
-                    startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                if (myList.getIdUserName() != null){
+                    if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))) {
+                        startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                    } else {
+                        Intent intent = new Intent(this, SecondProfile.class);
+                        intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
+                        startActivity(intent);
+                    }
                 } else {
-                    Intent intent = new Intent(this, SecondProfile.class);
-                    intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
-                    startActivity(intent);
+                    Toast.makeText(PostsDetailsActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
                 }
+
                 break;
             case R.id.detail_list_item_posts_avatar:
-                if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))) {
-                    startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                if (myList.getIdUserName() != null){
+                    if (myList.getIdUserName().equals(MySharedPreferences.getUserId(preferences))) {
+                        startActivity(new Intent(view.getContext(), ProfileActivity.class));
+                    } else {
+                        Intent intent = new Intent(this, SecondProfile.class);
+                        intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
+                        startActivity(intent);
+                    }
                 } else {
-                    Intent intent = new Intent(this, SecondProfile.class);
-                    intent.putExtra(Constants.SECOND_PROFILE_ID, myList.getIdUserName());
-                    startActivity(intent);
+                    Toast.makeText(PostsDetailsActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
                 }
+
+
                 break;
             case R.id.detail_list_item_posts_feeling:
                 Intent intent = new Intent(this, UserFeelingActivity.class);
@@ -663,6 +675,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            startActivity(new Intent(this, DiscoverActivity.class));
         }
     }
 
@@ -708,6 +722,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
+
                     }
                     @Override
                     public void onError(Throwable e) {
