@@ -63,14 +63,6 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:id="@+id/report_dating"
-                        android:text=" Looking for a Date "/>
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
                         android:id="@+id/report_other"
                         android:text=" Other "/>
                 </RadioGroup>
