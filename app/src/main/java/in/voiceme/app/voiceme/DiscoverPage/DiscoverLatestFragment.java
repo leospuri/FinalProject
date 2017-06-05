@@ -63,7 +63,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
     PullRefreshLayout layout;
-
+    View view;
 
     public DiscoverLatestFragment() {
         // Required empty public constructor
@@ -85,10 +85,21 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            initUiView(view);
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_discover_latest, container, false);
+        view = inflater.inflate(R.layout.fragment_discover_latest, container, false);
         progressFrame = view.findViewById(R.id.activity_discover_latest);
         error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
@@ -117,12 +128,12 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
             }
         });
 
-        try {
-            initUiView(view);
-            loadFirstPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            initUiView(view);
+//            loadFirstPage();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override

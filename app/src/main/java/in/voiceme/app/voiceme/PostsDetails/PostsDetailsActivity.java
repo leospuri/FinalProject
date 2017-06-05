@@ -97,7 +97,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private int hugCounter;
     private int sameCounter;
     private PopupMenu popupMenu;
-    private View progressFrame;
+//    private View progressFrame;
     protected MediaPlayer mediaPlayer = new MediaPlayer();
     private String idusername;
 
@@ -131,7 +131,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_posts_details);
         getSupportActionBar().setTitle("Post Details");
 
-        progressFrame = findViewById(R.id.post_details_progressBar);
+//        progressFrame = findViewById(R.id.post_details_progressBar);
 
         toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -226,16 +226,23 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initRecyclerView() {
+        /**code edited by nirmal
+         * Replacing the linearlayout manager
+         */
+
+
+        mLinearLayoutManager = new LinearLayoutManager(PostsDetailsActivity.this,LinearLayoutManager.VERTICAL,true);
+
         mMessageAdapter = new MessageAdapter(PostsDetailsActivity.this, myCommentList, mInsertMessageListener);
 
-        mLinearLayoutManager = new LinearLayoutManager(PostsDetailsActivity.this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
+//        mLinearLayoutManager = new LinearLayoutManager(PostsDetailsActivity.this) {
+//            @Override
+//            public boolean canScrollVertically() {
+//                return false;
+//            }
+//        };
       //  mLinearLayoutManager.setStackFromEnd(true);
-        mLinearLayoutManager.setReverseLayout(true);
+//        mLinearLayoutManager.setReverseLayout(true);
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mMessageAdapter);
@@ -691,12 +698,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onNext(List<PostUserCommentModel> response) {
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showComments(response);
-                        progressFrame.setVisibility(View.GONE);
+//                        progressFrame.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError(Throwable e) {
                         Crashlytics.logException(e);
-                        progressFrame.setVisibility(View.GONE);
+//                        progressFrame.setVisibility(View.GONE);
                         try {
                        //     Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             Timber.e("message error " + e);

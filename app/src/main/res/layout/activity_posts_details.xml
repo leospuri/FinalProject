@@ -8,9 +8,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -344,30 +344,31 @@
 
         </RelativeLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:background="@color/md_grey_100"
-            android:layout_below="@+id/detail_list_item_post_background"
-            android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="50dp"
-            android:layout_weight="1">
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:background="@color/md_grey_100"-->
+            <!--android:layout_below="@+id/detail_list_item_post_background"-->
+            <!--android:layout_height="wrap_content">-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingBottom="50dp"-->
+            <!--android:layout_weight="1">-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/detail_rv_messages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_above="@+id/detail_ll_menu_tab"
+                android:layout_below="@+id/detail_list_item_post_background"
                 app:stackFromEnd="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:background="@android:color/transparent" />
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-        </ScrollView>
+        <!--</ScrollView>-->
 
         <LinearLayout
             android:id="@+id/detail_ll_menu_tab"
@@ -405,39 +406,39 @@
 
     </RelativeLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:clickable="true"
-            android:id="@+id/post_details_progressBar">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loading"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginBottom="70dp"
-                />
+    <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/white"-->
+            <!--android:clickable="true"-->
+            <!--android:id="@+id/post_details_progressBar">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Loading"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="20sp"-->
+                <!--android:layout_marginBottom="70dp"-->
+                <!--/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please Wait..."
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginBottom="40dp"
-                />
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:layout_gravity="center"/>
-        </FrameLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Please Wait..."-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="20sp"-->
+                <!--android:layout_marginBottom="40dp"-->
+                <!--/>-->
+            <!--<ProgressBar-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:indeterminate="true"-->
+                <!--android:layout_gravity="center"/>-->
+        <!--</FrameLayout>-->
 
-    </FrameLayout>
+    <!--</FrameLayout>-->
 
 
 
