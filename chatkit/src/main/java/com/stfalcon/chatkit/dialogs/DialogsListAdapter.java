@@ -19,7 +19,6 @@ package com.stfalcon.chatkit.dialogs;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +32,11 @@ import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
-import com.vanniktech.emoji.EmojiTextView;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +56,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private OnDialogClickListener<DIALOG> onDialogClickListener;
     private OnDialogLongClickListener<DIALOG> onLongItemClickListener;
     private DialogListStyle dialogStyle;
+    private DateFormatter.Formatter datesFormatter;
 
     /**
      * For default list item layout and view holder
@@ -98,6 +97,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         holder.setImageLoader(imageLoader);
         holder.setOnDialogClickListener(onDialogClickListener);
         holder.setOnLongItemClickListener(onLongItemClickListener);
+        holder.setDatesFormatter(datesFormatter);
         holder.onBind(items.get(position));
     }
 
@@ -129,6 +129,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     /**
      * remove item with id
+     *
      * @param id dialog i
      */
     public void deleteById(String id) {
@@ -138,6 +139,15 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                 notifyItemRemoved(i);
             }
         }
+    }
+
+    /**
+     * Returns {@code true} if, and only if, dialogs count in adapter is non-zero.
+     *
+     * @return {@code true} if size is 0, otherwise {@code false}
+     */
+    public boolean isEmpty() {
+        return items.isEmpty();
     }
 
     /**
@@ -189,7 +199,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /**
      * Add dialog to dialogs list
      *
-     * @param dialog dialog item
+     * @param dialog   dialog item
      * @param position position in dialogs lost
      */
     public void addItem(int position, DIALOG dialog) {
@@ -254,6 +264,33 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /**
+     * Sort dialog by last message date
+     */
+    public void sortByLastMessageDate() {
+        Collections.sort(items, new Comparator<DIALOG>() {
+            @Override
+            public int compare(DIALOG o1, DIALOG o2) {
+                if (o1.getLastMessage().getCreatedAt().after(o2.getLastMessage().getCreatedAt())) {
+                    return -1;
+                } else if (o1.getLastMessage().getCreatedAt().before(o2.getLastMessage().getCreatedAt())) {
+                    return 1;
+                } else return 0;
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Sort items with rules of comparator
+     *
+     * @param comparator Comparator
+     */
+    public void sort(Comparator<DIALOG> comparator) {
+        Collections.sort(items, comparator);
+        notifyDataSetChanged();
+    }
+
+    /**
      * Register a callback to be invoked when image need to load.
      *
      * @param imageLoader image loading method
@@ -301,6 +338,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
+    /**
+     * Sets custom {@link DateFormatter.Formatter} for text representation of last message date.
+     */
+    public void setDatesFormatter(DateFormatter.Formatter datesFormatter) {
+        this.datesFormatter = datesFormatter;
+    }
+
     //TODO ability to set style programmatically
     void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
@@ -320,10 +364,13 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     /*
     * HOLDERS
     * */
-    public abstract static class BaseDialogViewHolder<DIALOG extends IDialog> extends ViewHolder<DIALOG> {
+    public abstract static class BaseDialogViewHolder<DIALOG extends IDialog>
+            extends ViewHolder<DIALOG> {
+
         protected ImageLoader imageLoader;
         protected OnDialogClickListener onDialogClickListener;
         protected OnDialogLongClickListener onLongItemClickListener;
+        protected DateFormatter.Formatter datesFormatter;
 
         public BaseDialogViewHolder(View itemView) {
             super(itemView);
@@ -340,6 +387,10 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         void setOnLongItemClickListener(OnDialogLongClickListener onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
         }
+
+        public void setDatesFormatter(DateFormatter.Formatter dateHeadersFormatter) {
+            this.datesFormatter = dateHeadersFormatter;
+        }
     }
 
     public static class DialogViewHolder<DIALOG extends IDialog> extends BaseDialogViewHolder<DIALOG> {
@@ -350,11 +401,10 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         protected TextView tvDate;
         protected ImageView ivAvatar;
         protected ImageView ivLastMessageUser;
-        protected EmojiTextView tvLastMessage;
+        protected TextView tvLastMessage;
         protected TextView tvBubble;
         protected ViewGroup dividerContainer;
         protected View divider;
-        private String newStringWithEmojis3;
 
         public DialogViewHolder(View itemView) {
             super(itemView);
@@ -362,7 +412,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             container = (ViewGroup) itemView.findViewById(R.id.dialogContainer);
             tvName = (TextView) itemView.findViewById(R.id.dialogName);
             tvDate = (TextView) itemView.findViewById(R.id.dialogDate);
-            tvLastMessage = (EmojiTextView) itemView.findViewById(R.id.dialogLastMessage);
+            tvLastMessage = (TextView) itemView.findViewById(R.id.dialogLastMessage);
             tvBubble = (TextView) itemView.findViewById(R.id.dialogUnreadBubble);
             ivLastMessageUser = (ImageView) itemView.findViewById(R.id.dialogLastMessageUserAvatar);
             ivAvatar = (ImageView) itemView.findViewById(R.id.dialogAvatar);
@@ -374,58 +424,92 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         private void applyStyle() {
             if (dialogStyle != null) {
                 //Texts
-                tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogTitleTextSize());
-                tvLastMessage.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogMessageTextSize());
-                tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogDateSize());
+                if (tvName != null) {
+                    tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogTitleTextSize());
+                }
+
+                if (tvLastMessage != null) {
+                    tvLastMessage.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogMessageTextSize());
+                }
+
+                if (tvDate != null) {
+                    tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogDateSize());
+                }
 
                 //Divider
-                divider.setBackgroundColor(dialogStyle.getDialogDividerColor());
-                dividerContainer.setPadding(dialogStyle.getDialogDividerLeftPadding(), 0,
-                        dialogStyle.getDialogDividerRightPadding(), 0);
+                if (divider != null)
+                    divider.setBackgroundColor(dialogStyle.getDialogDividerColor());
+                if (dividerContainer != null)
+                    dividerContainer.setPadding(dialogStyle.getDialogDividerLeftPadding(), 0,
+                            dialogStyle.getDialogDividerRightPadding(), 0);
                 //Avatar
-                ivAvatar.getLayoutParams().width = dialogStyle.getDialogAvatarWidth();
-                ivAvatar.getLayoutParams().height = dialogStyle.getDialogAvatarHeight();
+                if (ivAvatar != null) {
+                    ivAvatar.getLayoutParams().width = dialogStyle.getDialogAvatarWidth();
+                    ivAvatar.getLayoutParams().height = dialogStyle.getDialogAvatarHeight();
+                }
 
                 //Last message user avatar
-                ivLastMessageUser.getLayoutParams().width = dialogStyle.getDialogMessageAvatarWidth();
-                ivLastMessageUser.getLayoutParams().height = dialogStyle.getDialogMessageAvatarHeight();
+                if (ivLastMessageUser != null) {
+                    ivLastMessageUser.getLayoutParams().width = dialogStyle.getDialogMessageAvatarWidth();
+                    ivLastMessageUser.getLayoutParams().height = dialogStyle.getDialogMessageAvatarHeight();
+                }
 
                 //Unread bubble
-                GradientDrawable bgShape = (GradientDrawable) tvBubble.getBackground();
-                bgShape.setColor(dialogStyle.getDialogUnreadBubbleBackgroundColor());
-                tvBubble.setVisibility(dialogStyle.isDialogDividerEnabled() ? VISIBLE : GONE);
-                tvBubble.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogUnreadBubbleTextSize());
-                tvBubble.setTextColor(dialogStyle.getDialogUnreadBubbleTextColor());
-                tvBubble.setTypeface(tvBubble.getTypeface(), dialogStyle.getDialogUnreadBubbleTextStyle());
+                if (tvBubble != null) {
+                    GradientDrawable bgShape = (GradientDrawable) tvBubble.getBackground();
+                    bgShape.setColor(dialogStyle.getDialogUnreadBubbleBackgroundColor());
+                    tvBubble.setVisibility(dialogStyle.isDialogDividerEnabled() ? VISIBLE : GONE);
+                    tvBubble.setTextSize(TypedValue.COMPLEX_UNIT_PX, dialogStyle.getDialogUnreadBubbleTextSize());
+                    tvBubble.setTextColor(dialogStyle.getDialogUnreadBubbleTextColor());
+                    tvBubble.setTypeface(tvBubble.getTypeface(), dialogStyle.getDialogUnreadBubbleTextStyle());
+                }
             }
         }
 
 
         private void applyDefaultStyle() {
             if (dialogStyle != null) {
-                root.setBackgroundColor(dialogStyle.getDialogItemBackground());
-                tvName.setTextColor(dialogStyle.getDialogTitleTextColor());
-                tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogTitleTextStyle());
+                if (root != null) {
+                    root.setBackgroundColor(dialogStyle.getDialogItemBackground());
+                }
 
-                tvDate.setTextColor(dialogStyle.getDialogDateColor());
-                tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogDateStyle());
+                if (tvName != null) {
+                    tvName.setTextColor(dialogStyle.getDialogTitleTextColor());
+                    tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogTitleTextStyle());
+                }
 
-                tvLastMessage.setTextColor(dialogStyle.getDialogMessageTextColor());
-                tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogMessageTextStyle());
+                if (tvDate != null) {
+                    tvDate.setTextColor(dialogStyle.getDialogDateColor());
+                    tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogDateStyle());
+                }
+
+                if (tvLastMessage != null) {
+                    tvLastMessage.setTextColor(dialogStyle.getDialogMessageTextColor());
+                    tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogMessageTextStyle());
+                }
             }
         }
 
         private void applyUnreadStyle() {
             if (dialogStyle != null) {
-                root.setBackgroundColor(dialogStyle.getDialogUnreadItemBackground());
-                tvName.setTextColor(dialogStyle.getDialogUnreadTitleTextColor());
-                tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogUnreadTitleTextStyle());
+                if (root != null) {
+                    root.setBackgroundColor(dialogStyle.getDialogUnreadItemBackground());
+                }
 
-                tvDate.setTextColor(dialogStyle.getDialogUnreadDateColor());
-                tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogUnreadDateStyle());
+                if (tvName != null) {
+                    tvName.setTextColor(dialogStyle.getDialogUnreadTitleTextColor());
+                    tvName.setTypeface(tvName.getTypeface(), dialogStyle.getDialogUnreadTitleTextStyle());
+                }
 
-                tvLastMessage.setTextColor(dialogStyle.getDialogUnreadMessageTextColor());
-                tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogUnreadMessageTextStyle());
+                if (tvDate != null) {
+                    tvDate.setTextColor(dialogStyle.getDialogUnreadDateColor());
+                    tvDate.setTypeface(tvDate.getTypeface(), dialogStyle.getDialogUnreadDateStyle());
+                }
+
+                if (tvLastMessage != null) {
+                    tvLastMessage.setTextColor(dialogStyle.getDialogUnreadMessageTextColor());
+                    tvLastMessage.setTypeface(tvLastMessage.getTypeface(), dialogStyle.getDialogUnreadMessageTextStyle());
+                }
             }
         }
 
@@ -442,7 +526,12 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             tvName.setText(dialog.getDialogName());
 
             //Set Date
-            tvDate.setText(getDateString(dialog.getLastMessage().getCreatedAt()));
+            String formattedDate = null;
+            Date lastMessageDate = dialog.getLastMessage().getCreatedAt();
+            if (datesFormatter != null) formattedDate = datesFormatter.format(lastMessageDate);
+            tvDate.setText(formattedDate == null
+                    ? getDateString(lastMessageDate)
+                    : formattedDate);
 
             //Set Dialog avatar
             if (imageLoader != null) {
@@ -456,15 +545,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1 ? VISIBLE : GONE);
 
-            byte[] data = Base64.decode(dialog.getLastMessage().getText(), Base64.DEFAULT);
-            try {
-                newStringWithEmojis3 = new String(data, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
             //Set Last message text
-            tvLastMessage.setText(newStringWithEmojis3);
+            tvLastMessage.setText(dialog.getLastMessage().getText());
 
             //Set Unread message count bubble
             tvBubble.setText(String.valueOf(dialog.getUnreadCount()));

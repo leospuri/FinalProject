@@ -61,7 +61,7 @@ public class ContactService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
     }
 
     @Override
