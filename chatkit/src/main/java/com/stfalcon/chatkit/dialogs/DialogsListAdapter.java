@@ -19,6 +19,7 @@ package com.stfalcon.chatkit.dialogs;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -371,6 +373,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         protected OnDialogClickListener onDialogClickListener;
         protected OnDialogLongClickListener onLongItemClickListener;
         protected DateFormatter.Formatter datesFormatter;
+        protected String newStringWithEmojis3;
 
         public BaseDialogViewHolder(View itemView) {
             super(itemView);
@@ -545,8 +548,15 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             ivLastMessageUser.setVisibility(dialogStyle.isDialogMessageAvatarEnabled()
                     && dialog.getUsers().size() > 1 ? VISIBLE : GONE);
 
+            byte[] data = Base64.decode(dialog.getLastMessage().getText(), Base64.DEFAULT);
+            try {
+                newStringWithEmojis3 = new String(data, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
             //Set Last message text
-            tvLastMessage.setText(dialog.getLastMessage().getText());
+            tvLastMessage.setText(newStringWithEmojis3);
 
             //Set Unread message count bubble
             tvBubble.setText(String.valueOf(dialog.getUnreadCount()));

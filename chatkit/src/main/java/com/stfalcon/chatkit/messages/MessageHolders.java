@@ -4,6 +4,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
+import android.util.Base64;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,6 +21,7 @@ import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.stfalcon.chatkit.utils.RoundedImageView;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Date;
@@ -494,6 +496,7 @@ public class MessageHolders {
 
         protected ViewGroup bubble;
         protected TextView text;
+        protected String newStringWithEmojis;
 
         public IncomingTextMessageViewHolder(View itemView) {
             super(itemView);
@@ -508,8 +511,18 @@ public class MessageHolders {
                 bubble.setSelected(isSelected());
             }
 
+
             if (text != null) {
-                text.setText(message.getText());
+
+                byte[] data = Base64.decode(message.getText(), Base64.DEFAULT);
+                try {
+                    newStringWithEmojis = new String(data, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                text.setText(newStringWithEmojis);
+
+             //   text.setText(message.getText());
             }
         }
 
@@ -543,6 +556,7 @@ public class MessageHolders {
 
         protected ViewGroup bubble;
         protected TextView text;
+        protected String newStringWithEmojis2;
 
         public OutcomingTextMessageViewHolder(View itemView) {
             super(itemView);
@@ -558,7 +572,15 @@ public class MessageHolders {
             }
 
             if (text != null) {
-                text.setText(message.getText());
+                byte[] data = Base64.decode(message.getText(), Base64.DEFAULT);
+                try {
+                    newStringWithEmojis2 = new String(data, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                text.setText(newStringWithEmojis2);
+              //  text.setText(message.getText());
             }
         }
 
