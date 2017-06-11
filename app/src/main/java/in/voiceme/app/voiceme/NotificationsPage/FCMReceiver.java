@@ -19,7 +19,6 @@ import java.util.List;
 import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
 import in.voiceme.app.voiceme.chat.MessageActivity;
 import timber.log.Timber;
 
@@ -50,7 +49,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+      //  Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -231,5 +230,6 @@ public class FCMReceiver extends FirebaseMessagingService {
 
         return json;
     }
+
 }
 

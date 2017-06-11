@@ -152,15 +152,6 @@
                 android:text= "@string/posts_text"
                 android:textSize="12sp" />
 
-     <!--       <TextView
-                android:id="@+id/detail_list_item_posts_read_more"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detail_list_item_posts_message"
-                android:paddingTop="2dp"
-                android:text="Read More"
-                android:textSize="12sp" /> -->
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -344,11 +335,11 @@
 
         </RelativeLayout>
 
-        <!--<ScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:background="@color/md_grey_100"-->
-            <!--android:layout_below="@+id/detail_list_item_post_background"-->
-            <!--android:layout_height="wrap_content">-->
+    <ScrollView
+            android:layout_width="match_parent"
+           android:background="@color/md_grey_100"
+            android:layout_below="@+id/detail_list_item_post_background"
+           android:layout_height="wrap_content">
         <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
@@ -368,7 +359,7 @@
 
         <!--</RelativeLayout>-->
 
-        <!--</ScrollView>-->
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/detail_ll_menu_tab"
@@ -406,37 +397,37 @@
 
     </RelativeLayout>
 
-    <!--<FrameLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/white"-->
-            <!--android:clickable="true"-->
-            <!--android:id="@+id/post_details_progressBar">-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Loading"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textSize="20sp"-->
-                <!--android:layout_marginBottom="70dp"-->
-                <!--/>-->
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:clickable="true"
+            android:id="@+id/post_details_progressBar">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="70dp"
+                />
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Please Wait..."-->
-                <!--android:layout_gravity="center"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textSize="20sp"-->
-                <!--android:layout_marginBottom="40dp"-->
-                <!--/>-->
-            <!--<ProgressBar-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:indeterminate="true"-->
-                <!--android:layout_gravity="center"/>-->
-        <!--</FrameLayout>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please Wait..."
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="40dp"
+                />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
     <!--</FrameLayout>-->
 

@@ -71,6 +71,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
         holder.onBind(position, mMessageList.get(position));
+        holder.setLevel(mMessageList.get(position).getLevel());
     }
 
     @Override
@@ -143,6 +144,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             }
         };
+
+        public void setLevel(int level) {
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
+                    RecyclerView.LayoutParams.MATCH_PARENT,
+                    RecyclerView.LayoutParams.WRAP_CONTENT
+            );
+
+            if (level == Level.LEVEL_TWO) {
+                params.setMarginStart(ViewUtils.getLevelOneMargin());
+            }
+
+            itemView.setLayoutParams(params);
+        }
 
         public MessageViewHolder(final View itemView) {
             super(itemView);
