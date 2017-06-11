@@ -55,15 +55,6 @@
                             android:text="Edit Text Status"
                             android:textAppearance="?android:textAppearanceSmall"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Current status which the user wants to edit"
-                            android:textSize="18sp"
-                            android:id="@+id/previous_status"
-                            android:padding="10dp"
-                            android:gravity="center"/>
-
                         <EditText
                             android:id="@+id/edit_for_status"
                             android:layout_width="wrap_content"

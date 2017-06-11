@@ -83,6 +83,10 @@
             android:resource="@drawable/ic_notify_new"
             tools:ignore="ManifestResource"/>
 
+        <service
+            android:name=".chat.ChatService"
+            android:enabled="true"
+            android:exported="false"/>
         <!--
         <activity
             android:name=".NotificationsPage.NotificationsActivity"
@@ -196,7 +200,7 @@
         <service
             android:name=".contactPage.ContactService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".chat.DialogDetailsActivity"

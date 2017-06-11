@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
@@ -20,7 +19,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 public class EditPost extends BaseActivity implements View.OnClickListener {
-    TextView previous_status;
     EditText edit_for_status;
     Button update_status;
     Button delete_status;
@@ -48,7 +46,6 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
         postText = getIntent().getStringExtra(Constants.STATUS_POST);
         audioLink = getIntent().getStringExtra(Constants.AUDIO);
 
-        previous_status = (TextView) findViewById(R.id.previous_status);
         edit_for_status = (EditText) findViewById(R.id.edit_for_status);
         delete_audio = (Button) findViewById(R.id.delete_audio);
         update_status = (Button) findViewById(R.id.update_status);
@@ -59,7 +56,6 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
         update_status.setOnClickListener(this);
         delete_status.setOnClickListener(this);
 
-        previous_status.setText(postText);
         edit_for_status.setText(postText);
         if (audioLink == null){
                 delete_audio.setVisibility(View.GONE);
