@@ -340,24 +340,23 @@
            android:background="@color/md_grey_100"
             android:layout_below="@+id/detail_list_item_post_background"
            android:layout_height="wrap_content">
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="50dp"-->
-            <!--android:layout_weight="1">-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="50dp"
+            android:layout_weight="1">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/detail_rv_messages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/detail_ll_menu_tab"
-                android:layout_below="@+id/detail_list_item_post_background"
+
                 app:stackFromEnd="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:background="@android:color/transparent" />
 
-        <!--</RelativeLayout>-->
+        </RelativeLayout>
 
         </ScrollView>
 

@@ -160,7 +160,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         sendMessage(base64String);
                         if (isNetworkConnected()){
                             adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
-                                    "harish", "", String.valueOf(true))), true);
+                                    "harish", "", true)), true);
                         } else {
                             Toast.makeText(MessageActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
                         }

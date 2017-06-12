@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
@@ -18,7 +15,6 @@ import java.util.List;
 import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
@@ -27,13 +23,15 @@ import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class DialogDetailsActivity extends BaseActivity {
+public class DialogDetailsActivity extends DemoDialogsActivity {
 
-    private DialogsListAdapter<ChatDialogPojo> dialogsListAdapter = null;
+
     private List<ChatDialogPojo> messages = null;
+
   //  private View progressFrame;
     private View progressFrame;
     private Button error_btn_retry;
+    private DialogsList dialogsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,29 +43,12 @@ public class DialogDetailsActivity extends BaseActivity {
         progressFrame = findViewById(R.id.dialog_details);
         error_btn_retry = (Button) findViewById(R.id.error_btn_retry);
 
-        DialogsList dialogsListView = (DialogsList) findViewById(R.id.dialogsList);
-
-        ImageLoader imageLoader = new ImageLoader() {
-            @Override
-            public void loadImage(ImageView imageView, String url) {
-                //If you using another library - write here your way to load image
-                //   Picasso.with(DialogDetailsActivity.this).load(url).placeholder(getResources().getDrawable(R.drawable.user)).error(getResources().getDrawable(R.drawable.user)).into(imageView);
-
-                if (url != null){
-                    if (url.isEmpty()){
-                        Picasso.with(DialogDetailsActivity.this).load(R.drawable.user).into(imageView);
-                    } else {
-                        Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
-                    }
-                } else {
-                    Picasso.with(DialogDetailsActivity.this).load(url).into(imageView);
-                }
+        dialogsListView = (DialogsList) findViewById(R.id.dialogsList);
+        dialogInit();
 
 
-            }
-        };
 
-        dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
+     //   dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
 
         if (MySharedPreferences.getUserId(preferences) == null){
             Toast.makeText(this, "You are not logged In", Toast.LENGTH_SHORT).show();
@@ -75,7 +56,7 @@ public class DialogDetailsActivity extends BaseActivity {
         } else {
             try {
                 chatMessages();
-                dialogInit(dialogsListView);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -86,7 +67,7 @@ public class DialogDetailsActivity extends BaseActivity {
             public void onClick(View view) {
                 try {
                     chatMessages();
-                    dialogInit(dialogsListView);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -94,8 +75,15 @@ public class DialogDetailsActivity extends BaseActivity {
         });
     }
 
-    private void dialogInit(DialogsList dialogsListView) {
-        dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
+    private void dialogInit() {
+
+
+        super.dialogsListAdapter = new DialogsListAdapter<>(
+                R.layout.item_custom_dialog_view_holder,
+                CustomDialogViewHolder.class,
+                super.imageLoader);
+
+        super.dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
             @Override
             public void onDialogClick(ChatDialogPojo dialog) {
                 // Todo add methods to get user ID of the other user, add own ID
@@ -109,7 +97,7 @@ public class DialogDetailsActivity extends BaseActivity {
             }
         });
 
-        dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<ChatDialogPojo>() {
+        super.dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<ChatDialogPojo>() {
             @Override
             public void onDialogLongClick(ChatDialogPojo dialog) {
                 //          Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
@@ -122,14 +110,14 @@ public class DialogDetailsActivity extends BaseActivity {
     }
 
     private void onNewMessage(String dialogId, IMessage message) {
-        if (!dialogsListAdapter.updateDialogWithMessage(dialogId, message)) {
+        if (!super.dialogsListAdapter.updateDialogWithMessage(dialogId, message)) {
             //Dialog with this ID doesn't exist, so you can create new Dialog or update all dialogs list
         }
     }
 
     private void onNewDialog(ChatDialogPojo dialog) {
         // Todo add network calls to add new dialog
-        dialogsListAdapter.addItem(dialog);
+        super.dialogsListAdapter.addItem(dialog);
     }
 
     private void chatMessages() throws Exception {
@@ -145,6 +133,7 @@ public class DialogDetailsActivity extends BaseActivity {
                         //    MessagePojo pojo = response.get(0).getMessage();
                         messages = response;
                         dialogsListAdapter.setItems(response);
+
                         progressFrame.setVisibility(View.GONE);
                     }
                     @Override
