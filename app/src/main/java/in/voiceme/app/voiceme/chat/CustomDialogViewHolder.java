@@ -6,6 +6,7 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
 import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 import in.voiceme.app.voiceme.R;
+import timber.log.Timber;
 
 /*
  * Created by Anton Bevza on 1/18/17.
@@ -28,11 +29,14 @@ public class CustomDialogViewHolder
 
         if (dialog != null){
             if (dialog.getUsers() != null){
-                if (dialog.getUsers().get(0) != null){
+                if (dialog.getUser() != null){
                     if (dialog.getUsers().size() > 1) {
                         onlineIndicator.setVisibility(View.GONE);
                     } else {
-                        boolean isOnline = dialog.getUsers().get(0).isOnline();
+                        boolean isOnline = dialog.getUser().isOnline();
+               //         Timber.e(String.valueOf("First Boolean Value" + dialog.getUsers().get(0).isOnline()));
+                        Timber.e(String.valueOf("Second Boolean Value" + dialog.getUser().isOnline()));
+
                         onlineIndicator.setVisibility(View.VISIBLE);
                         if (isOnline) {
                             onlineIndicator.setBackgroundResource(R.drawable.shape_bubble_online);
