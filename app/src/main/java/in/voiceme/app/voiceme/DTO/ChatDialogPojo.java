@@ -58,12 +58,14 @@ public class ChatDialogPojo implements IDialog {
     public void setLastMessage(IMessage message) {
     }
 
-    public boolean isOnline() {
-        return Boolean.parseBoolean(user.getIsOnline());
-    }
 
     @Override
     public int getUnreadCount() {
         return 0;
+    }
+
+    @Override
+    public boolean isOnline() {
+        return user.isOnline();
     }
 }

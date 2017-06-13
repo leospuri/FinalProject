@@ -125,7 +125,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                                     MessageActivity.mThis.adapter.addToStart(new
                                             MessagePojo(chatTextPojo.getSenderId(), chatTextPojo.getChatText(),
                                             String.valueOf(System.currentTimeMillis()), new UserPojo(chatTextPojo.getSenderId(),
-                                            chatTextPojo.getSenderName(), "", String.valueOf(true))), true);
+                                            chatTextPojo.getSenderName(), "", true)), true);
                                 }
                             });
                         }

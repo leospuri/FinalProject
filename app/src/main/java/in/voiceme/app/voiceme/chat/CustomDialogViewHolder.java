@@ -18,7 +18,7 @@ public class CustomDialogViewHolder
     public CustomDialogViewHolder(View itemView) {
         super(itemView);
 
-        onlineIndicator = itemView.findViewById(com.stfalcon.chatkit.R.id.onlineIndicator);
+        onlineIndicator = itemView.findViewById(R.id.onlineIndicator);
 
     }
 
@@ -32,7 +32,7 @@ public class CustomDialogViewHolder
                     if (dialog.getUsers().size() > 1) {
                         onlineIndicator.setVisibility(View.GONE);
                     } else {
-                        boolean isOnline = dialog.getUsers().get(0).getIsOnline();
+                        boolean isOnline = dialog.getUsers().get(0).isOnline();
                         onlineIndicator.setVisibility(View.VISIBLE);
                         if (isOnline) {
                             onlineIndicator.setBackgroundResource(R.drawable.shape_bubble_online);

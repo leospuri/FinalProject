@@ -13,9 +13,9 @@ public class UserPojo implements IUser {
     @SerializedName("Id") @Expose private String id;
     @SerializedName("Name") @Expose private String name;
     @SerializedName("Avatar") @Expose private String avatar;
-    @SerializedName("isOnline") @Expose private String isOnline;
+    @SerializedName("isOnline") @Expose private boolean isOnline;
 
-    public void setIsOnline(String isOnline) {
+    public void setIsOnline(boolean isOnline) {
         this.isOnline = isOnline;
     }
 
@@ -34,11 +34,12 @@ public class UserPojo implements IUser {
         return avatar;
     }
 
-    public String getIsOnline() {
+    @Override
+    public boolean isOnline() {
         return isOnline;
     }
 
-    public UserPojo(String id, String name, String avatar, String isOnline) {
+    public UserPojo(String id, String name, String avatar, boolean isOnline) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
