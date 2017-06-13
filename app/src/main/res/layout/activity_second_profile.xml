@@ -192,14 +192,35 @@
                         android:textSize="16sp"
                         android:text="Name"/>
 
-                    <TextView
-                        android:id="@+id/second_name"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Username"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/onlineIndicator"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/shape_bubble_online"
+                            />
+
+                        <TextView
+                            android:id="@+id/second_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="Username"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+
+
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -298,6 +319,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/activity_second_profile_progress">
             <TextView
                 android:layout_width="wrap_content"

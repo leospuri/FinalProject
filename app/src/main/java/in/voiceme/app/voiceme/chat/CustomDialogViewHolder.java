@@ -27,8 +27,6 @@ public class CustomDialogViewHolder
     public void onBind(ChatDialogPojo dialog) {
         super.onBind(dialog);
 
-        if (dialog != null){
-            if (dialog.getUsers() != null){
                 if (dialog.getUser() != null){
                     if (dialog.getUsers().size() > 1) {
                         onlineIndicator.setVisibility(View.GONE);
@@ -45,11 +43,6 @@ public class CustomDialogViewHolder
                         }
                     }
                 }
-
-            }
-        }
-
-
 
     }
 }
