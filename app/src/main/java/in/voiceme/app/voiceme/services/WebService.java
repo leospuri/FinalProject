@@ -23,6 +23,7 @@ import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.NotificationsPage.NotificationPojo;
+import in.voiceme.app.voiceme.chat.OnlineStatusCheck;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -249,6 +250,11 @@ public interface WebService {
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/online")
     Observable<String> sendOnline(
             @Query("user") String userId
+    );
+
+    @GET("check_online_Status.php")
+    Observable<OnlineStatusCheck> checkOnline(
+            @Query("id_user_name") String id_user_name
     );
 
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")

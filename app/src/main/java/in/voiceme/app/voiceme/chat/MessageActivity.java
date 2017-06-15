@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.chat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +46,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.utils.CurrentTimeLong;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -67,6 +69,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private TextView no_post_textview;
     private int messageCount;
 
+    private String onlineString = " ";
+
 
     public static MessageActivity mThis = null;
     private Menu menu;
@@ -88,13 +92,25 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
 
         username = getIntent().getStringExtra(Constants.USERNAME);
+        checkOnlineIndicator(messageActivityuserId);
         //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
+
+        final Handler handler2 = new Handler();
+        scheduler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 20 seconds
+                getSupportActionBar().setSubtitle(onlineString);
+                handler2.postDelayed(this, 20000);
+            }
+        }, 1000);
 
         if (!username.isEmpty() && username != null){
             getSupportActionBar().setTitle(username);
-        //    getSupportActionBar().setSubtitle();
+            getSupportActionBar().setSubtitle(onlineString);
         } else {
             getSupportActionBar().setTitle("Private chat");
+            getSupportActionBar().setSubtitle(onlineString);
          //   getSupportActionBar().setSubtitle(getResources().getString(R.string.mySubTitle));
         }
 
@@ -114,17 +130,17 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         messagesList = (MessagesList) findViewById(R.id.messagesList);
 
         // Repeating code
-        /*
+
         final Handler handler = new Handler();
         scheduler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Do something after 20 seconds
-                sendOnlineIndicator(MySharedPreferences.getUserId(preferences));
-                handler.postDelayed(this, 55000);
+                checkOnlineIndicator(messageActivityuserId);
+                handler.postDelayed(this, 20000);
             }
         }, 10000);
-        */
+
 
 
         //  input = (MessageInput) findViewById(R.id.input);
@@ -209,13 +225,14 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     }
 
+
+
     private void showEmptyView() {
         if (no_post_layout.getVisibility() == View.GONE) {
             no_post_layout.setVisibility(View.VISIBLE);
             no_post_textview.setText("There are no messages with this User");
         }
     }
-
 
 
     private void setUpEmojiPopup() {
@@ -412,6 +429,29 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         }
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void setOnlineString(String onlineString){
+        this.onlineString = onlineString;
+    }
+
+    protected void checkOnlineIndicator(String userId) {
+
+        application.getWebService()
+                .checkOnline(userId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<OnlineStatusCheck>() {
+                    @Override
+                    public void onNext(OnlineStatusCheck response) {
+
+                        if (response.getOnlineStatus()){
+                            setOnlineString("Online Now");
+                        } else {
+                            setOnlineString(String.valueOf("Last Seen " + CurrentTimeLong.getCurrentTime(response.getLastTimeOnline(), MessageActivity.this)));
+                        }
                     }
                 });
     }
