@@ -75,7 +75,7 @@ public class ActionScheduler {
         invokeEveryMilliseconds(new Runnable() {
             @Override
             public void run() {
-                application.getBus().post(request);
+                handler.postDelayed(this, 55000);
             }
         }, milliseconds, postImmediately);
     }

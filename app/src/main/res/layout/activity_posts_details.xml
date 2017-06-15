@@ -350,11 +350,20 @@
                 android:id="@+id/detail_rv_messages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 app:stackFromEnd="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:background="@android:color/transparent" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/detail_rv_messages_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:stackFromEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@android:color/transparent" />
+
 
         </RelativeLayout>
 

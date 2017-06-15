@@ -77,16 +77,6 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/onlineIndicator"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_alignRight="@id/dialogAvatar"
-            android:layout_alignTop="@id/dialogAvatar"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_bubble_online"
-            />
-
         <TextView
             android:id="@id/dialogUnreadBubble"
             android:layout_width="wrap_content"

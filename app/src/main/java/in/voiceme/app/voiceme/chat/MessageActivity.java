@@ -92,8 +92,10 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
         if (!username.isEmpty() && username != null){
             getSupportActionBar().setTitle(username);
+        //    getSupportActionBar().setSubtitle();
         } else {
             getSupportActionBar().setTitle("Private chat");
+         //   getSupportActionBar().setSubtitle(getResources().getString(R.string.mySubTitle));
         }
 
         toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
@@ -110,6 +112,19 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         sendButton = (ImageButton) findViewById(R.id.emoji_send_message);
 
         messagesList = (MessagesList) findViewById(R.id.messagesList);
+
+        // Repeating code
+        /*
+        final Handler handler = new Handler();
+        scheduler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 20 seconds
+                sendOnlineIndicator(MySharedPreferences.getUserId(preferences));
+                handler.postDelayed(this, 55000);
+            }
+        }, 10000);
+        */
 
 
         //  input = (MessageInput) findViewById(R.id.input);
@@ -375,6 +390,28 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         e.printStackTrace();
                         Crashlytics.logException(e);
                         progressFrame.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    protected void sendOnlineIndicator(String userId) {
+
+        application.getWebService()
+                .sendOnline(userId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Sent Online Indicator");
+                        // dialogInit();
+                        try {
+                            chatMessages();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

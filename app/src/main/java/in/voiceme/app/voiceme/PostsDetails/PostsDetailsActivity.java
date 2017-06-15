@@ -218,7 +218,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         initRecyclerView();
         try {
             getData(postId);
-            getComments(postId);
+         //   getComments(postId);
+            testCommentReply(postId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -663,7 +664,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 }
                 mMessageAdapter.addMessage(new PostUserCommentModel(message,
                         MySharedPreferences.getImageUrl(preferences),
-                        MySharedPreferences.getUsername(preferences), Level.LEVEL_TWO));
+                        MySharedPreferences.getUsername(preferences)));
             }
 
             mMessageEditText.setText("");
@@ -678,7 +679,8 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         if (postId != null){
             try {
                 getData(postId);
-                getComments(postId);
+             //   getComments(postId);
+                testCommentReply(postId);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -714,10 +716,38 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 });
     }
 
+    private void testCommentReply(String postId) throws Exception {
+        application.getWebService()
+                .getCommentReply(postId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<List<PostUserCommentModel>>() {
+                    @Override
+                    public void onNext(List<PostUserCommentModel> response) {
+                        Log.e("RESPONSE:::", "Size===" + response.size());
+                        showComments(response);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+                        progressFrame.setVisibility(View.GONE);
+                        try {
+                       //     Toast.makeText(PostsDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Timber.e("message error " + e);
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+    }
+
     private void showComments(final List<PostUserCommentModel> myList) {
         this.myCommentList = myList;
         mMessageAdapter = new MessageAdapter(this, myList, mInsertMessageListener);
         mMessageRecyclerView.setAdapter(mMessageAdapter);
+
     }
 
 

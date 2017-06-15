@@ -23,20 +23,10 @@
             android:id="@+id/list_item_posts_avatar"
             android:layout_width="37dp"
             android:layout_height="37dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:scaleType="fitXY"
             fresco:placeholderImage="@drawable/user" />
-
-        <ImageView
-            android:id="@+id/onlineIndicator"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_alignRight="@id/list_item_posts_avatar"
-            android:layout_alignTop="@id/list_item_posts_avatar"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/shape_bubble_online"
-            />
 
         <TextView
             android:id="@+id/list_item_post_userNickName"

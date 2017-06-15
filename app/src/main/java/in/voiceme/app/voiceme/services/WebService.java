@@ -4,9 +4,14 @@ import android.net.Uri;
 
 import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
+import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
 import in.voiceme.app.voiceme.DTO.BaseResponse;
+import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.DTO.LoginResponse;
+import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
 import in.voiceme.app.voiceme.DTO.OnlyToken;
 import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostSuperUserListModel;
@@ -17,11 +22,6 @@ import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
-import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
-import in.voiceme.app.voiceme.DTO.MessagePojo;
-import in.voiceme.app.voiceme.DTO.AllCategoryPojo;
-import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
-import in.voiceme.app.voiceme.DTO.NewCategoryAdded;
 import in.voiceme.app.voiceme.NotificationsPage.NotificationPojo;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
@@ -96,6 +96,11 @@ public interface WebService {
 
     @GET("get_comments_new.php")
     Observable<List<PostUserCommentModel>> getUserComments(
+            @Query("id_posts") String id_posts);
+
+    // Testing Reply comment
+    @GET("reply_comment.html")
+    Observable<List<PostUserCommentModel>> getCommentReply(
             @Query("id_posts") String id_posts);
 
 
@@ -239,6 +244,11 @@ public interface WebService {
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
     Observable<String> sendLikeNotification(
             @Query("dataMsg") String dataMessage
+    );
+
+    @GET("http://voiceme.us-east-1.elasticbeanstalk.com/online")
+    Observable<String> sendOnline(
+            @Query("user") String userId
     );
 
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")

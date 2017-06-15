@@ -22,6 +22,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class DialogDetailsActivity extends DemoDialogsActivity {
 
@@ -45,8 +46,6 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
 
         dialogsListView = (DialogsList) findViewById(R.id.dialogsList);
         dialogInit();
-
-
 
      //   dialogsListAdapter = new DialogsListAdapter<>(imageLoader);
 
@@ -144,6 +143,8 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
 
                 });
     }
+
+
 
     @Override
     public void onBackPressed(){

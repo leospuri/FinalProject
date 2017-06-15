@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,39 +37,36 @@ import rx.android.schedulers.AndroidSchedulers;
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
 /**
- * Created by User on 07.12.2016.
+ * Created by harishpc on 6/15/2017.
  */
-
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapter.ReplyMessageViewHolder> {
 
     private final static int MAXIMUM_VISIBLE_ITEM_COUNT = 4;
 
     private SharedPreferences preferences;
     private final Context mContext;
-    private InsertMessageListener mInsertMessageListener;
-    private List<PostUserCommentModel> mMessageList;
-    private List<MessageViewHolder> mMessageHolderList = new ArrayList<>();
+    private List<ReplyCommentPojo> mMessageList;
+    private List<ReplyMessageViewHolder> mMessageHolderList = new ArrayList<>();
     private static SharedPreferences recyclerviewpreferences;
 
-    public MessageAdapter(Context context, List<PostUserCommentModel> mMessageList, InsertMessageListener insertMessageListener) {
+    public CommentReplyAdapter(Context context, List<PostUserCommentModel> mMessageList, int mPosition) {
         mContext = context;
-        mInsertMessageListener = insertMessageListener;
-        this.mMessageList = mMessageList;
+        this.mMessageList = mMessageList.get(mPosition).getReplyComment();
         recyclerviewpreferences = ((VoicemeApplication) context.getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
     }
 
     @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_message, parent, false);
+    public ReplyMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_message_reply, parent, false);
 
-        MessageViewHolder messageViewHolder = new MessageViewHolder(v);
+        ReplyMessageViewHolder messageViewHolder = new ReplyMessageViewHolder(v);
         mMessageHolderList.add(messageViewHolder);
 
         return messageViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(MessageViewHolder holder, int position) {
+    public void onBindViewHolder(ReplyMessageViewHolder holder, int position) {
         holder.onBind(position, mMessageList.get(position));
     }
 
@@ -84,16 +80,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     }
 
-    public void addMessage(PostUserCommentModel messageItem) {
+    public void addMessage(ReplyCommentPojo messageItem) {
         mMessageList.add(messageItem);
 
         int position = mMessageList.size() - 1;
-        mInsertMessageListener.onMessageInserted(position);
+     //   mInsertMessageListener.onMessageInserted(position);
         notifyItemInserted(position);
     }
 
-    private MessageViewHolder getViewHolderByPosition(int position) {
-        for (MessageViewHolder viewHolder : mMessageHolderList) {
+    private ReplyMessageViewHolder getViewHolderByPosition(int position) {
+        for (ReplyMessageViewHolder viewHolder : mMessageHolderList) {
             if (viewHolder.getBoundPosition() == position) {
                 return viewHolder;
             }
@@ -101,11 +97,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         return null;
     }
 
-    public interface InsertMessageListener {
+    public interface InsertReplyMessageListener {
         void onMessageInserted(int position);
     }
 
-    class MessageViewHolder extends RecyclerView.ViewHolder {
+    class ReplyMessageViewHolder extends RecyclerView.ViewHolder {
 
         private static final float ALPHA_INVISIBLE = 0f;
         private static final float ALPHA_VISIBLE = 1f;
@@ -113,7 +109,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private final Handler mDelayHandler = new Handler();
         private View mHolderView;
         private int mPosition;
-        private PostUserCommentModel user_comment;
+        private ReplyCommentPojo user_comment;
 
         private Animation mFadeOutAnimation;
         private boolean isAnimating = false;
@@ -124,10 +120,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private ImageView commentMore;
         private SimpleDraweeView userImage;
         private PopupMenu popupMenu;
-        private CommentReplyAdapter commentReplyAdapter;
-        List<ReplyCommentPojo> mReplyMessageList;
-        private RecyclerView replyRecyclerview;
-        private LinearLayoutManager mReplyLinearLayoutManager;
 
 
         private Animation.AnimationListener mFadeOutAnimationListener = new Animation.AnimationListener() {
@@ -149,31 +141,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             }
         };
 
-        public MessageViewHolder(final View itemView) {
+        public ReplyMessageViewHolder(final View itemView) {
             super(itemView);
             mHolderView = itemView;
 
             username = (TextView) itemView.findViewById(R.id.tv_user_name);
             messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
             userImage = (SimpleDraweeView) itemView.findViewById(R.id.iv_user_image);
-            replyRecyclerview = (RecyclerView) itemView.findViewById(R.id.reply_comment_recyclerview);
 
             preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
-
-            commentReplyAdapter = new CommentReplyAdapter(itemView.getContext(), mMessageList, mPosition);
-
-            mReplyLinearLayoutManager = new LinearLayoutManager(itemView.getContext()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            mReplyLinearLayoutManager.setStackFromEnd(true);
-//        mLinearLayoutManager.setReverseLayout(true);
-
-            replyRecyclerview.setLayoutManager(mReplyLinearLayoutManager);
-            replyRecyclerview.setAdapter(commentReplyAdapter);
 
             commentMore = (ImageView) itemView.findViewById(R.id.comment_more);
             mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_out_anim);
@@ -196,7 +173,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                 deleteChat(view, mMessageList.get(mPosition).getCommentId());
 
 
-                          //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
+                                //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -219,7 +196,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             notifyItemRemoved(user_comment);
         }
 
-        public void onBind(int position, PostUserCommentModel messageItem) {
+        public void onBind(int position, ReplyCommentPojo messageItem) {
 
             mPosition = position;
             user_comment = messageItem;
@@ -265,7 +242,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             if (messageItem.getCommentUserId() != null){
                 if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(preferences))||
-                        messageItem.getId_post_user_name().equals(MySharedPreferences.getUserId(preferences))){
+                        messageItem.getIdPostUserName().equals(MySharedPreferences.getUserId(preferences))){
                     commentMore.setVisibility(View.VISIBLE);
                 } else {
                     commentMore.setVisibility(View.INVISIBLE);
@@ -275,7 +252,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         }
 
-        private void userProfile(View view, PostUserCommentModel messageItem) {
+        private void userProfile(View view, ReplyCommentPojo messageItem) {
             if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
                 view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
             } else {
@@ -307,7 +284,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     @Override
                     public void onNext(UserResponse response) {
 
-                     //   Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
+                        //   Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
                         //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();

@@ -6,6 +6,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
+import in.voiceme.app.voiceme.PostsDetails.ReplyCommentPojo;
+
 /**
  * Created by harish on 1/17/2017.
  */
@@ -32,14 +36,14 @@ public class PostUserCommentModel implements Parcelable {
     @SerializedName("postUserId") @Expose private String postUserId;
     @SerializedName("commentUserId") @Expose private String commentUserId;
     @SerializedName("comment_time") @Expose private String commentTime;
-    @SerializedName("level") @Expose private int level;;
+    @SerializedName("reply") @Expose private List<ReplyCommentPojo> replyComment;;
+
+    public List<ReplyCommentPojo> getReplyComment() {
+        return replyComment;
+    }
 
     public String getUserName() {
         return userName;
-    }
-
-    public int getLevel() {
-        return level;
     }
 
     public String getId_post_user_name() {
@@ -70,11 +74,10 @@ public class PostUserCommentModel implements Parcelable {
         return commentUserId;
     }
 
-    public PostUserCommentModel(String message, String imageUri, String userName, int level) {
+    public PostUserCommentModel(String message, String imageUri, String userName) {
         this.comment = message;
         this.avatar = imageUri;
         this.userName = userName;
-        this.level = level;
     }
 
 
@@ -84,7 +87,6 @@ public class PostUserCommentModel implements Parcelable {
         avatar = in.readString();
         comment = in.readString();
         commentTime = in.readString();
-        level = in.readInt();
     }
 
 
@@ -100,6 +102,5 @@ public class PostUserCommentModel implements Parcelable {
         parcel.writeString(avatar);
         parcel.writeString(comment);
         parcel.writeString(commentTime);
-        parcel.writeInt(level);
     }
 }
