@@ -101,7 +101,17 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             public void run() {
                 //Do something after 20 seconds
                 getSupportActionBar().setSubtitle(onlineString);
-                handler2.postDelayed(this, 20000);
+                handler2.postDelayed(this, 50000);
+            }
+        }, 1000);
+
+        final Handler handler3 = new Handler();
+        scheduler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 20 seconds
+                sendOnlineIndicator(MySharedPreferences.getUserId(preferences));
+                handler3.postDelayed(this, 20000);
             }
         }, 1000);
 

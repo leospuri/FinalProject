@@ -42,6 +42,8 @@ import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE
  */
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+    private final int VIEW_ITEM = 1;
+    private final int VIEW_PROG = 0;
 
     private final static int MAXIMUM_VISIBLE_ITEM_COUNT = 4;
 
@@ -74,15 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.onBind(position, mMessageList.get(position));
     }
 
-    @Override
-    public int getItemCount() {
-        if (mMessageList == null){
-            return 0;
-        } else {
-            return mMessageList.size();
-        }
 
-    }
 
     public void addMessage(PostUserCommentModel messageItem) {
         mMessageList.add(messageItem);
@@ -99,6 +93,23 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             }
         }
         return null;
+    }
+
+    @Override
+    public int getItemCount() {
+        if (mMessageList == null){
+            return 0;
+        } else {
+            return mMessageList.size();
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        //   return (position == dataSet.size() - 1) ? VIEW_ITEM : VIEW_PROG;
+        // current   return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        return mMessageList.get((mMessageList.size() - 1)) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
     public interface InsertMessageListener {
@@ -159,7 +170,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             replyRecyclerview = (RecyclerView) itemView.findViewById(R.id.reply_comment_recyclerview);
 
             preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
-
 
             commentReplyAdapter = new CommentReplyAdapter(itemView.getContext(), mMessageList, mPosition);
 

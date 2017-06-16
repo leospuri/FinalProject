@@ -95,13 +95,8 @@ public interface WebService {
                                                  @Query("contacts") String contacts,
                                                  @Query("page") int page);
 
-    @GET("get_comments_new.php")
+    @GET("get_comments_reply.php")
     Observable<List<PostUserCommentModel>> getUserComments(
-            @Query("id_posts") String id_posts);
-
-    // Testing Reply comment
-    @GET("reply_comment.html")
-    Observable<List<PostUserCommentModel>> getCommentReply(
             @Query("id_posts") String id_posts);
 
 

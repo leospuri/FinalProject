@@ -28,6 +28,7 @@ public class PostUserCommentModel implements Parcelable {
         }
     };
 
+
     @SerializedName("user_name") @Expose private String userName;
     @SerializedName("id_post_user_name") @Expose private String id_post_user_name;
     @SerializedName("commentId") @Expose private String commentId;

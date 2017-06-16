@@ -42,6 +42,8 @@ import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE
 public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapter.ReplyMessageViewHolder> {
 
     private final static int MAXIMUM_VISIBLE_ITEM_COUNT = 4;
+    private final int VIEW_ITEM = 1;
+    private final int VIEW_PROG = 0;
 
     private SharedPreferences preferences;
     private final Context mContext;
@@ -78,6 +80,13 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             return mMessageList.size();
         }
 
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        //   return (position == dataSet.size() - 1) ? VIEW_ITEM : VIEW_PROG;
+        // current   return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        return mMessageList.get((mMessageList.size() - 1)) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
     public void addMessage(ReplyCommentPojo messageItem) {

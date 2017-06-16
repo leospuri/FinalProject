@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName;
 public class ReplyCommentPojo {
 
         @SerializedName("user_name") @Expose private String userName;
-        @SerializedName("commentId") @Expose private String commentId;
-        @SerializedName("postUserId") @Expose private String postUserId;
+        @SerializedName("id_post_comments") @Expose private String commentId;
+        @SerializedName("id_user_name") @Expose private String postUserId;
         @SerializedName("avatar") @Expose private String avatar;
-        @SerializedName("comment") @Expose private String comment;
+        @SerializedName("message") @Expose private String comment;
         @SerializedName("id_post_user_name") @Expose private String idPostUserName;
         @SerializedName("commentUserId") @Expose private String commentUserId;
         @SerializedName("comment_time") @Expose private String commentTime;
