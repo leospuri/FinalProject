@@ -131,6 +131,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private boolean isVisible = true;
 
         private TextView username;
+        private TextView like_below_comment_reply;
+        private TextView like_below_comment_counter;
         private TextView messageCard;
         private ImageView commentMore;
         private SimpleDraweeView userImage;
@@ -165,6 +167,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             mHolderView = itemView;
 
             username = (TextView) itemView.findViewById(R.id.tv_user_name);
+            like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter);
+            like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply);
             messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
             userImage = (SimpleDraweeView) itemView.findViewById(R.id.iv_user_image);
             replyRecyclerview = (RecyclerView) itemView.findViewById(R.id.reply_comment_recyclerview);
@@ -247,6 +251,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 }
             });
 
+            like_below_comment_counter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommentlikeCounter(view, messageItem);
+                }
+            });
+            like_below_comment_reply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommentReply(view, messageItem);
+                }
+            });
+
+
             userImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -293,6 +311,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 intent.putExtra(Constants.SECOND_PROFILE_ID, messageItem.getCommentUserId());
                 view.getContext().startActivity(intent);
             }
+        }
+
+        private void CommentlikeCounter(View view, PostUserCommentModel messageItem) {
+            Toast.makeText(view.getContext(), "Counter clicked", Toast.LENGTH_SHORT).show();
+        }
+
+        private void CommentReply(View view, PostUserCommentModel messageItem) {
+            commentReplyAdapter.addMessage(new ReplyCommentPojo("message",
+                    MySharedPreferences.getImageUrl(preferences),
+                    MySharedPreferences.getUsername(preferences)));
         }
 
         public int getBoundPosition() {

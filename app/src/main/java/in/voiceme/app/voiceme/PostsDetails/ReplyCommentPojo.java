@@ -48,4 +48,12 @@ public class ReplyCommentPojo {
     public String getCommentTime() {
         return commentTime;
     }
+
+    public ReplyCommentPojo(String message, String imageUri, String userName) {
+        this.comment = message;
+        this.avatar = imageUri;
+        this.userName = userName;
+    }
+
+
 }
