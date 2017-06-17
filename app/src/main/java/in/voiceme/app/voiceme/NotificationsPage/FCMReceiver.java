@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.squareup.otto.Bus;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,7 @@ import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.MessageActivity;
+import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import timber.log.Timber;
 
 public class FCMReceiver extends FirebaseMessagingService {
@@ -27,6 +29,7 @@ public class FCMReceiver extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     private String chatMesssage;
     private ChatTextPojo chatTextPojo;
+    private VoicemeApplication application;
 
     /**
      * Called when message is received.
@@ -37,6 +40,9 @@ public class FCMReceiver extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        application = (VoicemeApplication)getApplicationContext();
+        Bus bus = application.getBus();
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -49,7 +55,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-      //  Log.d(TAG, "From: " + remoteMessage.getFrom());
+        //  Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -58,7 +64,7 @@ public class FCMReceiver extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-           Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Timber.d("message id : %s", remoteMessage.getMessageId());
             Timber.d("message notification body : %s", remoteMessage.getNotification().getBody());
             Timber.d("message data : %s", remoteMessage.getData());
@@ -100,7 +106,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                 }
             } else {
                 showNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
-           //     saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
+                //     saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
             }
 
         }

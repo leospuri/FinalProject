@@ -24,13 +24,11 @@ public final class Account {
 
     /* Login with Register with username and Paswword */
 
-    public static class LoginWithUsernameRequest {
-        public String Username;
-        public String Password;
+    public static class ChatMessageBusEvent {
+        public ChatTextPojo messagePojo;
 
-        public LoginWithUsernameRequest(String username, String password) {
-            Username = username;
-            Password = password;
+        public ChatMessageBusEvent(ChatTextPojo messagePojo) {
+            this.messagePojo = messagePojo;
         }
     }
 

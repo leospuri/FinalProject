@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -41,6 +42,7 @@ import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Account;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -284,6 +286,14 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                     }
                 })
                 .build(editText);
+    }
+
+    @Subscribe
+    public void getChatMessageFromNotificarion(Account.ChatMessageBusEvent message){
+        adapter.addToStart(new
+                MessagePojo(message.messagePojo.getSenderId(), message.messagePojo.getChatText(),
+                String.valueOf(System.currentTimeMillis()), new UserPojo(message.messagePojo.getSenderId(),
+                message.messagePojo.getSenderName(), "", true)), true);
     }
 
     @Override protected void onStop() {
