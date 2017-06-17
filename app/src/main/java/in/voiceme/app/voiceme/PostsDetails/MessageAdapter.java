@@ -171,20 +171,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
-            commentReplyAdapter = new CommentReplyAdapter(itemView.getContext(), mMessageList, mPosition);
-
-            mReplyLinearLayoutManager = new LinearLayoutManager(itemView.getContext()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            mReplyLinearLayoutManager.setStackFromEnd(true);
-//        mLinearLayoutManager.setReverseLayout(true);
-
-            replyRecyclerview.setLayoutManager(mReplyLinearLayoutManager);
-            replyRecyclerview.setAdapter(commentReplyAdapter);
-
             commentMore = (ImageView) itemView.findViewById(R.id.comment_more);
             mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_out_anim);
             mFadeOutAnimation.setAnimationListener(mFadeOutAnimationListener);
@@ -206,7 +192,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                                 deleteChat(view, mMessageList.get(mPosition).getCommentId());
 
 
-                          //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
+                                //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -239,6 +225,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             String message = messageItem.getComment();
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
+
+            commentReplyAdapter = new CommentReplyAdapter(itemView.getContext(), mMessageList, mPosition);
+
+            mReplyLinearLayoutManager = new LinearLayoutManager(itemView.getContext()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            mReplyLinearLayoutManager.setStackFromEnd(true);
+//        mLinearLayoutManager.setReverseLayout(true);
+
+            replyRecyclerview.setLayoutManager(mReplyLinearLayoutManager);
+            replyRecyclerview.setAdapter(commentReplyAdapter);
 
             username.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -317,7 +317,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     @Override
                     public void onNext(UserResponse response) {
 
-                     //   Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
+                        //   Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
                         //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();
