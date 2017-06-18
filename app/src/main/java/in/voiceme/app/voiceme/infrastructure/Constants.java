@@ -12,6 +12,7 @@ public interface Constants {
     String MESSAGECHAT = "MESSAGECHAT";
 
     String EMAIL = "EMAIL";
+    String CHAT_MESSAGE = "CHAT_MESSAGE";
     String SOCIAL_ID = "SOCIAL_ID";
     String IMAGE_URL = "IMAGE_URL";
     String USERNAME = "USERNAME";

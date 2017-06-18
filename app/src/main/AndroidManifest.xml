@@ -87,6 +87,11 @@
             android:name=".chat.ChatService"
             android:enabled="true"
             android:exported="false"/>
+
+        <service
+            android:name=".NotificationsPage.ChatNotificationService"
+            android:enabled="true"
+            android:exported="false"/>
         <!--
         <activity
             android:name=".NotificationsPage.NotificationsActivity"

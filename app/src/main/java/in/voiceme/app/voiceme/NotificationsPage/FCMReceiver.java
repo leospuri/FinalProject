@@ -12,7 +12,6 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.squareup.otto.Bus;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +20,7 @@ import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.MessageActivity;
-import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import timber.log.Timber;
 
 public class FCMReceiver extends FirebaseMessagingService {
@@ -29,7 +28,7 @@ public class FCMReceiver extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     private String chatMesssage;
     private ChatTextPojo chatTextPojo;
-    private VoicemeApplication application;
+
 
     /**
      * Called when message is received.
@@ -41,8 +40,7 @@ public class FCMReceiver extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        application = (VoicemeApplication)getApplicationContext();
-        Bus bus = application.getBus();
+
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -93,6 +91,10 @@ public class FCMReceiver extends FirebaseMessagingService {
                     } catch (Exception ex){
                         ex.printStackTrace();
                     } finally {
+                        Intent intent = new Intent(getBaseContext(), ChatNotificationService.class);
+                        intent.putExtra(Constants.CHAT_MESSAGE, chatTextPojo);
+                        startService(intent);
+
                         if (MessageActivity.messageActivityuserId == null){
                             showChatNotification(remoteMessage.getNotification().getTitle());
                         } else if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
