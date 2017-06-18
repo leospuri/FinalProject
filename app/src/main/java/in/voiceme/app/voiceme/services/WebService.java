@@ -316,6 +316,13 @@ public interface WebService {
     );
 
     @FormUrlEncoded
+    @POST("insertImageUrl.php")
+    Observable<SuccessResponse> insertImage(
+            @Field("image_url") String image_url,
+            @Field("user_id") String user_id
+    );
+
+    @FormUrlEncoded
     @POST("delete_chat.php")
     Observable<UserResponse> deleteChat(
             @Field("messageId") String messageId

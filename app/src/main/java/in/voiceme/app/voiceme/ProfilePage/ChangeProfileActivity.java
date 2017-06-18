@@ -85,6 +85,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         genderSelectionTitle = (TextView) findViewById(R.id.user_gender);
 
         avatarView = (SimpleDraweeView) findViewById(R.id.changeimage);
+        if (MySharedPreferences.getImageUrl(preferences) != null){
+            avatarView.setImageURI(MySharedPreferences.getImageUrl(preferences));
+        }
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
         tempOutputFile = new File(getExternalCacheDir(), "temp-profile_image.jpg");
 
@@ -378,6 +381,30 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 });
     }
 
+    private void submitSingleImage(String imageurl) throws Exception {
+        application.getWebService()
+                .insertImage(imageurl, MySharedPreferences.getUserId(preferences))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+                        //Todo add network call for uploading profile_image file
+                        Toast.makeText(ChangeProfileActivity.this, "Successfully changed Profile Image", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                         //   Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+    }
+
     private void getData() throws Exception {
         application.getWebService()
                 .getUserProfile(MySharedPreferences.getUserId(preferences))
@@ -451,9 +478,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public void onNext(String response) {
+                            try {
+                                submitSingleImage(response);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             Timber.d("file url " + response);
                             setImageFileUrl(response);
                             MySharedPreferences.registerImageUrl(preferences, response);
+
 
                         }
                     });
