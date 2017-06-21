@@ -1,9 +1,11 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -293,9 +296,33 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
         }
 
         private void CommentReply(View view, ReplyCommentPojo messageItem) {
-            addMessage(new ReplyCommentPojo("message",
-                    MySharedPreferences.getImageUrl(preferences),
-                    MySharedPreferences.getUsername(preferences)));
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view.getContext());
+            LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+            final View dialogView = inflater.inflate(R.layout.reply_comment_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+            final EditText edt = (EditText) dialogView.findViewById(R.id.edit_reply_comment);
+
+            dialogBuilder.setTitle("Reply to " + messageItem.getUserName());
+            dialogBuilder.setMessage("Enter text below");
+            dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    addMessage(new ReplyCommentPojo(edt.getText().toString(),
+                            MySharedPreferences.getImageUrl(preferences),
+                            MySharedPreferences.getUsername(preferences)));
+                    //do something with edt.getText().toString();
+                }
+            });
+            dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    //pass
+                }
+            });
+            AlertDialog b = dialogBuilder.create();
+            b.show();
+
+
+
         }
 
         public int getBoundPosition() {
