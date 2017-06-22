@@ -14,7 +14,7 @@
         android:background="@android:color/transparent" >
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/iv_user_image"
+            android:id="@+id/iv_user_image_reply"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="8dp"
@@ -22,7 +22,7 @@
             fresco:placeholderImage="@drawable/user" />
 
         <TextView
-            android:id="@+id/tv_user_name"
+            android:id="@+id/tv_user_name_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -31,27 +31,27 @@
             android:singleLine="true"
             android:text="Username"
             android:layout_marginLeft="4dp"
-            android:layout_toEndOf="@id/iv_user_image"
-            android:layout_toRightOf="@id/iv_user_image"
+            android:layout_toEndOf="@id/iv_user_image_reply"
+            android:layout_toRightOf="@id/iv_user_image_reply"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_message_card_reply"
+            android:id="@+id/comment_time_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:text="username"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:text="Time"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="8dp"
-            android:layout_below="@id/tv_user_name"
-            android:layout_toEndOf="@id/iv_user_image"
-            android:layout_toRightOf="@id/iv_user_image" />
+            android:layout_below="@id/tv_user_name_reply"
+            android:layout_toEndOf="@id/iv_user_image_reply"
+            android:layout_toRightOf="@id/iv_user_image_reply" />
+
 
         <TextView
-            android:id="@+id/tv_message_card"
-            android:layout_width="215dp"
+            android:id="@+id/tv_message_card_reply"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="15dp"
@@ -59,16 +59,15 @@
             android:text="Comment"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="8dp"
-            android:layout_below="@id/tv_user_name"
-            android:layout_toEndOf="@id/tv_message_card_reply"
-            android:layout_toRightOf="@id/tv_message_card_reply" />
+            android:layout_below="@id/comment_time_reply"
+            android:layout_toEndOf="@id/iv_user_image_reply"
+            android:layout_toRightOf="@id/iv_user_image_reply" />
 
         <ImageView
-            android:id="@+id/comment_more"
+            android:id="@+id/comment_more_reply"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="10dp"
-            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_more_grey" />
 
@@ -77,7 +76,7 @@
             android:orientation="horizontal"
             android:layout_marginLeft="10dp"
             android:id="@+id/card_reply_linearlayout"
-            android:layout_below="@+id/tv_message_card"
+            android:layout_below="@+id/tv_message_card_reply"
             android:layout_height="wrap_content">
 
             <TextView
@@ -91,13 +90,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:id="@+id/like_below_comment_counter"
+                android:id="@+id/like_below_comment_counter_second"
                 android:text="1111"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/like_below_comment_reply"
+                android:id="@+id/like_below_comment_reply_second"
                 android:text="Reply"/>
 
         </LinearLayout>

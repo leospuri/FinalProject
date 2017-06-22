@@ -738,6 +738,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        Timber.e(userResponse.getMsg());
                         Toast.makeText(PostsDetailsActivity.this, "success comment post", Toast.LENGTH_SHORT).show();
                     }
                     @Override

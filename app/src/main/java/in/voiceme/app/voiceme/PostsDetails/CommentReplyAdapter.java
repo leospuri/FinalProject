@@ -37,6 +37,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.utils.CurrentTime;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
@@ -134,11 +135,11 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
 
         private TextView username;
         private TextView messageCard;
+        private TextView comment_time;
         private ImageView commentMore;
         private SimpleDraweeView userImage;
         private PopupMenu popupMenu;
         private TextView like_below_comment_reply;
-        private TextView tv_message_card_reply;
         private TextView like_below_comment_counter;
 
 
@@ -165,17 +166,17 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             super(itemView);
             mHolderView = itemView;
 
-            like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply);
-            tv_message_card_reply = (TextView) itemView.findViewById(R.id.tv_message_card_reply);
-            like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter);
-            username = (TextView) itemView.findViewById(R.id.tv_user_name);
-            messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
-            userImage = (SimpleDraweeView) itemView.findViewById(R.id.iv_user_image);
+            like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply_second);
+            comment_time = (TextView) itemView.findViewById(R.id.comment_time_reply);
+            like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter_second);
+            username = (TextView) itemView.findViewById(R.id.tv_user_name_reply);
+            messageCard = (TextView) itemView.findViewById(R.id.tv_message_card_reply);
+            userImage = (SimpleDraweeView) itemView.findViewById(R.id.iv_user_image_reply);
 
             preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
 
 
-            commentMore = (ImageView) itemView.findViewById(R.id.comment_more);
+            commentMore = (ImageView) itemView.findViewById(R.id.comment_more_reply);
             mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_out_anim);
             mFadeOutAnimation.setAnimationListener(mFadeOutAnimationListener);
         }
@@ -226,11 +227,11 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
 
+            comment_time.setText(CurrentTime.getCurrentTime(messageItem.getCommentTime(), itemView.getContext()));
+
             String message = messageItem.getComment();
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
-
-            tv_message_card_reply.setText(String.valueOf("@" + messageItem.getUser_name_reply()));
 
             username.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -274,7 +275,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                 }
             });
 
-            messageCard.setText(message);
+            messageCard.setText(String.valueOf(message));
             username.setText(userName);
             userImage.setImageURI(imageUri);
 
@@ -291,11 +292,11 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
         }
 
         private void userProfile(View view, ReplyCommentPojo messageItem) {
-            if (messageItem.getCommentUserId().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
+            if (messageItem.getPostUserId().equals(MySharedPreferences.getUserId(recyclerviewpreferences))){
                 view.getContext().startActivity(new Intent(view.getContext(), ProfileActivity.class));
             } else {
                 Intent intent = new Intent(view.getContext(), SecondProfile.class);
-                intent.putExtra(Constants.SECOND_PROFILE_ID, messageItem.getCommentUserId());
+                intent.putExtra(Constants.SECOND_PROFILE_ID, messageItem.getPostUserId());
                 view.getContext().startActivity(intent);
             }
         }
@@ -316,11 +317,11 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             dialogBuilder.setMessage("Enter text below");
             dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    addMessage(new ReplyCommentPojo(edt.getText().toString(),
+                    addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUser_name_reply() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences)));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUser_name_reply()));
                     try {
-                        postComment(view, edt.getText().toString(),messageItem);
+                        postComment(view, (String.valueOf("@" + messageItem.getUser_name_reply() + " " + edt.getText().toString())),messageItem);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -354,7 +355,6 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
 
     private void postComment(View view, String message, ReplyCommentPojo messageItem) throws Exception {
         bus.post(new Account.sendCommentReply(messageItem.getCommentId(), messageItem.getIdPostUserName(), message));
-
     }
 
     private void deleteChat(View view, String messageId) throws Exception {

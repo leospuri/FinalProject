@@ -38,6 +38,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.utils.CurrentTime;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
@@ -139,6 +140,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private boolean isVisible = true;
 
         private TextView username;
+        private TextView comment_time;
         private TextView like_below_comment_reply;
         private TextView like_below_comment_counter;
         private TextView messageCard;
@@ -175,6 +177,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             mHolderView = itemView;
 
             username = (TextView) itemView.findViewById(R.id.tv_user_name);
+            comment_time = (TextView) itemView.findViewById(R.id.comment_time);
             like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter);
             like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply);
             messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
@@ -238,6 +241,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
 
+            comment_time.setText(CurrentTime.getCurrentTime(messageItem.getCommentTime(), itemView.getContext()));
             commentReplyAdapter = new CommentReplyAdapter(itemView.getContext(), mMessageList, mPosition);
 
             mReplyLinearLayoutManager = new LinearLayoutManager(itemView.getContext()) {
@@ -338,11 +342,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     //do something with edt.getText().toString();
-                    commentReplyAdapter.addMessage(new ReplyCommentPojo(edt.getText().toString(),
+                    commentReplyAdapter.addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences)));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUserName()));
                     try {
-                        postComment(view, edt.getText().toString(),messageItem.getReplyComment().get(mPosition));
+                        postComment(view, (String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString())),messageItem.getCommentId(), messageItem.getCommentUserId());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -374,8 +378,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
     }
 
-    private void postComment(View view, String message, ReplyCommentPojo messageItem) throws Exception {
-        bus.post(new Account.sendCommentReply(messageItem.getCommentId(), messageItem.getIdPostUserName(), message));
+    private void postComment(View view, String message, String commentId, String idPostUsername) throws Exception {
+        bus.post(new Account.sendCommentReply(commentId, idPostUsername, message));
 
     }
 
