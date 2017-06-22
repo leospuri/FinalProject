@@ -16,7 +16,7 @@
             android:background="@color/md_blue_grey_50"
             android:orientation="vertical">
 
-            <include layout="@layout/include_toolbar2" />
+            <include layout="@layout/include_toolbar3" />
 
             <com.baoyz.widget.PullRefreshLayout
                 android:id="@+id/feeling_swipeRefreshLayout"

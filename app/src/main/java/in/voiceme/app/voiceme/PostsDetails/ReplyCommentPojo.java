@@ -16,6 +16,7 @@ public class ReplyCommentPojo {
         @SerializedName("id_post_user_name") @Expose private String idPostUserName;
         @SerializedName("commentUserId") @Expose private String commentUserId;
         @SerializedName("comment_time") @Expose private String commentTime;
+        @SerializedName("user_name_reply") @Expose private String user_name_reply;
 
     public String getUserName() {
         return userName;
@@ -39,6 +40,10 @@ public class ReplyCommentPojo {
 
     public String getIdPostUserName() {
         return idPostUserName;
+    }
+
+    public String getUser_name_reply() {
+        return user_name_reply;
     }
 
     public String getCommentUserId() {

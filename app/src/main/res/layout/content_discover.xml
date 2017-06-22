@@ -16,7 +16,7 @@
             android:background="@color/md_blue_grey_50"
             >
 
-            <include layout="@layout/include_toolbar2" />
+            <include layout="@layout/include_toolbar3" />
 
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout

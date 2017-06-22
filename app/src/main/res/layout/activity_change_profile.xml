@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar4" />
+        <include layout="@layout/include_toolbar3" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,13 +29,23 @@
             android:id="@+id/profile_header_banner">
 
 
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/change_profile_photo"
+                android:src="@drawable/ic_camera_alt_black_24dp"/>
+
+
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/changeimage"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 fresco:placeholderImage="@drawable/user" />
+
 
 
             <FrameLayout
@@ -78,7 +88,7 @@
                 android:hint="User Name" />
 
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enter Your Age"
@@ -98,7 +108,7 @@
                 />
 
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enter About yourself"
@@ -120,6 +130,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:weightSum="2"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
                 android:layout_below="@+id/edittext_profile_aboutme"
@@ -161,7 +172,7 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/edittext_profile_aboutme"
             android:layout_marginTop="20dp"
-            android:background="@color/colorAccent"
+            android:background="@color/md_blue_600"
             android:text="submit"
             android:textColor="@android:color/white" />
 
@@ -169,6 +180,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:src="@drawable/profile_change"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:layout_height="70dp" />
 
@@ -180,6 +192,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/activity_change_profile_progress">
             <TextView
                 android:layout_width="wrap_content"

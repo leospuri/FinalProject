@@ -20,6 +20,7 @@
     <color name="contacts_green_button">#008000</color>
     <color name="toolbar_Color">#e2dede</color>
     <color name="body_Color">#00bcd4</color>
+    <color name="new_toolbar_color">#29abe2</color>
     <color name="body_background">#eeeeee</color>
 
     <color name="white_pressed">#f1f1f1</color>

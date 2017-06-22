@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private TextView genderSelection;
     private TextView genderSelectionTitle;
     private Button submitButton;
+    private ImageView change_profile_photo;
     AlertDialog alertDialog1;
     private View changeProgress;
     CharSequence[] values = {" Male "," Female "," Transgender "};
@@ -77,6 +79,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         });
         changeProgress = findViewById(R.id.activity_change_profile_progress);
 
+        change_profile_photo = (ImageView) findViewById(R.id.change_profile_photo);
         submitButton = (Button) findViewById(R.id.submit_button_profile);
         username = (EditText) findViewById(R.id.edittext_profile_username);
         aboutme = (EditText) findViewById(R.id.edittext_profile_aboutme);
@@ -91,6 +94,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
         tempOutputFile = new File(getExternalCacheDir(), "temp-profile_image.jpg");
 
+        change_profile_photo.setOnClickListener(this);
         avatarView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
         genderSelection.setOnClickListener(this);
@@ -226,6 +230,20 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         switch (view.getId()){
             case R.id.changeimage:
+
+           if (MySharedPreferences.getImageUrl(preferences) != null && !MySharedPreferences.getImageUrl(preferences).isEmpty()){
+                removeImage();
+            } else {
+                changeProfileRequest();
+            }
+
+
+
+                //      sendlike();
+            //    startActivity(new Intent(this, IntroActivity.class));
+                break;
+
+            case R.id.change_profile_photo:
 
            if (MySharedPreferences.getImageUrl(preferences) != null && !MySharedPreferences.getImageUrl(preferences).isEmpty()){
                 removeImage();

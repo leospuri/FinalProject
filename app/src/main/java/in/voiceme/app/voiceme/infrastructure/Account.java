@@ -68,19 +68,16 @@ public final class Account {
     public static class LoginWithExternalTokenResponse extends UserResponse {
     }
 
-
     /* when we are register for account, we are registering a  new user and loggin in at the same time */
-    public static class RegisterRequest {
-        public String UserName;
-        public String Email;
-        public String Password;
-        public String ClientId;
+    public static class sendCommentReply {
+        public String id_post_comments;
+        public String id_post_user_name;
+        public String message;
 
-        public RegisterRequest(String userName, String email, String password) {
-            UserName = userName;
-            Email = email;
-            Password = password;
-            ClientId = "android";
+        public sendCommentReply(String id_post_comments, String id_post_user_name, String message) {
+            this.id_post_comments = id_post_comments;
+            this.id_post_user_name = id_post_user_name;
+            this.message = message;
         }
     }
 

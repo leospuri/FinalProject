@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Account;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
@@ -53,9 +55,12 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
     private List<ReplyCommentPojo> mMessageList;
     private List<ReplyMessageViewHolder> mMessageHolderList = new ArrayList<>();
     private static SharedPreferences recyclerviewpreferences;
+    protected final Bus bus;
 
     public CommentReplyAdapter(Context context, List<PostUserCommentModel> mMessageList, int mPosition) {
         mContext = context;
+        bus = ((VoicemeApplication)context.getApplicationContext()).getBus();
+        bus.register(this);
         this.mMessageList = mMessageList.get(mPosition).getReplyComment();
         recyclerviewpreferences = ((VoicemeApplication) context.getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
     }
@@ -133,6 +138,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
         private SimpleDraweeView userImage;
         private PopupMenu popupMenu;
         private TextView like_below_comment_reply;
+        private TextView tv_message_card_reply;
         private TextView like_below_comment_counter;
 
 
@@ -160,6 +166,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             mHolderView = itemView;
 
             like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply);
+            tv_message_card_reply = (TextView) itemView.findViewById(R.id.tv_message_card_reply);
             like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter);
             username = (TextView) itemView.findViewById(R.id.tv_user_name);
             messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
@@ -222,6 +229,8 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             String message = messageItem.getComment();
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
+
+            tv_message_card_reply.setText(String.valueOf("@" + messageItem.getUser_name_reply()));
 
             username.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -310,6 +319,11 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                     addMessage(new ReplyCommentPojo(edt.getText().toString(),
                             MySharedPreferences.getImageUrl(preferences),
                             MySharedPreferences.getUsername(preferences)));
+                    try {
+                        postComment(view, edt.getText().toString(),messageItem);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //do something with edt.getText().toString();
                 }
             });
@@ -336,6 +350,11 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
         public boolean isVisible() {
             return isVisible;
         }
+    }
+
+    private void postComment(View view, String message, ReplyCommentPojo messageItem) throws Exception {
+        bus.post(new Account.sendCommentReply(messageItem.getCommentId(), messageItem.getIdPostUserName(), message));
+
     }
 
     private void deleteChat(View view, String messageId) throws Exception {

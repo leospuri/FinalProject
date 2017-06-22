@@ -36,18 +36,32 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_message_card"
+            android:id="@+id/tv_message_card_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            android:text="Comment"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:text="username"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="8dp"
             android:layout_below="@id/tv_user_name"
             android:layout_toEndOf="@id/iv_user_image"
             android:layout_toRightOf="@id/iv_user_image" />
+
+        <TextView
+            android:id="@+id/tv_message_card"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:text="Comment"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/tv_user_name"
+            android:layout_toEndOf="@id/tv_message_card_reply"
+            android:layout_toRightOf="@id/tv_message_card_reply" />
 
         <ImageView
             android:id="@+id/comment_more"

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.otto.Subscribe;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -36,6 +37,7 @@ import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Account;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -694,7 +696,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void getComments(String postId) throws Exception {
         application.getWebService()
-                .getUserComments("20")
+                .getUserComments(postId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
@@ -726,10 +728,29 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    @Subscribe
+    public void postReplyComment(Account.sendCommentReply sendReply) throws Exception {
+
+        application.getWebService()
+                .sendCommentReply(sendReply.id_post_comments, MySharedPreferences.getUserId(preferences), sendReply.id_post_user_name, postId, sendReply.message)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<UserResponse>() {
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        Toast.makeText(PostsDetailsActivity.this, "success comment post", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+
+                    }
+                });
+    }
 
     private void postComment(String message) throws Exception {
         application.getWebService()
-                .sendComment(MySharedPreferences.getUserId(preferences), idusername, postId, message, 2)
+                .sendComment(MySharedPreferences.getUserId(preferences), idusername, postId, message)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {

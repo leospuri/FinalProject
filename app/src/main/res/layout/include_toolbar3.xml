@@ -6,4 +6,6 @@
     android:layout_height="wrap_content"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     android:id="@+id/include_toolbar"
-    android:background="@color/body_Color"/>
+    android:subtitleTextColor="@color/white"
+    android:titleTextColor="@color/white"
+    android:background="@color/new_toolbar_color"/>

@@ -37,10 +37,10 @@
             android:layout_toRightOf="@id/list_item_posts_avatar"
             android:paddingRight="5dp"
             android:singleLine="true"
-            android:text="harishusename"
-            android:maxLength="12"
+            android:text="harishusername"
+            android:maxLength="14"
             android:textColor="#de000000"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -54,9 +54,8 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="is"
-            android:maxLength="12"
             android:textColor="#de000000"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -70,23 +69,24 @@
             android:layout_toRightOf="@id/list_item_post_is"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:text="heartbroken"
+            android:textColor="@color/md_grey_700"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/list_item_posts_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:maxLength="8"
+            android:maxLength="20"
             android:background="@color/md_grey_100"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="3dp"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
-            android:text=""
+            android:text="FeelingGoodisNothingsss"
             android:textColor="#de000000"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="50dp"
@@ -138,9 +138,9 @@
             android:layout_marginBottom="3dp"
             android:layout_toEndOf="@id/list_item_posts_avatar"
             android:layout_toRightOf="@id/list_item_posts_avatar"
-            android:text=""
+            android:text="this is time"
             android:textColor="#444"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/list_item_posts_message"
@@ -175,8 +175,8 @@
 
             <ImageView
                 android:id="@+id/list_item_like_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:padding="4dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitCenter"
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="000"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:id="@+id/new_counter_like_number"
                 android:layout_below="@id/list_item_posts_read_more"
                 android:layout_toRightOf="@+id/like_back_layout"/>
@@ -201,7 +201,8 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/like_back_layout"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="7dp"
+            android:visibility="gone"
             android:padding="5dp"
             android:textSize="8sp"
             tools:text="LIKE" />
@@ -212,14 +213,14 @@
             android:layout_below="@id/list_item_posts_read_more"
             android:layout_toRightOf="@+id/like_back_layout"
             android:id="@+id/hug_back_layout"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/list_item_hug_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:padding="4dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitCenter"
@@ -230,7 +231,7 @@
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:text="000"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/new_counter_hug_number"
                 android:layout_below="@id/list_item_posts_read_more"
@@ -244,7 +245,8 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/hug_back_layout"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="75dp"
+            android:layout_marginLeft="65dp"
+            android:visibility="gone"
             android:padding="5dp"
             android:textSize="8sp"
             tools:text="HUG" />
@@ -256,14 +258,14 @@
             android:layout_below="@id/list_item_posts_read_more"
             android:layout_toRightOf="@+id/hug_back_layout"
             android:id="@+id/same_back_layout"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/list_item_same_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:padding="4dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitCenter"
@@ -274,7 +276,7 @@
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:text="000"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/new_counter_same_number"
                 android:layout_below="@id/list_item_posts_read_more"
@@ -292,6 +294,7 @@
             android:layout_below="@+id/same_back_layout"
             android:layout_height="wrap_content"
             android:layout_marginLeft="140dp"
+            android:visibility="gone"
             android:padding="5dp"
             android:textSize="8sp"
             tools:text="SAD" />
@@ -303,14 +306,14 @@
             android:layout_below="@id/list_item_posts_read_more"
             android:layout_toRightOf="@+id/same_back_layout"
             android:id="@+id/comment_back_layout"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/emoji_above_comment"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:padding="4dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitCenter"
@@ -321,7 +324,7 @@
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:text="000"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/new_counter_cmt_number"
                 android:layout_below="@id/list_item_posts_read_more"
@@ -337,6 +340,7 @@
             android:layout_below="@+id/comment_back_layout"
             android:layout_height="wrap_content"
             android:layout_marginLeft="203dp"
+            android:visibility="gone"
             android:padding="5dp"
             android:textSize="8sp"
             tools:text="REPLY" />

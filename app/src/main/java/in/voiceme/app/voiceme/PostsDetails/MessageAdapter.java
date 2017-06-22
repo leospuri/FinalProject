@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Account;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
@@ -56,9 +58,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private List<PostUserCommentModel> mMessageList;
     private List<MessageViewHolder> mMessageHolderList = new ArrayList<>();
     private static SharedPreferences recyclerviewpreferences;
+    protected final Bus bus;
 
     public MessageAdapter(Context context, List<PostUserCommentModel> mMessageList, InsertMessageListener insertMessageListener) {
         mContext = context;
+        bus = ((VoicemeApplication)context.getApplicationContext()).getBus();
+        bus.register(this);
         mInsertMessageListener = insertMessageListener;
         this.mMessageList = mMessageList;
         recyclerviewpreferences = ((VoicemeApplication) context.getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
@@ -336,6 +341,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     commentReplyAdapter.addMessage(new ReplyCommentPojo(edt.getText().toString(),
                             MySharedPreferences.getImageUrl(preferences),
                             MySharedPreferences.getUsername(preferences)));
+                    try {
+                        postComment(view, edt.getText().toString(),messageItem.getReplyComment().get(mPosition));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                 }
             });
@@ -362,6 +372,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         public boolean isVisible() {
             return isVisible;
         }
+    }
+
+    private void postComment(View view, String message, ReplyCommentPojo messageItem) throws Exception {
+        bus.post(new Account.sendCommentReply(messageItem.getCommentId(), messageItem.getIdPostUserName(), message));
+
     }
 
     private void deleteChat(View view, String messageId) throws Exception {

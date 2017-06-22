@@ -26,7 +26,7 @@
             <EditText
                 android:id="@+id/intro_edit_text_status"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:backgroundTint="@color/md_grey_500"
                 android:maxLines="8"
                 android:gravity="top"
