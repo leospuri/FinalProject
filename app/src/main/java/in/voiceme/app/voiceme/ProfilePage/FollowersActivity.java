@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -43,7 +44,9 @@ public class FollowersActivity extends BaseActivity {
         rv = (RecyclerView) findViewById(R.id.user_follower_recyclerview);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
+
         rv.setLayoutManager(llm);
+        rv.addItemDecoration(new SimpleDividerItemDecoration(this));
         rv.setHasFixedSize(true);
 
         initializeData();

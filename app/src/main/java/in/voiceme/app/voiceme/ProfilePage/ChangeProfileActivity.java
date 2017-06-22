@@ -189,6 +189,11 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
         options.setCompressionQuality(50);
+    //    options.setCompressionQuality(DEFAULT_COMPRESS_QUALITY);
+        options.setFreeStyleCropEnabled(false);
+      //  options.setImageToCropBoundsAnimDuration(CROP_BOUNDS_ANIMATION_DURATION);
+        options.setShowCropGrid(false);
+        options.setMaxScaleMultiplier(10.0f);
         return uCrop.withOptions(options);
     }
 

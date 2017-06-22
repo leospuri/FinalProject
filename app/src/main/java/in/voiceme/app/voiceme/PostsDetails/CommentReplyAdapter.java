@@ -141,6 +141,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
         private PopupMenu popupMenu;
         private TextView like_below_comment_reply;
         private TextView like_below_comment_counter;
+        private ImageView like_below_comment;
 
 
         private Animation.AnimationListener mFadeOutAnimationListener = new Animation.AnimationListener() {
@@ -166,6 +167,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             super(itemView);
             mHolderView = itemView;
 
+            like_below_comment = (ImageView) itemView.findViewById(R.id.like_below_comment);
             like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply_second);
             comment_time = (TextView) itemView.findViewById(R.id.comment_time_reply);
             like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter_second);

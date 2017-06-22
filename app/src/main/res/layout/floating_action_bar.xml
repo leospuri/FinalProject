@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_icon="@drawable/listtext"
-            fab:fab_colorNormal="@color/white"
+            fab:fab_colorNormal="@color/new_toolbar_color"
             fab:fab_title="Text Confession"
             fab:fab_colorPressed="@color/white_pressed"/>
 
