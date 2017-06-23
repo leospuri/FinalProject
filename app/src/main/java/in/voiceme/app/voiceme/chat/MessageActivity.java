@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -67,8 +65,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private EmojiEditText editText;
     private ImageButton emojiButton;
     private ImageButton sendButton;
-    private LinearLayout no_post_layout;
-    private TextView no_post_textview;
     private int messageCount;
 
     private String onlineString = " ";
@@ -86,9 +82,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-
-        no_post_textview = (TextView) findViewById(R.id.no_post_textview);
-        no_post_layout = (LinearLayout) findViewById(R.id.no_post_layout);
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
         messageActivityuserId = getIntent().getStringExtra(Constants.YES);
@@ -235,15 +228,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
 
 
-    }
-
-
-
-    private void showEmptyView() {
-        if (no_post_layout.getVisibility() == View.GONE) {
-            no_post_layout.setVisibility(View.VISIBLE);
-            no_post_textview.setText("There are no messages with this User");
-        }
     }
 
 

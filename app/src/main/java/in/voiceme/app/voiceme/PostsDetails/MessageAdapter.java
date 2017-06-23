@@ -344,7 +344,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     //do something with edt.getText().toString();
                     commentReplyAdapter.addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences), messageItem.getUserName()));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUserName(), String.valueOf(System.currentTimeMillis()/1000)));
                     try {
                         postComment(view, (String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString())),messageItem.getCommentId(), messageItem.getCommentUserId());
                     } catch (Exception e) {

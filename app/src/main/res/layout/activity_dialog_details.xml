@@ -16,7 +16,7 @@
             android:id="@+id/dialog_linearLayout"
             android:orientation="vertical">
 
-            <include layout="@layout/include_toolbar4" />
+            <include layout="@layout/include_toolbar3" />
 
             <com.stfalcon.chatkit.dialogs.DialogsList
                 android:id="@+id/dialogsList"

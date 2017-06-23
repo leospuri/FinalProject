@@ -31,17 +31,17 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
     public MainNavDrawer(final BaseActivity activity) {
         super(activity);
 
-        addItem(new ActivityNavDrawerItem(ProfileActivity.class, "Profile", null, R.drawable.browser, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(NotificationsActivity.class, "Notification", null, R.drawable.notification_blue, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.drawable.ic_device_hub_black_24dp, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.drawable.worker, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.nav_new_phone_book, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.drawable.chat_menu, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(ProfileActivity.class, "Profile", null, R.drawable.profile_new_icon, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(NotificationsActivity.class, "Notification", null, R.drawable.notification_new, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.drawable.activity_new, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.drawable.discove_new, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.contact_new, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.drawable.chat_nav_new, R.id.include_main_nav_drawer_topItems));
      //    addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         prefs = activity.getSharedPreferences("Logged in or not", Context.MODE_PRIVATE);
         String sLcl = "Logout";
         if (prefs.getBoolean("is this demo mode", false)) sLcl = "Quit";
-        addItem(new BasicNavDrawerItem(sLcl, null, R.drawable.logout_button, R.id.include_main_nav_drawer_bottomItems) {
+        addItem(new BasicNavDrawerItem(sLcl, null, R.drawable.logout_new, R.id.include_main_nav_drawer_bottomItems) {
             @Override
             public void onClick(View view) {
                 if (processLoggedState(view))

@@ -18,7 +18,7 @@
             android:textSize="18sp"
             android:id="@+id/textview_ask_audio_perm"
             android:layout_centerInParent="true"
-            android:text="To Record Audio, We need your permission" />
+            android:text="Click Below to Record" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_below="@+id/textview_ask_audio_perm"
             android:id="@+id/request_record_audio_perm"
             android:text="Record Audio"
-            android:background="@drawable/voice_recorder"
+            android:background="@drawable/recording_new_icon"
             android:layout_height="100dp" />
     </RelativeLayout>
 

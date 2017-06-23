@@ -23,6 +23,7 @@ import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DiscoverPage.LatestListAdapter;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -136,6 +137,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_main_interaction_recyclerview);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
 
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override

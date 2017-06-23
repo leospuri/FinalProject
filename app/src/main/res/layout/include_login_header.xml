@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/login_register_header"
-    android:background="@color/md_blue_grey_100">
+    android:background="@color/md_blue_100">
 
     <ImageView
         android:layout_width="80dp"

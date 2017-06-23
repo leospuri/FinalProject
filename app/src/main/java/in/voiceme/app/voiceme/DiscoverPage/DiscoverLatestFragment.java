@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
@@ -158,7 +159,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
       //  LinearLayoutManager linearLayout = new LinearLayoutManager(this.getActivity());
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {

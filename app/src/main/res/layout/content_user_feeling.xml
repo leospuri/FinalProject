@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/md_blue_grey_50"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <include layout="@layout/include_toolbar3" />
@@ -45,7 +45,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#91D4Fa"
+            android:background="@color/white"
             android:clickable="true"
             android:id="@+id/activity_feeling_progress">
             <TextView

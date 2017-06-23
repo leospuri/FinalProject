@@ -67,7 +67,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
 
         send_private_message = (ImageView) findViewById(R.id.send_private_message);
-        second_new_username = (LinearLayout) findViewById(R.id.second_new_username);
+        second_new_username = (LinearLayout) findViewById(R.id.layout_second_profile_total);
 
         toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             return;
         int viewId = view.getId();
 
-        if (viewId == R.id.second_user_profile_textview || viewId == R.id.second_total_posts_counter || viewId == R.id.second_new_username) {
+        if (viewId == R.id.second_user_profile_textview || viewId == R.id.second_total_posts_counter || viewId == R.id.layout_second_profile_total) {
             // [START custom_event]
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("SecondProfile")

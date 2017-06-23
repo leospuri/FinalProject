@@ -1,6 +1,5 @@
 package in.voiceme.app.voiceme.userpost;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Random;
 
 import in.voiceme.app.voiceme.DTO.AllPopularTagsPojo;
 import in.voiceme.app.voiceme.DTO.TagClass;
 import in.voiceme.app.voiceme.R;
-import timber.log.Timber;
 
 /**
  * Created by Harish on 9/1/2016.
@@ -28,15 +25,14 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
 
         TextView tagName;
         TextView numberOfTags;
-        CardView cv;
 
         TrendingHashTagsViewHolder(View itemView) {
             super(itemView);
 
-            cv = (CardView) itemView.findViewById(R.id.hashtag_cardview);
             tagName = (TextView) itemView.findViewById(R.id.category_popular_tag);
             numberOfTags = (TextView) itemView.findViewById(R.id.category_tag_count);
 
+            /*
             if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.KITKAT) {
                 // only for gingerbread and newer versions
                 Timber.e("lower android version");
@@ -45,6 +41,7 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
                 int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
                 tagName.setBackgroundColor(randomAndroidColor);
             }
+            */
 
 
         }
@@ -52,7 +49,7 @@ public class CategoryTagAdapter extends RecyclerView.Adapter<CategoryTagAdapter.
         public void bind(AllPopularTagsPojo dataItem) {
             this.dataItem = dataItem;
             tagName.setText(String.valueOf("#" + dataItem.getName()));
-            numberOfTags.setText(dataItem.getCount());
+            numberOfTags.setText(String.valueOf("used by " + dataItem.getCount() + " users"));
 
         }
     }

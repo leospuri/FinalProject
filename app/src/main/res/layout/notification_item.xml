@@ -5,31 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/notification_background"
-    android:padding="5dp"
+    android:padding="12dp"
     android:layout_marginBottom="5dp"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/notification_like_left"
-        android:singleLine="true"
-        android:text="LIKE"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:textSize="12sp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/notification_post_time"
-        android:singleLine="true"
-        android:text="time"
-        android:layout_marginTop="3dp"
-        android:layout_toRightOf="@+id/notification_like_left"
-        android:textSize="16sp"
-        />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        fresco:roundedCornerRadius="25dp"
+        android:id="@+id/notification_avatar"
+        fresco:placeholderImage="@drawable/user" />
 
 
     <TextView
@@ -38,23 +24,24 @@
         android:id="@+id/notification_user"
         android:singleLine="true"
         android:text="username"
-        android:layout_below="@+id/notification_post_time"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/black"
-        android:layout_toRightOf="@+id/notification_like_left"
-        android:textSize="16sp"
+        android:layout_toRightOf="@+id/notification_avatar"
+        android:textSize="14sp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/notification_feeling_text"
-        android:layout_marginLeft="10dp"
+        android:id="@+id/notification_post_time"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
         android:textColor="@color/black"
-        android:layout_below="@+id/notification_post_time"
-        android:text="liked or hugged"
+        android:text="time"
         android:singleLine="true"
-        android:layout_toRightOf="@+id/notification_user"
-        android:textSize="16sp"
+        android:textSize="14sp"
         />
 
     <TextView
@@ -63,22 +50,13 @@
         android:layout_marginRight="10dp"
         android:id="@+id/notification_feeling_status"
         android:text="status"
+        android:layout_marginLeft="10dp"
         android:maxLines="2"
         android:textColor="@color/md_grey_600"
-        android:layout_toRightOf="@+id/notification_like_left"
+        android:layout_toRightOf="@+id/notification_avatar"
         android:layout_below="@+id/notification_user"
-        android:textSize="16sp"
+        android:textSize="14sp"
         />
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/notification_avatar"
-        android:layout_below="@+id/notification_feeling_status"
-        android:layout_toRightOf="@+id/notification_like_left"
-        fresco:placeholderImage="@drawable/user" />
-
 
 </RelativeLayout>
 

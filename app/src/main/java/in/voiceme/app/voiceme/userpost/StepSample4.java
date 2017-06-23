@@ -17,8 +17,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -58,7 +58,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     private AlertDialog.Builder builder1;
     private EditText editText;
-    private Button createNewHashTag;
+    private ImageView createNewHashTag;
     private RecyclerView rv;
     private ScrollView scrollView;
     private String current_category;
@@ -103,7 +103,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         mLinearLayout = (LinearLayout) v.findViewById(R.id.stepFourLinear);
         tagGroup = (TagView) v.findViewById(R.id.intro_tag_group);
         editText = (EditText) v.findViewById(R.id.intro_editText);
-        createNewHashTag = (Button) v.findViewById(R.id.intro_create_new_hashtag);
+        createNewHashTag = (ImageView) v.findViewById(R.id.intro_create_new_hashtag);
 
         if (createNewHashTag.getVisibility()==View.VISIBLE){
             createNewHashTag.setVisibility(View.GONE);

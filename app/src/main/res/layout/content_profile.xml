@@ -11,6 +11,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:background="@color/md_grey_100"
         android:layout_height="match_parent">
 
         <FrameLayout
@@ -24,25 +25,46 @@
             android:background="@color/md_grey_300"
             android:orientation="vertical">
 
+            <include layout="@layout/include_toolbar3"
+                android:background="@color/transparent"
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/md_grey_50"
+                android:background="@color/md_grey_100"
                 android:id="@+id/profile_header_banner"
                 tools:context=".ProfilePage.ProfileActivity">
 
-                <include layout="@layout/include_toolbar"
-                    android:background="@color/transparent"
-                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    android:id="@+id/profile_back"
+                    android:background="#11bce8" />
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"
+                    fresco:roundedCornerRadius="60dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="80dp"
                     android:scaleType="centerCrop"
+                    android:layout_centerHorizontal="true"
                     fresco:placeholderImage="@drawable/profile_back" />
 
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Username"
+                    android:layout_below="@+id/profile_image"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold" />
 
                 <!--  <com.intrusoft.library.FrissonView
                       android:id="@+id/wave_head"
@@ -55,21 +77,6 @@
                       frisson:tideHeight="50dp"
                       frisson:alphaValue="70"
                       frisson:autoTint="true"/>   -->
-
-                <View
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/ic_navigation" />
-
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="18dp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/ic_edit_black_24dp" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -93,9 +100,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_image"
+                    android:layout_below="@id/profile_back"
                     android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/new_toolbar_color"
                     android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/activity_profile_textFields">
 
                     <LinearLayout
@@ -109,6 +120,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:textColor="@color/white"
                             android:id="@+id/user_profile_textview"
                             android:singleLine="true"
                             android:text="Total Posts"/>
@@ -117,6 +129,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/total_posts_counter"
                             android:singleLine="true"
+                            android:textColor="@color/white"
                             android:text="0"
                             android:layout_gravity="center"/>
 
@@ -140,6 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
+                            android:textColor="@color/white"
                             android:id="@+id/profile_followers"
                             android:layout_gravity="center"
                             android:text="Followers"/>
@@ -148,6 +162,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
+                            android:textColor="@color/white"
                             android:text="0"
                             android:layout_gravity="center"/>
 
@@ -171,6 +186,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
+                            android:textColor="@color/white"
                             android:id="@+id/profile_following"
                             android:layout_gravity="center"
                             android:text="Following"/>
@@ -179,6 +195,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
+                            android:textColor="@color/white"
                             android:text="0"
                             android:layout_gravity="center"/>
 
@@ -187,13 +204,11 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <RelativeLayout
                     android:layout_below="@+id/activity_profile_textFields"
                     android:id="@+id/new_username"
                     android:layout_margin="20dp"
                     android:padding="10dp"
-
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -202,15 +217,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:id="@+id/age"
                         android:textSize="16sp"
-                        android:text="Name"/>
+                        android:text="Age"/>
 
                     <TextView
-                        android:id="@+id/name"
+                        android:id="@+id/age_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="Username"
+                        android:text="Age Value"
+                        android:layout_below="@+id/age"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -218,22 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:id="@+id/age"
-                        android:text="My Age"/>
-
-                    <TextView
-                        android:id="@+id/age_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="Age"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="200dp"
                         android:textSize="16sp"
                         android:id="@+id/gender"
                         android:text="Gender"/>
@@ -243,13 +245,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
+                        android:layout_below="@+id/gender"
+                        android:layout_marginLeft="200dp"
                         android:text="gender"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:id="@+id/about_me_head"
+                        android:layout_below="@+id/age_value"
+                        android:textSize="16sp"
+                        android:text="About me"/>
+
+                    <TextView
+                        android:id="@+id/about"
+                        android:layout_below="@+id/about_me_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="About me"
                         android:textStyle="bold"/>
 
 
 
-                </LinearLayout>
 
+
+                </RelativeLayout>
+
+                <!--
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_below="@+id/new_username"
@@ -280,10 +305,7 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/about_me_layout"
-                    android:layout_height="50dp" />
+                -->
 
 
             </RelativeLayout>
@@ -295,6 +317,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:clickable="true"
+            android:visibility="gone"
             android:id="@+id/activity_profile_progress">
 
             <TextView
@@ -303,7 +326,6 @@
                 android:text="Loading"
                 android:layout_gravity="center"
                 android:textStyle="bold"
-
                 android:textSize="20sp"
                 android:layout_marginBottom="70dp"
                 />

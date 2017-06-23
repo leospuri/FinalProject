@@ -321,7 +321,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                 public void onClick(DialogInterface dialog, int whichButton) {
                     addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUser_name_reply() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences), messageItem.getUser_name_reply()));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUser_name_reply(), String.valueOf(System.currentTimeMillis()/1000)));
                     try {
                         postComment(view, (String.valueOf("@" + messageItem.getUser_name_reply() + " " + edt.getText().toString())),messageItem);
                     } catch (Exception e) {

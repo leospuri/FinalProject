@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -142,10 +143,11 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     }
 
     private void initUiView() {
-        recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview_other);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         recyclerView.setHasFixedSize(true);
 
         recyclerView.addOnScrollListener(new PaginationScrollListener(llm) {

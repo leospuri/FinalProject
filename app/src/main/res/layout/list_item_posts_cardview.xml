@@ -6,12 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_row"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
-    app:cardCornerRadius="5dp"
-    app:cardUseCompatPadding="true">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/list_item_post_background"
@@ -21,6 +16,7 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/list_item_posts_avatar"
+            fresco:roundedCornerRadius="18.5dp"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginEnd="8dp"
@@ -38,7 +34,7 @@
             android:paddingRight="5dp"
             android:singleLine="true"
             android:text="harishusername"
-            android:maxLength="16"
+            android:maxLength="14"
             android:textColor="#de000000"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -70,7 +66,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="heartbroken"
-            android:textColor="@color/md_grey_700"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <TextView
@@ -78,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:background="@color/md_grey_100"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="3dp"
             android:paddingLeft="6dp"
@@ -133,19 +128,20 @@
             android:id="@+id/list_item_posts_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_category"
             android:layout_below="@id/list_item_post_userNickName"
             android:layout_marginBottom="3dp"
             android:layout_toEndOf="@id/list_item_posts_avatar"
             android:layout_toRightOf="@id/list_item_posts_avatar"
-            android:text="this is time"
+            android:text="category"
             android:textColor="#444"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/list_item_posts_message"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_posts_timeStamp"
+            android:layout_below="@id/list_item_posts_category"
             android:layout_marginTop="3dp"
             android:maxLines="3"
             android:maxLength="1000"
@@ -349,6 +345,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="10dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/play_button_layout"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_more_grey" />

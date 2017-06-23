@@ -34,7 +34,7 @@ public class NavDrawer {
             throw new RuntimeException("To use this class, you must have views with the ids of drawer_layout and nav_drawer");
 
         Toolbar toolbar = activity.getToolbar();
-        toolbar.setNavigationIcon(R.drawable.ic_navigation_black);
+        toolbar.setNavigationIcon(R.drawable.ic_navigation);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +136,7 @@ public class NavDrawer {
         public void setSelected(boolean isSelected) {
             if (isSelected) {
                 view.setBackgroundResource(R.drawable.list_item_nav_drawer_selected_item_background);
-                textView.setTextColor(navDrawer.activity.getResources().getColor(R.color.list_item_nav_drawer_selected_item_text_color));
+                textView.setTextColor(navDrawer.activity.getResources().getColor(R.color.white));
             } else {
                 view.setBackground(null);
                 textView.setTextColor(defaultTextColor);

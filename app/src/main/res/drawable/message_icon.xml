@@ -21,10 +21,10 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:top="1dp"
-        android:bottom="2dp"
-        android:left="1dp"
-        android:right="1dp"
+        android:top="10dp"
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
         >
         <selector>
             <item android:state_pressed="true">
@@ -35,7 +35,7 @@
 
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="#fc8b61" />
+                    <solid android:color="@color/white" />
                 </shape>
             </item>
         </selector>
@@ -48,7 +48,7 @@
         android:right="10dp"
         >
         <bitmap
-            android:src="@drawable/message02"
+            android:src="@drawable/message_icon_new"
             android:gravity="center"
             />
     </item>

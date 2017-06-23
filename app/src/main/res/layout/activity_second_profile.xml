@@ -11,6 +11,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:background="@color/md_grey_100"
         android:layout_height="match_parent">
 
         <FrameLayout
@@ -18,338 +19,384 @@
             android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/md_grey_300"
-            android:orientation="vertical">
-
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/md_grey_50"
-                android:id="@+id/second_profile_header_banner"
-                tools:context=".ProfilePage.ProfileActivity">
+                android:layout_height="match_parent"
+                android:background="@color/md_grey_300"
+                android:orientation="vertical">
 
-                <include layout="@layout/include_toolbar"
+                <include layout="@layout/include_toolbar3"
                     android:background="@color/transparent"
                     />
 
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/second_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:scaleType="centerCrop"
-                    fresco:placeholderImage="@drawable/profile_back" />
-
-
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/second_profile_progress"
-                    android:visibility="gone"
-                    android:indeterminate="true"/>
-                <!--  <com.intrusoft.library.FrissonView
-                      android:id="@+id/wave_head"
-                      android:layout_width="match_parent"
-                      android:layout_height="300dp"
-                      frisson:src="@drawable/profile"
-                      android:scaleType="centerCrop"
-                      frisson:tideCount="3"
-                      frisson:tintColor="@color/transparent"
-                      frisson:tideHeight="50dp"
-                      frisson:alphaValue="70"
-                      frisson:autoTint="true"/>   -->
-
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="14dp"
-                    android:background="@mipmap/ic_ab_close" />
-
-                <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:id="@+id/send_private_message"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginTop="235dp"
-                    android:background="@drawable/message_icon" />
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/second_image"
-                    android:padding="10dp"
-                    android:layout_marginTop="35dp"
-                    android:orientation="horizontal"
-                    android:id="@+id/second_activity_profile_textFields">
+                    android:background="@color/md_grey_100"
+                    android:id="@+id/second_profile_header_banner"
+                    tools:context=".ProfilePage.ProfileActivity">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/layout_second_profile_followers"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:id="@+id/second_profile_followers"
-                            android:singleLine="true"
-                            android:text="Followers"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/second_action_followers"
-                            android:singleLine="true"
-                            android:text="0"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="290dp"
+                        android:id="@+id/profile_back"
+                        android:background="#11bce8" />
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/second_image"
+                        fresco:roundedCornerRadius="60dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="80dp"
+                        android:scaleType="centerCrop"
+                        android:layout_centerHorizontal="true"
+                        fresco:placeholderImage="@drawable/profile_back" />
+
+                    <TextView
+                        android:id="@+id/second_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Username"
                         android:layout_marginTop="10dp"
-                        android:background="#aa424242" />
+                        android:textColor="@color/white"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/second_image"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/second_profile_progress"
+                        android:visibility="gone"
+                        android:indeterminate="true"/>
+
+
+                    <!--  <com.intrusoft.library.FrissonView
+                          android:id="@+id/wave_head"
+                          android:layout_width="match_parent"
+                          android:layout_height="300dp"
+                          frisson:src="@drawable/profile"
+                          android:scaleType="centerCrop"
+                          frisson:tideCount="3"
+                          frisson:tintColor="@color/transparent"
+                          frisson:tideHeight="50dp"
+                          frisson:alphaValue="70"
+                          frisson:autoTint="true"/>   -->
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/layout_second_follow"
                         android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_marginTop="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_below="@+id/second_image">
 
                         <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
                             android:singleLine="true"
                             android:id="@+id/second_profile_follow_me"
                             android:padding="15dp"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/black"
                             android:layout_gravity="center"
-                            android:background="@color/transparent"
+                            android:background="@color/white"
                             android:text="Follow"/>
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="#aa424242" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/send_private_message"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginTop="220dp"
+                        android:background="@drawable/message_icon" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/layout_second_profile_following"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_below="@id/layout_second_follow"
+                        android:padding="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/new_toolbar_color"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/second_activity_profile_textFields">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:id="@+id/second_profile_following"
-                            android:layout_gravity="center"
-                            android:text="Following"/>
-                        <TextView
-                            android:id="@+id/second_action_following"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/layout_second_profile_total"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
+                                android:id="@+id/second_user_profile_textview"
+                                android:singleLine="true"
+                                android:text="Total Posts"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/second_total_posts_counter"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:text="0"
+                                android:layout_gravity="center"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#aa424242" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:text="0"
-                            android:layout_gravity="center"/>
+                            android:id="@+id/layout_second_profile_followers"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:id="@+id/second_profile_followers"
+                                android:layout_gravity="center"
+                                android:text="Followers"/>
+                            <TextView
+                                android:id="@+id/second_action_followers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:text="0"
+                                android:layout_gravity="center"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#aa424242" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/layout_second_profile_following"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:id="@+id/second_profile_following"
+                                android:layout_gravity="center"
+                                android:text="Following"/>
+                            <TextView
+                                android:id="@+id/second_action_following"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:text="0"
+                                android:layout_gravity="center"/>
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_below="@+id/second_activity_profile_textFields"
+                        android:id="@+id/second_about_me_layout"
+                        android:layout_margin="20dp"
+                        android:padding="10dp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_below="@+id/second_activity_profile_textFields"
-                    android:id="@+id/second_new_username"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:padding="10dp"
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:text="Name"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/onlineIndicator"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/shape_bubble_online"
-                            />
 
                         <TextView
-                            android:id="@+id/second_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-smallcaps"
-                            android:text="Username"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="200dp"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:id="@+id/second_gender"
+                            android:text="Gender"/>
+
+                        <TextView
+                            android:id="@+id/second_gender_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_below="@+id/second_gender"
+                            android:layout_marginLeft="200dp"
+                            android:text="gender"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/second_age"
+                            android:text="My Age"/>
+
+                        <TextView
+                            android:id="@+id/second_age_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_below="@+id/second_age"
+                            android:text="Age"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:id="@+id/about_me_head_second"
+                            android:layout_below="@+id/second_age_value"
+                            android:textSize="16sp"
+                            android:text="About me"/>
+
+                        <TextView
+                            android:id="@+id/second_about"
+                            android:layout_below="@+id/about_me_head_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="About me"
+                            android:textStyle="bold"/>
+
+
+
+
+
+                    </RelativeLayout>
+
+                    <!--
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_below="@+id/new_username"
+                        android:id="@+id/about_me_layout"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:padding="10dp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp"
+                            android:text="About me"/>
+
+                        <TextView
+                            android:id="@+id/about"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="About me"
+                            android:textStyle="bold"/>
+
+
 
                     </LinearLayout>
 
+                    -->
 
 
+                </RelativeLayout>
 
+            </LinearLayout>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clickable="true"
+                android:visibility="gone"
+                android:id="@+id/activity_second_profile_progress">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:id="@+id/second_age"
-                        android:text="My Age"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="70dp"
+                    />
 
-                    <TextView
-                        android:id="@+id/second_age_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="Age"
-                        android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please Wait..."
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="40dp"
+                    />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:id="@+id/second_gender"
-                        android:text="Gender"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="70dp"
+                    />
 
-                    <TextView
-                        android:id="@+id/second_gender_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="gender"
-                        android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please Wait..."
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="40dp"
+                    />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:id="@+id/second_user_profile_textview"
-                        android:text="Total Posts"/>
-
-                    <TextView
-                        android:id="@+id/second_total_posts_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="0"
-                        android:textStyle="bold"/>
-
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_below="@+id/second_new_username"
-                    android:id="@+id/second_about_me_layout"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:padding="10dp"
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:text="About me"/>
-
-                    <TextView
-                        android:id="@+id/second_about"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="About me"
-                        android:textStyle="bold"/>
-
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_below="@+id/second_about_me_layout"
-                    android:layout_height="50dp" />
-
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:clickable="true"
-            android:visibility="gone"
-            android:id="@+id/activity_second_profile_progress">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loading"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginBottom="70dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please Wait..."
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginBottom="40dp"
-                />
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:layout_gravity="center"/>
-        </FrameLayout>
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
 
         </FrameLayout>
 
     </ScrollView>
+
+
 
 
 

@@ -35,7 +35,6 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class StepSample6 extends AbstractStep implements View.OnClickListener {
     private boolean yes = false;
     private TextView textview_ask_audio_perm;
-    private TextView textview_audio_success;
     private ImageView request_record_audio_perm;
     Toolbar toolbar;
     RelativeLayout audio_record_back;
@@ -50,12 +49,10 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         View v = inflater.inflate(R.layout.fragment_step_sample6, container, false);
 
         textview_ask_audio_perm = (TextView) v.findViewById(R.id.textview_ask_audio_perm);
-        textview_audio_success = (TextView) v.findViewById(R.id.textview_audio_success);
         request_record_audio_perm = (ImageView) v.findViewById(R.id.request_record_audio_perm);
         audio_record_back = (RelativeLayout) v.findViewById(R.id.audio_record_back);
 
         request_record_audio_perm.setOnClickListener(this);
-        textview_audio_success.setVisibility(View.GONE);
 
         checkIfAlreadyhavePermission();
 
@@ -89,8 +86,6 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
 
-                textview_audio_success.setVisibility(View.VISIBLE);
-
                 textview_ask_audio_perm.setText("Recording done");
                 //    Toast.makeText(this, "audio TIme: " + audio_time, Toast.LENGTH_SHORT).show();
 
@@ -99,7 +94,6 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
                 /************ Audio Received ******************** */
 
                 Toast.makeText(getActivity(), "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
-                textview_audio_success.setText("Successful");
 
             } else if (resultCode == getActivity().RESULT_CANCELED) {
                 Toast.makeText(getActivity(), "Audio was not recorded", Toast.LENGTH_SHORT).show();

@@ -23,6 +23,7 @@ import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DiscoverPage.LatestListAdapter;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -139,6 +140,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
     private void initUiView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_main_feed_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
         recyclerView.addOnScrollListener(new PaginationScrollListener(new LinearLayoutManager(this.getActivity())) {
             @Override
             protected void loadMoreItems() {

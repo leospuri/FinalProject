@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.otto.Subscribe;
 
 import java.io.IOException;
@@ -740,6 +741,13 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onNext(UserResponse userResponse) {
                         Timber.e(userResponse.getMsg());
                         Toast.makeText(PostsDetailsActivity.this, "success comment post", Toast.LENGTH_SHORT).show();
+
+                        if (idusername.equals(MySharedPreferences.getUserId(preferences))){
+                            Timber.e("Same User");
+                        } else {
+                            FirebaseMessaging.getInstance().subscribeToTopic("SUB_POST_" + postId);
+                        }
+
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -757,6 +765,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<UserResponse>() {
                     @Override
                     public void onNext(UserResponse userResponse) {
+
+                        if (idusername.equals(MySharedPreferences.getUserId(preferences))){
+                            Timber.e("Same User");
+                        } else {
+                            FirebaseMessaging.getInstance().subscribeToTopic("SUB_POST_" + postId);
+                        }
 
                     }
                     @Override

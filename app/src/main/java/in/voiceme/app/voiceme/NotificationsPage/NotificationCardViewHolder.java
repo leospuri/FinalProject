@@ -17,8 +17,6 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
     protected NotificationPojo dataItem;
     TextView personName;
     RelativeLayout notification_background;
-    TextView notificationFeeling;
-    TextView notification_like_left;
     TextView notificationTime;
     TextView notification_feeling_status;
     SimpleDraweeView personPhoto;
@@ -26,8 +24,6 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
     public NotificationCardViewHolder(View itemView) {
         super(itemView);
         personName = (TextView) itemView.findViewById(R.id.notification_user);
-        notificationFeeling = (TextView) itemView.findViewById(R.id.notification_feeling_text);
-        notification_like_left = (TextView) itemView.findViewById(R.id.notification_like_left);
         notification_background = (RelativeLayout) itemView.findViewById(R.id.notification_background);
         notificationTime = (TextView) itemView.findViewById(R.id.notification_post_time);
         notification_feeling_status = (TextView) itemView.findViewById(R.id.notification_feeling_status);
@@ -37,13 +33,6 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 userNameClicked(view);
-            }
-        });
-
-        notificationFeeling.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationBackClick(view);
             }
         });
 
@@ -101,13 +90,11 @@ public class NotificationCardViewHolder extends RecyclerView.ViewHolder {
 
 
         // Todo Write the logic to get activity as per the feeling name
-        notificationFeeling.setText(String.valueOf(getEmotionValue(dataItem) + " your post: "));
         notificationTime.setText(CurrentTimeLong.getCurrentTime(dataItem.getTime().trim(), itemView.getContext()));
 
-        notification_like_left.setText(String.valueOf(getImageValue(dataItem)));
         if (dataItem.getTextStatus() != null){
             if (!(dataItem.getTextStatus().trim().isEmpty())){
-                notification_feeling_status.setText(dataItem.getTextStatus().trim());
+                notification_feeling_status.setText(String.valueOf(getEmotionValue(dataItem) + " your post: " + dataItem.getTextStatus().trim()));
             } else {
                 notification_feeling_status.setText("No status");
             }

@@ -54,11 +54,12 @@ public class ReplyCommentPojo {
         return commentTime;
     }
 
-    public ReplyCommentPojo(String message, String imageUri, String userName, String user_name_reply) {
+    public ReplyCommentPojo(String message, String imageUri, String userName, String user_name_reply, String commentTime) {
         this.comment = message;
         this.avatar = imageUri;
         this.userName = userName;
         this.user_name_reply = user_name_reply;
+        this.commentTime = commentTime;
     }
 
 

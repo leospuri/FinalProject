@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/md_blue_grey_100">
+        android:background="@color/md_blue_100">
 
         <include
             layout="@layout/include_login_header" />
