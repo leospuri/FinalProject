@@ -35,6 +35,7 @@ import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
@@ -249,6 +250,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 //        mLinearLayoutManager.setReverseLayout(true);
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mMessageRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         mMessageRecyclerView.setAdapter(mMessageAdapter);
 
     }

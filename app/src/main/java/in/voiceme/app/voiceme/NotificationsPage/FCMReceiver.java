@@ -1,12 +1,11 @@
 package in.voiceme.app.voiceme.NotificationsPage;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -96,7 +95,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                         startService(intent);
 
                         if (MessageActivity.messageActivityuserId == null){
-                            showChatNotification(remoteMessage.getNotification().getTitle());
+                            showChatNotification(remoteMessage.getNotification().getTitle(), remoteMessage);
                         } else if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
                             startingUp(chatTextPojo);
                         }
@@ -104,10 +103,10 @@ public class FCMReceiver extends FirebaseMessagingService {
                 }
                 else {
                     //   return;
-                    showChatNotification(remoteMessage.getNotification().getTitle());
+                    showChatNotification(remoteMessage.getNotification().getTitle(), remoteMessage);
                 }
             } else {
-                showNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
+                showNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle(), remoteMessage);
                 //     saveNotificationObject(getJsonFromList(notificationData, remoteMessage));
             }
 
@@ -152,7 +151,7 @@ public class FCMReceiver extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
 
-    private void showChatNotification(String messageBody) {
+    private void showChatNotification(String messageBody, RemoteMessage remoteMessage) {
     /*
     Creates pending intent
      */
@@ -165,17 +164,21 @@ public class FCMReceiver extends FirebaseMessagingService {
                 PendingIntent.getActivity(
                         this, 1 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+       // builder.setGroup(remoteNotification.getUserNotificationGroup());
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
 
                 .setContentTitle(messageBody)
                 .setContentText("View the message inside Voiceme")
                 .setAutoCancel(true)
+                .setGroup(remoteMessage.getNotification().getTag())
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat notificationManager =  NotificationManagerCompat.from(this);
+            //    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         long time = System.currentTimeMillis();
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
@@ -184,7 +187,7 @@ public class FCMReceiver extends FirebaseMessagingService {
                 notificationBuilder.build());
     }
 
-    private void showNotification(String messageBody, String post) {
+    private void showNotification(String messageBody, String post, RemoteMessage remoteMessage) {
     /*
     Creates pending intent
      */
@@ -200,12 +203,13 @@ public class FCMReceiver extends FirebaseMessagingService {
                 .setContentTitle(post)
                 .setContentText(messageBody)
                 .setAutoCancel(true)
+                .setGroup(remoteMessage.getNotification().getTag())
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat  notificationManager = NotificationManagerCompat.from(this);
+            //    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         long time = System.currentTimeMillis();
         String tmpStr = String.valueOf(time);
         String last4Str = tmpStr.substring(tmpStr.length() - 5);

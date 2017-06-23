@@ -29,6 +29,7 @@ import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
@@ -254,6 +255,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 //        mLinearLayoutManager.setReverseLayout(true);
 
             replyRecyclerview.setLayoutManager(mReplyLinearLayoutManager);
+            replyRecyclerview.addItemDecoration(new SimpleDividerItemDecoration(itemView.getContext()));
             replyRecyclerview.setAdapter(commentReplyAdapter);
 
             username.setOnClickListener(new View.OnClickListener() {

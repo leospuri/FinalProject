@@ -337,9 +337,6 @@
             tools:text="REPLY" />
 
 
-
-
-
         <ImageView
             android:id="@+id/status_more"
             android:layout_width="48dp"

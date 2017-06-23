@@ -2,12 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_blue_100"
+    android:background="@drawable/register_start"
     tools:context="in.voiceme.app.voiceme.login.BlankFragment">
 
-    <include
-        android:id="@+id/include_login_header"
-        layout="@layout/include_login_header" />
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="55dp"
+        android:src="@drawable/login_header_logo"
+        android:id="@+id/layout_login_logo"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/layout_login_logo"
+        android:src="@drawable/logoold_black"
+        android:id="@+id/layout_login_header"
+        android:layout_centerHorizontal="true"/>
 
     <!--
     <Button
@@ -27,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/include_login_header"
+        android:layout_below="@+id/layout_login_header"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:gravity="bottom"
