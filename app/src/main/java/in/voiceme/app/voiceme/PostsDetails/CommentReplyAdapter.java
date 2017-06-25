@@ -142,6 +142,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
         private TextView like_below_comment_reply;
         private TextView like_below_comment_counter;
         private ImageView like_below_comment;
+        protected int likeReplyCounter;
 
 
         private Animation.AnimationListener mFadeOutAnimationListener = new Animation.AnimationListener() {
@@ -229,6 +230,12 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
 
+            likeReplyCounter = messageItem.getComment_likes();
+
+            like_below_comment_counter.setText(String.valueOf(likeReplyCounter));
+
+
+
             comment_time.setText(CurrentTime.getCurrentTime(messageItem.getCommentTime(), itemView.getContext()));
 
             String message = messageItem.getComment();
@@ -252,6 +259,13 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                 @Override
                 public void onClick(View view) {
                     CommentReply(view, messageItem);
+                }
+            });
+
+            like_below_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommentlikeCounter(view, messageItem);
                 }
             });
 
@@ -303,8 +317,10 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             }
         }
 
-        private void CommentlikeCounter(View view, ReplyCommentPojo messageItem) {
-            Toast.makeText(view.getContext(), "Counter clicked", Toast.LENGTH_SHORT).show();
+        protected void CommentlikeCounter(View view, ReplyCommentPojo messageItem) {
+            likeReplyCounter++;
+            like_below_comment_counter.setText(String.valueOf(likeReplyCounter));
+
         }
 
         private void CommentReply(View view, ReplyCommentPojo messageItem) {
@@ -321,7 +337,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                 public void onClick(DialogInterface dialog, int whichButton) {
                     addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUser_name_reply() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences), messageItem.getUser_name_reply(), String.valueOf(System.currentTimeMillis()/1000)));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUser_name_reply(), String.valueOf(System.currentTimeMillis()/1000), 0));
                     try {
                         postComment(view, (String.valueOf("@" + messageItem.getUser_name_reply() + " " + edt.getText().toString())),messageItem);
                     } catch (Exception e) {
@@ -361,7 +377,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
 
     private void deleteChat(View view, String messageId) throws Exception {
         ((VoicemeApplication) view.getContext().getApplicationContext()).getWebService()
-                .deleteComment(messageId)
+                .deleteCommentReply(messageId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<UserResponse>() {

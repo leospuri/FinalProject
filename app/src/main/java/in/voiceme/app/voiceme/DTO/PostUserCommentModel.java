@@ -37,10 +37,15 @@ public class PostUserCommentModel implements Parcelable {
     @SerializedName("postUserId") @Expose private String postUserId;
     @SerializedName("commentUserId") @Expose private String commentUserId;
     @SerializedName("comment_time") @Expose private String commentTime;
+    @SerializedName("comment_likes") @Expose private int comment_likes;
     @SerializedName("reply") @Expose private List<ReplyCommentPojo> replyComment;;
 
     public List<ReplyCommentPojo> getReplyComment() {
         return replyComment;
+    }
+
+    public int getComment_likes() {
+        return comment_likes;
     }
 
     public String getUserName() {
@@ -75,10 +80,12 @@ public class PostUserCommentModel implements Parcelable {
         return commentUserId;
     }
 
-    public PostUserCommentModel(String message, String imageUri, String userName) {
+    public PostUserCommentModel(String message, String imageUri, String userName, String commentTime, int comment_likes) {
         this.comment = message;
+        this.commentTime = commentTime;
         this.avatar = imageUri;
         this.userName = userName;
+        this.comment_likes = comment_likes;
     }
 
 
@@ -88,6 +95,7 @@ public class PostUserCommentModel implements Parcelable {
         avatar = in.readString();
         comment = in.readString();
         commentTime = in.readString();
+        comment_likes = in.readInt();
     }
 
 
@@ -103,5 +111,6 @@ public class PostUserCommentModel implements Parcelable {
         parcel.writeString(avatar);
         parcel.writeString(comment);
         parcel.writeString(commentTime);
+        parcel.writeInt(comment_likes);
     }
 }

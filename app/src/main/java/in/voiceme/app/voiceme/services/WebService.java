@@ -344,6 +344,12 @@ public interface WebService {
     );
 
     @FormUrlEncoded
+    @POST("delete_comment_reply.php")
+    Observable<UserResponse> deleteCommentReply(
+            @Field("id_post_comment_reply") String id_post_comment_reply
+    );
+
+    @FormUrlEncoded
     @POST("save_token.php")
     Observable<SuccessResponse> save_token(
             @Field("id_user_name") String id_user_name,

@@ -668,11 +668,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     e.printStackTrace();
                 }
 
-
-
                 mMessageAdapter.addMessage(new PostUserCommentModel(message,
                         MySharedPreferences.getImageUrl(preferences),
-                        MySharedPreferences.getUsername(preferences)));
+                        MySharedPreferences.getUsername(preferences), String.valueOf(System.currentTimeMillis()/1000), 0));
             }
 
             mMessageEditText.setText("");

@@ -144,6 +144,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private TextView comment_time;
         private TextView like_below_comment_reply;
         private TextView like_below_comment_counter;
+        private ImageView like_below_comment_direct;
         private TextView messageCard;
         private ImageView commentMore;
         private SimpleDraweeView userImage;
@@ -152,6 +153,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         List<ReplyCommentPojo> mReplyMessageList;
         private RecyclerView replyRecyclerview;
         private LinearLayoutManager mReplyLinearLayoutManager;
+        protected int comment_likes;
 
 
         private Animation.AnimationListener mFadeOutAnimationListener = new Animation.AnimationListener() {
@@ -179,6 +181,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             username = (TextView) itemView.findViewById(R.id.tv_user_name);
             comment_time = (TextView) itemView.findViewById(R.id.comment_time);
+            like_below_comment_direct = (ImageView) itemView.findViewById(R.id.like_below_comment_direct);
             like_below_comment_counter = (TextView) itemView.findViewById(R.id.like_below_comment_counter);
             like_below_comment_reply = (TextView) itemView.findViewById(R.id.like_below_comment_reply);
             messageCard = (TextView) itemView.findViewById(R.id.tv_message_card);
@@ -238,6 +241,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
 
+            comment_likes = messageItem.getComment_likes();
+
+            like_below_comment_counter.setText(String.valueOf(comment_likes));
+
             String message = messageItem.getComment();
             String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
@@ -266,6 +273,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             });
 
             like_below_comment_counter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommentlikeCounter(view, messageItem);
+                }
+            });
+
+            like_below_comment_direct.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     CommentlikeCounter(view, messageItem);
@@ -328,7 +342,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
 
         private void CommentlikeCounter(View view, PostUserCommentModel messageItem) {
-            Toast.makeText(view.getContext(), "Counter clicked", Toast.LENGTH_SHORT).show();
+            comment_likes++;
+            like_below_comment_counter.setText(String.valueOf(comment_likes));
+         //   Toast.makeText(view.getContext(), "Counter clicked", Toast.LENGTH_SHORT).show();
         }
 
         private void CommentReply(View view, PostUserCommentModel messageItem) {
@@ -346,7 +362,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     //do something with edt.getText().toString();
                     commentReplyAdapter.addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences), messageItem.getUserName(), String.valueOf(System.currentTimeMillis()/1000)));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUserName(), String.valueOf(System.currentTimeMillis()/1000), 0));
                     try {
                         postComment(view, (String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString())),messageItem.getCommentId(), messageItem.getCommentUserId());
                     } catch (Exception e) {
