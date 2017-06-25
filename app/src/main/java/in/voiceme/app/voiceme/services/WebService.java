@@ -277,6 +277,24 @@ public interface WebService {
     );
 
     @FormUrlEncoded
+    @POST("insert_comment_like.php")
+    Observable<SuccessResponse> sendCommentLike(
+            @Field("id_post_comment") String id_post_comment,
+            @Field("id_user_name") String id_user_name,
+            @Field("comment_likes") String comment_likes,
+            @Field("post_comment_id") String post_comment_id
+    );
+
+    @FormUrlEncoded
+    @POST("insert_comment_reply_like.php")
+    Observable<SuccessResponse> sendCommentReplyLike(
+            @Field("id_post_comment_reply") String id_post_comment_reply,
+            @Field("id_user_name") String id_user_name,
+            @Field("likes") String likes,
+            @Field("post_comment_reply_id") String post_comment_reply_id
+    );
+
+    @FormUrlEncoded
     @POST("report_abuse.php")
     Observable<SuccessResponse> reportAbuse(
             @Field("id_user_name") String id_user_name,

@@ -31,6 +31,8 @@ public class PostUserCommentModel implements Parcelable {
 
     @SerializedName("user_name") @Expose private String userName;
     @SerializedName("id_post_user_name") @Expose private String id_post_user_name;
+    @SerializedName("post_comment_id") @Expose private String post_comment_id;  // ID of the user whose comment got liked by someone else
+    @SerializedName("post_comment_like_true") @Expose private String post_comment_like_true;
     @SerializedName("commentId") @Expose private String commentId;
     @SerializedName("avatar") @Expose private String avatar;
     @SerializedName("comment") @Expose private String comment;
@@ -44,8 +46,16 @@ public class PostUserCommentModel implements Parcelable {
         return replyComment;
     }
 
+    public String getPost_comment_id() {
+        return post_comment_id;
+    }
+
     public int getComment_likes() {
         return comment_likes;
+    }
+
+    public String getPost_comment_like_true() {
+        return post_comment_like_true;
     }
 
     public String getUserName() {
@@ -80,12 +90,13 @@ public class PostUserCommentModel implements Parcelable {
         return commentUserId;
     }
 
-    public PostUserCommentModel(String message, String imageUri, String userName, String commentTime, int comment_likes) {
+    public PostUserCommentModel(String message, String imageUri, String userName, String commentTime, int comment_likes, String post_comment_like_true) {
         this.comment = message;
         this.commentTime = commentTime;
         this.avatar = imageUri;
         this.userName = userName;
         this.comment_likes = comment_likes;
+        this.post_comment_like_true = post_comment_like_true;
     }
 
 
@@ -95,7 +106,9 @@ public class PostUserCommentModel implements Parcelable {
         avatar = in.readString();
         comment = in.readString();
         commentTime = in.readString();
+        post_comment_like_true = in.readString();
         comment_likes = in.readInt();
+        post_comment_id = in.readString();
     }
 
 
@@ -111,6 +124,8 @@ public class PostUserCommentModel implements Parcelable {
         parcel.writeString(avatar);
         parcel.writeString(comment);
         parcel.writeString(commentTime);
+        parcel.writeString(post_comment_like_true);
+        parcel.writeString(post_comment_id);
         parcel.writeInt(comment_likes);
     }
 }

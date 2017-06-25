@@ -154,6 +154,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         private RecyclerView replyRecyclerview;
         private LinearLayoutManager mReplyLinearLayoutManager;
         protected int comment_likes;
+        protected boolean comment_likes_true = false;
 
 
         private Animation.AnimationListener mFadeOutAnimationListener = new Animation.AnimationListener() {
@@ -240,6 +241,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             user_comment = messageItem;
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
+            if (messageItem.getPost_comment_like_true() != null){
+                comment_likes_true = true;
+            }
 
             comment_likes = messageItem.getComment_likes();
 
@@ -342,7 +346,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
 
         private void CommentlikeCounter(View view, PostUserCommentModel messageItem) {
-            comment_likes++;
+
+
+            if (comment_likes_true){
+                comment_likes_true = false;
+                comment_likes--;
+
+                try {
+                    postUnLike(messageItem.getCommentId(), messageItem.getPost_comment_id());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // unlike network call
+            } else {
+                comment_likes_true = true;
+                try {
+                    postLike(messageItem.getCommentId(), messageItem.getPost_comment_id());
+                    postCommentReplyLikeNotification(messageItem.getId_post_user_name());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                comment_likes++;
+            }
             like_below_comment_counter.setText(String.valueOf(comment_likes));
          //   Toast.makeText(view.getContext(), "Counter clicked", Toast.LENGTH_SHORT).show();
         }
@@ -362,7 +388,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     //do something with edt.getText().toString();
                     commentReplyAdapter.addMessage(new ReplyCommentPojo(String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString()),
                             MySharedPreferences.getImageUrl(preferences),
-                            MySharedPreferences.getUsername(preferences), messageItem.getUserName(), String.valueOf(System.currentTimeMillis()/1000), 0));
+                            MySharedPreferences.getUsername(preferences), messageItem.getUserName(), String.valueOf(System.currentTimeMillis()/1000), 0, "1"));
                     try {
                         postComment(view, (String.valueOf("@" + messageItem.getUserName() + " " + edt.getText().toString())),messageItem.getCommentId(), messageItem.getCommentUserId());
                     } catch (Exception e) {
@@ -400,6 +426,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         bus.post(new Account.sendCommentReply(commentId, idPostUsername, message));
 
     }
+
+    private void postLike(String id_post_comment, String id_user_name) throws Exception {
+        bus.post(new Account.sendCommentLike(id_post_comment, id_user_name, "1"));
+
+    }
+
+    private void postUnLike(String id_post_comment, String id_user_name) throws Exception {
+        bus.post(new Account.sendCommentLike(id_post_comment, id_user_name, null));
+
+    }
+
+    private void postCommentReplyLikeNotification(String user_id) throws Exception {
+        bus.post(new Account.sendLikeUserId(user_id));
+
+    }
+
 
     private void deleteChat(View view, String messageId) throws Exception {
         ((VoicemeApplication) view.getContext().getApplicationContext()).getWebService()

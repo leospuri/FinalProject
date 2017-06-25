@@ -33,6 +33,7 @@ import java.util.List;
 import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
@@ -670,7 +671,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
                 mMessageAdapter.addMessage(new PostUserCommentModel(message,
                         MySharedPreferences.getImageUrl(preferences),
-                        MySharedPreferences.getUsername(preferences), String.valueOf(System.currentTimeMillis()/1000), 0));
+                        MySharedPreferences.getUsername(preferences), String.valueOf(System.currentTimeMillis()/1000), 0, "1"));
             }
 
             mMessageEditText.setText("");
@@ -747,6 +748,87 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         } else {
                             FirebaseMessaging.getInstance().subscribeToTopic("SUB_POST_" + postId);
                         }
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+
+                    }
+                });
+    }
+
+    @Subscribe
+    public void postLikeNotification(Account.sendLikeUserId sendReply) throws Exception {
+
+        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                sendReply.id_user + "_postId@" + postId  + "_click@" + "6"; // 6 for like the comment. 7 for replied to comment
+
+
+        application.getWebService()
+                .sendLikeNotification(sendLike)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String userResponse) {
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+
+                    }
+                });
+    }
+
+    @Subscribe
+    public void postCommentLike(Account.sendCommentLike sendReply) throws Exception {
+
+        application.getWebService()
+                .sendCommentLike(sendReply.id_post_comment, MySharedPreferences.getUserId(preferences), "1", sendReply.id_post_comment)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse userResponse) {
+
+                        // Send notification to user with id_user_name ID
+                        Toast.makeText(PostsDetailsActivity.this, "success comment like", Toast.LENGTH_SHORT).show();
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+
+                    }
+                });
+    }
+
+    @Subscribe
+    public void postCommentReplyLike(Account.sendCommentLike sendReply) throws Exception {
+
+        application.getWebService()
+                .sendCommentReplyLike(sendReply.id_post_comment, MySharedPreferences.getUserId(preferences), sendReply.like, sendReply.id_post_comment)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse userResponse) {
+
+                        if (sendReply.like != null){
+                            Toast.makeText(PostsDetailsActivity.this, "notification subscribed", Toast.LENGTH_SHORT).show();
+                            FirebaseMessaging.getInstance().subscribeToTopic("SUB_POST_" + postId);
+                        } else {
+                            // unsubscribe notification
+                            Toast.makeText(PostsDetailsActivity.this, "notification unsubscribed", Toast.LENGTH_SHORT).show();
+
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic("SUB_POST_" + postId);
+
+                        }
+
+                        // Send notification to user with id_user_name ID
+
 
                     }
                     @Override

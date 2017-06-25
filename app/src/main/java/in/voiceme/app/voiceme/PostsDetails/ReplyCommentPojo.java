@@ -11,6 +11,7 @@ public class ReplyCommentPojo {
         @SerializedName("user_name") @Expose private String userName;
         @SerializedName("id_post_comments") @Expose private String commentId;
         @SerializedName("id_post_comment_reply") @Expose private String id_post_comment_reply;
+        @SerializedName("comment_likes_true") @Expose private String comment_likes_true;
         @SerializedName("id_user_name") @Expose private String postUserId;
         @SerializedName("avatar") @Expose private String avatar;
         @SerializedName("message") @Expose private String comment;
@@ -22,6 +23,10 @@ public class ReplyCommentPojo {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getComment_likes_true() {
+        return comment_likes_true;
     }
 
     public int getComment_likes() {
@@ -64,13 +69,14 @@ public class ReplyCommentPojo {
         return commentTime;
     }
 
-    public ReplyCommentPojo(String message, String imageUri, String userName, String user_name_reply, String commentTime, int comment_likes) {
+    public ReplyCommentPojo(String message, String imageUri, String userName, String user_name_reply, String commentTime, int comment_likes, String comment_likes_true) {
         this.comment = message;
         this.avatar = imageUri;
         this.userName = userName;
         this.user_name_reply = user_name_reply;
         this.commentTime = commentTime;
         this.comment_likes = comment_likes;
+        this.comment_likes_true = comment_likes_true;
     }
 
 

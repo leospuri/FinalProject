@@ -1,7 +1,5 @@
 package in.voiceme.app.voiceme.infrastructure;
 
-import android.net.Uri;
-
 import in.voiceme.app.voiceme.NotificationsPage.ChatTextPojo;
 
 /**
@@ -81,49 +79,33 @@ public final class Account {
         }
     }
 
-    public static class RegisterResponse extends UserResponse {
-    }
+    public static class sendLikeUserId {
+        public String id_user;
 
-    /* registering with facebook and loggin in at the same time. all user information will come inside app and user's confirm */
-    public static class RegisterWithExternalTokenRequest {
-        public String UserName;
-        public String Email;
-        public String Provider;
-        public String Token;
-        public String ClientId;
-
-        public RegisterWithExternalTokenRequest(String userName, String email, String provider, String token) {
-            UserName = userName;
-            Email = email;
-            Provider = provider;
-            Token = token;
-            ClientId = "android";
+        public sendLikeUserId(String id_user) {
+            this.id_user = id_user;
         }
     }
 
-    public static class RegisterWithExternalTokenResponse extends UserResponse {
-    }
+    public static class sendCommentLike {
+        public String id_post_comment;
+        public String id_user_name;
+        public String like;
 
-
-    public static class ChangeAvatarRequest {
-        public Uri NewAvatarUri;
-
-        public ChangeAvatarRequest(Uri newAvatarUri) {
-            NewAvatarUri = newAvatarUri;
+        public sendCommentLike(String id_post_comment, String id_user_name, String like) {
+            this.id_post_comment = id_post_comment;
+            this.id_user_name = id_user_name;
+            this.like = like;
         }
     }
 
-    public static class ChangeAvatarResponse extends ServiceResponse {
-        public String avatarUrl;
-    }
+    public static class sendCommentReplyLike {
+        public String id_post_comment_reply;
+        public String post_comment_reply_id;
 
-    public static class UpdateProfileRequest {
-        public String UserNickName;
-        public String Email;
-
-        public UpdateProfileRequest(String userNickName, String email) {
-            UserNickName = userNickName;
-            Email = email;
+        public sendCommentReplyLike(String id_post_comment_reply, String post_comment_reply_id) {
+            this.id_post_comment_reply = id_post_comment_reply;
+            this.post_comment_reply_id = post_comment_reply_id;
         }
     }
 
