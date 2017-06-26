@@ -816,7 +816,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onNext(SuccessResponse userResponse) {
 
-                        if (sendReply.like != null){
+                        if (sendReply.like != null && MySharedPreferences.getUserId(preferences).equals(idusername)){
                             Toast.makeText(PostsDetailsActivity.this, "notification subscribed", Toast.LENGTH_SHORT).show();
                             FirebaseMessaging.getInstance().subscribeToTopic("SUB_POST_" + postId);
                         } else {
