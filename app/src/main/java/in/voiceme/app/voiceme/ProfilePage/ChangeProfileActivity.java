@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.model.AspectRatio;
+import com.yalantis.ucrop.view.CropImageView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -191,6 +193,12 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         options.setCompressionQuality(50);
     //    options.setCompressionQuality(DEFAULT_COMPRESS_QUALITY);
         options.setFreeStyleCropEnabled(false);
+        options.setAspectRatioOptions(1,
+                new AspectRatio("1:2", 1, 2),
+                new AspectRatio("3:4", 3, 4),
+                new AspectRatio("DEFAULT", CropImageView.DEFAULT_ASPECT_RATIO, CropImageView.DEFAULT_ASPECT_RATIO),
+                new AspectRatio("16:9", 16, 9),
+                new AspectRatio("1:1", 1, 1));
       //  options.setImageToCropBoundsAnimDuration(CROP_BOUNDS_ANIMATION_DURATION);
         options.setShowCropGrid(false);
         options.setMaxScaleMultiplier(10.0f);

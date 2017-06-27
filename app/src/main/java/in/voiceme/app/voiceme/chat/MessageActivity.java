@@ -2,8 +2,15 @@ package in.voiceme.app.voiceme.chat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,10 +36,14 @@ import com.vanniktech.emoji.listeners.OnEmojiPopupDismissListener;
 import com.vanniktech.emoji.listeners.OnEmojiPopupShownListener;
 import com.vanniktech.emoji.listeners.OnSoftKeyboardCloseListener;
 import com.vanniktech.emoji.listeners.OnSoftKeyboardOpenListener;
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.model.AspectRatio;
+import com.yalantis.ucrop.view.CropImageView;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +58,11 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.utils.ActivityUtils;
 import in.voiceme.app.voiceme.utils.CurrentTimeLong;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -65,19 +80,26 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private int selectionCount;
     private EmojiEditText editText;
     private ImageButton emojiButton;
+    private ImageButton chat_image;
     private ImageButton sendButton;
     private int messageCount;
     private List<MessagePojo> messages;
 
+    static final String USER_ID_SECOND = "USER_ID_SECOND";
+    static final String USERNAME = "USERNAME";
+
     private String onlineString = " ";
 
+    private static final int REQUEST_SELECT_IMAGE = 100;
 
     public static MessageActivity mThis = null;
     private Menu menu;
-    public static String messageActivityuserId = null;
+    public static String messageActivityuserId;
     private DateTime currentTime = new DateTime(DateTimeZone.UTC);
     private String base64String;
     private String username;
+    private MessagePojo.Image image_Url = null;
+    private File tempOutputFile;
     // List<MessagePojo> messages;
 
     @Override
@@ -86,9 +108,20 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         setContentView(R.layout.activity_message);
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
-        messageActivityuserId = getIntent().getStringExtra(Constants.YES);
 
-        username = getIntent().getStringExtra(Constants.USERNAME);
+
+        Intent intent = getIntent();
+        messageActivityuserId = intent.getStringExtra(Constants.YES);
+        username = intent.getStringExtra(Constants.USERNAME);
+
+
+        if (savedInstanceState != null){
+            messageActivityuserId = savedInstanceState.getString(USER_ID_SECOND);
+            username = savedInstanceState.getString(USERNAME);
+        }
+
+        tempOutputFile = new File(getExternalCacheDir(), "temp-profile_image.jpg");
+
         checkOnlineIndicator(messageActivityuserId);
         //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
@@ -132,6 +165,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
         editText = (EmojiEditText) findViewById(R.id.messageEmojiEdittext);
         emojiButton = (ImageButton) findViewById(R.id.main_activity_emoji);
+        chat_image = (ImageButton) findViewById(R.id.chat_image);
         sendButton = (ImageButton) findViewById(R.id.emoji_send_message);
 
         messagesList = (MessagesList) findViewById(R.id.messagesList);
@@ -147,6 +181,13 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 handler.postDelayed(this, 20000);
             }
         }, 10000);
+
+        chat_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeProfileRequest();
+            }
+        });
 
 
 
@@ -208,7 +249,6 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             }
         });
 
-
         if (MySharedPreferences.getUserId(preferences) == null){
             Timber.e("Not Logged In");
             progressFrame.setVisibility(View.GONE);
@@ -228,10 +268,14 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
         setUpEmojiPopup();
 
-
-
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(USER_ID_SECOND, messageActivityuserId);
+        outState.putString(USERNAME, username);
+        super.onSaveInstanceState(outState);
+    }
 
     private void setUpEmojiPopup() {
         emojiPopup = EmojiPopup.Builder.fromRootView(rootView)
@@ -299,11 +343,107 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     protected void onPause() {
 
         mThis = null;
-        messageActivityuserId = null;
         super.onPause();
     }
 
 
+    private void changeProfileRequest() {
+        //  ActivityUtils.openGallery(this);
+        ActivityUtils.cameraPermissionGranted(this);
+        changeAvatar();
+    }
+
+    private void changeAvatar() {
+        List<Intent> otherImageCaptureIntent = new ArrayList<>();
+        List<ResolveInfo> otherImageCaptureActivities =
+                getPackageManager().queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                        0); // finding all intents in apps which can handle capture image
+        // loop through all these intents and for each of these activities we need to store an intent
+        for (ResolveInfo info : otherImageCaptureActivities) { // Resolve info represents an activity on the system that does our work
+            Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            captureIntent.setClassName(info.activityInfo.packageName,
+                    info.activityInfo.name); // declaring explicitly the class where we will go
+            // where the picture activity dump the image
+            captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempOutputFile));
+            otherImageCaptureIntent.add(captureIntent);
+        }
+
+        // above code is only for taking picture and letting it go through another app for cropping before setting to imageview
+        // now below is for choosing the image from device
+
+        Intent selectImageIntent = new Intent(Intent.ACTION_PICK);
+        selectImageIntent.setType("image/*");
+
+        Intent chooser = Intent.createChooser(selectImageIntent, "Choose Avatar");
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, otherImageCaptureIntent.toArray(
+                new Parcelable[otherImageCaptureActivities.size()]));  // add 2nd para as intent of parcelables.
+
+        startActivityForResult(chooser, REQUEST_SELECT_IMAGE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            tempOutputFile.delete();
+            return;
+        }
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_SELECT_IMAGE) {
+                // user selected an image off their device. other condition they took the image and that image is in our tempoutput file
+                Uri outputFile;
+                Uri tempFileUri = Uri.fromFile(tempOutputFile);
+                // if statement will detect if the user selected an image from the device or took an image
+                if (data != null && (data.getAction() == null || !data.getAction()
+                        .equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
+                    //then it means user selected an image off the device
+                    // so we can get the Uri of that image using data.getData
+                    outputFile = data.getData();
+                    // Now we need to do the crop
+                } else {
+                    // image was out temp file. user took an image using camera
+                    outputFile = tempFileUri;
+                    // Now we need to do the crop
+                }
+                startCropActivity(outputFile);
+            } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+
+
+                uploadFile(Uri.parse(tempOutputFile.getPath()));
+
+                Timber.e(String.valueOf(Uri.fromFile(tempOutputFile)));
+
+                // avatarProgressFrame.setVisibility(View.VISIBLE);
+                // bus.post(new Account.ChangeAvatarRequest(Uri.fromFile(tempOutputFile)));
+            }
+        }
+    }
+
+    private UCrop advancedConfig(@NonNull UCrop uCrop) {
+        UCrop.Options options = new UCrop.Options();
+
+        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+        options.setCompressionQuality(50);
+        //    options.setCompressionQuality(DEFAULT_COMPRESS_QUALITY);
+        options.setFreeStyleCropEnabled(false);
+        options.setAspectRatioOptions(1,
+                new AspectRatio("1:2", 1, 2),
+                new AspectRatio("3:4", 3, 4),
+                new AspectRatio("DEFAULT", CropImageView.DEFAULT_ASPECT_RATIO, CropImageView.DEFAULT_ASPECT_RATIO),
+                new AspectRatio("16:9", 16, 9),
+                new AspectRatio("1:1", 1, 1));
+        //  options.setImageToCropBoundsAnimDuration(CROP_BOUNDS_ANIMATION_DURATION);
+        options.setShowCropGrid(false);
+        options.setMaxScaleMultiplier(10.0f);
+        return uCrop.withOptions(options);
+    }
+
+    private void startCropActivity(@NonNull Uri uri) {
+
+        UCrop uCrop = UCrop.of(uri, Uri.fromFile(tempOutputFile));
+
+        uCrop = advancedConfig(uCrop);
+        uCrop.start(MessageActivity.this);
+    }
 
     private void initMessagesAdapter(List<MessagePojo> response) {
         ImageLoader imageLoader = new ImageLoader() {
@@ -376,14 +516,49 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
     private void sendMessage(String message){
 
+        String sendChat = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+               /* messageActivityuserId */ "2" + "_chat@yes";
+        Timber.e(sendChat);
 
+        application.getWebService()
+                .getResponse(sendChat, message)
+                .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //        Toast.makeText(MessageActivity.this, "Response from message: " + response, Toast.LENGTH_SHORT).show();
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        Timber.d("Message from server" + response);
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        Crashlytics.logException(e);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+
+                });
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        messageActivityuserId = savedInstanceState.getString(USER_ID_SECOND);
+        username = savedInstanceState.getString(USERNAME);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    private void sendImageMessage(String message){
 
         String sendChat = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
                 messageActivityuserId + "_chat@yes";
         Timber.e(sendChat);
 
         application.getWebService()
-                .getResponse(sendChat, message)
+                .getImageResponse(sendChat, message)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -453,6 +628,43 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 });
     }
 
+    private void uploadFile(Uri fileUri) {
+        File file = new File(String.valueOf(fileUri));
+
+        // create RequestBody instance from file
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        // finally, execute the request
+        try {
+            application.getWebService()
+                    .uploadFile(body)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<String>() {
+                        @Override
+                        public void onNext(String response) {
+                            Timber.d("file url " + response);
+                            chatMessage(response);
+                         //   setImageFileUrl(response);
+                        //    MySharedPreferences.registerImageUrl(preferences, response);
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setImageFileUrl(String imageUrl) {
+        this.image_Url = new MessagePojo.Image(imageUrl);
+    }
+
     private void setOnlineString(String onlineString){
         this.onlineString = onlineString;
     }
@@ -474,6 +686,18 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         }
                     }
                 });
+    }
+
+    private void chatMessage(String url){
+
+        MessagePojo messagePojo = new MessagePojo(MySharedPreferences.getUserId(preferences), "",
+                String.valueOf(System.currentTimeMillis()), new UserPojo(MySharedPreferences.getUserId(preferences),
+                MySharedPreferences.getUsername(preferences), "", true));
+
+        messagePojo.setImage(new MessagePojo.Image(url));
+        adapter.addToStart(messagePojo, true);
+        sendImageMessage(url);
+      //  return messagePojo;
     }
 
     private void deleteChat(String messageId) throws Exception {

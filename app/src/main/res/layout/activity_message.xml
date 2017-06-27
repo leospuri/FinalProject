@@ -47,21 +47,11 @@
                 android:id="@+id/main_activity_emoji_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:background="#FFF"
+                android:layout_above="@+id/chat_message_below_button"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="4dp">
-
-                <ImageButton
-                    android:id="@+id/main_activity_emoji"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="12dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/emoji_ios_category_people"
-                    tools:ignore="ContentDescription"/>
 
                 <com.vanniktech.emoji.EmojiEditText
                     android:id="@+id/messageEmojiEdittext"
@@ -85,6 +75,36 @@
                     tools:ignore="ContentDescription"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/chat_message_below_button"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/main_activity_emoji"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/emoji_ios_category_people"
+                    tools:ignore="ContentDescription"/>
+
+                <ImageButton
+                    android:id="@+id/chat_image"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/chat_image"
+                    tools:ignore="ContentDescription"/>
+
+            </LinearLayout>
+
 
         <!--    <com.stfalcon.chatkit.messages.MessageInput
                 android:id="@+id/input"
@@ -97,6 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
+                android:visibility="gone"
                 android:background="@color/white"
                 android:id="@+id/chat_details">
                 <TextView

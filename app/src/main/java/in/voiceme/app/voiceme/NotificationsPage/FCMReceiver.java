@@ -79,26 +79,27 @@ public class FCMReceiver extends FirebaseMessagingService {
 
             if (remoteMessage.getData().containsKey("chat")){
                 if (MessageActivity.mThis != null){
-                    Timber.e("got message logged");
-                    String chatMessage = getJsonFromList(notificationData, remoteMessage);
-                    Timber.e(chatMessage);
-                    Gson gson = new Gson();
-                    try {
-                        synchronized (this) {
-                            chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
-                        }
-                    } catch (Exception ex){
-                        ex.printStackTrace();
-                    } finally {
-                        Intent intent = new Intent(getBaseContext(), ChatNotificationService.class);
-                        intent.putExtra(Constants.CHAT_MESSAGE, chatTextPojo);
-                        startService(intent);
 
-                        if (MessageActivity.messageActivityuserId == null){
-                            showChatNotification(remoteMessage.getNotification().getTitle(), remoteMessage);
-                        } else if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
-                            startingUp(chatTextPojo);
-                        }
+                    if (MessageActivity.messageActivityuserId == null){
+                        showChatNotification(remoteMessage.getNotification().getTitle(), remoteMessage);
+                    } else if (MessageActivity.messageActivityuserId.equals(chatTextPojo.getSenderId())){
+                        Timber.e("got message logged");
+                        String chatMessage = getJsonFromList(notificationData, remoteMessage);
+                        Timber.e(chatMessage);
+                        Gson gson = new Gson();
+                        try {
+                            synchronized (this) {
+                                chatTextPojo = gson.fromJson(chatMessage, ChatTextPojo.class);
+                            }
+                        } catch (Exception ex){
+                            ex.printStackTrace();
+                        } finally {
+                            Intent intent = new Intent(getBaseContext(), ChatNotificationService.class);
+                            intent.putExtra(Constants.CHAT_MESSAGE, chatTextPojo);
+                            startService(intent);
+                    }
+
+
                     }
                 }
                 else {

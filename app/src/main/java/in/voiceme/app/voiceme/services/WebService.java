@@ -238,6 +238,12 @@ public interface WebService {
     );
 
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
+    Observable<String> getImageResponse(
+            @Query("dataMsg") String dataMessage,
+            @Query("chatImage") String chatText
+    );
+
+    @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
     Observable<String> sendLikeNotification(
             @Query("dataMsg") String dataMessage
     );
