@@ -25,11 +25,6 @@
                 android:id="@+id/messagesList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:incomingAvatarHeight="56dp"
-                app:incomingAvatarWidth="56dp"
-                app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
-                app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
-                app:outcomingTimeTextColor="@color/md_grey_700"
                 android:layout_above="@+id/main_activity_emoji_bar"/>
 
             <View
@@ -63,7 +58,7 @@
                     tools:ignore="ContentDescription"/>
 
                 <com.vanniktech.emoji.EmojiEditText
-                    android:id="@+id/messageInput"
+                    android:id="@+id/messageEmojiEdittext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -74,7 +69,7 @@
                     app:emojiSize="26sp"/>
 
                 <ImageButton
-                    android:id="@+id/messageSendButton"
+                    android:id="@+id/emoji_send_message"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
