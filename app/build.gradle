@@ -111,6 +111,7 @@ dependencies {
     // compile 'com.writingminds:FFmpegAndroid:0.3.2' library to compress audio
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'

@@ -41,7 +41,7 @@ public interface WebService {
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
 
-    @GET("get_messages_new.php")
+    @GET("get_messages_new02.php")
     Observable<List<MessagePojo>> getChatMessages(@Query("from_user_id") String userID,
                                                   @Query("to_user_id") String toUserID);
 

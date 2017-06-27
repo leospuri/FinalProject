@@ -17,6 +17,7 @@ import com.crashlytics.android.Crashlytics;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
+import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.vanniktech.emoji.EmojiEditText;
@@ -66,6 +67,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private ImageButton emojiButton;
     private ImageButton sendButton;
     private int messageCount;
+    private List<MessagePojo> messages;
 
     private String onlineString = " ";
 
@@ -322,7 +324,22 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
             }
         };
 
-        adapter = new MessagesListAdapter<>(MySharedPreferences.getUserId(preferences), imageLoader);
+        MessageHolders holdersConfig = new MessageHolders()
+                .setIncomingTextConfig(
+                        CustomIncomingTextMessageViewHolder.class,
+                        R.layout.item_custom_incoming_text_message)
+                .setOutcomingTextConfig(
+                        CustomOutcomingTextMessageViewHolder.class,
+                        R.layout.item_custom_outcoming_text_message)
+                .setIncomingImageConfig(
+                        CustomIncomingImageMessageViewHolder.class,
+                        R.layout.item_custom_incoming_image_message)
+                .setOutcomingImageConfig(
+                        CustomOutcomingImageMessageViewHolder.class,
+                        R.layout.item_custom_outcoming_image_message);
+
+
+        adapter = new MessagesListAdapter<>(MySharedPreferences.getUserId(preferences), holdersConfig, imageLoader);
         adapter.enableSelectionMode(this);
 
 
@@ -401,9 +418,8 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                         //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();
-                        //messages = response;
+                   //     this.messages = response;
                         initMessagesAdapter(response);
-
                         progressFrame.setVisibility(View.GONE);
                     }
                     @Override

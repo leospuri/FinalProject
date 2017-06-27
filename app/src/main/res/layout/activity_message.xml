@@ -25,7 +25,13 @@
                 android:id="@+id/messagesList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/main_activity_emoji_bar"/>
+                app:incomingAvatarHeight="56dp"
+                app:incomingAvatarWidth="56dp"
+                android:layout_above="@+id/main_activity_emoji_bar"
+                app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
+                app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
+                app:outcomingTimeTextColor="@color/md_grey_500"/>
+
 
             <View
                 android:layout_width="match_parent"
