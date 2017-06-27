@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.chat.ConstantOnlineRepeatService;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
@@ -57,6 +58,9 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+
+        startService(new Intent(this, ConstantOnlineRepeatService.class));
+
 
         prefs = getSharedPreferences("Logged in or not", MODE_PRIVATE);
         isDemoMode = prefs.getBoolean("is this demo mode", false);

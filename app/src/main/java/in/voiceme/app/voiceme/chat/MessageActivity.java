@@ -122,35 +122,34 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
         tempOutputFile = new File(getExternalCacheDir(), "temp-profile_image.jpg");
 
-        checkOnlineIndicator(messageActivityuserId);
         //   Toast.makeText(this, "User ID: " + messageActivityuserId, Toast.LENGTH_SHORT).show();
 
-        final Handler handler2 = new Handler();
+        final Handler handler = new Handler();
+        scheduler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 20 seconds
+                checkOnlineIndicator(messageActivityuserId);
+                handler.postDelayed(this, 20000);
+            }
+        }, 500);
+
+        final Handler handler4 = new Handler();
         scheduler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Do something after 20 seconds
                 getSupportActionBar().setSubtitle(onlineString);
-                handler2.postDelayed(this, 50000);
+                handler4.postDelayed(this, 2000);
             }
         }, 1000);
 
-        final Handler handler3 = new Handler();
-        scheduler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 20 seconds
-                sendOnlineIndicator(MySharedPreferences.getUserId(preferences));
-                handler3.postDelayed(this, 20000);
-            }
-        }, 1000);
 
         if (!username.isEmpty() && username != null){
             getSupportActionBar().setTitle(username);
-            getSupportActionBar().setSubtitle(onlineString);
+
         } else {
             getSupportActionBar().setTitle("Private chat");
-            getSupportActionBar().setSubtitle(onlineString);
          //   getSupportActionBar().setSubtitle(getResources().getString(R.string.mySubTitle));
         }
 
@@ -172,15 +171,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
 
         // Repeating code
 
-        final Handler handler = new Handler();
-        scheduler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 20 seconds
-                checkOnlineIndicator(messageActivityuserId);
-                handler.postDelayed(this, 20000);
-            }
-        }, 10000);
+
 
         chat_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -517,7 +508,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private void sendMessage(String message){
 
         String sendChat = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-               /* messageActivityuserId */ "2" + "_chat@yes";
+                messageActivityuserId  + "_chat@yes";
         Timber.e(sendChat);
 
         application.getWebService()
@@ -606,27 +597,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 });
     }
 
-    protected void sendOnlineIndicator(String userId) {
 
-        application.getWebService()
-                .sendOnline(userId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen(new RetryWithDelay(3,2000))
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        Timber.d("Sent Online Indicator");
-                        // dialogInit();
-                        try {
-                            chatMessages();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        //     followers.setText(String.valueOf(response.size()));
-                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 
     private void uploadFile(Uri fileUri) {
         File file = new File(String.valueOf(fileUri));
