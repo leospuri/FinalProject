@@ -22,7 +22,6 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class DialogDetailsActivity extends DemoDialogsActivity {
 
@@ -79,7 +78,6 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
 
         super.dialogsListAdapter = new DialogsListAdapter<>(
                 R.layout.item_custom_dialog_view_holder,
-                CustomDialogViewHolder.class,
                 super.imageLoader);
 
         super.dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
@@ -101,6 +99,10 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
             public void onDialogLongClick(ChatDialogPojo dialog) {
                 //          Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
                 //                  Toast.LENGTH_SHORT).show();
+                // Todo Delete the entire chat
+                // Goto profile page of the user
+
+
 
             }
         });

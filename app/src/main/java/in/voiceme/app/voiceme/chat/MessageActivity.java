@@ -45,8 +45,10 @@ import org.joda.time.DateTimeZone;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
@@ -720,8 +722,27 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
                 adapter.notifyDataSetChanged();
                 //
                 break;
+            case R.id.action_copy:
+                adapter.copySelectedMessagesText(this, getMessageStringFormatter(), true);
+                break;
         }
         return true;
+    }
+
+    private MessagesListAdapter.Formatter<MessagePojo> getMessageStringFormatter() {
+        return new MessagesListAdapter.Formatter<MessagePojo>() {
+            @Override
+            public String format(MessagePojo message) {
+                String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
+                        .format(message.getCreatedAt());
+
+                String text = message.getText();
+                if (text == null) text = "[attachment]";
+
+                return String.format(Locale.getDefault(), "%s: %s (%s)",
+                        message.getUser().getName(), text, createdAt);
+            }
+        };
     }
 
     @Override
