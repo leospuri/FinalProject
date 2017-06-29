@@ -56,6 +56,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     private Class<? extends BaseDialogViewHolder> holderClass;
     private ImageLoader imageLoader;
     private OnDialogClickListener<DIALOG> onDialogClickListener;
+    private OnClickUsername<DIALOG> onClickUsername;
     private OnDialogLongClickListener<DIALOG> onLongItemClickListener;
     private DialogListStyle dialogStyle;
     private DateFormatter.Formatter datesFormatter;
@@ -98,6 +99,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     public void onBindViewHolder(BaseDialogViewHolder holder, int position) {
         holder.setImageLoader(imageLoader);
         holder.setOnDialogClickListener(onDialogClickListener);
+        holder.setUserIdClickListener(onClickUsername);
         holder.setOnLongItemClickListener(onLongItemClickListener);
         holder.setDatesFormatter(datesFormatter);
         holder.onBind(items.get(position));
@@ -324,6 +326,10 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         this.onDialogClickListener = onDialogClickListener;
     }
 
+    public void setOnUsernameClicked(OnClickUsername<DIALOG> onDialogClickListener) {
+        this.onClickUsername = onDialogClickListener;
+    }
+
     /**
      * @return on long click item callback
      */
@@ -359,6 +365,10 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         void onDialogClick(DIALOG dialog);
     }
 
+    public interface OnClickUsername<DIALOG extends IDialog> {
+        void onClick(DIALOG dialog);
+    }
+
     public interface OnDialogLongClickListener<DIALOG extends IDialog> {
         void onDialogLongClick(DIALOG dialog);
     }
@@ -371,6 +381,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
         protected ImageLoader imageLoader;
         protected OnDialogClickListener onDialogClickListener;
+        protected OnClickUsername onClickUsername;
         protected OnDialogLongClickListener onLongItemClickListener;
         protected DateFormatter.Formatter datesFormatter;
         protected String newStringWithEmojis3;
@@ -385,6 +396,10 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
         void setOnDialogClickListener(OnDialogClickListener onDialogClickListener) {
             this.onDialogClickListener = onDialogClickListener;
+        }
+
+        void setUserIdClickListener(OnClickUsername onClickUsername) {
+            this.onClickUsername = onClickUsername;
         }
 
         void setOnLongItemClickListener(OnDialogLongClickListener onLongItemClickListener) {
@@ -408,6 +423,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         protected TextView tvBubble;
         protected ViewGroup dividerContainer;
         protected View divider;
+
 
         public DialogViewHolder(View itemView) {
             super(itemView);
@@ -568,6 +584,16 @@ public class DialogsListAdapter<DIALOG extends IDialog>
                     @Override
                     public void onClick(View view) {
                         onDialogClickListener.onDialogClick(dialog);
+                    }
+                });
+            }
+
+            if (onClickUsername  != null) {
+                ivAvatar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickUsername.onClick(dialog);
+                    //    onDialogClickListener.onDialogClick(dialog);
                     }
                 });
             }

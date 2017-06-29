@@ -2,6 +2,8 @@ package in.voiceme.app.voiceme.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.ChatDialogPojo;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
+import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -27,6 +30,7 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
 
 
     private List<ChatDialogPojo> messages = null;
+    private Menu menu;
 
   //  private View progressFrame;
     private View progressFrame;
@@ -77,7 +81,6 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
 
 
         super.dialogsListAdapter = new DialogsListAdapter<>(
-                R.layout.item_custom_dialog_view_holder,
                 super.imageLoader);
 
         super.dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<ChatDialogPojo>() {
@@ -94,6 +97,15 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
             }
         });
 
+        super.dialogsListAdapter.setOnUsernameClicked(new DialogsListAdapter.OnClickUsername<ChatDialogPojo>() {
+            @Override
+            public void onClick(ChatDialogPojo dialog) {
+                Intent intent = new Intent(DialogDetailsActivity.this, SecondProfile.class);
+                intent.putExtra(Constants.SECOND_PROFILE_ID, dialog.getId());
+                startActivity(intent);
+            }
+        });
+
         super.dialogsListAdapter.setOnDialogLongClickListener(new DialogsListAdapter.OnDialogLongClickListener<ChatDialogPojo>() {
             @Override
             public void onDialogLongClick(ChatDialogPojo dialog) {
@@ -101,13 +113,29 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
                 //                  Toast.LENGTH_SHORT).show();
                 // Todo Delete the entire chat
                 // Goto profile page of the user
-
-
-
+                dialogsListAdapter.deleteById(dialog.getId());
             }
         });
 
         dialogsListView.setAdapter(dialogsListAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.chat_dialog_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete_dialog:
+
+                //
+                break;
+        }
+        return true;
     }
 
     private void onNewMessage(String dialogId, IMessage message) {
