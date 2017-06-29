@@ -45,10 +45,8 @@ import org.joda.time.DateTimeZone;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import in.voiceme.app.voiceme.DTO.MessagePojo;
 import in.voiceme.app.voiceme.DTO.UserPojo;
@@ -86,6 +84,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     private ImageButton sendButton;
     private int messageCount;
     private List<MessagePojo> messages;
+    private String messageCopied;
 
     static final String USER_ID_SECOND = "USER_ID_SECOND";
     static final String USERNAME = "USERNAME";
@@ -733,14 +732,23 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
         return new MessagesListAdapter.Formatter<MessagePojo>() {
             @Override
             public String format(MessagePojo message) {
-                String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
-                        .format(message.getCreatedAt());
+          //      String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault()).format(message.getCreatedAt());
 
-                String text = message.getText();
-                if (text == null) text = "[attachment]";
+                byte[] data = Base64.decode(message.getText(), Base64.DEFAULT);
+                try {
+                    messageCopied = new String(data, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 
-                return String.format(Locale.getDefault(), "%s: %s (%s)",
-                        message.getUser().getName(), text, createdAt);
+                //Set Last message text
+
+
+
+                String text = messageCopied;
+                if (message.getText().equals("") || message.getText() == null) text = message.getImageUrl();
+
+                return String.format(text);
             }
         };
     }
@@ -749,6 +757,7 @@ public class MessageActivity extends BaseActivity implements MessagesListAdapter
     public void onSelectionChanged(int count) {
         this.selectionCount = count;
         menu.findItem(R.id.action_delete).setVisible(count > 0);
+        menu.findItem(R.id.action_copy).setVisible(count > 0);
     }
 
     @Override

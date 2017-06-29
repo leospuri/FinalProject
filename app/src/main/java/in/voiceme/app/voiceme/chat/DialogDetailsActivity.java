@@ -3,7 +3,6 @@ package in.voiceme.app.voiceme.chat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -112,14 +111,16 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
                 //          Toast.makeText(DialogDetailsActivity.this, dialog.getDialogName(),
                 //                  Toast.LENGTH_SHORT).show();
                 // Todo Delete the entire chat
-                // Goto profile page of the user
-                dialogsListAdapter.deleteById(dialog.getId());
+                // Working delete query
+              //  dialogsListAdapter.deleteById(dialog.getId());
             }
         });
 
         dialogsListView.setAdapter(dialogsListAdapter);
     }
 
+
+    /* Menu for deleting
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
@@ -137,6 +138,7 @@ public class DialogDetailsActivity extends DemoDialogsActivity {
         }
         return true;
     }
+   */
 
     private void onNewMessage(String dialogId, IMessage message) {
         if (!super.dialogsListAdapter.updateDialogWithMessage(dialogId, message)) {
