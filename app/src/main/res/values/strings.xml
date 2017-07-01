@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Voiceme</string>
 
-     Testing AWS and facebook
+    Testing AWS and facebook
 
 
     <!--<string name="FACEBOOK_APP_ID">634759186722635</string>-->
@@ -12,7 +12,7 @@
     <!--   ****************** -->
 
 
-     Live AWS and Facebook ID
+    Live AWS and Facebook ID
 
     <!--<string name="aws_identity_pool">us-east-1:b9755bcf-4179-40ad-8a5e-07d7baa8914c</string>-->
 
