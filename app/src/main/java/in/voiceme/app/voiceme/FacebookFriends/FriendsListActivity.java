@@ -63,6 +63,7 @@ public class FriendsListActivity extends BaseActivity implements FriendsListView
     public void loadFriendsList(ArrayList<FriendItemData> fLst) {
         friendsList.removeAll(friendsList);
         friendsList.addAll(fLst);
+
         swipeLayout.setRefreshing(false);
 
         if ((friendsList != null) && (friendsList.size() > 0)) {

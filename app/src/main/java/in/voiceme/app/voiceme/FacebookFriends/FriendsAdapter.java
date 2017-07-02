@@ -7,11 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,15 +46,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             FriendViewHolder friendViewHolder = ((FriendViewHolder)viewHolder);
             String friendName = friendsList.get(position).getName();
             friendViewHolder.tvUserName.setText(position + "  " + friendName);
-            String imageUrl = friendsList.get(position).getPicture();
-            if (imageUrl != null) {
-                if (imageUrl.trim().length() > 0) {
-                    Picasso.with(context).load(imageUrl).into(friendViewHolder.ivUser);
-                }
-            }
 
             Animation anim = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
-            friendViewHolder.ivUser.setAnimation(anim);
         }
     }
 
@@ -77,12 +67,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public class FriendViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView ivUser;
         public TextView tvUserName;
 
         public FriendViewHolder(View v) {
             super(v);
-            ivUser = (ImageView) v.findViewById(R.id.iv_User);
             tvUserName = (TextView) v.findViewById(R.id.tv_UserName);
         }
     }

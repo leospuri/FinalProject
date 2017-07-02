@@ -38,8 +38,6 @@ public class FriendItemDeserializer implements JsonDeserializer<FriendsListRespo
                 FriendItemData item = new FriendItemData();
                 item.setId(itemJsonObject.get(ID_KEY).getAsString());
                 item.setName(itemJsonObject.get(NAME_KEY).getAsString());
-                String picUrl = itemJsonObject.getAsJsonObject(PICTURE_KEY).getAsJsonObject(DATA_KEY).get(URL_KEY).getAsString();
-                item.setPicture(picUrl);
                 friendItemDataList.add(item);
             }
             JsonObject pagingObject = friends.getAsJsonObject(PAGING_KEY);

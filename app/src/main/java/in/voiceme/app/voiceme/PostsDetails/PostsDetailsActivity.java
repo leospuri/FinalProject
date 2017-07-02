@@ -761,12 +761,30 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void postLikeNotification(Account.sendLikeUserId sendReply) throws Exception {
 
-        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                sendReply.id_user + "_postId@" + postId  + "_click@" + "6"; // 6 for like the comment. 7 for replied to comment
+        if (MySharedPreferences.getUserId(preferences).equals(sendReply.id_user)){
+            Timber.e("same user who posted the post");
+            String sendLike01 = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                    sendReply.post_id_user + "_postId@" + postId  + "_click@" + "6"; // 6 for like the comment. 7 for replied to comment
+            postLikeNotification(sendLike01);
+        } else if (MySharedPreferences.getUserId(preferences).equals(sendReply.post_id_user)){
+            Timber.e("same user who commented the post");
+            String sendLike02 = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                    sendReply.id_user + "_postId@" + postId  + "_click@" + "6"; // 6 for like the comment. 7 for replied to comment
+            postLikeNotification(sendLike02);
+        } else {
+            Timber.e("send notification to user who posted");
+            String sendLike03 = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                    sendReply.id_user + "_postId@" + postId  + "_click@" + "6"; // 6 for like the comment. 7 for replied to comment
+            postLikeNotification(sendLike03);
+        }
 
+
+    }
+
+    private void postLikeNotification(String url){
 
         application.getWebService()
-                .sendLikeNotification(sendLike)
+                .sendLikeNotification(url)
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<String>() {
@@ -780,6 +798,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
                     }
                 });
+
     }
 
     @Subscribe
@@ -793,8 +812,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onNext(SuccessResponse userResponse) {
 
+
                         // Send notification to user with id_user_name ID
-                        Toast.makeText(PostsDetailsActivity.this, "success comment like", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(PostsDetailsActivity.this, "success comment like", Toast.LENGTH_SHORT).show();
 
                     }
                     @Override

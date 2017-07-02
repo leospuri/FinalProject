@@ -26,19 +26,13 @@
         android:text="Login Using LoginManager" />
 
 
-    <TextView
-        android:id="@+id/tv_LoginResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/but_LoginFBLoginManager" />
-
     <Button
         android:id="@+id/btn_showFriendsList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_LoginResult"
+        android:layout_below="@+id/but_LoginFBLoginManager"
         android:text="friends list"
         android:visibility="invisible" />
 

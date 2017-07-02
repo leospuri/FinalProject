@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -18,10 +17,10 @@ import java.util.Arrays;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import timber.log.Timber;
 
 public class FacebookFriendsPosts extends BaseActivity implements MainView, View.OnClickListener {
     private MainPresenter mainPresenter;
-    private TextView tvLoginResult;
     private LoginButton btnFBLogin;
     private Button btnShowFriendsList;
     private Button btnLoginFBLoginManager;
@@ -46,7 +45,6 @@ public class FacebookFriendsPosts extends BaseActivity implements MainView, View
 
     @Override
     public void initializeView() {
-        tvLoginResult = (TextView) findViewById(R.id.tv_LoginResult);
         btnFBLogin = (LoginButton) findViewById(R.id.fbButton);
         btnShowFriendsList = (Button) findViewById(R.id.btn_showFriendsList);
         btnLoginFBLoginManager = (Button) findViewById(R.id.but_LoginFBLoginManager);
@@ -63,10 +61,10 @@ public class FacebookFriendsPosts extends BaseActivity implements MainView, View
     @Override
     public void showFBLoginResult(AccessToken fbAccessToken) {
         btnShowFriendsList.setVisibility(View.VISIBLE);
-        tvLoginResult.setText( "Success Login" + "\n"+
+        Timber.d("Success Login" + "\n"+
                 "User = " + fbAccessToken.getUserId() + "\n" +
-                "Token = " + fbAccessToken.getToken()
-        );
+                "Token = " + fbAccessToken.getToken());
+
     }
 
     @Override

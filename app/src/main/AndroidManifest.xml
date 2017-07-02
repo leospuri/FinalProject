@@ -230,7 +230,8 @@
         <activity android:name=".userpost.NewTextStatusActivity" />
         <activity android:name=".userpost.NewAudioStatusActivity" />
         <activity android:name=".FacebookFriends.FacebookFriendsPosts" />
-        <activity android:name=".FacebookFriends.FriendsListActivity"></activity>
+        <activity android:name=".FacebookFriends.FriendsListActivity" />
+        <activity android:name=".NewFacebookFriends.NewFacebookFriends"></activity>
     </application>
 
 </manifest>

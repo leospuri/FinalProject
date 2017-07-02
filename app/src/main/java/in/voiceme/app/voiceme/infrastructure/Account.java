@@ -81,9 +81,11 @@ public final class Account {
 
     public static class sendLikeUserId {
         public String id_user;
+        public String post_id_user;
 
-        public sendLikeUserId(String id_user) {
+        public sendLikeUserId(String id_user, String post_id_user) {
             this.id_user = id_user;
+            this.post_id_user = post_id_user;
         }
     }
 

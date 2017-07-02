@@ -18,7 +18,7 @@ public class GetFriendsList {
 
     public void getFBFriendsList(String userId, String accessToken, int limit, String afterPage, Callback<FriendsListResponse> friendsListCallback) {
         FacebookFriendList facebookListService = ApiService.getService().create(FacebookFriendList.class);
-        Call<FriendsListResponse> call = facebookListService.getFriendsList(userId, accessToken, limit, afterPage);
+        Call<FriendsListResponse> call = facebookListService.getFriendsList(accessToken);
         call.enqueue(friendsListCallback);
     }
 }

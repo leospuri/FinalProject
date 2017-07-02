@@ -65,10 +65,10 @@ public class ProfileUserModel implements Parcelable {
     private String posts;
     @SerializedName("followers")
     @Expose
-    private String followers;
+    private int followers;
     @SerializedName("following")
     @Expose
-    private String following;
+    private int following;
 
     protected ProfileUserModel(Parcel in) {
         idUserName = in.readString();
@@ -84,8 +84,8 @@ public class ProfileUserModel implements Parcelable {
         aboutMe = in.readString();
         phoneNumber = in.readString();
         posts = in.readString();
-        followers = in.readString();
-        following = in.readString();
+        followers = in.readInt();
+        following = in.readInt();
     }
 
     public String getIdUserName() {
@@ -140,11 +140,11 @@ public class ProfileUserModel implements Parcelable {
         return posts;
     }
 
-    public String getFollowers() {
+    public int getFollowers() {
         return followers;
     }
 
-    public String getFollowing() {
+    public int getFollowing() {
         return following;
     }
 
@@ -168,7 +168,7 @@ public class ProfileUserModel implements Parcelable {
         parcel.writeString(aboutMe);
         parcel.writeString(phoneNumber);
         parcel.writeString(posts);
-        parcel.writeString(followers);
-        parcel.writeString(following);
+        parcel.writeInt(followers);
+        parcel.writeInt(following);
     }
 }

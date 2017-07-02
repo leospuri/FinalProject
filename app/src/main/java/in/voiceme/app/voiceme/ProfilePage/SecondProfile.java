@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.android.gms.analytics.HitBuilders;
 
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.UserResponse;
@@ -40,6 +39,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private Button followMe;
     private LinearLayout followerPost;
     private LinearLayout followingPost;
+    private int followCounter;
+    private int followingCounter;
 
     private SimpleDraweeView image;
 
@@ -128,98 +129,100 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         if (processLoggedState(view))
             return;
         int viewId = view.getId();
-
-        if (viewId == R.id.second_user_profile_textview || viewId == R.id.second_total_posts_counter || viewId == R.id.layout_second_profile_total) {
-            // [START custom_event]
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("SecondProfile")
-                    .setAction("Second Profile Posts Clicked")
-                    .build());
-            // [END custom_event]
-
-            Intent intent = new Intent(this, TotalPostsActivity.class);
-            intent.putExtra(Constants.TOTAL_POST, profileUserId);
-            startActivity(intent);
-        } else if (viewId == R.id.second_profile_followers || viewId == R.id.second_action_followers || viewId == R.id.layout_second_profile_followers) {
-            // [START custom_event]
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("SecondProfile")
-                    .setAction("Second followers Clicked")
-                    .build());
-            // [END custom_event]
-
-            Intent intent = new Intent(this, FollowersActivity.class);
-            intent.putExtra(Constants.USER_FOLLOW, profileUserId);
-            startActivity(intent);
-        } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following || viewId == R.id.layout_second_profile_following) {
-
-            // [START custom_event]
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("SecondProfile")
-                    .setAction("Second following Clicked")
-                    .build());
-            // [END custom_event]
-
-            Intent intent = new Intent(this, FollowingActivity.class);
-            intent.putExtra(Constants.USER_FOLLOWING, profileUserId);
-            startActivity(intent);
-
-        } else if (viewId == R.id.second_profile_follow_me){
-            if (currentFollowing){
-                try {
-
-                    // [START custom_event]
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("SecondProfile")
-                            .setAction("Remove following Clicked")
-                            .build());
-                    // [END custom_event]
-
-
-                    removeFollower(profileUserId, Constants.REMOVE);
-                    sendUnFollowNotification();
-                    followMe.setText("Follow");
-                    currentFollowing = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else{
-                try {
-                    addFollower(profileUserId, Constants.ADD);
-                    // [START custom_event]
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("SecondProfile")
-                            .setAction("Add following Clicked")
-                            .build());
-                    // [END custom_event]
-                    sendFollowNotification();
-                    // follow
-                    followMe.setText("Following");
-                    currentFollowing = true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } else if (view.getId() == R.id.send_private_message){
-            if (processLoggedState(view))
-                return;
-
-            if (isNetworkConnected()){
-                Intent intent = new Intent(this, MessageActivity.class);
-                intent.putExtra(Constants.YES, profileUserId);
-                if (!response.getData().getUserNickName().trim().isEmpty() && response.getData().getUserNickName().trim() != null){
-
-                    intent.putExtra(Constants.USERNAME, response.getData().getUserNickName());
-                } else {
-                    intent.putExtra(Constants.USERNAME, "");
-                }
-
+        switch (view.getId()){
+            case R.id.second_user_profile_textview:
+                Intent intent = new Intent(this, TotalPostsActivity.class);
+                intent.putExtra(Constants.TOTAL_POST, profileUserId);
                 startActivity(intent);
-            } else {
-                Toast.makeText(this, "Not connected to internet", Toast.LENGTH_SHORT).show();
-            }
+                break;
+            case R.id.second_total_posts_counter:
+                Intent intent02 = new Intent(this, TotalPostsActivity.class);
+                intent02.putExtra(Constants.TOTAL_POST, profileUserId);
+                startActivity(intent02);
+                break;
+            case R.id.layout_second_profile_total:
+                Intent intent03 = new Intent(this, TotalPostsActivity.class);
+                intent03.putExtra(Constants.TOTAL_POST, profileUserId);
+                startActivity(intent03);
+                break;
+            case R.id.second_profile_followers:
+                Intent intent04 = new Intent(this, FollowersActivity.class);
+                intent04.putExtra(Constants.USER_FOLLOW, profileUserId);
+                startActivity(intent04);
+                break;
+            case R.id.second_action_followers:
+                Intent intent05 = new Intent(this, FollowersActivity.class);
+                intent05.putExtra(Constants.USER_FOLLOW, profileUserId);
+                startActivity(intent05);
+                break;
+            case R.id.layout_second_profile_followers:
+                Intent intent06 = new Intent(this, FollowersActivity.class);
+                intent06.putExtra(Constants.USER_FOLLOW, profileUserId);
+                startActivity(intent06);
+                break;
+            case R.id.second_profile_following:
+                Intent intent07 = new Intent(this, FollowingActivity.class);
+                intent07.putExtra(Constants.USER_FOLLOWING, profileUserId);
+                startActivity(intent07);
+                break;
+            case R.id.second_action_following:
+                Intent intent08 = new Intent(this, FollowingActivity.class);
+                intent08.putExtra(Constants.USER_FOLLOWING, profileUserId);
+                startActivity(intent08);
+                break;
+            case R.id.layout_second_profile_following:
+                Intent intent09 = new Intent(this, FollowingActivity.class);
+                intent09.putExtra(Constants.USER_FOLLOWING, profileUserId);
+                startActivity(intent09);
+                break;
+            case R.id.second_profile_follow_me:
+
+                if (currentFollowing){
+                    try {
+                        followCounter--;
+                        followersCount.setText(String.valueOf(followCounter));
+                        removeFollower(profileUserId, Constants.REMOVE);
+                   //     sendUnFollowNotification();
+                        followMe.setText("Follow");
+                        currentFollowing = false;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else{
+                    try {
+                        addFollower(profileUserId, Constants.ADD);
+                        followCounter++;
+                        followersCount.setText(String.valueOf(followCounter));
+
+                      //  sendFollowNotification();
+                        followMe.setText("Following");
+                        currentFollowing = true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.send_private_message:
+                if (processLoggedState(view))
+                    return;
+
+                if (isNetworkConnected()){
+                    Intent intent10 = new Intent(this, MessageActivity.class);
+                    intent10.putExtra(Constants.YES, profileUserId);
+                    if (!response.getData().getUserNickName().trim().isEmpty() && response.getData().getUserNickName().trim() != null){
+
+                        intent10.putExtra(Constants.USERNAME, response.getData().getUserNickName());
+                    } else {
+                        intent10.putExtra(Constants.USERNAME, "");
+                    }
+
+                    startActivity(intent10);
+                } else {
+                    Toast.makeText(this, "Not connected to internet", Toast.LENGTH_SHORT).show();
+                }
 
         }
+
 
     }
 
@@ -351,8 +354,10 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         username.setText(response.getData().getUserNickName());
         about.setText(response.getData().getAboutMe());
         total_posts_counter.setText(response.getData().getPosts());
-        followersCount.setText(response.getData().getFollowers());
-        followingCount.setText(response.getData().getFollowing());
+        followCounter = response.getData().getFollowers();
+        followingCounter = response.getData().getFollowing();
+        followersCount.setText(String.valueOf(response.getData().getFollowers()));
+        followingCount.setText(String.valueOf(response.getData().getFollowing()));
         age.setText(response.getData().getUserDateOfBirth());
         gender.setText(response.getData().getGender());
         if (response.getFollower()){

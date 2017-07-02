@@ -380,8 +380,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             } else {
                 dialogBox();
             }
-
-
         }
     }
 

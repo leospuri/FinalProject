@@ -342,7 +342,8 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
 
                 try {
                     postCommentReplyLike(messageItem.getId_post_comment_reply(), messageItem.getId_post_comment_reply());
-                    postCommentReplyLikeNotification(messageItem.getIdPostUserName());
+                    postCommentReplyLikeNotification(messageItem.getIdPostUserName(), messageItem.getCommentUserId());
+               //     postCommentReplyLikeNotification(messageItem.getIdPostUserName(), messageItem.getCommentUserId());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -415,8 +416,8 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
 
     }
 
-    private void postCommentReplyLikeNotification(String user_id) throws Exception {
-        bus.post(new Account.sendLikeUserId(user_id));
+    private void postCommentReplyLikeNotification(String  post_user_id, String user_id) throws Exception {
+        bus.post(new Account.sendLikeUserId(user_id, post_user_id));
 
     }
 

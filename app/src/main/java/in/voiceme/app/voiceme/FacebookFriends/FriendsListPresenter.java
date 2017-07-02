@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import timber.log.Timber;
 
 /**
  * Created by Sally on 01-Jan-17.
@@ -54,6 +55,9 @@ public class FriendsListPresenter {
                 previousPageId = responseResult.getPreviousPageId();
                 ArrayList<FriendItemData> newFriendsList = responseResult.getFriendsDataList();
 
+                getContacts(newFriendsList);
+
+
                 //Get Correct insert Index
                 int index = 0;
                 if (friendsList.size() > 0) {
@@ -80,10 +84,42 @@ public class FriendsListPresenter {
             }
         }
 
+
         @Override
         public void onFailure(Call<FriendsListResponse> call, Throwable t) {
             isLoadingMore = false;
             //TODO Show error message
         }
     };
+
+    private void getContacts(ArrayList<FriendItemData> newFriendsList) {
+
+
+        for (int i = 0; i < newFriendsList.size(); i++){
+            Timber.d("ALLUSERID: " + newFriendsList.get(i).getId());
+        }
+                    //    sendAllContacts(contacts.toString().replace("[", "").replace("]", "").replace(" ", ""));
+
+    }
+
+    /* private void sendAllContacts(String contacts) throws Exception {
+        ((VoicemeApplication)getApplication()).getWebService()
+                .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<ContactAddResponse>() {
+                    @Override
+                    public void onNext(ContactAddResponse response) {
+                        Timber.e("Got user details " + response.getInsertedRows().toString());
+                        try {
+                            sendContactTrue();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        LocalBroadcastManager.getInstance(ContactService.this).sendBroadcast(broadcast);
+
+                    }
+                });
+    } */
 }

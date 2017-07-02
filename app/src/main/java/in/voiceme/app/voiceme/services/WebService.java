@@ -22,6 +22,7 @@ import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.NewFacebookFriends.MainResponse;
 import in.voiceme.app.voiceme.NotificationsPage.NotificationPojo;
 import in.voiceme.app.voiceme.chat.OnlineStatusCheck;
 import okhttp3.MultipartBody;
@@ -40,6 +41,14 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
+
+    @GET("https://graph.facebook.com/v2.9/me/friends")
+    Observable<MainResponse> getFriends(@Query("access_token") String access_token,
+                                        @Query("limit") String limit,
+                                        @Query("after") String afterPage);
+
+    @GET("https://graph.facebook.com/v2.9/me/friends")
+    Observable<MainResponse> getFriendsFirst(@Query("access_token") String access_token);
 
     @GET("get_messages_new02.php")
     Observable<List<MessagePojo>> getChatMessages(@Query("from_user_id") String userID,
