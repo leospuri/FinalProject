@@ -81,14 +81,14 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         style="@style/text_title"
         android:id="@+id/title"
         android:layout_above="@+id/subtitle"
-        android:text="We Sync your Numbers"
+        android:text="We Sync your Facebook Contacts"
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxTitleBehaviour" />
 
     <TextView
         style="@style/text_subtitle"
         android:id="@+id/subtitle"
         android:layout_alignParentBottom="true"
-        android:text="We use your phone to \nfind anonymous posts\nfrom your contacts."
+        android:text="We use Facebook Contacts to \nfind anonymous posts\nfrom your friends."
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 
 </com.redbooth.WelcomePageLayout>

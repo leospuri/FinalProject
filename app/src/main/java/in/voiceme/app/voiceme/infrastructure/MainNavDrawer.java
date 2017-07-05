@@ -17,7 +17,6 @@ import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.chat.DialogDetailsActivity;
-import in.voiceme.app.voiceme.contactPage.ContactListActivity;
 import in.voiceme.app.voiceme.l;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
@@ -36,7 +35,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         addItem(new ActivityNavDrawerItem(NotificationsActivity.class, "Notification", null, R.drawable.notification_new, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.drawable.activity_new, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.drawable.discove_new, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.contact_new, R.id.include_main_nav_drawer_topItems));
+     //   addItem(new ActivityNavDrawerItem(ContactListActivity.class, "Contacts", null, R.drawable.contact_new, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(NewFacebookFriends.class, "FB Friends", null, R.drawable.contact_new, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DialogDetailsActivity.class, "Chat Messages", null, R.drawable.chat_nav_new, R.id.include_main_nav_drawer_topItems));
      //    addItem(new ActivityNavDrawerItem(LicenseActivity.class, "license", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));

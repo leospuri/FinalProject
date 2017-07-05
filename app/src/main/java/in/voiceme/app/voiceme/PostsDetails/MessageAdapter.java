@@ -363,7 +363,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 comment_likes_true = true;
                 try {
                     postLike(messageItem.getCommentId(), messageItem.getPost_comment_id());
-                    postCommentReplyLikeNotification(messageItem.getId_post_user_name());
+                    postCommentReplyLikeNotification(messageItem.getId_post_user_name(), messageItem.getCommentUserId());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -437,8 +437,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     }
 
-    private void postCommentReplyLikeNotification(String user_id) throws Exception {
-        bus.post(new Account.sendLikeUserId(user_id));
+    private void postCommentReplyLikeNotification(String user_id, String post_id_user) throws Exception {
+        bus.post(new Account.sendLikeUserId(user_id, post_id_user));
 
     }
 

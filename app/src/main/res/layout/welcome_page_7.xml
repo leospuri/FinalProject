@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+Copyright Txus Ballesteros 2016 (@txusballesteros)
+This file is part of some open source application.
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
+-->
+<com.redbooth.WelcomePageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/contact_page01"
+    tools:background="@color/page1">
+
+
+    <TextView
+        android:id="@+id/personal_contact_heading"
+        style="@style/text_subtitle"
+        android:text="OK You need few \npermission to get started"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxTitleBehaviour" />
+
+
+    <ImageView
+        android:id="@+id/contact_page_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/personal_contact_heading"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/contact_01" />
+
+
+    <TextView
+        android:id="@+id/contact_sub_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_page_01"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="30dp"
+        android:textColor="#ffffff"
+        android:text="Facebook Friends"
+        android:textSize="20sp"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxTitleBehaviour" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        style="@style/text_subtitle"
+        android:layout_below="@+id/contact_sub_heading"
+        android:text="To help you find friends"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+
+
+    <TextView
+        android:id="@+id/person_contact_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_below="@+id/subtitle"
+        android:layout_centerHorizontal="true"
+        android:text="Read our privacy policy"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+
+
+    <TextView
+        android:id="@+id/verfied_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/person_contact_single"
+        android:text="Verified"
+        android:visibility="gone"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+
+    <Button
+        android:id="@+id/facebook_contact_id"
+        android:layout_width="wrap_content"
+        android:text="Facebook Friends"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verfied_single"
+        android:layout_centerHorizontal="true" />
+
+</com.redbooth.WelcomePageLayout>
+
+
+
+
+
+

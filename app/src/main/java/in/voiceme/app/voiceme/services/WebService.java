@@ -48,7 +48,8 @@ public interface WebService {
                                         @Query("after") String afterPage);
 
     @GET("https://graph.facebook.com/v2.9/me/friends")
-    Observable<MainResponse> getFriendsFirst(@Query("access_token") String access_token);
+    Observable<MainResponse> getFriendsFirst(@Query("access_token") String access_token,
+                                             @Query("limit") String limit);
 
     @GET("get_messages_new02.php")
     Observable<List<MessagePojo>> getChatMessages(@Query("from_user_id") String userID,
@@ -205,6 +206,14 @@ public interface WebService {
     Observable<ContactAddResponse> addAllContacts(
             @Field("id_user_name") String user_id,
             @Field("contacts") String contacts
+    );
+
+    // Todo adding all contacts mobile left
+    @FormUrlEncoded
+    @POST("register_facebook_friends.php")
+    Observable<ContactAddResponse> addAllFacebookId(
+            @Field("id_user_name") String user_id,
+            @Field("facebook_id") String contacts
     );
 
     @FormUrlEncoded

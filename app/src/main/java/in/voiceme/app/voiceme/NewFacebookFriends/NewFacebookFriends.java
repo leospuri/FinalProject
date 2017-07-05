@@ -10,11 +10,16 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -24,6 +29,7 @@ public class NewFacebookFriends extends BaseActivity {
     // Facebook
     private LoginButton facebookSignInBtn;
     private CallbackManager callbackManager;
+    private List<String> list_of_facebook;
     //   private ProgressBar progressBar;
 
     private String token;
@@ -34,11 +40,13 @@ public class NewFacebookFriends extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_facebook_friends);
+        getSupportActionBar().setTitle("Facebook Friends Posts");
+        setNavDrawer(new MainNavDrawer(this));
+        list_of_facebook = new ArrayList<>();
 
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.facebook_friends_login);
 
         this.setUpFacebookSignIn();
-
 
     }
 
@@ -98,7 +106,7 @@ public class NewFacebookFriends extends BaseActivity {
 
         String message = String.format("Failed to authenticate against Facebook %s - \"%s\"",
                 error.getClass().getSimpleName(), error.getLocalizedMessage());
-        Timber.e(error,message );
+        Timber.e(error,message);
     }
 
     private void handleFacebookLogin(LoginResult loginResult) {
@@ -110,13 +118,13 @@ public class NewFacebookFriends extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
+
+    // Todo enter number of results that you want in result
     private void getFriendList(String accessToken) throws Exception {
         application.getWebService()
-                .getFriendsFirst(accessToken)
+                .getFriendsFirst(accessToken, "1")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
@@ -125,13 +133,15 @@ public class NewFacebookFriends extends BaseActivity {
                     public void onNext(MainResponse response) {
                         Timber.d(response.getSummary().getTotalCount().toString());
 
-                        if (response.getData().size()==25){
+                        if (response.getPaging().getNext()!= null){
+                            addAllFacebookId(response);
                             try {
                                 getFriendListPart2(response, accessToken);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         } else {
+                            addAllFacebookIdLoop(response);
                             Timber.d("Finished");
                         }
 
@@ -144,6 +154,29 @@ public class NewFacebookFriends extends BaseActivity {
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
+                    }
+                });
+    }
+
+    private void sendAllFacebookId(List<String> response){
+        try {
+            sendAllContacts(response.toString().replace("[", "").replace("]", "").replace(" ", ""));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendAllContacts(String contacts) throws Exception {
+        application.getWebService()
+                .addAllFacebookId(MySharedPreferences.getUserId(preferences), contacts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<ContactAddResponse>() {
+                    @Override
+                    public void onNext(ContactAddResponse response) {
+                        Timber.e("Got user details " + response.getInsertedRows().toString());
+
                     }
                 });
     }
@@ -158,7 +191,7 @@ public class NewFacebookFriends extends BaseActivity {
 
     private void getFriendListPart2(MainResponse response, String token) throws Exception {
         application.getWebService()
-                .getFriends(token, "25", response.getPaging().getCursors().getAfter())
+                .getFriends(token, "1", response.getPaging().getCursors().getAfter())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
@@ -166,10 +199,15 @@ public class NewFacebookFriends extends BaseActivity {
                     @Override
                     public void onNext(MainResponse response) {
 
-                        if (response.getData().size()==25){
-                            repeatNetWork(response, token);
-
+                        if (response.getPaging().getNext()!= null){
+                            addAllFacebookId(response);
+                            try {
+                                repeatNetWork(response, token);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         } else {
+                            addAllFacebookIdLoop(response);
                             Timber.d("Finished");
                         }
                     }
@@ -183,6 +221,32 @@ public class NewFacebookFriends extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    private void addAllFacebookIdLoop(MainResponse response){
+
+        try{
+            for (int i = 0; i < response.getData().size(); i++){
+                list_of_facebook.add(response.getData().get(i).getId());
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        } finally {
+            sendAllFacebookId(list_of_facebook);
+        }
+
+    }
+
+    private void addAllFacebookId(MainResponse response){
+
+        try{
+            for (int i = 0; i < response.getData().size(); i++){
+                list_of_facebook.add(response.getData().get(i).getId());
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 
 }

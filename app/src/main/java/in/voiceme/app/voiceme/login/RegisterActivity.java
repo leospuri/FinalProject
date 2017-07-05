@@ -38,7 +38,6 @@ import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.OnlyToken;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.contactPage.ContactsActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
@@ -267,21 +266,32 @@ public class RegisterActivity extends BaseActivity
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        UserData(response);
-                        application.getAuth().setAuthToken("token");
-                        application.getAuth().getUser().setLoggedIn(true);
-
-
-                        if (response.info.getPresent().equals("yes")){
-                            token = FirebaseInstanceId.getInstance().getToken();
-                            postToken(response.info.getUserId(), token);
-
-                        } else {
-
-                            Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                        View progressFrame = findViewById(R.id.register_after_login);
+                        if (progressFrame.getVisibility()==View.INVISIBLE){
+                            progressFrame.setVisibility(View.VISIBLE);
                         }
+                        try{
+                            UserData(response);
+                            application.getAuth().setAuthToken("token");
+                            application.getAuth().getUser().setLoggedIn(true);
+                        } catch (Exception ex){
+                            ex.printStackTrace();
+                        } finally {
+                            if (response.info.getPresent().equals("yes")){
+                                token = FirebaseInstanceId.getInstance().getToken();
+                                postToken(response.info.getUserId(), token);
+
+                            } else {
+
+                                Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                progressFrame.setVisibility(View.GONE);
+                                startActivity(intent);
+                            }
+                        }
+
+
+
                     }
                 });
     }
@@ -395,9 +405,6 @@ public class RegisterActivity extends BaseActivity
 
         // The identity must be created asynchronously
       //  new CreateIdentityTask(this).execute(logins);
-
-        setResult(RESULT_OK);
-        finish();
     }
 
     /**
