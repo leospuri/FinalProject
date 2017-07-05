@@ -18,7 +18,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -30,13 +29,16 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import in.voiceme.app.voiceme.DTO.ContactAddResponse;
 import in.voiceme.app.voiceme.DTO.LoginResponse;
 import in.voiceme.app.voiceme.DTO.OnlyToken;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
+import in.voiceme.app.voiceme.NewFacebookFriends.MainResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -66,6 +68,7 @@ public class RegisterActivity extends BaseActivity
     // Facebook
     private LoginButton facebookSignInBtn;
     private CallbackManager callbackManager;
+    private List<String> list_of_facebook;
  //   private ProgressBar progressBar;
 
     private String token;
@@ -87,6 +90,7 @@ public class RegisterActivity extends BaseActivity
         go_back = (ImageView) findViewById(R.id.go_back);
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
         facebookSignInBtn = (LoginButton) this.findViewById(R.id.signin_with_facebook_btn);
+        list_of_facebook = new ArrayList<>();
         app_terms = (TextView) this.findViewById(R.id.app_terms);
 
         app_terms.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +153,7 @@ public class RegisterActivity extends BaseActivity
 
         callbackManager = CallbackManager.Factory.create();
 
-        facebookSignInBtn.setReadPermissions(Arrays.asList("email", "public_profile"));
+        facebookSignInBtn.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
         facebookSignInBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
             @Override
@@ -212,11 +216,10 @@ public class RegisterActivity extends BaseActivity
      */
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("RegisterActivity")
-                    .setAction("Successful google login")
-                    .build());
+            View progressFrame = findViewById(R.id.register_after_login);
+            if (progressFrame.getVisibility()==View.INVISIBLE){
+                progressFrame.setVisibility(View.VISIBLE);
+            }
             // [END custom_event]
 
             Log.v(TAG, "Successfully logged in with Google...");
@@ -266,10 +269,7 @@ public class RegisterActivity extends BaseActivity
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        View progressFrame = findViewById(R.id.register_after_login);
-                        if (progressFrame.getVisibility()==View.INVISIBLE){
-                            progressFrame.setVisibility(View.VISIBLE);
-                        }
+
                         try{
                             UserData(response);
                             application.getAuth().setAuthToken("token");
@@ -285,7 +285,6 @@ public class RegisterActivity extends BaseActivity
 
                                 Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                progressFrame.setVisibility(View.GONE);
                                 startActivity(intent);
                             }
                         }
@@ -321,6 +320,9 @@ public class RegisterActivity extends BaseActivity
 
     }
 
+    private void saveFacebook(){
+        MySharedPreferences.registerFacebook(preferences, "true");
+    }
 
     private void UserData(LoginResponse response) {
         MySharedPreferences.registerUserId(preferences, response.info.getId());
@@ -351,60 +353,203 @@ public class RegisterActivity extends BaseActivity
      * @param loginResult the successful login result
      */
     private void handleFacebookLogin(LoginResult loginResult) {
+        View progressFrame = findViewById(R.id.register_after_login);
+        if (progressFrame.getVisibility()==View.INVISIBLE){
+            progressFrame.setVisibility(View.VISIBLE);
+        }
 
-
-        Log.v(TAG, "Successfully logged in with Facebook...");
-
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("RegisterActivity")
-                .setAction("Successful facebook login")
-                .build());
-        // [END custom_event]
-
-        final Map<String, String> logins = new HashMap<>();
+      //  final Map<String, String> logins = new HashMap<>();
     //    logins.put(FACEBOOK_LOGIN, AccessToken.getCurrentAccessToken().getToken());
     //    Log.v(TAG, String.format("Facebook token <<<\n%s\n>>>", logins.get(FACEBOOK_LOGIN)));
 
-        GraphRequest graphRequest = GraphRequest.newMeRequest(
-                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject me, GraphResponse response) {
-                        if (response.getError() != null) {
-                            Log.i(TAG, response.getError().getErrorMessage());
-                        } else {
-                            String email = me.optString("email");
-                            String id = me.optString("id");
-                            String gender = me.optString("gender");
-                            String first_name = me.optString("first_name");
-                            String last_name = me.optString("last_name");
-                            String age_range = me.optString("age_range");
+        try {
+            getFriendList(loginResult.getAccessToken().getToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                sendFacebookTrue();
+                saveFacebook();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            GraphRequest graphRequest = GraphRequest.newMeRequest(
+                    loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject me, GraphResponse response) {
+                            if (response.getError() != null) {
+                                Log.i(TAG, response.getError().getErrorMessage());
+                            } else {
+                                String email = me.optString("email");
+                                String id = me.optString("id");
+                                //    String gender = me.optString("gender");
+                                String first_name = me.optString("first_name");
+                                String last_name = me.optString("last_name");
+                                String age_range = me.optString("age_range");
 
+                                try {
+                                    getData(String.valueOf(first_name + " " + last_name), email, id);
 
-                            Log.i("email", "-->" + email);
-                            Log.i("id", "-->" + id);
-                            Log.i("gender", "-->" + gender);
-                            Log.i("first_name", "-->" + first_name);
-                            Log.i("last_name", "-->" + last_name);
-                            Log.i("age_range", "-->" + age_range);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
-                            try {
-                                getData(String.valueOf(first_name + " " + last_name), email, id);
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                // send email and id to your web server
                             }
-
-                            // send email and id to your web server
                         }
-                    }
-                });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,first_name,last_name,email,gender,age_range");
-        graphRequest.setParameters(parameters);
-        graphRequest.executeAsync();
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,first_name,last_name,email,gender,age_range");
+            graphRequest.setParameters(parameters);
+            graphRequest.executeAsync();
+        }
+
+
+
 
         // The identity must be created asynchronously
       //  new CreateIdentityTask(this).execute(logins);
+    }
+
+    // Todo enter number of results that you want in result
+    private void getFriendList(String accessToken) throws Exception {
+        application.getWebService()
+                .getFriendsFirst(accessToken, "25")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<MainResponse>() {
+                    @Override
+                    public void onNext(MainResponse response) {
+                        Timber.d(response.getSummary().getTotalCount().toString());
+
+                        if (response.getPaging().getNext()!= null){
+                            addAllFacebookId(response);
+                            try {
+                                getFriendListPart2(response, accessToken);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            addAllFacebookIdLoop(response);
+                            Timber.d("Finished");
+                        }
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                            //   Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void sendAllFacebookId(List<String> response){
+        try {
+            sendAllContacts(response.toString().replace("[", "").replace("]", "").replace(" ", ""));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendFacebookTrue() throws Exception {
+        application.getWebService()
+                .updateFacebook(MySharedPreferences.getUserId(preferences), "true")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+                    }
+                });
+    }
+
+    private void sendAllContacts(String contacts) throws Exception {
+        application.getWebService()
+                .addAllFacebookId(MySharedPreferences.getUserId(preferences), contacts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<ContactAddResponse>() {
+                    @Override
+                    public void onNext(ContactAddResponse response) {
+                        Timber.e("Got user details " + response.getInsertedRows().toString());
+
+                    }
+                });
+    }
+
+    private void repeatNetWork(MainResponse response, String token){
+        try {
+            getFriendListPart2(response, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getFriendListPart2(MainResponse response, String token) throws Exception {
+        application.getWebService()
+                .getFriends(token, "25", response.getPaging().getCursors().getAfter())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<MainResponse>() {
+                    @Override
+                    public void onNext(MainResponse response) {
+
+                        if (response.getPaging().getNext()!= null){
+                            addAllFacebookId(response);
+                            try {
+                                repeatNetWork(response, token);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            addAllFacebookIdLoop(response);
+                            Timber.d("Finished");
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                            //   Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void addAllFacebookIdLoop(MainResponse response){
+
+        try{
+            for (int i = 0; i < response.getData().size(); i++){
+                list_of_facebook.add(response.getData().get(i).getId());
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        } finally {
+            sendAllFacebookId(list_of_facebook);
+        }
+
+    }
+
+    private void addAllFacebookId(MainResponse response){
+
+        try{
+            for (int i = 0; i < response.getData().size(); i++){
+                list_of_facebook.add(response.getData().get(i).getId());
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 
     /**

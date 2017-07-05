@@ -38,6 +38,10 @@ public class MySharedPreferences {
         MySharedPreferences.storeValueInSharedPreferences2(sharedPreferences, AMAZON_USER_ID, userId);
     }
 
+    public static void registerFacebook(SharedPreferences sharedPreferences, String userId) {
+        MySharedPreferences.storeValueInSharedPreferences2(sharedPreferences, Constants.FACEBOOK_ID, userId);
+    }
+
     public static void registerEmail(SharedPreferences sharedPreferences, String email) {
         MySharedPreferences.storeValueInSharedPreferences(sharedPreferences, Constants.EMAIL, email);
     }
@@ -60,6 +64,10 @@ public class MySharedPreferences {
 
     public static String getContact(SharedPreferences sharedPreferences) {
         return MySharedPreferences.getValueFromSharedPreferences(sharedPreferences, Constants.CONTACT);
+    }
+
+    public static String getFacebook(SharedPreferences sharedPreferences) {
+        return MySharedPreferences.getValueFromSharedPreferences(sharedPreferences, Constants.FACEBOOK_ID);
     }
 
     public static String getUsername(SharedPreferences sharedPreferences) {

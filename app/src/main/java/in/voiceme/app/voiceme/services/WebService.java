@@ -348,6 +348,13 @@ public interface WebService {
     );
 
     @FormUrlEncoded
+    @POST("update_facebook.php")
+    Observable<SuccessResponse> updateFacebook(
+            @Field("id_user_name") String id_user_name,
+            @Field("facebook") String facebook
+    );
+
+    @FormUrlEncoded
     @POST("update_post.php")
     Observable<SuccessResponse> updatePost(
             @Field("id_posts") String category,

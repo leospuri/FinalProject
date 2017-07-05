@@ -14,6 +14,7 @@ public interface Constants {
     String EMAIL = "EMAIL";
     String CHAT_MESSAGE = "CHAT_MESSAGE";
     String SOCIAL_ID = "SOCIAL_ID";
+    String FACEBOOK_ID = "FACEBOOK_ID";
     String IMAGE_URL = "IMAGE_URL";
     String USERNAME = "USERNAME";
     String CONTACT = "CONTACT";
