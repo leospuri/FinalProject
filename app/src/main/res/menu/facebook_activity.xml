@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/refresh_new_facebook"
+        android:title="Refresh New FB Friends"/>
+
+    <item
+        android:id="@+id/invite_new_facebook"
+        android:title="Invite Friends"/>
+
+    <item
+        android:id="@+id/more_fb_info"
+        app:showAsAction="never"
+        android:title="More Info" />
+
+
+
+
+
+</menu>

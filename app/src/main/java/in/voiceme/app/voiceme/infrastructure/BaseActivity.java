@@ -31,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected SharedPreferences preferences;
     private boolean isRegisterdWithBus;
     protected String givenContact;
+    protected String givenFacebook;
     protected Tracker mTracker;
 
 
@@ -50,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
 
         givenContact = preferences.getString(Constants.GET_CONTACT_NUMBER, null);
+        givenFacebook = preferences.getString(Constants.FACEBOOK_ID, null);
 
         /**
          * Initialize Facebook SDK
@@ -63,6 +65,10 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
     public boolean hasContactNumber() {
         return givenContact != null && !givenContact.isEmpty();
+    }
+
+    public boolean hasFacebook() {
+        return givenFacebook != null && !givenFacebook.isEmpty();
     }
 
     public void setAuthToken(String givenContact) {

@@ -47,7 +47,6 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.PrivacyPolicy;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class RegisterActivity extends BaseActivity
@@ -72,6 +71,7 @@ public class RegisterActivity extends BaseActivity
  //   private ProgressBar progressBar;
 
     private String token;
+    private String accessToken;
 
     /* Implements GoogleApiClient.OnConnectionFailedListener */
 
@@ -262,7 +262,6 @@ public class RegisterActivity extends BaseActivity
     private void getData(String name, String email, String userId) throws Exception {
         application.getWebService()
                 .login(name, email, userId)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<LoginResponse>() {
@@ -272,6 +271,9 @@ public class RegisterActivity extends BaseActivity
 
                         try{
                             UserData(response);
+                            getFriendList(accessToken);
+                            sendFacebookTrue();
+                            saveFacebook();
                             application.getAuth().setAuthToken("token");
                             application.getAuth().getUser().setLoggedIn(true);
                         } catch (Exception ex){
@@ -300,7 +302,6 @@ public class RegisterActivity extends BaseActivity
             application.getWebService()
                     .onlyToken(id, token)
                     .retryWhen(new RetryWithDelay(3,2000))
-                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<OnlyToken>() {
                         @Override
@@ -357,22 +358,12 @@ public class RegisterActivity extends BaseActivity
         if (progressFrame.getVisibility()==View.INVISIBLE){
             progressFrame.setVisibility(View.VISIBLE);
         }
+        accessToken = loginResult.getAccessToken().getToken();
 
       //  final Map<String, String> logins = new HashMap<>();
     //    logins.put(FACEBOOK_LOGIN, AccessToken.getCurrentAccessToken().getToken());
     //    Log.v(TAG, String.format("Facebook token <<<\n%s\n>>>", logins.get(FACEBOOK_LOGIN)));
 
-        try {
-            getFriendList(loginResult.getAccessToken().getToken());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                sendFacebookTrue();
-                saveFacebook();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             GraphRequest graphRequest = GraphRequest.newMeRequest(
                     loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                         @Override
@@ -409,14 +400,13 @@ public class RegisterActivity extends BaseActivity
 
         // The identity must be created asynchronously
       //  new CreateIdentityTask(this).execute(logins);
-    }
+
 
     // Todo enter number of results that you want in result
     private void getFriendList(String accessToken) throws Exception {
         application.getWebService()
                 .getFriendsFirst(accessToken, "25")
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<MainResponse>() {
                     @Override
@@ -460,7 +450,6 @@ public class RegisterActivity extends BaseActivity
         application.getWebService()
                 .updateFacebook(MySharedPreferences.getUserId(preferences), "true")
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<SuccessResponse>() {
                     @Override
@@ -473,13 +462,21 @@ public class RegisterActivity extends BaseActivity
         application.getWebService()
                 .addAllFacebookId(MySharedPreferences.getUserId(preferences), contacts)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<ContactAddResponse>() {
                     @Override
                     public void onNext(ContactAddResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
 
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                            //   Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 });
     }
@@ -496,7 +493,6 @@ public class RegisterActivity extends BaseActivity
         application.getWebService()
                 .getFriends(token, "25", response.getPaging().getCursors().getAfter())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<MainResponse>() {
                     @Override

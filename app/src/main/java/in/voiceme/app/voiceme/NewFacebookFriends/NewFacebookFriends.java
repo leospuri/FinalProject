@@ -159,7 +159,9 @@ public class NewFacebookFriends extends BaseActivity {
     }
 
     private void sendAllFacebookId(List<String> response){
+        String invite;
         try {
+          //  invite = response.toString().replace("[", "").replace("]", "").replace(" ", "");
             sendAllContacts(response.toString().replace("[", "").replace("]", "").replace(" ", ""));
         } catch (Exception e) {
             e.printStackTrace();
