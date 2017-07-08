@@ -134,7 +134,6 @@ public interface WebService {
                                                   @Query("user_id") String userID,
                                                   @Query("page") int page);
 
-
     @FormUrlEncoded
     @POST("likes.php")
     Observable<PostLikesResponse> likes(@Field("user_id") String userId,
