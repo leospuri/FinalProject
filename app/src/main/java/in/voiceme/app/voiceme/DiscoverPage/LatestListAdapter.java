@@ -412,6 +412,14 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
                 }
+
+                if (MySharedPreferences.getUserId(preferences).equals("2")){
+                    popupMenu.getMenu().setGroupVisible(R.id.main_menu_popular_group, true);
+                } else {
+                    popupMenu.getMenu().setGroupVisible(R.id.main_menu_popular_group, false);
+                }
+
+
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -428,6 +436,12 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 }
 
                                 itemView.getContext().startActivity(editIntent);
+                                return true;
+
+                            case R.id.make_popular:
+
+                                sendPopularPost((VoicemeApplication) itemView.getContext().getApplicationContext(), dataItem.getIdPosts(), dataItem.getTextStatus());
+
                                 return true;
 
                             case R.id.report_post:

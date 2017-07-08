@@ -13,10 +13,20 @@
             android:id="@+id/report_post"
             android:title="Report Abuse"/>
 
+        <item
+            android:id="@+id/menu_item_share"
+            app:showAsAction="never"
+            android:title="Share" />
+
+        <group
+            android:id="@+id/main_menu_popular_group">
                 <item
-                    android:id="@+id/menu_item_share"
+                    android:id="@+id/make_popular"
                     app:showAsAction="never"
-                    android:title="Share" />
+                    android:title="Make Popular" />
+        </group>
+
+
 
 
 

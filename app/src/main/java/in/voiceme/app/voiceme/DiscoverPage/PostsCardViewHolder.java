@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import in.voiceme.app.voiceme.DTO.PostLikesResponse;
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
@@ -536,6 +538,24 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                          Timber.d("Message from server" + response);
+                    }
+                });
+    }
+
+    protected void sendPopularPost(final VoicemeApplication application, String post_id, String post_text) {
+
+        application.getWebService()
+                .insertPopularPost(post_id, post_text)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+                        Toast.makeText(itemView.getContext(), "Successfully made Post Popular", Toast.LENGTH_SHORT).show();
                         Timber.d("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();

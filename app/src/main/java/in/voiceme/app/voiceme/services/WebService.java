@@ -145,6 +145,11 @@ public interface WebService {
                                         @Field("listen") int listen);
 
     @FormUrlEncoded
+    @POST("insert_popular_post.php")
+    Observable<SuccessResponse> insertPopularPost(@Field("post_id") String post_id,
+                                        @Field("post_text") String post_text);
+
+    @FormUrlEncoded
     @POST("aboutme.php")
     Observable<ProfileAboutMe> LoginUserName(@Field("user_id") String userId,
                                              @Field("username") String username,

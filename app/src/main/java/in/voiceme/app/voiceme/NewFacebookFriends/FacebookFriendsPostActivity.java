@@ -73,7 +73,7 @@ public class FacebookFriendsPostActivity extends BaseFacebook implements Paginat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facebook_friends_post);
 
-        getSupportActionBar().setTitle("Facebook Anonymous Posts");
+        getSupportActionBar().setTitle("FB Anonymous Posts");
         setNavDrawer(new MainNavDrawer(this));
         progressFrame = findViewById(R.id.facebook_list);
 
