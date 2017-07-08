@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -61,6 +62,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     LinearLayout errorLayout;
     LinearLayout no_post_layout;
     TextView txtError;
+    private List<String> popularDiscoverPage;
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
     PullRefreshLayout layout;
@@ -82,6 +84,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_LATEST_PAGE);
+        popularDiscoverPage = new ArrayList<>();
         latestListAdapter = new LatestListAdapter(getActivity());
     }
 
@@ -90,6 +93,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         super.onResume();
         try {
             initUiView(view);
+            loadPopularPost();
             loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,6 +124,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         layout.setRefreshing(false);
                         currentPage = PAGE_START;
                         try {
+                            loadPopularPost();
                             loadFirstPage();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -140,6 +145,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
             @Override
             public void onClick(View view) {
                 try {
+                    loadPopularPost();
                     loadFirstPage();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -236,7 +242,9 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
         return errorMsg;
     }
-    private void loadFirstPage() throws Exception {
+
+
+    private void loadPopularPost() throws Exception {
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
 
@@ -244,10 +252,9 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
             currentPage = PAGE_START;
         }
         application.getWebService()
-                .getLatestFeed(MySharedPreferences.getUserId(preferences), currentPage)
+                .getPopularPost(MySharedPreferences.getUserId(preferences))
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -268,6 +275,46 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         if (response.size() < 25){
                             isLastPage = true;
                         } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                        else isLastPage = true;
+
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        progressBar.setVisibility(View.GONE);
+                        progressFrame.setVisibility(View.GONE);
+                        showErrorView(e);
+                    }
+                });
+    }
+
+    private void loadFirstPage() throws Exception {
+        Log.d(TAG, "loadFirstPage: ");
+        hideErrorView();
+
+        if(currentPage > PAGE_START){
+            currentPage = PAGE_START;
+        }
+        application.getWebService()
+                .getLatestFeed(MySharedPreferences.getUserId(preferences), currentPage)
+                .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<List<PostsModel>>() {
+                    @Override
+                    public void onNext(List<PostsModel> response) {
+                    hideErrorView();
+                        latestListAdapter.addAll(response);
+                        latestListAdapter.removeLoadingFooter();
+                        isLoading = false;
+
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
+
+                        Log.e("RESPONSE:::", "Size===" + response.size());
+
+                        // showRecycleWithDataFilled(response);
+                        if (currentPage != TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
 
                     }

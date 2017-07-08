@@ -22,6 +22,7 @@ import in.voiceme.app.voiceme.DTO.ProfileFollowerUserList;
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
+import in.voiceme.app.voiceme.DiscoverPage.PopularDiscoverPojo;
 import in.voiceme.app.voiceme.NewFacebookFriends.MainResponse;
 import in.voiceme.app.voiceme.NotificationsPage.NotificationPojo;
 import in.voiceme.app.voiceme.chat.OnlineStatusCheck;
@@ -57,6 +58,9 @@ public interface WebService {
 
     @GET("get_all_chats_new.php")
     Observable<List<ChatDialogPojo>> getAllChatMessages(@Query("user_id") String userID);
+
+    @GET("get_discover_id.php")
+    Observable<List<PopularDiscoverPojo>> getAllPopularDiscover();
 
     @GET("get_hashtags.php")
     Observable<List<AllCategoryPojo>> getAllHashTags();
@@ -110,6 +114,9 @@ public interface WebService {
                                                  @Query("user_id") String user_id,
                                                  @Query("facebookId") String contacts,
                                                  @Query("page") int page);
+
+    @GET("posts.php")
+    Observable<List<PostsModel>> getPopularPost(@Query("popularPostId") String popularPostId);
 
     @GET("get_comments_reply.php")
     Observable<List<PostUserCommentModel>> getUserComments(

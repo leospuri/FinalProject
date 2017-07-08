@@ -13,6 +13,7 @@ public class LoginResponse extends AbstractResponse {
         @SerializedName("present") @Expose private String present;
         @SerializedName("imageurl") @Expose private String imageurl;
         @SerializedName("contact") @Expose private String givenContact;
+        @SerializedName("facebookid") @Expose private boolean facebookid;
 
         public String getId() {
             return id;
@@ -24,6 +25,10 @@ public class LoginResponse extends AbstractResponse {
 
         public String getUserId() {
             return userId;
+        }
+
+        public boolean isFacebookid() {
+            return facebookid;
         }
 
         public String getPresent() {

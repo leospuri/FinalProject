@@ -244,7 +244,7 @@ public class RegisterActivity extends BaseActivity
 
             try {
                 getData(result.getSignInAccount().getDisplayName(),
-                        result.getSignInAccount().getEmail(), result.getSignInAccount().getId());
+                        result.getSignInAccount().getEmail(), result.getSignInAccount().getId(), "GOOGLE");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -259,7 +259,7 @@ public class RegisterActivity extends BaseActivity
     }
 
 
-    private void getData(String name, String email, String userId) throws Exception {
+    private void getData(String name, String email, String userId, String socialNetwork) throws Exception {
         application.getWebService()
                 .login(name, email, userId)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -268,28 +268,58 @@ public class RegisterActivity extends BaseActivity
                     @Override
                     public void onNext(LoginResponse response) {
 
+                        if (socialNetwork.equals("FACEBOOK")){
+                            try{
+                                UserData(response);
+                                getFriendList(accessToken);
+                                sendFacebookTrue();
+                                saveFacebook();
+                                application.getAuth().setAuthToken("token");
+                                application.getAuth().getUser().setLoggedIn(true);
+                            } catch (Exception ex){
+                                ex.printStackTrace();
+                            } finally {
+                                if (response.info.getPresent().equals("yes")){
+                                    token = FirebaseInstanceId.getInstance().getToken();
+                                    postToken(response.info.getUserId(), token);
 
-                        try{
-                            UserData(response);
-                            getFriendList(accessToken);
-                            sendFacebookTrue();
-                            saveFacebook();
-                            application.getAuth().setAuthToken("token");
-                            application.getAuth().getUser().setLoggedIn(true);
-                        } catch (Exception ex){
-                            ex.printStackTrace();
-                        } finally {
-                            if (response.info.getPresent().equals("yes")){
-                                token = FirebaseInstanceId.getInstance().getToken();
-                                postToken(response.info.getUserId(), token);
+                                } else {
 
-                            } else {
+                                    Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            }
+                        } else {
+                            try{
+                                UserData(response);
+                                if (response.info.isFacebookid()){
+                                    saveFacebook();
+                                }
+                           //     getFriendList(accessToken);
+                          //      sendFacebookTrue();
+                        //        saveFacebook();
 
-                                Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                application.getAuth().setAuthToken("token");
+                                application.getAuth().getUser().setLoggedIn(true);
+                            } catch (Exception ex){
+                                ex.printStackTrace();
+                            } finally {
+                                if (response.info.getPresent().equals("yes")){
+                                    token = FirebaseInstanceId.getInstance().getToken();
+                                    postToken(response.info.getUserId(), token);
+
+                                } else {
+
+                                    Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
                             }
                         }
+
+
+
 
 
 
@@ -379,7 +409,7 @@ public class RegisterActivity extends BaseActivity
                                 String age_range = me.optString("age_range");
 
                                 try {
-                                    getData(String.valueOf(first_name + " " + last_name), email, id);
+                                    getData(String.valueOf(first_name + " " + last_name), email, id, "FACEBOOK");
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
