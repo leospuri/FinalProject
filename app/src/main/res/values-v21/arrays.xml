@@ -7,6 +7,30 @@
         <item>Strip</item>
     </string-array>
 
+    <string-array name="country_names">
+        <item>Facebook</item>
+        <item>Twitter</item>
+        <item>Google+</item>
+        <item>LinkedIn</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="country_codes">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="country_flags">
+        <item>@drawable/facebook_icon</item>
+        <item>@drawable/twitter_icon</item>
+        <item>@drawable/google_plus_icon</item>
+        <item>@drawable/linkedin_icon</item>
+    </string-array>
+
+
         <string-array name="colors">
             <item>#ff0000</item>
             <item>#00ff00</item>

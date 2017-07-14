@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.DiscoverPage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -467,14 +468,18 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                               //  Log.d(LOG_TAG, "Share Action Provider is null?");
                             } */
 
-                                if(dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
+                          /*      if(dataItem.getAudioFileLink() == null || dataItem.getAudioFileLink().isEmpty()){
+
                                     itemView.getContext().startActivity(Intent.createChooser(sharedIntentMaker(), "Choose an app"));
                                 } else {
                                     itemView.getContext().startActivity(Intent.createChooser(sharedAudioIntentMaker(), "Choose an app"));
 
                                 }
 
-
+                                */
+                                Intent intent = new Intent(itemView.getContext(), ShareActivity.class);
+                                intent.putExtra("POST_POJO", dataItem.getTextStatus() );
+                                ((Activity) view.getContext()).startActivityForResult(intent, 191);
 
                                 return true;
 

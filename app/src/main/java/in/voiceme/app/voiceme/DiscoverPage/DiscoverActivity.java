@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.DiscoverPage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -171,6 +173,17 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         //set adapter to pager
         pager.setAdapter(adapter);
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 191 && resultCode == Activity.RESULT_OK){
+            String countryCode = data.getStringExtra(ShareActivity.RESULT_CONTRYCODE);
+            Toast.makeText(this, "You selected countrycode: " + countryCode, Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 //  @Override
 //    public boolean processLoggedState(View viewPrm) {          if(this.mBaseLoginClass.isDemoMode(viewPrm))                      {Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show(); return true;} return false;

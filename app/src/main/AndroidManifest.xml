@@ -230,17 +230,28 @@
         <activity android:name=".userpost.NewAudioStatusActivity" />
         <activity android:name=".NewFacebookFriends.NewFacebookFriends" />
         <activity android:name=".NewFacebookFriends.FacebookFriendsPostActivity" />
-        <activity android:name=".NewFacebookFriends.FacebookAnimActivity"></activity>
+        <activity android:name=".NewFacebookFriends.FacebookAnimActivity" />
 
-        <!--android:autoVerify="true" -->
-        <intent-filter >
+        <!-- android:autoVerify="true" -->
+        <intent-filter>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="http" android:host="www.voiceme.in" />
-            <data android:scheme="https" android:host="www.voiceme.in" />
+
+            <data
+                android:host="www.voiceme.in"
+                android:scheme="http" />
+            <data
+                android:host="www.voiceme.in"
+                android:scheme="https" />
         </intent-filter>
 
+        <activity android:name=".DiscoverPage.ShareActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:noHistory="true"
+            android:label="Share Post"
+            />
     </application>
 
 </manifest>
