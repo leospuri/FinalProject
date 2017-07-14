@@ -133,13 +133,14 @@
                 android:id="@+id/detail_list_item_posts_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_category"
                 android:layout_below="@id/detail_list_item_post_userNickName"
                 android:layout_marginBottom="3dp"
                 android:layout_toEndOf="@id/detail_list_item_posts_avatar"
                 android:layout_toRightOf="@id/detail_list_item_posts_avatar"
                 android:text="hello"
                 android:textColor="#444"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
 
             <TextView
@@ -411,6 +412,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:clickable="true"
+        android:visibility="gone"
             android:id="@+id/post_details_progressBar">
             <TextView
                 android:layout_width="wrap_content"

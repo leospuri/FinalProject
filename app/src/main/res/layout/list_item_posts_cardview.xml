@@ -83,8 +83,8 @@
             android:textSize="14sp" />
 
         <LinearLayout
-            android:layout_width="40dp"
-            android:layout_height="60dp"
+            android:layout_width="55dp"
+            android:layout_height="70dp"
             android:id="@+id/play_button_layout"
             android:layout_alignEnd="@+id/list_item_posts_timeStamp"
             android:layout_alignRight="@+id/list_item_posts_timeStamp"
@@ -94,8 +94,8 @@
             <view
                 android:id="@+id/list_item_posts_play_button"
                 class="mbanje.kurt.fabbutton.FabButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
@@ -143,6 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_posts_category"
             android:layout_marginTop="3dp"
+            android:layout_marginRight="10dp"
             android:maxLines="3"
             android:maxLength="1000"
             android:text=""

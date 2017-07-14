@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
@@ -20,8 +19,6 @@ import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 public class BlankFragment extends BaseFragment {
  //   private Button skip;
     private Button register;
-
-    private ProgressBar progressBar;
 
     public BlankFragment() {
         // Required empty public constructor
@@ -35,7 +32,6 @@ public class BlankFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
     //    skip = (Button) view.findViewById(R.id.try_it_btn);
         register = (Button) view.findViewById(R.id.activity_login_register);
-        progressBar = (ProgressBar) view.findViewById(R.id.activity_login_progressbar);
 
 
   /*      skip.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +60,6 @@ public class BlankFragment extends BaseFragment {
         if (requestCode == 121) {
             if(resultCode == Activity.RESULT_OK){
                 register.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
             }
         }
     }

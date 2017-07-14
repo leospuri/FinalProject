@@ -8,7 +8,7 @@
     android:minWidth="300dp"
     android:id="@+id/nav_drawer"
     android:layout_gravity="start"
-    android:background="@color/new_toolbar_color">
+    android:background="@drawable/nav_drawer">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -54,6 +54,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/include_main_nav_drawer_bottomItems"
-        android:background="@color/new_toolbar_color"/>
+        android:background="@color/transparent"/>
 
 </LinearLayout>

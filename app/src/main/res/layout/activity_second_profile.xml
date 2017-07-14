@@ -41,7 +41,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="290dp"
                         android:id="@+id/profile_back"
-                        android:background="#11bce8" />
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/background_start" />
 
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/second_image"

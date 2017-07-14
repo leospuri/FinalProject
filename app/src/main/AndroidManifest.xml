@@ -231,6 +231,16 @@
         <activity android:name=".NewFacebookFriends.NewFacebookFriends" />
         <activity android:name=".NewFacebookFriends.FacebookFriendsPostActivity" />
         <activity android:name=".NewFacebookFriends.FacebookAnimActivity"></activity>
+
+        <!--android:autoVerify="true" -->
+        <intent-filter >
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="http" android:host="www.voiceme.in" />
+            <data android:scheme="https" android:host="www.voiceme.in" />
+        </intent-filter>
+
     </application>
 
 </manifest>
