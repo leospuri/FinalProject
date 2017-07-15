@@ -11,6 +11,10 @@ public interface Constants {
     String FACEBOOK_LOGIN = "graph.facebook.com";
     String MESSAGECHAT = "MESSAGECHAT";
 
+    String SHARE_MESSAGE = "SHARE_MESSAGE";
+
+
+
     String EMAIL = "EMAIL";
     String CHAT_MESSAGE = "CHAT_MESSAGE";
     String SOCIAL_ID = "SOCIAL_ID";

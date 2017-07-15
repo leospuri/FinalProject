@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 
 public class ShareActivity extends ListActivity {
     public static String RESULT_CONTRYCODE = "countrycode";
@@ -24,7 +25,7 @@ public class ShareActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        textStatus = getIntent().getStringExtra("POST_POJO");
+        textStatus = getIntent().getStringExtra(Constants.SHARE_MESSAGE);
 
         populateCountryList();
         ArrayAdapter<Country> adapter = new CountryListArrayAdapter(this, countryList);
@@ -35,8 +36,7 @@ public class ShareActivity extends ListActivity {
                 Country c = countryList.get(position);
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(RESULT_CONTRYCODE, c.getCode());
-                returnIntent.putExtra("POST_STATUS", textStatus);
-
+                returnIntent.putExtra(Constants.SHARE_MESSAGE, textStatus);
                 setResult(RESULT_OK, returnIntent);
                 imgs.recycle(); //recycle images
                 finish();

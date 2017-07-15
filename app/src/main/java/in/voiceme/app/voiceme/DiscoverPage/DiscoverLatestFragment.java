@@ -17,8 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baoyz.widget.PullRefreshLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -32,8 +30,6 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -41,7 +37,7 @@ import timber.log.Timber;
 import static com.facebook.GraphRequest.TAG;
 
 
-public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInInterface, PaginationAdapterCallback {
+public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInInterface, OnLoadMoreListener {
     public static final String ARG_LATEST_PAGE = "ARG_LATEST_PAGE";
 
     private int mPage;
@@ -53,7 +49,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 5;
+    private int TOTAL_PAGES = 500;
     private int currentPage = PAGE_START;
     private View progressFrame;
 
@@ -65,7 +61,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     private List<String> popularDiscoverPage;
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
-    PullRefreshLayout layout;
     View view;
 
     public DiscoverLatestFragment() {
@@ -113,6 +108,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
+        /*
         layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
         layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
@@ -133,6 +129,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 }, 2000);
             }
         });
+        */
 
 //        try {
 //            initUiView(view);
@@ -166,6 +163,19 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
+
+
+        try {
+            loadPopularPost();
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*
+
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
@@ -191,6 +201,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                 return isLoading;
             }
         });
+        */
     }
 
     @Override
@@ -306,6 +317,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                         latestListAdapter.addAll(response);
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;
+                        currentPage++;
 
                         if(response.size() < 25){
                             isLastPage = true;
@@ -388,10 +400,22 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
     }
 
-    @Override
+  /*  @Override
     public void retryPageLoad() {
         try {
             loadNextPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } */
+
+    @Override
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
+        try {
+            loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            currentPage++;
         } catch (Exception e) {
             e.printStackTrace();
         }

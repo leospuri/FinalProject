@@ -17,23 +17,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baoyz.widget.PullRefreshLayout;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static com.facebook.GraphRequest.TAG;
 
@@ -41,25 +40,31 @@ import static com.facebook.GraphRequest.TAG;
 /**
  * A simple {@link BaseFragment} subclass.
  */
-public class DiscoverPopularFragment extends BaseFragment implements PaginationAdapterCallback {
-    public static final String ARG_POPULAR_PAGE = "ARG_YOUR_FEED_PAGE";
-    PullRefreshLayout layout;
-    private Button error_btn_retry;
+public class DiscoverPopularFragment extends BaseFragment implements WasLoggedInInterface, OnLoadMoreListener {
+    public static final String ARG_LATEST_PAGE = "ARG_LATEST_PAGE";
+
+    private int mPage;
+
+    // private LatestListAdapter latestListAdapter;
+    private RecyclerView recyclerView;
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 5;
+    private int TOTAL_PAGES = 500;
     private int currentPage = PAGE_START;
-    ProgressBar progressBar;
-    LinearLayout errorLayout;
-    TextView txtError;
     private View progressFrame;
 
-    private int mPage;
-    private RecyclerView recyclerView;
+    ProgressBar progressBar;
+    Button error_btn_retry;
+    LinearLayout errorLayout;
+    LinearLayout no_post_layout;
+    TextView txtError;
+    private List<String> popularDiscoverPage;
+    TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
+    View view;
 
     public DiscoverPopularFragment() {
         // Required empty public constructor
@@ -67,31 +72,44 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
     public static DiscoverPopularFragment newInstance(int page) {
         Bundle args = new Bundle();
-        args.putInt(ARG_POPULAR_PAGE, page);
-        DiscoverPopularFragment fragment2 = new DiscoverPopularFragment();
-        fragment2.setArguments(args);
-        return fragment2;
+        args.putInt(ARG_LATEST_PAGE, page);
+        DiscoverPopularFragment fragment = new DiscoverPopularFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPage = getArguments().getInt(ARG_POPULAR_PAGE);
+        mPage = getArguments().getInt(ARG_LATEST_PAGE);
+        popularDiscoverPage = new ArrayList<>();
+        latestListAdapter = new LatestListAdapter(getActivity());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            initUiView(view);
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_discover_popular, container, false);
+        view = inflater.inflate(R.layout.fragment_discover_popular, container, false);
         progressFrame = view.findViewById(R.id.activity_discover_popular);
         error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
-        layout = (PullRefreshLayout) view.findViewById(R.id.discover_popular_swipeRefreshLayout);
+        /*
+        layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
         layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
@@ -102,21 +120,23 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                         layout.setRefreshing(false);
                         currentPage = PAGE_START;
                         try {
+                            loadPopularPost();
                             loadFirstPage();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }, 4000);
+                }, 2000);
             }
         });
+        */
 
-        try {
-            initUiView(view);
-            loadFirstPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            initUiView(view);
+//            loadFirstPage();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +149,10 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
             }
         });
 
-
-
-
+        //recyclerview
+//        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_recyclerview);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+//        recyclerView.setAdapter(new MyRecyclerAdapter(this.getActivity(), getDiscoverLatest()));
         return view;
     }
 
@@ -140,10 +161,22 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
+
+
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*
 
         recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
+                int totalItemCount = linearLayoutManager.getItemCount();
                 isLoading = true;
                 currentPage += 1;
 
@@ -165,21 +198,27 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                 return isLoading;
             }
         });
+        */
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     private void showErrorView(Throwable throwable) {
-
         if (errorLayout.getVisibility() == View.GONE) {
             errorLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
-
             txtError.setText(fetchErrorMessage(throwable));
+        }
+    }
+
+    private void showEmptyView() {
+        if (no_post_layout.getVisibility() == View.GONE) {
+            no_post_layout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            no_post_textview.setText("There are no Latest Posts");
         }
     }
 
@@ -212,10 +251,6 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
         return errorMsg;
     }
 
-    @Override
-    public String toString() {
-        return "documentary";
-    }
 
     private void loadFirstPage() throws Exception {
         Log.d(TAG, "loadFirstPage: ");
@@ -224,39 +259,35 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
         if(currentPage > PAGE_START){
             currentPage = PAGE_START;
         }
-
         application.getWebService()
                 .getPopulars(MySharedPreferences.getUserId(preferences),"true", currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
-                        progressBar.setVisibility(View.GONE);
-                        progressFrame.setVisibility(View.GONE);
-
                         hideErrorView();
-                        Log.e("RESPONSE:::", "Size===" + response.size());
-                        //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
+                        latestListAdapter.addAll(response);
+                        latestListAdapter.removeLoadingFooter();
+                        isLoading = false;
+                        currentPage++;
 
-                        //   List<PostsModel> model = fetchResults(response);
-                        //   showRecycleWithDataFilled(response);
-                        showRecycleWithDataFilled(response);
-
-
-                        //   showRecycleWithDataFilled(response);
-                        //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
+                        if(response.size() < 25){
                             isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                        }
+
+                        Log.e("RESPONSE:::", "Size===" + response.size());
+
+                        // showRecycleWithDataFilled(response);
+                        if (currentPage != TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
+
                     }
                     @Override
                     public void onError(Throwable e){
+                        e.printStackTrace();
                         progressBar.setVisibility(View.GONE);
                         progressFrame.setVisibility(View.GONE);
-                        e.printStackTrace();
                         showErrorView(e);
                     }
                 });
@@ -275,13 +306,17 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                     @Override
                     public void onNext(List<PostsModel> response) {
                         hideErrorView();
+                        latestListAdapter.addAll(response);
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;
 
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                       // showRecycleWithDataFilled(response);
-                        latestListAdapter.addAll(response);
+
+                        // showRecycleWithDataFilled(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
@@ -290,26 +325,20 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                         e.printStackTrace();
                         progressBar.setVisibility(View.GONE);
                         progressFrame.setVisibility(View.GONE);
+                        Timber.e("error is: " + e);
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });
 
     }
 
+    @Override
+    public String toString() {
+        return "documentary";
+    }
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
         latestListAdapter = new LatestListAdapter(myList, getActivity());
-  /*      latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
-            @Override
-            public void onItemClick(PostsModel model, View v) {
-                String name = model.getIdUserName();
-            }
-
-            @Override
-            public void onLikeUnlikeClick(PostsModel model, LikeButton v) {
-
-            }
-        }); */
         recyclerView.setAdapter(latestListAdapter);
     }
 
@@ -324,10 +353,22 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
     }
 
-    @Override
+  /*  @Override
     public void retryPageLoad() {
         try {
             loadNextPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } */
+
+    @Override
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
+        try {
+            loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            currentPage++;
         } catch (Exception e) {
             e.printStackTrace();
         }

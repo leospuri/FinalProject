@@ -110,7 +110,9 @@ dependencies {
     }
     // compile 'com.writingminds:FFmpegAndroid:0.3.2' library to compress audio
     testCompile 'junit:junit:4.12'
-    compile 'com.github.championswimmer:Android-SocialButtons:1.0'
+    compile('io.fabric.sdk.android:fabric:1.3.17@aar') {
+        transitive = true;
+    }
     compile 'com.github.robertsimoes:Shareable:0.1.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
@@ -135,15 +137,12 @@ dependencies {
     compile 'com.yalantis:ucrop:2.2.0'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
-    compile('io.fabric.sdk.android:fabric:1.3.17@aar') {
-        transitive = true;
-    }
     compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
     compile 'com.redbooth:WelcomeCoordinator:1.0.1'
     compile 'com.google.android.gms:play-services-analytics:10.2.6'
     compile 'mbanje.kurt:fabbutton:1.2.2@aar'
     compile 'com.facebook.fresco:fresco:1.0.1'
-    compile 'net.danlew:android.joda:2.9.5.1'
+    compile 'net.danlew:android.joda:2.9.9'
     compile 'com.android.support.constraint:constraint-layout:1.0.0'
     compile 'com.github.Cutta:TagView:1.3'
     compile 'com.rockerhieu.emojicon:library:1.3.1'

@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -16,6 +16,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.robertsimoes.shareable.Shareable;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.ConstantOnlineRepeatService;
@@ -34,6 +35,8 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
+    private final String share_url = "https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme";
+    private final Uri share_image = Uri.parse("https://s3-us-west-2.amazonaws.com/voice-me-images/Untitled-3.jpg");
 
     /**
      * saves and shows state: if the user in demo mode or not .
@@ -179,10 +182,81 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 191 && resultCode == Activity.RESULT_OK){
-            String countryCode = data.getStringExtra(ShareActivity.RESULT_CONTRYCODE);
-            Toast.makeText(this, "You selected countrycode: " + countryCode, Toast.LENGTH_LONG).show();
+
+            Intent intent = data;
+            String countryCode = intent.getStringExtra(ShareActivity.RESULT_CONTRYCODE);
+            String shareMessage = intent.getStringExtra(Constants.SHARE_MESSAGE);
+            switch (countryCode){
+                case "1":
+                    facebook(shareMessage);
+                    return;
+                case "2":
+                    twitter(shareMessage);
+                    return;
+                case "3":
+                    plus(shareMessage);
+                    return;
+                case "4":
+                    linkedin(shareMessage);
+                    return;
+                case "5":
+                    startActivity(Intent.createChooser(sharedIntentMaker(shareMessage), "Choose an app"));
+                    return;
+            }
         }
     }
+
+    private Intent sharedIntentMaker(String message){
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message + " You can download from \" +\n" +
+                "                                \"https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme");
+        return shareIntent;
+    }
+
+    private void facebook(String message) {
+        Shareable shareInstance = new Shareable.Builder(this)
+                .message(message)
+             //   .image(share_image)
+                .socialChannel(Shareable.Builder.FACEBOOK)
+                .url(share_url)
+                .build();
+        shareInstance.share();
+    }
+
+    private void linkedin(String message) {
+        Shareable shareInstance = new Shareable.Builder(this)
+                .message(message)
+                .image(share_image)
+                .socialChannel(Shareable.Builder.LINKED_IN)
+                .url(share_url)
+                .build();
+        shareInstance.share();
+    }
+
+    private void twitter(String message) {
+        Shareable shareInstance = new Shareable.Builder(this)
+                .message(message)
+                .socialChannel(Shareable.Builder.TWITTER)
+                .image(share_image)
+                .url(share_url)
+                .build();
+        shareInstance.share();
+    }
+
+    private void plus(String message) {
+        Shareable shareInstance = new Shareable.Builder(this)
+                .message(message)
+                .image(share_image)
+                .socialChannel(Shareable.Builder.GOOGLE_PLUS)
+                .url(share_url)
+                .build();
+        shareInstance.share();
+    }
+
 
 
 //  @Override

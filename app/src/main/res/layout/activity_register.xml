@@ -87,11 +87,12 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_above="@+id/signin_with_facebook_btn"
             android:id="@+id/login_divider_or_left"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="220dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/warm_grey_two"/>
 
 
@@ -106,7 +107,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="5dp"
             android:layout_above="@+id/signin_with_facebook_btn"
             android:id="@+id/login_divider_or_right"
             android:layout_marginLeft="220dp"

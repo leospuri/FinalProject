@@ -4,10 +4,10 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-        <com.baoyz.widget.PullRefreshLayout
+    <!--    <com.baoyz.widget.PullRefreshLayout
             android:id="@+id/discover_latest_swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"> -->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fragment_discover_recyclerview"
@@ -15,13 +15,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-        </com.baoyz.widget.PullRefreshLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
 
-    <ProgressBar
-        android:id="@+id/main_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+            <ProgressBar
+                android:id="@+id/main_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+     <!--   </com.baoyz.widget.PullRefreshLayout> -->
+
+
 
         <include layout="@layout/error_layout" />
 

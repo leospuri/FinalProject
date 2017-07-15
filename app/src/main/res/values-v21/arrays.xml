@@ -28,6 +28,7 @@
         <item>@drawable/twitter_icon</item>
         <item>@drawable/google_plus_icon</item>
         <item>@drawable/linkedin_icon</item>
+        <item>@drawable/activity_new</item>
     </string-array>
 
 

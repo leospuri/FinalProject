@@ -476,9 +476,12 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                                 }
 
+
+
                                 */
                                 Intent intent = new Intent(itemView.getContext(), ShareActivity.class);
-                                intent.putExtra("POST_POJO", dataItem.getTextStatus() );
+                                intent.putExtra(Constants.SHARE_MESSAGE, dataItem.getUserNicName() + " " + "said:"
+                                        + " " + dataItem.getTextStatus() + " " + "inside Voiceme Android App." );
                                 ((Activity) view.getContext()).startActivityForResult(intent, 191);
 
                                 return true;
