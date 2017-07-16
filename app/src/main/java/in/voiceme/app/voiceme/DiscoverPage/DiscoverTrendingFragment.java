@@ -30,14 +30,12 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
-public class DiscoverTrendingFragment extends BaseFragment implements PaginationAdapterCallback {
+public class DiscoverTrendingFragment extends BaseFragment implements OnLoadMoreListener {
     public static final String ARG_TRENDING_PAGE = "ARG_TRENDING_PAGE";
     PullRefreshLayout layout;
 
@@ -45,7 +43,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
     private boolean isLoading = false;
     private boolean isLastPage = false;
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
-    private int TOTAL_PAGES = 5;
+    private int TOTAL_PAGES = 500;
     private int currentPage = PAGE_START;
     ProgressBar progressBar;
     LinearLayout errorLayout;
@@ -109,7 +107,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
 
         try {
             initUiView(view);
-            loadFirstPage();
+          //  loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,31 +131,15 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
 
-        recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
-            @Override
-            protected void loadMoreItems() {
-                isLoading = true;
-                currentPage += 1;
 
-                loadNextPage();
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -318,9 +300,13 @@ public class DiscoverTrendingFragment extends BaseFragment implements Pagination
     }
 
     @Override
-    public void retryPageLoad() {
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
         try {
             loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            isLoading = true;
+            currentPage += 1;
         } catch (Exception e) {
             e.printStackTrace();
         }

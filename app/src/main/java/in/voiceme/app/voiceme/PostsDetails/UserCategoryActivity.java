@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DiscoverPage.InfiniteScrollProvider;
+import in.voiceme.app.voiceme.DiscoverPage.OnLoadMoreListener;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
@@ -30,14 +32,12 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.NewAudioStatusActivity;
 import in.voiceme.app.voiceme.userpost.NewTextStatusActivity;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
-public class UserCategoryActivity extends BaseActivity implements PaginationAdapterCallback, View.OnClickListener {
+public class UserCategoryActivity extends BaseActivity implements OnLoadMoreListener, View.OnClickListener {
 
     private int mPage;
     private RecyclerView recyclerView;
@@ -80,7 +80,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
             }
         });
         progressFrame = findViewById(R.id.activity_user_category_progress);
-        recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.user_category_recyclerview_other);
 
         categoryId = getIntent().getStringExtra(Constants.CATEGORY);
         //    setFeeling(categoryId);
@@ -125,7 +125,7 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
 
         try {
             initUiView();
-            loadFirstPage();
+           // loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,32 +150,15 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         recyclerView.setHasFixedSize(true);
 
-        recyclerView.addOnScrollListener(new PaginationScrollListener(llm) {
-            @Override
-            protected void loadMoreItems() {
-                int totalItemCount = llm.getItemCount();
-                isLoading = true;
-                currentPage += 1;
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
 
-                loadNextPage();
 
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -330,15 +313,6 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
     }
 
     @Override
-    public void retryPageLoad() {
-        try {
-            loadNextPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.action_a) {
             processLoggedState(view);
@@ -348,6 +322,19 @@ public class UserCategoryActivity extends BaseActivity implements PaginationAdap
             processLoggedState(view);
             startActivity(new Intent(UserCategoryActivity.this, NewAudioStatusActivity.class));
             rightLabels.toggle();
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
+        try {
+            loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            isLoading = true;
+            currentPage += 1;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

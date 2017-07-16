@@ -24,51 +24,21 @@ public class ProfileUserModel implements Parcelable {
         }
     };
 
-    @SerializedName("id_user_name")
-    @Expose
-    private String idUserName;
-    @SerializedName("user_nick_name")
-    @Expose
-    private String userNickName;
-    @SerializedName("email")
-    @Expose
-    private String email;
-    @SerializedName("gender")
-    @Expose
-    private String gender;
-    @SerializedName("user_date_of_birth")
-    @Expose
-    private String userDateOfBirth;
-    @SerializedName("avatar_pics")
-    @Expose
-    private String avatarPics;
-    @SerializedName("location")
-    @Expose
-    private String location;
-    @SerializedName("userid")
-    @Expose
-    private String userid;
-    @SerializedName("user_registered")
-    @Expose
-    private String userRegistered;
-    @SerializedName("name")
-    @Expose
-    private String name;
-    @SerializedName("about_me")
-    @Expose
-    private String aboutMe;
-    @SerializedName("phone_number")
-    @Expose
-    private String phoneNumber;
-    @SerializedName("posts")
-    @Expose
-    private String posts;
-    @SerializedName("followers")
-    @Expose
-    private int followers;
-    @SerializedName("following")
-    @Expose
-    private int following;
+    @SerializedName("id_user_name") @Expose private String idUserName;
+    @SerializedName("user_nick_name") @Expose private String userNickName;
+    @SerializedName("email") @Expose private String email;
+    @SerializedName("gender") @Expose private String gender;
+    @SerializedName("user_date_of_birth") @Expose private String userDateOfBirth;
+    @SerializedName("avatar_pics") @Expose private String avatarPics;
+    @SerializedName("location") @Expose private String location;
+    @SerializedName("userid") @Expose private String userid;
+    @SerializedName("user_registered") @Expose private String userRegistered;
+    @SerializedName("name") @Expose private String name;
+    @SerializedName("about_me") @Expose private String aboutMe;
+    @SerializedName("phone_number") @Expose private String phoneNumber;
+    @SerializedName("posts") @Expose private String posts;
+    @SerializedName("followers") @Expose private int followers;
+    @SerializedName("following") @Expose private int following;
 
     protected ProfileUserModel(Parcel in) {
         idUserName = in.readString();

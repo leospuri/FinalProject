@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DiscoverPage.InfiniteScrollProvider;
 import in.voiceme.app.voiceme.DiscoverPage.LatestListAdapter;
+import in.voiceme.app.voiceme.DiscoverPage.OnLoadMoreListener;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
@@ -30,14 +32,12 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
-public class ActivityYourFeedFragment extends BaseFragment implements PaginationAdapterCallback {
+public class ActivityYourFeedFragment extends BaseFragment implements OnLoadMoreListener {
     PullRefreshLayout layout;
 
     public static final String ARG_YOUR_FEED_PAGE = "ARG_INTERACTION_PAGE";
@@ -117,7 +117,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
         try {
             initUiView(view);
-            loadFirstPage();
+         //   loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,31 +141,15 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_main_feed_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this.getActivity()));
-        recyclerView.addOnScrollListener(new PaginationScrollListener(new LinearLayoutManager(this.getActivity())) {
-            @Override
-            protected void loadMoreItems() {
-                isLoading = true;
-                currentPage += 1;
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
 
-                loadNextPage();
 
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -372,9 +356,13 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
     }
 
     @Override
-    public void retryPageLoad() {
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
         try {
             loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            isLoading = true;
+            currentPage += 1;
         } catch (Exception e) {
             e.printStackTrace();
         }

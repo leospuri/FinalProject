@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DiscoverPage.InfiniteScrollProvider;
 import in.voiceme.app.voiceme.DiscoverPage.LatestListAdapter;
+import in.voiceme.app.voiceme.DiscoverPage.OnLoadMoreListener;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
@@ -30,14 +32,12 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
-public class ActivityInteractionFragment extends BaseFragment implements PaginationAdapterCallback {
+public class ActivityInteractionFragment extends BaseFragment implements OnLoadMoreListener {
     public static final String ARG_INTERACTION_PAGE = "ARG_INTERACTION_PAGE";
     PullRefreshLayout layout;
 
@@ -113,7 +113,7 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
 
         try {
             initUiView(view);
-            loadFirstPage();
+       //     loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,30 +139,15 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
 
-        recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
-            @Override
-            protected void loadMoreItems() {
-                isLoading = true;
-                currentPage += 1;
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
 
-                loadNextPage();
-            }
 
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -338,9 +323,13 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
     }
 
     @Override
-    public void retryPageLoad() {
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
         try {
             loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            isLoading = true;
+            currentPage += 1;
         } catch (Exception e) {
             e.printStackTrace();
         }

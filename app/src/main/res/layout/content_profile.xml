@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-smallcaps"
-                    android:text="Username"
+                    android:text=""
                     android:layout_below="@+id/profile_image"
                     android:textSize="16sp"
                     android:textColor="@color/white"
@@ -227,7 +227,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="Age Value"
+                        android:text=""
                         android:layout_below="@+id/age"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -248,7 +248,7 @@
                         android:textSize="16sp"
                         android:layout_below="@+id/gender"
                         android:layout_marginLeft="200dp"
-                        android:text="gender"
+                        android:text=""
                         android:textStyle="bold"/>
 
                     <TextView
@@ -266,7 +266,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="About me"
+                        android:text=""
                         android:textStyle="bold"/>
 
 

@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DiscoverPage.InfiniteScrollProvider;
+import in.voiceme.app.voiceme.DiscoverPage.OnLoadMoreListener;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
@@ -31,14 +33,14 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import in.voiceme.app.voiceme.userpost.NewAudioStatusActivity;
 import in.voiceme.app.voiceme.userpost.NewTextStatusActivity;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
 
-public class UserFeelingActivity extends BaseActivity implements View.OnClickListener {
+public class UserFeelingActivity extends BaseActivity implements OnLoadMoreListener, View.OnClickListener {
+
 
     private int mPage;
     private RecyclerView recyclerView;
@@ -140,32 +142,15 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         recyclerView.setHasFixedSize(true);
 
-        recyclerView.addOnScrollListener(new PaginationScrollListener(llm) {
-            @Override
-            protected void loadMoreItems() {
-                int totalItemCount = llm.getItemCount();
-                isLoading = true;
-                currentPage += 1;
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
 
-                loadNextPage();
 
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -331,6 +316,19 @@ public class UserFeelingActivity extends BaseActivity implements View.OnClickLis
             processLoggedState(view);
             startActivity(new Intent(UserFeelingActivity.this, NewAudioStatusActivity.class));
             rightLabels.toggle();
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
+        try {
+            loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            isLoading = true;
+            currentPage += 1;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

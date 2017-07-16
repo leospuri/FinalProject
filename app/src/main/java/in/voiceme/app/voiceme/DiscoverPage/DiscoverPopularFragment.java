@@ -131,12 +131,12 @@ public class DiscoverPopularFragment extends BaseFragment implements WasLoggedIn
         });
         */
 
-//        try {
-//            initUiView(view);
-//            loadFirstPage();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            initUiView(view);
+         //   loadFirstPage();
+       } catch (Exception e) {
+           e.printStackTrace();
+        }
 
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,7 +368,8 @@ public class DiscoverPopularFragment extends BaseFragment implements WasLoggedIn
         try {
             loadNextPage();
             progressBar.setVisibility(View.GONE);
-            currentPage++;
+            isLoading = true;
+            currentPage += 1;
         } catch (Exception e) {
             e.printStackTrace();
         }

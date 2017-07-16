@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
+import in.voiceme.app.voiceme.DiscoverPage.InfiniteScrollProvider;
+import in.voiceme.app.voiceme.DiscoverPage.OnLoadMoreListener;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -24,14 +26,12 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
-import in.voiceme.app.voiceme.utils.PaginationAdapterCallback;
-import in.voiceme.app.voiceme.utils.PaginationScrollListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.facebook.GraphRequest.TAG;
 
-public class TotalPostsActivity extends BaseActivity implements PaginationAdapterCallback {
+public class TotalPostsActivity extends BaseActivity implements OnLoadMoreListener {
     private int mPage;
     PullRefreshLayout layout;
     private RecyclerView recyclerView;
@@ -75,7 +75,7 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         txtError = (TextView) findViewById(R.id.error_txt_cause);
         try {
             initUiView();
-            loadFirstPage();
+           // loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,33 +121,16 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
         recyclerView.setLayoutManager(llm);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         recyclerView.setHasFixedSize(true);
+        InfiniteScrollProvider infiniteScrollProvider=new InfiniteScrollProvider();
+        infiniteScrollProvider.attach(recyclerView,this);
 
-        recyclerView.addOnScrollListener(new PaginationScrollListener(llm) {
-            @Override
-            protected void loadMoreItems() {
-                int totalItemCount = llm.getItemCount();
-                isLoading = true;
-                currentPage += 1;
 
-                loadNextPage();
+        try {
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        });
 
     }
 
@@ -316,9 +299,13 @@ public class TotalPostsActivity extends BaseActivity implements PaginationAdapte
     }
 
     @Override
-    public void retryPageLoad() {
+    public void onLoadMore() {
+        progressBar.setVisibility(View.VISIBLE);
         try {
             loadNextPage();
+            progressBar.setVisibility(View.GONE);
+            isLoading = true;
+            currentPage += 1;
         } catch (Exception e) {
             e.printStackTrace();
         }

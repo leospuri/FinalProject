@@ -67,7 +67,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener {
+public class  MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener {
 
     private EmojiPopup emojiPopup;
     private MessagesList messagesList = null;

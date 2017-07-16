@@ -190,8 +190,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         username.setText(response.getData().getUserNickName());
         about.setText(response.getData().getAboutMe());
         total_posts_counter.setText(response.getData().getPosts());
-        followers_counter.setText(response.getData().getFollowers());
-        following_counter.setText(response.getData().getFollowing());
+        followers_counter.setText(String.valueOf(response.getData().getFollowers()));
+        following_counter.setText(String.valueOf(response.getData().getFollowing()));
         age.setText(response.getData().getUserDateOfBirth());
         gender.setText(response.getData().getGender());
 
