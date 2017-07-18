@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,12 +19,14 @@ import in.voiceme.app.voiceme.DTO.ProfileUserList;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.MessageActivity;
+import in.voiceme.app.voiceme.chat.OnlineStatusCheck;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
+import in.voiceme.app.voiceme.utils.CurrentTimeLong;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -41,6 +44,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private LinearLayout followingPost;
     private int followCounter;
     private int followingCounter;
+    private String onlineString = " ";
 
     private SimpleDraweeView image;
 
@@ -49,7 +53,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private ProfileUserList response;
 
     private TextView age;
+    private ImageView user_online;
     private TextView gender;
+    private TextView second_name_last_online;
     private String profileUserId;
     protected Boolean currentFollowing;
     private ProgressBar progressBar;
@@ -67,8 +73,31 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         progressBar.setVisibility(View.VISIBLE);
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
 
+        user_online = (ImageView) findViewById(R.id.user_online);
         send_private_message = (ImageView) findViewById(R.id.send_private_message);
         second_new_username = (LinearLayout) findViewById(R.id.layout_second_profile_total);
+        second_name_last_online = (TextView) findViewById(R.id.second_name_last_online);
+
+        final Handler handler = new Handler();
+        scheduler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 20 seconds
+                checkOnlineIndicator(profileUserId);
+                handler.postDelayed(this, 20000);
+            }
+        }, 500);
+
+        final Handler handler4 = new Handler();
+        scheduler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 20 seconds
+                second_name_last_online.setText(onlineString);
+                handler4.postDelayed(this, 2000);
+            }
+        }, 1000);
+
 
         toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -122,6 +151,32 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             e.printStackTrace();
         }
         progressBar.setVisibility(View.GONE);
+    }
+
+    protected void checkOnlineIndicator(String userId) {
+
+        application.getWebService()
+                .checkOnline(userId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<OnlineStatusCheck>() {
+                    @Override
+                    public void onNext(OnlineStatusCheck response) {
+
+                        if (response.getOnlineStatus()){
+                            setOnlineString("Online Now");
+                            user_online.setImageDrawable(getResources().getDrawable(R.drawable.shape_bubble_online));
+                        } else {
+                            user_online.setImageDrawable(getResources().getDrawable(R.drawable.shape_bubble_offline));
+                            setOnlineString(String.valueOf("Last Seen " + CurrentTimeLong.getCurrentTime(response.getLastTimeOnline(), SecondProfile.this)));
+                        }
+                    }
+                });
+
+    }
+
+    private void setOnlineString(String onlineString){
+        this.onlineString = onlineString;
     }
 
     @Override

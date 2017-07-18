@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="fresco-1.3.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/4ada054d64ca74fa78eb70c37689e0b4b38ae689/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/4ada054d64ca74fa78eb70c37689e0b4b38ae689/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

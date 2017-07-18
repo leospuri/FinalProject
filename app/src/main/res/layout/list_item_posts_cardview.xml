@@ -34,9 +34,9 @@
             android:paddingRight="5dp"
             android:singleLine="true"
             android:text="harishusername"
-            android:maxLength="14"
+            android:maxLength="12"
             android:textColor="#de000000"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:paddingRight="5dp"
             android:text="is"
             android:textColor="#de000000"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:paddingRight="5dp"
             android:text="heartbroken"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/list_item_posts_timeStamp"
@@ -80,7 +80,7 @@
             android:paddingRight="6dp"
             android:text="time"
             android:textColor="#de000000"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="55dp"
@@ -134,7 +134,7 @@
             android:layout_toRightOf="@id/list_item_posts_avatar"
             android:text="category"
             android:textColor="#444"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/list_item_posts_message"
@@ -147,7 +147,7 @@
             android:textColor="@color/black"
             android:maxLength="1000"
             android:text=""
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/list_item_posts_read_more"
@@ -158,7 +158,7 @@
             android:layout_marginBottom="6dp"
             android:textStyle="bold"
             android:text="Read More"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="fbcore-1.3.0">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.android/build-cache/20a684726375766703576d9f5665e28c9d88a606/output/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/20a684726375766703576d9f5665e28c9d88a606/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/20a684726375766703576d9f5665e28c9d88a606/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

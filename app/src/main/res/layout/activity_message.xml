@@ -51,13 +51,16 @@
                 android:layout_above="@+id/chat_message_below_button"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="2dp">
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp">
 
                 <com.vanniktech.emoji.EmojiEditText
                     android:id="@+id/messageEmojiEdittext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionSend"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLines="3"
@@ -68,7 +71,8 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="12dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_action_send_now"
                     tools:ignore="ContentDescription"/>
@@ -78,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:id="@+id/chat_message_below_button"
                 android:orientation="horizontal">
 
@@ -116,7 +120,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
-                android:visibility="gone"
                 android:background="@color/white"
                 android:id="@+id/chat_details">
                 <TextView

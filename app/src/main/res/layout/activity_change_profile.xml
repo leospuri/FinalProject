@@ -29,6 +29,18 @@
             android:id="@+id/profile_header_banner">
 
 
+
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/changeimage"
+                android:layout_width="125dp"
+                fresco:roundedCornerRadius="62.5dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                fresco:placeholderImage="@drawable/user" />
+
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -36,15 +48,6 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/change_profile_photo"
                 android:src="@drawable/ic_camera_alt_black_24dp"/>
-
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/changeimage"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                fresco:placeholderImage="@drawable/user" />
 
 
 

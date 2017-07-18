@@ -16,9 +16,9 @@
         >
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            fresco:roundedCornerRadius="32dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            fresco:roundedCornerRadius="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             android:clickable="false"
@@ -33,8 +33,8 @@
             android:id="@+id/include_main_nav_drawer_displayName"
             android:text="Anonymous"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
     

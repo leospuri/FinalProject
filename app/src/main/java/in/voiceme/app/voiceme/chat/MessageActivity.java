@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -67,7 +68,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class  MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener {
+public class  MessageActivity extends BaseActivity implements MessagesListAdapter.SelectionListener,MessagesListAdapter.OnMessageClickListener<MessagePojo> {
 
     private EmojiPopup emojiPopup;
     private MessagesList messagesList = null;
@@ -99,6 +100,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
     private DateTime currentTime = new DateTime(DateTimeZone.UTC);
     private String base64String;
     private String username;
+    private LinearLayout chat_message_below_button;
     private MessagePojo.Image image_Url = null;
     private File tempOutputFile;
     // List<MessagePojo> messages;
@@ -109,6 +111,8 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
         setContentView(R.layout.activity_message);
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
+
+        chat_message_below_button = (LinearLayout) findViewById(R.id.chat_message_below_button);
 
 
         Intent intent = getIntent();
@@ -472,6 +476,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
 
 
         adapter = new MessagesListAdapter<>(MySharedPreferences.getUserId(preferences), holdersConfig, imageLoader);
+        adapter.setOnMessageClickListener(this);
         adapter.enableSelectionMode(this);
 
 
@@ -796,5 +801,15 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
 
     }
 
-
+    @Override
+    public void onMessageClick(MessagePojo message) {
+        if (message.getImageUrl()!=null){
+            Toast.makeText(MessageActivity.this, "This is an Image", Toast.LENGTH_SHORT).show();
+            Intent imageURL = new Intent(this, ImageZoomActivity.class);
+            imageURL.putExtra(Constants.IMAGE_URL, message.getImageUrl());
+            startActivity(imageURL);
+        } else {
+            Toast.makeText(MessageActivity.this, "This is Text", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

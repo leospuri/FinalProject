@@ -54,17 +54,43 @@
                         android:layout_centerHorizontal="true"
                         fresco:placeholderImage="@drawable/profile_back" />
 
+                    <ImageView
+                        android:id="@+id/user_online"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_below="@+id/second_image"
+                        android:layout_marginTop="13dp"
+                        android:layout_toLeftOf="@+id/second_name"
+                        android:src="@drawable/shape_bubble_online"/>
+
                     <TextView
                         android:id="@+id/second_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Username"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/white"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/second_image"
                         android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/second_name_last_online"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="last seen"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/second_name"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <ProgressBar
@@ -93,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/layout_second_follow"
                         android:orientation="vertical"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="65dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_below="@+id/second_image">
