@@ -12,6 +12,7 @@ public class ImageZoomActivity extends BaseActivity {
     private String mImgUrl = "https://avatars1.githubusercontent.com/u/8758713?v=3&s=460";
     private String imageURL;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

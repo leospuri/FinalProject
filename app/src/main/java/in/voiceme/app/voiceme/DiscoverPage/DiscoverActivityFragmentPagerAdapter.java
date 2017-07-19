@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DiscoverActivityFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
     ArrayList<Fragment> pages = new ArrayList<>();
-    private String tabTitles[] = new String[]{"Latest", "Trending", "Popular"};
+    private String tabTitles[] = new String[]{"Featured", "Latest", "Trending"};
 
     public DiscoverActivityFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,9 +24,9 @@ public class DiscoverActivityFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
-                return DiscoverLatestFragment.newInstance(0);
+                return DiscoverTrendingFragment.newInstance(0);
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return DiscoverTrendingFragment.newInstance(1);
+                return DiscoverLatestFragment.newInstance(1);
             case 2: // Fragment # 1 - This will show SecondFragment
                 return DiscoverPopularFragment.newInstance(2);
             default:

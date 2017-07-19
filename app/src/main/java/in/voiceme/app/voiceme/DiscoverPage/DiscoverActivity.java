@@ -230,7 +230,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
     private void linkedin(String message) {
         Shareable shareInstance = new Shareable.Builder(this)
                 .message(message)
-                .image(share_image)
+             //   .image(share_image)
                 .socialChannel(Shareable.Builder.LINKED_IN)
                 .url(share_url)
                 .build();
@@ -241,7 +241,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         Shareable shareInstance = new Shareable.Builder(this)
                 .message(message)
                 .socialChannel(Shareable.Builder.TWITTER)
-                .image(share_image)
+            //    .image(share_image)
                 .url(share_url)
                 .build();
         shareInstance.share();
@@ -250,7 +250,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
     private void plus(String message) {
         Shareable shareInstance = new Shareable.Builder(this)
                 .message(message)
-                .image(share_image)
+              //  .image(share_image)
                 .socialChannel(Shareable.Builder.GOOGLE_PLUS)
                 .url(share_url)
                 .build();

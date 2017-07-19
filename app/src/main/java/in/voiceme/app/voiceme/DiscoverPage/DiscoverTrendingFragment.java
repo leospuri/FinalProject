@@ -201,7 +201,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements OnLoadMore
         }
 
         application.getWebService()
-                .getTrending(MySharedPreferences.getUserId(preferences),"true", currentPage)
+                .getPopularPost(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(new RetryWithDelay(3,2000))
                 .subscribeOn(Schedulers.io())

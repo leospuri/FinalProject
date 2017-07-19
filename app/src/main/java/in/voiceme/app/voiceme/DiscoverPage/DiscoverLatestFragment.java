@@ -88,7 +88,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         super.onResume();
         try {
             initUiView(view);
-            loadPopularPost();
             loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +141,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
             @Override
             public void onClick(View view) {
                 try {
-                    loadPopularPost();
                     loadFirstPage();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -168,7 +166,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
 
         try {
-            loadPopularPost();
             loadFirstPage();
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,51 +249,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         }
 
         return errorMsg;
-    }
-
-
-    private void loadPopularPost() throws Exception {
-        Log.d(TAG, "loadFirstPage: ");
-        hideErrorView();
-
-        if(currentPage > PAGE_START){
-            currentPage = PAGE_START;
-        }
-        application.getWebService()
-                .getPopularPost(MySharedPreferences.getUserId(preferences))
-                .retryWhen(new RetryWithDelay(3,2000))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<List<PostsModel>>() {
-                    @Override
-                    public void onNext(List<PostsModel> response) {
-                        progressBar.setVisibility(View.GONE);
-                        progressFrame.setVisibility(View.GONE);
-
-                        hideErrorView();
-                        Log.e("RESPONSE:::", "Size===" + response.size());
-                        //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
-
-                        //   List<PostsModel> model = fetchResults(response);
-                        //   showRecycleWithDataFilled(response);
-                        showRecycleWithDataFilled(response);
-
-
-                        //   showRecycleWithDataFilled(response);
-                        //   latestListAdapter.addAll(myModelList);
-                        if (response.size() < 25){
-                            isLastPage = true;
-                        } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
-                        else isLastPage = true;
-
-                    }
-                    @Override
-                    public void onError(Throwable e){
-                        e.printStackTrace();
-                        progressBar.setVisibility(View.GONE);
-                        progressFrame.setVisibility(View.GONE);
-                        showErrorView(e);
-                    }
-                });
     }
 
     private void loadFirstPage() throws Exception {
