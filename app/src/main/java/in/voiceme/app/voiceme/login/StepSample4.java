@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -134,10 +133,8 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     setTags(s);
                 } catch (RuntimeException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Your device has low internet speed", Toast.LENGTH_SHORT).show();
                 } catch (Exception e){
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Unknown Error", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -155,7 +152,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         tagGroup.setOnTagLongClickListener(new TagView.OnTagLongClickListener() {
             @Override
             public void onTagLongClick(Tag tag, int position) {
-                Toast.makeText(getActivity(), "Long Click: " + tag.text, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "Long Click: " + tag.text, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -321,6 +318,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
 
     public void setCategory(String current_category, String categoryName) {
         this.category_name = categoryName;
+        selected_hashtag.setVisibility(View.VISIBLE);
         createNewHashTag.setVisibility(View.INVISIBLE);
         if (categoryName.trim().length() > 1500){
             Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();

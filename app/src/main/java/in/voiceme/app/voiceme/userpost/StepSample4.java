@@ -159,7 +159,7 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         tagGroup.setOnTagLongClickListener(new TagView.OnTagLongClickListener() {
             @Override
             public void onTagLongClick(Tag tag, int position) {
-                Toast.makeText(getActivity(), "Long Click: " + tag.text, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getActivity(), "Long Click: " + tag.text, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -39,9 +39,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="Take Action against \nAbusive Posts"
-                        android:textSize="26sp"
-                        android:textStyle="bold"/>
+                        android:text="Take Action against Abusive Posts"
+                        android:textSize="18sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -52,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:text="Abusive Status Post you selected"
                         android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -61,7 +60,9 @@
                         android:layout_height="wrap_content"
                         android:text="Current status which the user wants to edit"
                         android:textSize="18sp"
-                        android:background="@color/md_blue_100"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_rounded_rectangle_report"
                         android:id="@+id/abuse_previous_status"
                         android:padding="10dp"
                         android:gravity="center"/>
@@ -73,36 +74,43 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:id="@+id/report_irrelevant"
                             android:text=" Post is Irrelevant "/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/report_sexual"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:text=" Post is Sexual or Pornographic"/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/report_bully"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:text=" Report Bullying and Abusive"/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:id="@+id/report_imperson"
                             android:text=" Report Impersonation "/>
                         <RadioButton
                             android:layout_width="wrap_content"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:layout_height="wrap_content"
                             android:id="@+id/report_spam"
                             android:text=" Report Spam "/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:id="@+id/report_hide"
                             android:text=" Report and Hide"/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceSmall"
                             android:id="@+id/report_other"
                             android:text=" Other "/>
                     </RadioGroup>
@@ -130,9 +138,9 @@
                         android:layout_height="wrap_content"
                         android:text="Submit Complaint"
                         android:id="@+id/submit_report"
-                        android:padding="20dp"
+                        android:padding="10dp"
                         android:layout_marginTop="50dp"
-                        android:background="@color/md_orange_300"
+                        android:background="@color/new_toolbar_color"
                         android:layout_gravity="center"/>
 
                 </LinearLayout>

@@ -30,7 +30,7 @@ public class ImageZoomActivity extends BaseActivity {
 
 
         final FrescoZoomImageView frescoImageView = (FrescoZoomImageView)findViewById(R.id.fiv);
-        frescoImageView.loadView(imageURL,R.mipmap.ic_launcher);
+        frescoImageView.loadView(imageURL,R.drawable.background_start);
         // Below just adds new image after clicking
         /*
         frescoImageView.setOnDraweeClickListener(new View.OnClickListener() {

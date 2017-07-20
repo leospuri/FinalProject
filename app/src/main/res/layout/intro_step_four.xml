@@ -20,26 +20,40 @@
         android:visibility="visible"
         />
 
-    <EditText
-        android:id="@+id/intro_editText"
-        android:backgroundTint="@color/md_grey_500"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="18sp"
-        android:hint="Pick a Popular Interest" />
+        android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:text="Create new Interest"
-        android:id="@+id/intro_create_new_hashtag"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/add_category"
-        android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/intro_editText"
+            android:backgroundTint="@color/md_grey_500"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:textSize="18sp"
+            android:hint="Pick a Popular Interest" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Create new Interest"
+            android:id="@+id/intro_create_new_hashtag"
+            android:layout_gravity="center"
+
+            android:layout_marginRight="20dp"
+            android:src="@drawable/add_category"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+
 
     <TextView
         android:layout_width="wrap_content"

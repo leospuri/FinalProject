@@ -804,12 +804,11 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
     @Override
     public void onMessageClick(MessagePojo message) {
         if (message.getImageUrl()!=null){
-            Toast.makeText(MessageActivity.this, "This is an Image", Toast.LENGTH_SHORT).show();
             Intent imageURL = new Intent(this, ImageZoomActivity.class);
             imageURL.putExtra(Constants.IMAGE_URL, message.getImageUrl());
             startActivity(imageURL);
         } else {
-            Toast.makeText(MessageActivity.this, "This is Text", Toast.LENGTH_SHORT).show();
+            Timber.e("Its Text");
         }
     }
 }

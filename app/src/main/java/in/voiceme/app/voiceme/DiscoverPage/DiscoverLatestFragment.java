@@ -266,6 +266,8 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
                     @Override
                     public void onNext(List<PostsModel> response) {
                     hideErrorView();
+                        progressFrame.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         latestListAdapter.addAll(response);
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;

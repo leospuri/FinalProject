@@ -34,7 +34,7 @@
             android:paddingRight="5dp"
             android:singleLine="true"
             android:text="harishusername"
-            android:maxLength="12"
+            android:maxLength="10"
             android:textColor="#de000000"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_posts_category"
             android:layout_marginTop="3dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="45dp"
             android:maxLines="3"
             android:textColor="@color/black"
             android:maxLength="1000"

@@ -8,10 +8,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="16dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
         android:text="Would you like to Confess?"/>
 
     <ScrollView
@@ -31,7 +30,7 @@
                 android:maxLines="8"
                 android:gravity="top"
                 android:maxLength="1000"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:hint="Enter Status here"
                 android:text=""/>
 
