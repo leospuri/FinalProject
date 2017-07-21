@@ -266,23 +266,28 @@ public class DiscoverPopularFragment extends BaseFragment implements WasLoggedIn
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
-                        hideErrorView();
-                        progressFrame.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
-                        latestListAdapter.addAll(response);
-                        latestListAdapter.removeLoadingFooter();
-                        isLoading = false;
-                        currentPage++;
-
-                        if(response.size() < 25){
-                            isLastPage = true;
-                        }
-
+                        progressFrame.setVisibility(View.GONE);
+                        hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
+                        //         List<PostsModel> body = (List<PostsModel>) response.get(0).body();
 
-                        // showRecycleWithDataFilled(response);
-                        if (currentPage != TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
-                        else isLastPage = true;
+                        //   List<PostsModel> model = fetchResults(response);
+                        //   showRecycleWithDataFilled(response);
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
+                            showRecycleWithDataFilled(response);
+                            progressFrame.setVisibility(View.GONE);
+
+
+                            //   showRecycleWithDataFilled(response);
+                            //   latestListAdapter.addAll(myModelList);
+                            if (response.size() < 25){
+                                isLastPage = true;
+                            } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
+                            else isLastPage = true;
+                        }
 
                     }
                     @Override
