@@ -231,7 +231,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
 
-            if (messageItem.getComment_likes_true() != null){
+            if (messageItem.getComment_likes_true().equals("true")){
                 like_reply_true = true;
             }
 

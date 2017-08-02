@@ -252,7 +252,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public EventViewHolder(View itemView) {
             super(itemView);
             recyclerviewpreferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
-
         }
 
 

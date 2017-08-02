@@ -23,13 +23,13 @@ public class DiscoverActivityFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0: // Fragment # 0 - This will show FirstFragment
+            case 0: // Fragment # 0 - This will show latest discover fragment
 
             return DiscoverLatestFragment.newInstance(1);
-            case 1: // Fragment # 0 - This will show FirstFragment different title
-                return DiscoverPopularFragment.newInstance(2);
-            case 2: // Fragment # 1 - This will show SecondFragment
-                return DiscoverTrendingFragment.newInstance(0);
+            case 1: // Fragment # 0 - This will popular discover fragment
+                return DiscoverTrendingFragment.newInstance(2);
+            case 2: // Fragment # 1 - This will show Featured
+                return DiscoverFeaturedFragment.newInstance(0);
             default:
                 return null;
         }

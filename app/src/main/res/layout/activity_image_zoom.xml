@@ -22,7 +22,7 @@
 
             <in.voiceme.app.voiceme.ImageZoomLib.FrescoZoomImageView
                 android:id="@+id/fiv"
-                fresco:actualImageScaleType="fitCenter"
+                fresco:actualImageScaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

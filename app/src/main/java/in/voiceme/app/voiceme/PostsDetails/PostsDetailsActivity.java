@@ -997,7 +997,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         new_counter_like_number.setText(String.valueOf(myList.getLikes()));
         new_counter_hug_number.setText(String.valueOf(myList.getHug()));
         new_counter_same_number.setText(String.valueOf(myList.getSame()));
-        new_counter_cmt_number.setText(String.valueOf(myList.getComments()));
+        new_counter_cmt_number.setText(String.valueOf(myList.getComments() + myList.getComments_reply()));
 
         if (myList.getAudioDuration() != null){
             post_audio_duration.setText(myList.getAudioDuration());

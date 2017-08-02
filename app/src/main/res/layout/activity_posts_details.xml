@@ -417,9 +417,6 @@
                 android:src="@mipmap/ic_action_send_now" />
         </LinearLayout>
 
-
-
-
     </RelativeLayout>
 
 

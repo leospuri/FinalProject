@@ -241,7 +241,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             user_comment = messageItem;
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
-            if (messageItem.getPost_comment_like_true() != null){
+            if (messageItem.getPost_comment_like_true().equals("true")){
                 comment_likes_true = true;
             }
 

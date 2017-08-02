@@ -50,7 +50,6 @@ public class ChatNotificationService extends IntentService {
 
         ChatTextPojo chatMessage = intent.getExtras().getParcelable(Constants.CHAT_MESSAGE);
         bus.post(new Account.ChatMessageBusEvent(chatMessage));
-        onDestroy();
     }
 
     @Override

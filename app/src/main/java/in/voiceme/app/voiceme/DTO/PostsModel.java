@@ -24,6 +24,7 @@ public class PostsModel {
     @SerializedName("hug") @Expose private Integer hug;
     @SerializedName("listen") @Expose private Integer listen;
     @SerializedName("comments") @Expose private Integer comments;
+    @SerializedName("comments_reply") @Expose private Integer comments_reply;
     @SerializedName("user_like") @Expose private Boolean userLike;
     @SerializedName("user_Same") @Expose private Boolean userSame;
     @SerializedName("user_Huge") @Expose private Boolean userHuge;
@@ -35,6 +36,10 @@ public class PostsModel {
 
     public Boolean getUserLike() {
         return userLike;
+    }
+
+    public Integer getComments_reply() {
+        return comments_reply;
     }
 
     public int getIdFeeling() {
@@ -197,7 +202,7 @@ public class PostsModel {
     public String toString() {
         return idPosts + " " + idUserName + " " + postTime + " " + textStatus + " " + audioDuration + " " + audioFileLink
                 + " " + userNicName + " " + avatarPics + " " + emotions + " " + category + " " + idFeeling + " " + idCategory + " " + likes + " " +
-                same + " " + hug + " " + listen + " " + comments + " " + userLike + " " + userSame + " " + userHuge + " " +
+                same + " " + hug + " " + listen + " " + comments + " " + comments_reply + " " + userLike + " " + userSame + " " + userHuge + " " +
                 userListen;
     }
 }

@@ -170,8 +170,8 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         DiscoverActivityFragmentPagerAdapter adapter =
                 new DiscoverActivityFragmentPagerAdapter(getSupportFragmentManager());
         adapter.addPage(new DiscoverLatestFragment());
-        adapter.addPage(new DiscoverPopularFragment());
         adapter.addPage(new DiscoverTrendingFragment());
+        adapter.addPage(new DiscoverFeaturedFragment());
 
         //set adapter to pager
         pager.setAdapter(adapter);

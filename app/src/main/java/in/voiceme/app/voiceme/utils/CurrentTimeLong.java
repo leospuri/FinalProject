@@ -6,6 +6,8 @@ import net.danlew.android.joda.DateUtils;
 
 import org.joda.time.DateTime;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by harishpc on 5/7/2017.
  */
@@ -32,9 +34,19 @@ public class CurrentTimeLong {
             String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusDays(currentTimeInDays));
             currentTimeForPost = relativeTime;
         } else{
-            int currentTimeInMonths = currentTime/604800;
-            String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusMonths(currentTimeInMonths));
-            currentTimeForPost = relativeTime;
+
+            long itemLong = Long.parseLong(currentTimeInSeconds);
+            java.util.Date d = new java.util.Date(itemLong*1000L);
+            String itemDateStr = new SimpleDateFormat("dd-MMM HH:mm").format(d);
+            //     holder.time.setText(itemDateStr);
+
+            //     int currentTimeInMonths = currentTime/604800;
+            //     String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusMonths(currentTimeInMonths));
+            currentTimeForPost = itemDateStr;
+
+        //    int currentTimeInMonths = currentTime/604800;
+        //    String relativeTime = (String) DateUtils.getRelativeTimeSpanString(context, now.minusMonths(currentTimeInMonths));
+        //    currentTimeForPost = relativeTime;
         }
 
         return currentTimeForPost;

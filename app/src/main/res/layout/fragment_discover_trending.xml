@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="in.voiceme.app.voiceme.DiscoverPage.DiscoverTrendingFragment">
+    tools:context=".DiscoverPage.DiscoverFeaturedFragment">
 
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/discover_trending_swipeRefreshLayout"
