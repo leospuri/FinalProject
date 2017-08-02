@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.voiceme.app.voiceme.DTO.MessagePojo;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserPojo;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
@@ -181,7 +182,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
         chat_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeProfileRequest();
+                checkUserBlock();
             }
         });
 
@@ -220,27 +221,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                 if (editText.getText().toString().trim().isEmpty()){
                     Toast.makeText(MessageActivity.this, "Please enter some message", Toast.LENGTH_SHORT).show();
                 } else {
-                    byte[] data = new byte[0];
-                    try {
-                        String editData = editText.getText().toString().trim();
-                        data = editData.getBytes("UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    base64String = Base64.encodeToString(data, Base64.DEFAULT);
-                    messageCount = base64String.length();
-                    if (messageCount > 800){
-                        Toast.makeText(MessageActivity.this, "Please enter short messages", Toast.LENGTH_SHORT).show();
-                    } else {
-                        sendMessage(base64String);
-                        if (isNetworkConnected()){
-                            adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
-                                    "harish", "", true)), true);
-                        } else {
-                            Toast.makeText(MessageActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                        }
-                        editText.setText("");
-                    }
+                    checkUserBlockText();
                 }
             }
         });
@@ -264,6 +245,30 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
 
         setUpEmojiPopup();
 
+    }
+
+    private void sendTextMessage() {
+        byte[] data = new byte[0];
+        try {
+            String editData = editText.getText().toString().trim();
+            data = editData.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        base64String = Base64.encodeToString(data, Base64.DEFAULT);
+        messageCount = base64String.length();
+        if (messageCount > 800){
+            Toast.makeText(MessageActivity.this, "Please enter short messages", Toast.LENGTH_SHORT).show();
+        } else {
+            sendMessage(base64String);
+            if (isNetworkConnected()){
+                adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
+                        "harish", "", true)), true);
+            } else {
+                Toast.makeText(MessageActivity.this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
+            }
+            editText.setText("");
+        }
     }
 
     @Override
@@ -577,6 +582,61 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
 
                 });
     }
+
+    private void checkUserBlock(){
+
+        application.getWebService()
+                .block_user_check(messageActivityuserId, MySharedPreferences.getUserId(preferences))
+                .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+
+                        if (response.getSuccess()){
+                            Toast.makeText(MessageActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
+                        } else {
+                            changeProfileRequest();
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        Crashlytics.logException(e);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+
+                });
+    }
+
+    private void checkUserBlockText(){
+
+        application.getWebService()
+                .block_user_check(messageActivityuserId, MySharedPreferences.getUserId(preferences))
+                .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+
+                        if (response.getSuccess()){
+                            Toast.makeText(MessageActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
+                        } else {
+                            sendTextMessage();
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        Crashlytics.logException(e);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+
+                });
+    }
+
 
     private void chatMessages() throws Exception {
         application.getWebService()

@@ -266,7 +266,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
           //      if (processLoggedState(view)) {
          //           return;
          //       } else {
-                    sendMessage();
+                checkUserBlockText();
          //       }
                 break;
             case R.id.detail_list_item_like_button:
@@ -733,6 +733,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void postReplyComment(Account.sendCommentReply sendReply) throws Exception {
 
+        checkUserBlockReply(sendReply);
+
+    }
+
+    private void postReplyCommentFinal(Account.sendCommentReply sendReply) throws Exception {
+
         application.getWebService()
                 .sendCommentReply(sendReply.id_post_comments, MySharedPreferences.getUserId(preferences), sendReply.id_post_user_name, postId, sendReply.message)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -741,7 +747,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onNext(UserResponse userResponse) {
                         Timber.e(userResponse.getMsg());
-                        Toast.makeText(PostsDetailsActivity.this, "success comment post", Toast.LENGTH_SHORT).show();
 
                         if (idusername.equals(MySharedPreferences.getUserId(preferences))){
                             Timber.e("Same User");
@@ -1069,6 +1074,64 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             hideAudioButton(View.GONE);
 
         }
+    }
+
+    private void checkUserBlockText(){
+
+        application.getWebService()
+                .block_user_check(idusername, MySharedPreferences.getUserId(preferences))
+                .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+
+                        if (response.getSuccess()){
+                            Toast.makeText(PostsDetailsActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
+                        } else {
+                            sendMessage();
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        Crashlytics.logException(e);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+
+                });
+    }
+
+    private void checkUserBlockReply(Account.sendCommentReply sendReply){
+
+        application.getWebService()
+                .block_user_check(idusername, MySharedPreferences.getUserId(preferences))
+                .retryWhen(new RetryWithDelay(3,2000))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+
+                        if (response.getSuccess()){
+                            Toast.makeText(PostsDetailsActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
+                        } else {
+                            try {
+                                postReplyCommentFinal(sendReply);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e){
+                        e.printStackTrace();
+                        Crashlytics.logException(e);
+                        progressFrame.setVisibility(View.GONE);
+                    }
+
+                });
     }
 
     public void setLikeCounter(int likeCounter) {

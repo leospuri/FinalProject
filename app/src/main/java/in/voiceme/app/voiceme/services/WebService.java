@@ -248,6 +248,10 @@ public interface WebService {
     @GET("follower.php")
     Observable<ProfileFollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
 
+    @GET("block_user_check.php")
+    Observable<SuccessResponse> block_user_check(@Query("blocked_id") String blocked_id,
+                                                         @Query("user_id") String user_id);
+
     @GET("duplicate_user_name.php")
     Observable<SuccessResponse> checkUsername(@Query("user_nick_name") String user_nick_name);
 
