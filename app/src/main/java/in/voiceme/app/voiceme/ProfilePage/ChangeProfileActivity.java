@@ -59,10 +59,10 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private TextView genderSelectionTitle;
     private Button submitButton;
     private ImageView change_profile_photo;
-    AlertDialog alertDialog1;
+    private AlertDialog alertDialog1;
     private View changeProgress;
-    CharSequence[] values = {" Male "," Female "," Transgender "};
-    CharSequence[] removeImage = {" Remove profile image "," Add new profile image "};
+    private CharSequence[] values = {" Male "," Female "," Transgender "};
+    private CharSequence[] removeImage = {" Remove profile image "," Add new profile image "};
 
     private SimpleDraweeView avatarView;
     private View avatarProgressFrame;
@@ -434,6 +434,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     }
                 });
     }
+
+
 
     private void getData() throws Exception {
         application.getWebService()

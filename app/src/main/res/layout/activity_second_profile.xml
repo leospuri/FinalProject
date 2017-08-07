@@ -44,6 +44,15 @@
                         android:scaleType="centerCrop"
                         android:background="@drawable/background_start" />
 
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/second_user_block"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="30dp"
+                        android:src="@drawable/block"/>
+
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/second_image"
                         fresco:roundedCornerRadius="60dp"
@@ -364,12 +373,13 @@
 
             </LinearLayout>
 
+
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:clickable="true"
-                android:visibility="gone"
                 android:id="@+id/activity_second_profile_progress">
 
                 <TextView
@@ -392,25 +402,20 @@
                     android:layout_marginBottom="40dp"
                     />
 
-                <TextView
+                <ProgressBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Loading"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginBottom="70dp"
-                    />
+                    android:indeterminate="true"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Please Wait..."
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginBottom="40dp"
-                    />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:clickable="true"
+                android:visibility="gone"
+                android:id="@+id/activity_second_block_progress">
 
                 <ProgressBar
                     android:layout_width="wrap_content"

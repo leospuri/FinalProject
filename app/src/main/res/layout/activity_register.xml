@@ -125,8 +125,6 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            fb:login_text="LOGIN to FACEBOOK"
-            fb:logout_text=""
             android:paddingTop="14dp"
             android:paddingBottom="14dp"/>
 

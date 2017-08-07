@@ -373,10 +373,11 @@ public class DiscoverTrendingFragment extends BaseFragment implements WasLoggedI
     public void onLoadMore() {
         progressBar.setVisibility(View.VISIBLE);
         try {
+            currentPage += 1;
             loadNextPage();
             progressBar.setVisibility(View.GONE);
             isLoading = true;
-            currentPage += 1;
+
         } catch (Exception e) {
             e.printStackTrace();
         }

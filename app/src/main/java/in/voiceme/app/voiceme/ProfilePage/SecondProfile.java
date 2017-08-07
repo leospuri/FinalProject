@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import in.voiceme.app.voiceme.DTO.ProfileUserList;
+import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.chat.MessageActivity;
@@ -51,6 +52,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView followersCount;
     private TextView followingCount;
     private ProfileUserList response;
+    private AlertDialog alertDialog1;
+    private CharSequence[] values = {" Block ", " Cancel "};
+    private CharSequence[] values02 = {" UnBlock ", " Cancel "};
 
     private TextView age;
     private ImageView user_online;
@@ -60,7 +64,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     protected Boolean currentFollowing;
     private ProgressBar progressBar;
     private View progressFrame;
+    private View activity_second_block_progress;
     private ImageView send_private_message;
+    private ImageView second_user_block;
     private LinearLayout second_new_username;
 
     @Override
@@ -69,11 +75,13 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
         setContentView(R.layout.activity_second_profile);
         progressFrame = findViewById(R.id.activity_second_profile_progress);
+        activity_second_block_progress = findViewById(R.id.activity_second_block_progress);
         progressBar = (ProgressBar) findViewById(R.id.second_profile_progress);
         progressBar.setVisibility(View.VISIBLE);
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
 
         user_online = (ImageView) findViewById(R.id.user_online);
+        second_user_block = (ImageView) findViewById(R.id.second_user_block);
         send_private_message = (ImageView) findViewById(R.id.send_private_message);
         second_new_username = (LinearLayout) findViewById(R.id.layout_second_profile_total);
         second_name_last_online = (TextView) findViewById(R.id.second_name_last_online);
@@ -141,6 +149,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         send_private_message.setOnClickListener(this);
 
         followMe.setOnClickListener(this);
+        second_user_block.setOnClickListener(this);
+
 
         //   if (isProgressBarVisible)
         //     setProgressBarVisible(true);
@@ -257,6 +267,18 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     }
                 }
                 break;
+            case R.id.second_user_block:
+                if (activity_second_block_progress.getVisibility()==View.GONE){
+                    activity_second_block_progress.setVisibility(View.VISIBLE);
+                } else {
+                    activity_second_block_progress.setVisibility(View.VISIBLE);
+                }
+                try {
+                    checkUserBlockStatus();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
             case R.id.send_private_message:
                 if (processLoggedState(view))
                     return;
@@ -279,6 +301,141 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         }
 
 
+    }
+
+    private void blockUserInsert() {
+        application.getWebService()
+                .blockUserInsert(MySharedPreferences.getUserId(preferences), profileUserId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<UserResponse>() {
+                    @Override
+                    public void onNext(UserResponse response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                          Toast.makeText(SecondProfile.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+                        // Timber.d("Message from server" + response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                       //     Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    public void CreateInsertBlockUser(){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(SecondProfile.this);
+        builder.setTitle("Do You want to Block the User");
+        builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                switch(item)
+                {
+                    case 0:
+
+                        blockUserInsert();
+
+                        break;
+                    case 1:
+
+                        alertDialog1.dismiss();
+                        break;
+                }
+                alertDialog1.dismiss();
+            }
+        });
+        alertDialog1 = builder.create();
+        alertDialog1.show();
+
+    }
+
+    public void CreateUnBlockBlockUser(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(SecondProfile.this);
+        builder.setTitle("You have already blocked the User. Do You want to UnBlock this User.");
+        builder.setSingleChoiceItems(values02, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                switch(item)
+                {
+                    case 0:
+
+                        blockUserDelete();
+                        break;
+                    case 1:
+
+                        alertDialog1.dismiss();
+                        break;
+                }
+                alertDialog1.dismiss();
+            }
+        });
+        alertDialog1 = builder.create();
+        alertDialog1.show();
+
+    }
+
+    private void checkUserBlockStatus() throws Exception {
+        application.getWebService()
+                .block_user_check(profileUserId, MySharedPreferences.getUserId(preferences))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+                        activity_second_block_progress.setVisibility(View.GONE);
+                        //Todo add network call for uploading profile_image file
+                        if (response.getSuccess()){
+                            CreateUnBlockBlockUser();
+                        } else {
+                            CreateInsertBlockUser();
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                            //   Toast.makeText(ChangeProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void blockUserDelete() {
+        application.getWebService()
+                .blockUserDelete(MySharedPreferences.getUserId(preferences), profileUserId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<UserResponse>() {
+                    @Override
+                    public void onNext(UserResponse response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                          Toast.makeText(SecondProfile.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+                        // Timber.d("Message from server" + response);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            Timber.e(e.getMessage());
+                       //     Toast.makeText(SecondProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void sendFollowNotification() {

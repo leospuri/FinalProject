@@ -116,7 +116,8 @@ public interface WebService {
                                                  @Query("page") int page);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getPopularPost(@Query("popularPostId") String popularPostId);
+    Observable<List<PostsModel>> getPopularPost(@Query("popularPostId") String popularPostId,
+                                                @Query("page") int page);
 
     @GET("get_comments_reply.php")
     Observable<List<PostUserCommentModel>> getUserComments(
@@ -159,6 +160,16 @@ public interface WebService {
     @POST("tokenonly.php")
     Observable<OnlyToken> onlyToken(@Field("user_id") String userId,
                                     @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("block_user_insert.php")
+    Observable<UserResponse> blockUserInsert(@Field("user_id") String currentUserId,
+                                    @Field("blocked_id") String userToBeBlockedId);
+
+    @FormUrlEncoded
+    @POST("block_user_delete.php")
+    Observable<UserResponse> blockUserDelete(@Field("user_id") String currentUserId,
+                                    @Field("blocked_id") String userToBeBlockedId);
 
 
     @FormUrlEncoded

@@ -372,10 +372,11 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     public void onLoadMore() {
         progressBar.setVisibility(View.VISIBLE);
         try {
+            currentPage += 1;
             loadNextPage();
             progressBar.setVisibility(View.GONE);
             isLoading = true;
-            currentPage += 1;
+
         } catch (Exception e) {
             e.printStackTrace();
         }

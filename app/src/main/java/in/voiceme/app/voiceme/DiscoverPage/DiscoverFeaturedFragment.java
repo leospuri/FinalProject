@@ -17,14 +17,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baoyz.widget.PullRefreshLayout;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
@@ -32,12 +32,18 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.RetryWithDelay;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static com.facebook.GraphRequest.TAG;
 
-public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMoreListener {
-    public static final String ARG_TRENDING_PAGE = "ARG_TRENDING_PAGE";
-    PullRefreshLayout layout;
+
+public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedInInterface, OnLoadMoreListener {
+    public static final String ARG_LATEST_PAGE = "ARG_LATEST_PAGE";
+
+    private int mPage;
+
+    // private LatestListAdapter latestListAdapter;
+    private RecyclerView recyclerView;
 
     private static final int PAGE_START = 1;
     private boolean isLoading = false;
@@ -45,15 +51,17 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
     private int TOTAL_PAGES = 500;
     private int currentPage = PAGE_START;
-    ProgressBar progressBar;
-    LinearLayout errorLayout;
-    TextView txtError;
     private View progressFrame;
 
-    private int mPage;
-    private RecyclerView recyclerView;
-    private Button error_btn_retry;
+    ProgressBar progressBar;
+    Button error_btn_retry;
+    LinearLayout errorLayout;
+    LinearLayout no_post_layout;
+    TextView txtError;
+    private List<String> popularDiscoverPage;
+    TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
+    View view;
 
     public DiscoverFeaturedFragment() {
         // Required empty public constructor
@@ -61,7 +69,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
 
     public static DiscoverFeaturedFragment newInstance(int page) {
         Bundle args = new Bundle();
-        args.putInt(ARG_TRENDING_PAGE, page);
+        args.putInt(ARG_LATEST_PAGE, page);
         DiscoverFeaturedFragment fragment = new DiscoverFeaturedFragment();
         fragment.setArguments(args);
         return fragment;
@@ -70,22 +78,37 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPage = getArguments().getInt(ARG_TRENDING_PAGE);
+        mPage = getArguments().getInt(ARG_LATEST_PAGE);
+        popularDiscoverPage = new ArrayList<>();
+        latestListAdapter = new LatestListAdapter(getActivity());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            initUiView(view);
+            loadFirstPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_discover_trending, container, false);
-        progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
+        view = inflater.inflate(R.layout.fragment_discover_trending, container, false);
         progressFrame = view.findViewById(R.id.activity_trending_progress);
         error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
+        progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
+        no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
+        no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
-        layout = (PullRefreshLayout) view.findViewById(R.id.discover_trending_swipeRefreshLayout);
+        /*
+        layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
         layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
@@ -94,23 +117,25 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        currentPage = PAGE_START;
                         try {
+                            loadPopularPost();
                             loadFirstPage();
-                            currentPage = PAGE_START;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }, 4000);
+                }, 2000);
             }
         });
+        */
 
-        try {
-            initUiView(view);
-          //  loadFirstPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            initUiView(view);
+//            loadFirstPage();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,11 +148,16 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
             }
         });
 
+        //recyclerview
+//        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_recyclerview);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+//        recyclerView.setAdapter(new MyRecyclerAdapter(this.getActivity(), getDiscoverLatest()));
         return view;
     }
 
     private void initUiView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_trending_recyclerview);
+        //  LinearLayoutManager linearLayout = new LinearLayoutManager(this.getActivity());
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(view.getContext()));
@@ -140,21 +170,55 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        /*
+
+        recyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                int totalItemCount = linearLayoutManager.getItemCount();
+                isLoading = true;
+                currentPage += 1;
+
+                loadNextPage();
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+        */
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     private void showErrorView(Throwable throwable) {
-
         if (errorLayout.getVisibility() == View.GONE) {
             errorLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
-
             txtError.setText(fetchErrorMessage(throwable));
+        }
+    }
+
+    private void showEmptyView() {
+        if (no_post_layout.getVisibility() == View.GONE) {
+            no_post_layout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            no_post_textview.setText("There are no Latest Posts");
         }
     }
 
@@ -187,11 +251,6 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
         return errorMsg;
     }
 
-    @Override
-    public String toString() {
-        return "documentary";
-    }
-
     private void loadFirstPage() throws Exception {
         Log.d(TAG, "loadFirstPage: ");
         hideErrorView();
@@ -199,12 +258,10 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
         if(currentPage > PAGE_START){
             currentPage = PAGE_START;
         }
-
         application.getWebService()
-                .getPopularPost(MySharedPreferences.getUserId(preferences))
-                .observeOn(AndroidSchedulers.mainThread())
+                .getPopularPost(MySharedPreferences.getUserId(preferences), currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
-                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
@@ -216,7 +273,9 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
 
                         //   List<PostsModel> model = fetchResults(response);
                         //   showRecycleWithDataFilled(response);
-
+                        if (response.size() == 0){
+                            showEmptyView();
+                        } else {
                             showRecycleWithDataFilled(response);
                             progressFrame.setVisibility(View.GONE);
 
@@ -227,6 +286,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
                                 isLastPage = true;
                             } else if (currentPage <= TOTAL_PAGES ) latestListAdapter.addLoadingFooter();
                             else isLastPage = true;
+                        }
 
                     }
                     @Override
@@ -244,21 +304,25 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
         hideErrorView();
 
         application.getWebService()
-                .getTrending(MySharedPreferences.getUserId(preferences),"true", currentPage)
+                .getPopularPost(MySharedPreferences.getUserId(preferences), currentPage)
+                .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .retryWhen(new RetryWithDelay(3,2000))
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
                         hideErrorView();
+                        latestListAdapter.addAll(response);
                         latestListAdapter.removeLoadingFooter();
                         isLoading = false;
 
+                        if(response.size() < 25){
+                            isLastPage = true;
+                        }
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        latestListAdapter.addAll(response);
-                     //   showRecycleWithDataFilled(response);
+
+                        // showRecycleWithDataFilled(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
@@ -267,26 +331,20 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
                         e.printStackTrace();
                         progressBar.setVisibility(View.GONE);
                         progressFrame.setVisibility(View.GONE);
+                        Timber.e("error is: " + e);
                         latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });
 
     }
 
+    @Override
+    public String toString() {
+        return "documentary";
+    }
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
         latestListAdapter = new LatestListAdapter(myList, getActivity());
-    /*    latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
-            @Override
-            public void onItemClick(PostsModel model, View v) {
-                String name = model.getIdUserName();
-            }
-
-            @Override
-            public void onLikeUnlikeClick(PostsModel model, LikeButton v) {
-
-            }
-        }); */
         recyclerView.setAdapter(latestListAdapter);
     }
 
@@ -301,14 +359,24 @@ public class DiscoverFeaturedFragment extends BaseFragment implements OnLoadMore
 
     }
 
+  /*  @Override
+    public void retryPageLoad() {
+        try {
+            loadNextPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } */
+
     @Override
     public void onLoadMore() {
         progressBar.setVisibility(View.VISIBLE);
         try {
+            currentPage += 1;
             loadNextPage();
             progressBar.setVisibility(View.GONE);
             isLoading = true;
-            currentPage += 1;
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,6 +20,7 @@ import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.stfalcon.chatkit.utils.RoundedImageView;
+import com.vanniktech.emoji.EmojiTextView;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -495,13 +496,13 @@ public class MessageHolders {
             extends BaseIncomingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
-        protected TextView text;
+        protected EmojiTextView text;
         protected String newStringWithEmojis;
 
         public IncomingTextMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            text = (EmojiTextView) itemView.findViewById(R.id.messageText);
         }
 
         @Override
@@ -555,13 +556,13 @@ public class MessageHolders {
             extends BaseOutcomingMessageViewHolder<MESSAGE> {
 
         protected ViewGroup bubble;
-        protected TextView text;
+        protected EmojiTextView text;
         protected String newStringWithEmojis2;
 
         public OutcomingTextMessageViewHolder(View itemView) {
             super(itemView);
             bubble = (ViewGroup) itemView.findViewById(R.id.bubble);
-            text = (TextView) itemView.findViewById(R.id.messageText);
+            text = (EmojiTextView) itemView.findViewById(R.id.messageText);
         }
 
         @Override
