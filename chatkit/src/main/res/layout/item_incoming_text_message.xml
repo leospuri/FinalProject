@@ -32,6 +32,7 @@
 
         <com.vanniktech.emoji.EmojiTextView
             android:id="@id/messageText"
+            app:emojiSize="26sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

@@ -33,6 +33,7 @@ import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
+import com.vanniktech.emoji.EmojiTextView;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -419,7 +420,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
         protected TextView tvDate;
         protected ImageView ivAvatar;
         protected ImageView ivLastMessageUser;
-        protected TextView tvLastMessage;
+        protected EmojiTextView tvLastMessage;
         protected TextView tvBubble;
         protected ViewGroup dividerContainer;
         protected View divider;
@@ -431,7 +432,7 @@ public class DialogsListAdapter<DIALOG extends IDialog>
             container = (ViewGroup) itemView.findViewById(R.id.dialogContainer);
             tvName = (TextView) itemView.findViewById(R.id.dialogName);
             tvDate = (TextView) itemView.findViewById(R.id.dialogDate);
-            tvLastMessage = (TextView) itemView.findViewById(R.id.dialogLastMessage);
+            tvLastMessage = (EmojiTextView) itemView.findViewById(R.id.dialogLastMessage);
             tvBubble = (TextView) itemView.findViewById(R.id.dialogUnreadBubble);
             ivLastMessageUser = (ImageView) itemView.findViewById(R.id.dialogLastMessageUserAvatar);
             ivAvatar = (ImageView) itemView.findViewById(R.id.dialogAvatar);

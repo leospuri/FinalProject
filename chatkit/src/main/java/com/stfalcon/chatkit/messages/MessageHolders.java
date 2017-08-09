@@ -2,9 +2,11 @@ package com.stfalcon.chatkit.messages;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,6 +33,7 @@ import java.util.List;
 /*
  * Created by troy379 on 31.03.17.
  */
+@SuppressWarnings("WeakerAccess")
 public class MessageHolders {
 
     private static final short VIEW_TYPE_DATE_HEADER = 130;
@@ -322,7 +325,7 @@ public class MessageHolders {
     * PRIVATE METHODS
     * */
 
-    ViewHolder getHolder(ViewGroup parent, int viewType, MessagesListStyle messagesListStyle) {
+    protected ViewHolder getHolder(ViewGroup parent, int viewType, MessagesListStyle messagesListStyle) {
         switch (viewType) {
             case VIEW_TYPE_DATE_HEADER:
                 return getHolder(parent, dateHeaderLayout, dateHeaderHolder, messagesListStyle);
@@ -344,20 +347,35 @@ public class MessageHolders {
                     }
                 }
         }
-        return null;
+        throw new IllegalStateException("Wrong message view type. Please, report this issue on GitHub with full stacktrace in description.");
     }
 
     @SuppressWarnings("unchecked")
-    void bind(ViewHolder holder, Object item, boolean isSelected, ImageLoader imageLoader,
-              View.OnClickListener onMessageClickListener,
-              View.OnLongClickListener onMessageLongClickListener,
-              DateFormatter.Formatter dateHeadersFormatter) {
+    protected void bind(final ViewHolder holder, final Object item, boolean isSelected,
+                        final ImageLoader imageLoader,
+                        final View.OnClickListener onMessageClickListener,
+                        final View.OnLongClickListener onMessageLongClickListener,
+                        final DateFormatter.Formatter dateHeadersFormatter,
+                        final SparseArray<MessagesListAdapter.OnMessageViewClickListener> clickListenersArray) {
 
         if (item instanceof IMessage) {
             ((MessageHolders.BaseMessageViewHolder) holder).isSelected = isSelected;
             ((MessageHolders.BaseMessageViewHolder) holder).imageLoader = imageLoader;
             holder.itemView.setOnLongClickListener(onMessageLongClickListener);
             holder.itemView.setOnClickListener(onMessageClickListener);
+
+            for (int i = 0; i < clickListenersArray.size(); i++) {
+                final int key = clickListenersArray.keyAt(i);
+                final View view = holder.itemView.findViewById(key);
+                if (view != null) {
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickListenersArray.get(key).onMessageViewClick(view, (IMessage) item);
+                        }
+                    });
+                }
+            }
         } else if (item instanceof Date) {
             ((MessageHolders.DefaultDateHeaderViewHolder) holder).dateHeadersFormatter = dateHeadersFormatter;
         }
@@ -366,7 +384,7 @@ public class MessageHolders {
     }
 
 
-    int getViewType(Object item, String senderId) {
+    protected int getViewType(Object item, String senderId) {
         boolean isOutcoming = false;
         int viewType;
 
@@ -397,7 +415,7 @@ public class MessageHolders {
             }
             return holder;
         } catch (Exception e) {
-            return null;
+            throw new UnsupportedOperationException("Somehow we couldn't create the ViewHolder for message. Please, report this issue on GitHub with full stacktrace in description.", e);
         }
     }
 
@@ -439,7 +457,7 @@ public class MessageHolders {
         /**
          * Callback for implementing images loading in message list
          */
-        ImageLoader imageLoader;
+        protected ImageLoader imageLoader;
 
         public BaseMessageViewHolder(View itemView) {
             super(itemView);
@@ -512,9 +530,7 @@ public class MessageHolders {
                 bubble.setSelected(isSelected());
             }
 
-
             if (text != null) {
-
                 byte[] data = Base64.decode(message.getText(), Base64.DEFAULT);
                 try {
                     newStringWithEmojis = new String(data, "UTF-8");
@@ -523,7 +539,7 @@ public class MessageHolders {
                 }
                 text.setText(newStringWithEmojis);
 
-             //   text.setText(message.getText());
+                //   text.setText(message.getText());
             }
         }
 
@@ -535,7 +551,7 @@ public class MessageHolders {
                         style.getIncomingDefaultBubblePaddingTop(),
                         style.getIncomingDefaultBubblePaddingRight(),
                         style.getIncomingDefaultBubblePaddingBottom());
-                bubble.setBackground(style.getIncomingBubbleDrawable());
+                ViewCompat.setBackground(bubble, style.getIncomingBubbleDrawable());
             }
 
             if (text != null) {
@@ -581,7 +597,7 @@ public class MessageHolders {
                 }
 
                 text.setText(newStringWithEmojis2);
-              //  text.setText(message.getText());
+                //  text.setText(message.getText());
             }
         }
 
@@ -593,7 +609,7 @@ public class MessageHolders {
                         style.getOutcomingDefaultBubblePaddingTop(),
                         style.getOutcomingDefaultBubblePaddingRight(),
                         style.getOutcomingDefaultBubblePaddingBottom());
-                bubble.setBackground(style.getOutcomingBubbleDrawable());
+                ViewCompat.setBackground(bubble, style.getOutcomingBubbleDrawable());
             }
 
             if (text != null) {
@@ -653,7 +669,7 @@ public class MessageHolders {
             }
 
             if (imageOverlay != null) {
-                imageOverlay.setBackground(style.getIncomingImageOverlayDrawable());
+                ViewCompat.setBackground(imageOverlay, style.getIncomingImageOverlayDrawable());
             }
         }
     }
@@ -704,7 +720,7 @@ public class MessageHolders {
             }
 
             if (imageOverlay != null) {
-                imageOverlay.setBackground(style.getOutcomingImageOverlayDrawable());
+                ViewCompat.setBackground(imageOverlay, style.getOutcomingImageOverlayDrawable());
             }
         }
     }
@@ -883,8 +899,8 @@ public class MessageHolders {
 
     private class HolderConfig<T extends IMessage> {
 
-        Class<? extends BaseMessageViewHolder<? extends T>> holder;
-        int layout;
+        protected Class<? extends BaseMessageViewHolder<? extends T>> holder;
+        protected int layout;
 
         HolderConfig(Class<? extends BaseMessageViewHolder<? extends T>> holder, int layout) {
             this.holder = holder;
