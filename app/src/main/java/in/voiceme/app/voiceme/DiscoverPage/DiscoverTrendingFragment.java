@@ -101,7 +101,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements WasLoggedI
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_discover_popular, container, false);
+        view = inflater.inflate(R.layout.fragment_discover_trending_02, container, false);
         progressFrame = view.findViewById(R.id.activity_discover_popular);
         error_btn_retry = (Button) view.findViewById(R.id.error_btn_retry);
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);

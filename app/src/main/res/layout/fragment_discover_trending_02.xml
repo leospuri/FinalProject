@@ -6,7 +6,7 @@
     tools:context=".DiscoverPage.DiscoverTrendingFragment">
 
     <com.baoyz.widget.PullRefreshLayout
-        android:id="@+id/discover_popular_swipeRefreshLayout"
+        android:id="@+id/discover_trending_swipeRefreshLayout02"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView

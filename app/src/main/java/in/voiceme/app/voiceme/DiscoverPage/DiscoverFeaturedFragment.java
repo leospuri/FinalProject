@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -58,7 +57,6 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
     LinearLayout errorLayout;
     LinearLayout no_post_layout;
     TextView txtError;
-    private List<String> popularDiscoverPage;
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
     View view;
@@ -79,19 +77,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_LATEST_PAGE);
-        popularDiscoverPage = new ArrayList<>();
         latestListAdapter = new LatestListAdapter(getActivity());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            initUiView(view);
-            loadFirstPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -130,12 +116,11 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
         });
         */
 
-//        try {
-//            initUiView(view);
-//            loadFirstPage();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            initUiView(view);
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +244,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
             currentPage = PAGE_START;
         }
         application.getWebService()
-                .getPopularPost(MySharedPreferences.getUserId(preferences), currentPage)
+                .getPopularPost("true", MySharedPreferences.getUserId(preferences), currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
@@ -304,7 +289,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
         hideErrorView();
 
         application.getWebService()
-                .getPopularPost(MySharedPreferences.getUserId(preferences), currentPage)
+                .getPopularPost("true", MySharedPreferences.getUserId(preferences), currentPage)
                 .retryWhen(new RetryWithDelay(3,2000))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

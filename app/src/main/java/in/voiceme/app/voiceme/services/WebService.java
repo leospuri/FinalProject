@@ -117,6 +117,7 @@ public interface WebService {
 
     @GET("posts.php")
     Observable<List<PostsModel>> getPopularPost(@Query("popularPostId") String popularPostId,
+                                                @Query("user_id") String userID,
                                                 @Query("page") int page);
 
     @GET("get_comments_reply.php")
