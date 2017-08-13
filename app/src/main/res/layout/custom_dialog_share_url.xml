@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/share_url"
+        android:textSize="18dp"
+        android:layout_margin="8dp"
+        android:text="Share Text"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/facebook_url"
+        android:src="@drawable/facebook"
+        android:layout_width="0dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"/>
+
+
+    <ImageView
+        android:id="@+id/twitter_url"
+        android:src="@drawable/twitter"
+        android:layout_width="0dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

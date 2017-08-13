@@ -2,12 +2,15 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Bus;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
+import in.voiceme.app.voiceme.PostsDetails.PostsDetailsActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.l;
@@ -33,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected String givenContact;
     protected String givenFacebook;
     protected Tracker mTracker;
+    public String id;
 
 
     @Override
@@ -42,6 +47,30 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         bus = application.getBus();
         scheduler = new ActionScheduler(application);
         preferences = getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_PRIVATE);
+
+
+      //  ActivityUtils.deleteAudioFile(this.getBaseContext())
+    /*    File direct = new File(Environment.getExternalStorageDirectory() + "/DirName");
+
+        if (!direct.exists()) {
+            direct.mkdirs();
+        }
+        */
+
+        Uri data = this.getIntent().getData();
+        if (data != null && data.isHierarchical()) {
+            String uri = this.getIntent().getDataString();
+            String idStr = uri.substring(uri.lastIndexOf('=') + 1);
+            id = (idStr);
+            Log.e("int value", ":======" + id);
+
+            if (!id.equals("0")) {
+                Intent intent = new Intent(BaseActivity.this, PostsDetailsActivity.class);
+                intent.putExtra(Constants.POST_BACKGROUND, id);
+                startActivity(intent);
+            }
+        }
+
 
         mTracker = application.getDefaultTracker();
 
