@@ -68,6 +68,31 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter >
+
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.voiceme.in/voiceme” -->
+                <data android:scheme="http"
+                    android:host="www.voiceme.in"
+                    android:pathPrefix="/voiceme" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+                <!-- Accepts URIs that begin with " voiceme://voiceme ” -->
+                <data android:scheme="voiceme"
+                    android:host="voiceme" />
+
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".DiscoverPage.FakeHome"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".login.RegisterActivity"

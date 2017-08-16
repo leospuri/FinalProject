@@ -397,7 +397,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("update_profile.php")
-    Observable<SuccessResponse> updateProfile(
+    Observable<SuccessResponse>  updateProfile(
             @Field("id_user_name") String id_user_name,
             @Field("avatar_url") Uri avatar_url,
             @Field("user_nick_name") String user_nick_name,

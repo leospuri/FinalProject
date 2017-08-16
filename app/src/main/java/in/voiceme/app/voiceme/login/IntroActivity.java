@@ -48,7 +48,7 @@ public class IntroActivity extends DotStepper implements StepOneInterface, StepT
 
         setTitle("Voiceme Community");
         addStep(createFragment(new StepSample2()));
-        addStep(createFragment(new StepSample3()));
+        addStep(createFragment(new StepSample1()));
         addStep(createFragment(new StepSample4()));
         addStep(createFragment(new StepSample5()));
 

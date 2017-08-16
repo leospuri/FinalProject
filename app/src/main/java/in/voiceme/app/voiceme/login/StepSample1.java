@@ -1,4 +1,4 @@
-package in.voiceme.app.voiceme.userpost;
+package in.voiceme.app.voiceme.login;
 
 
 import android.content.Context;
@@ -19,7 +19,6 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
@@ -27,7 +26,6 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.Constants;
-import in.voiceme.app.voiceme.login.StepTwoInterface;
 import timber.log.Timber;
 
 /**
@@ -80,8 +78,6 @@ public class StepSample1 extends AbstractStep implements AdapterView.OnItemSelec
     private TextView heartbroken_emotion_text;
     private TextView optimistic_emotion_text;
     private TextView blessed_emotion_text;
-
-    private ProgressBar step5progressbar;
     private boolean yes = false;
 
     Toolbar toolbar;
@@ -94,54 +90,54 @@ public class StepSample1 extends AbstractStep implements AdapterView.OnItemSelec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_step_sample1, container, false);
+        View v = inflater.inflate(R.layout.fragment_step_sample1Intro, container, false);
 
-        sad_emotion_back = (LinearLayout) v.findViewById(R.id.sad_emotion_back);
-        happy_emotion_back = (LinearLayout) v.findViewById(R.id.happy_emotion_back);
-        sexy_emotion_back = (LinearLayout) v.findViewById(R.id.sexy_emotion_back);
-        tired_emotion_back = (LinearLayout) v.findViewById(R.id.tired_emotion_back);
-        loved_emotion_back = (LinearLayout) v.findViewById(R.id.loved_emotion_back);
-        angry_emotion_back = (LinearLayout) v.findViewById(R.id.angry_emotion_back);
-        flirty_emotion_back = (LinearLayout) v.findViewById(R.id.flirty_emotion_back);
-        sleepy_emotion_back = (LinearLayout) v.findViewById(R.id.sleepy_emotion_back);
-        relax_emotion_back = (LinearLayout) v.findViewById(R.id.relax_emotion_back);
-        sick_emotion_back = (LinearLayout) v.findViewById(R.id.sick_emotion_back);
-        bored_emotion_back = (LinearLayout) v.findViewById(R.id.bored_emotion_back);
-        heartbroken_emotion_back = (LinearLayout) v.findViewById(R.id.heartbroken_emotion_back);
-        optimistic_emotion_back = (LinearLayout) v.findViewById(R.id.optimistic_emotion_back);
-        blessed_emotion_back = (LinearLayout) v.findViewById(R.id.blessed_emotion_back);
+        sad_emotion_back = (LinearLayout) v.findViewById(R.id.sad_emotion_back_intro);
+        happy_emotion_back = (LinearLayout) v.findViewById(R.id.happy_emotion_back_intro);
+        sexy_emotion_back = (LinearLayout) v.findViewById(R.id.sexy_emotion_back_intro);
+        tired_emotion_back = (LinearLayout) v.findViewById(R.id.tired_emotion_back_intro);
+        loved_emotion_back = (LinearLayout) v.findViewById(R.id.loved_emotion_back_intro);
+        angry_emotion_back = (LinearLayout) v.findViewById(R.id.angry_emotion_back_intro);
+        flirty_emotion_back = (LinearLayout) v.findViewById(R.id.flirty_emotion_back_intro);
+        sleepy_emotion_back = (LinearLayout) v.findViewById(R.id.sleepy_emotion_back_intro);
+        relax_emotion_back = (LinearLayout) v.findViewById(R.id.relax_emotion_back_intro);
+        sick_emotion_back = (LinearLayout) v.findViewById(R.id.sick_emotion_back_intro);
+        bored_emotion_back = (LinearLayout) v.findViewById(R.id.bored_emotion_back_intro);
+        heartbroken_emotion_back = (LinearLayout) v.findViewById(R.id.heartbroken_emotion_back_intro);
+        optimistic_emotion_back = (LinearLayout) v.findViewById(R.id.optimistic_emotion_back_intro);
+        blessed_emotion_back = (LinearLayout) v.findViewById(R.id.blessed_emotion_back_intro);
 
-        sad_emotion_icon = (ImageView) v.findViewById(R.id.sad_emotion_icon);
-        happy_emotion_icon = (ImageView) v.findViewById(R.id.happy_emotion_icon);
-        sexy_emotion_icon = (ImageView) v.findViewById(R.id.sexy_emotion_icon);
-        tired_emotion_icon = (ImageView) v.findViewById(R.id.tired_emotion_icon);
-        loved_emotion_icon = (ImageView) v.findViewById(R.id.loved_emotion_icon);
-        angry_emotion_icon = (ImageView) v.findViewById(R.id.angry_emotion_icon);
-        flirty_emotion_icon = (ImageView) v.findViewById(R.id.flirty_emotion_icon);
-        sleepy_emotion_icon = (ImageView) v.findViewById(R.id.sleepy_emotion_icon);
-        relax_emotion_icon = (ImageView) v.findViewById(R.id.relax_emotion_icon);
-        sick_emotion_icon = (ImageView) v.findViewById(R.id.sick_emotion_icon);
-        bored_emotion_icon = (ImageView) v.findViewById(R.id.bored_emotion_icon);
-        heartbroken_emotion_icon = (ImageView) v.findViewById(R.id.heartbroken_emotion_icon);
-        optimistic_emotion_icon = (ImageView) v.findViewById(R.id.optimistic_emotion_icon);
-        blessed_emotion_icon = (ImageView) v.findViewById(R.id.blessed_emotion_icon);
+        sad_emotion_icon = (ImageView) v.findViewById(R.id.sad_emotion_icon_intro);
+        happy_emotion_icon = (ImageView) v.findViewById(R.id.happy_emotion_icon_intro);
+        sexy_emotion_icon = (ImageView) v.findViewById(R.id.sexy_emotion_icon_intro);
+        tired_emotion_icon = (ImageView) v.findViewById(R.id.tired_emotion_icon_intro);
+        loved_emotion_icon = (ImageView) v.findViewById(R.id.loved_emotion_icon_intro);
+        angry_emotion_icon = (ImageView) v.findViewById(R.id.angry_emotion_icon_intro);
+        flirty_emotion_icon = (ImageView) v.findViewById(R.id.flirty_emotion_icon_intro);
+        sleepy_emotion_icon = (ImageView) v.findViewById(R.id.sleepy_emotion_icon_intro);
+        relax_emotion_icon = (ImageView) v.findViewById(R.id.relax_emotion_icon_intro);
+        sick_emotion_icon = (ImageView) v.findViewById(R.id.sick_emotion_icon_intro);
+        bored_emotion_icon = (ImageView) v.findViewById(R.id.bored_emotion_icon_intro);
+        heartbroken_emotion_icon = (ImageView) v.findViewById(R.id.heartbroken_emotion_icon_intro);
+        optimistic_emotion_icon = (ImageView) v.findViewById(R.id.optimistic_emotion_icon_intro);
+        blessed_emotion_icon = (ImageView) v.findViewById(R.id.blessed_emotion_icon_intro);
 
-        happy_emotion_text = (TextView) v.findViewById(R.id.happy_emotion_text);
-        sad_emotion_text = (TextView) v.findViewById(R.id.sad_emotion_text);
-        sexy_emotion_text = (TextView) v.findViewById(R.id.sexy_emotion_text);
-        tired_emotion_text = (TextView) v.findViewById(R.id.tired_emotion_text);
-        loved_emotion_text = (TextView) v.findViewById(R.id.loved_emotion_text);
-        angry_emotion_text = (TextView) v.findViewById(R.id.angry_emotion_text);
-        flirty_emotion_text = (TextView) v.findViewById(R.id.flirty_emotion_text);
-        sleepy_emotion_text = (TextView) v.findViewById(R.id.sleepy_emotion_text);
-        sick_emotion_text = (TextView) v.findViewById(R.id.sick_emotion_text);
-        relax_emotion_text = (TextView) v.findViewById(R.id.relax_emotion_text);
-        bored_emotion_text = (TextView) v.findViewById(R.id.bored_emotion_text);
-        heartbroken_emotion_text = (TextView) v.findViewById(R.id.heartbroken_emotion_text);
-        optimistic_emotion_text = (TextView) v.findViewById(R.id.optimistic_emotion_text);
-        blessed_emotion_text = (TextView) v.findViewById(R.id.blessed_emotion_text);
+        happy_emotion_text = (TextView) v.findViewById(R.id.happy_emotion_text_intro);
+        sad_emotion_text = (TextView) v.findViewById(R.id.sad_emotion_text_intro);
+        sexy_emotion_text = (TextView) v.findViewById(R.id.sexy_emotion_text_intro);
+        tired_emotion_text = (TextView) v.findViewById(R.id.tired_emotion_text_intro);
+        loved_emotion_text = (TextView) v.findViewById(R.id.loved_emotion_text_intro);
+        angry_emotion_text = (TextView) v.findViewById(R.id.angry_emotion_text_intro);
+        flirty_emotion_text = (TextView) v.findViewById(R.id.flirty_emotion_text_intro);
+        sleepy_emotion_text = (TextView) v.findViewById(R.id.sleepy_emotion_text_intro);
+        sick_emotion_text = (TextView) v.findViewById(R.id.sick_emotion_text_intro);
+        relax_emotion_text = (TextView) v.findViewById(R.id.relax_emotion_text_intro);
+        bored_emotion_text = (TextView) v.findViewById(R.id.bored_emotion_text_intro);
+        heartbroken_emotion_text = (TextView) v.findViewById(R.id.heartbroken_emotion_text_intro);
+        optimistic_emotion_text = (TextView) v.findViewById(R.id.optimistic_emotion_text_intro);
+        blessed_emotion_text = (TextView) v.findViewById(R.id.blessed_emotion_text_intro);
 
-        Gallery gallery=(Gallery)v.findViewById(R.id.gallery);
+        Gallery gallery=(Gallery)v.findViewById(R.id.gallery_intro);
         adapter=new galleryAdapter(getActivity());
         gallery.setAdapter(adapter);
         gallery.setSpacing(40);
@@ -154,8 +150,6 @@ public class StepSample1 extends AbstractStep implements AdapterView.OnItemSelec
             }
         });
         */
-
-        step5progressbar = (ProgressBar) v.findViewById(R.id.step5progressbar);
 
 
 

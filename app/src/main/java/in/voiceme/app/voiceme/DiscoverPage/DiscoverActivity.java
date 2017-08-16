@@ -46,6 +46,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
      * Is true if  the user is  in demo mode.
      * Otherwise is  false
      */
+
     private boolean isDemoMode;
 
     public static Context getStaticApplicationContext() {
@@ -60,6 +61,9 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         setNavDrawer(new MainNavDrawer(this));
 
         applicationContext = this.getApplicationContext();
+
+
+
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
@@ -107,7 +111,6 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
                 // [END custom_event]
 
 
-
                 startActivity(new Intent(DiscoverActivity.this, NewAudioStatusActivity.class));
                 rightLabels.toggle();
             }
@@ -124,8 +127,12 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
     //quits demo mode
     public void onBackPressed() {
+
         if (isDemoMode)
             prefs.edit().putBoolean("is this demo mode", false).apply();
+
+      //  FakeHome.makePrefered(DiscoverActivity.this);
+
         super.onBackPressed();
     }
 
@@ -147,6 +154,18 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
         String message = String.format("Failed to connect to Google [error #%d, %s]...",
                 connectionResult.getErrorCode(), connectionResult.getErrorMessage());
         Timber.e(message);
+    }
+
+    public static void makePrefered(Context c) {
+        PackageManager p = c.getPackageManager();
+        ComponentName cN = new ComponentName(c, DiscoverActivity.class);
+        p.setComponentEnabledSetting(cN, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+        Intent selector = new Intent(Intent.ACTION_MAIN);
+        selector.addCategory(Intent.CATEGORY_HOME);
+        c.startActivity(selector);
+
+        p.setComponentEnabledSetting(cN, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 
   /*  private void scheduleTokenRefresh() {
@@ -175,18 +194,6 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
         //set adapter to pager
         pager.setAdapter(adapter);
-    }
-
-    public static void makePrefered(Context c) {
-        PackageManager p = c.getPackageManager();
-        ComponentName cN = new ComponentName(c, DiscoverActivity.class);
-        p.setComponentEnabledSetting(cN, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-        Intent selector = new Intent(Intent.ACTION_MAIN);
-        selector.addCategory(Intent.CATEGORY_HOME);
-        c.startActivity(selector);
-
-        p.setComponentEnabledSetting(cN, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 
 

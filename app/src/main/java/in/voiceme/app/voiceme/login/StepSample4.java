@@ -100,10 +100,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
         editText = (EditText) v.findViewById(R.id.intro_editText);
         createNewHashTag = (ImageView) v.findViewById(R.id.intro_create_new_hashtag);
 
-        if (createNewHashTag.getVisibility()==View.VISIBLE){
-            createNewHashTag.setVisibility(View.GONE);
-        }
-
         mLinearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -122,7 +118,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 scrollView.setVisibility(View.VISIBLE);
-                createNewHashTag.setVisibility(View.VISIBLE);
                 intro_step_four_popular.setVisibility(View.GONE);
                 rv.setVisibility(View.GONE);
             }
@@ -143,7 +138,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                 if (editText.getText().toString().isEmpty()){
                     scrollView.setVisibility(View.GONE);
                     intro_step_four_popular.setVisibility(View.VISIBLE);
-                    createNewHashTag.setVisibility(View.VISIBLE);
                     rv.setVisibility(View.VISIBLE);
                 }
             }
@@ -209,7 +203,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
             @Override
             public void popularCategoryName(AllPopularTagsPojo model, View v) {
                 // Todo add category text to the edittext
-                createNewHashTag.setVisibility(View.GONE);
                 String name = model.getId();
                 String categoryname = model.getName();
                 setCategory(name, categoryname);
@@ -319,7 +312,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
     public void setCategory(String current_category, String categoryName) {
         this.category_name = categoryName;
         selected_hashtag.setVisibility(View.VISIBLE);
-        createNewHashTag.setVisibility(View.INVISIBLE);
         if (categoryName.trim().length() > 1500){
             Toast.makeText(getActivity(), "Please Enter Status less than 1500 words", Toast.LENGTH_SHORT).show();
             yes = false;
@@ -376,7 +368,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getActivity(), "Created New Interest", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString());
-                        createNewHashTag.setVisibility(View.INVISIBLE);
                         dialog.cancel();
                     }
                 });
@@ -454,7 +445,6 @@ public class StepSample4 extends AbstractStep implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getActivity(), "Creating New Interest", Toast.LENGTH_SHORT).show();
                         insertCategory(editText.getText().toString().trim());
-                        createNewHashTag.setVisibility(View.INVISIBLE);
                         yes = true;
                         dialog.cancel();
                     }
