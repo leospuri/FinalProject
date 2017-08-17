@@ -685,7 +685,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private Intent sharedIntentMaker() {
         String sharebody = String.valueOf(myList.getUserNicName() + " " + "said:"
                 + " " + myList.getTextStatus() + " " + "inside Voiceme Android App. " +
-                "You can download from www.voiceme.in/voiceme?Post=" + postId + "");
+                "You can download from www.beacandid.com/candid?Post=" + postId + "");
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

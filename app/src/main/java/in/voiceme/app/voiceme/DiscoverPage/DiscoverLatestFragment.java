@@ -119,35 +119,11 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
             }
         });
 
-        /*
-        layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
-        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
-        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                layout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        layout.setRefreshing(false);
-                        currentPage = PAGE_START;
-                        try {
-                            loadPopularPost();
-                            loadFirstPage();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 2000);
-            }
-        });
-        */
-
-//        try {
-//            initUiView(view);
-//            loadFirstPage();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            initUiView(view);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         error_btn_retry.setOnClickListener(new View.OnClickListener() {
             @Override

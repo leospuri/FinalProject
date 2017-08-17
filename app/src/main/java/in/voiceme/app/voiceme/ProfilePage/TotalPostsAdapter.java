@@ -947,7 +947,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private Intent sharedIntentMaker() {
             String sharebody = String.valueOf(dataItem.getUserNicName() + " " + "said:"
                     + " " + dataItem.getTextStatus() + " " + "inside Voiceme Android App. " +
-                    "You can download from www.voiceme.in/voiceme?Post=" + dataItem.getIdPosts() + "");
+                    "You can download from www.beacandid.com/candid?Post=" + dataItem.getIdPosts() + "");
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

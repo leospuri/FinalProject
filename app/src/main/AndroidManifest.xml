@@ -73,18 +73,23 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "http://www.voiceme.in/voiceme” -->
+                <!-- Accepts URIs that begin with "http://www.beacandid.com/voiceme” -->
                 <data android:scheme="http"
-                    android:host="www.voiceme.in"
-                    android:pathPrefix="/voiceme" />
+                    android:host="www.beacandid.com"
+                    android:pathPrefix="/candid" />
+
+                <data android:scheme="https"
+                    android:host="www.beacandid.com"
+                    android:pathPrefix="/candid" />
                 <!-- note that the leading "/" is required for pathPrefix-->
                 <!-- Accepts URIs that begin with " voiceme://voiceme ” -->
-                <data android:scheme="voiceme"
-                    android:host="voiceme" />
+                <data android:scheme="beacandid"
+                    android:host="beacandid" />
 
             </intent-filter>
 
         </activity>
+
         <activity
             android:name=".DiscoverPage.FakeHome"
             android:enabled="false">
@@ -257,20 +262,7 @@
         <activity android:name=".NewFacebookFriends.FacebookFriendsPostActivity" />
         <activity android:name=".NewFacebookFriends.FacebookAnimActivity" />
 
-        <!-- android:autoVerify="true" -->
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
 
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-
-            <data
-                android:host="www.voiceme.in"
-                android:scheme="http" />
-            <data
-                android:host="www.voiceme.in"
-                android:scheme="https" />
-        </intent-filter>
 
         <activity
             android:name=".DiscoverPage.ShareActivity"
