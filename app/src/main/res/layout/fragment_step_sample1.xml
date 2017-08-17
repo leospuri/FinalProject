@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="35dp"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/happy_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/emoji_after" />
@@ -70,8 +70,8 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_weight="3"
+                android:layout_margin="5dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:id="@+id/sad_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/sad_after" />
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sexy_emotion_icon"
                 android:layout_weight="3"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/sexy" />
 
@@ -132,7 +132,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/tired_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/tired" />
@@ -162,7 +162,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:layout_weight="3"
                 android:id="@+id/loved_emotion_icon"
                 android:scaleType="centerInside"
@@ -194,7 +194,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/angry_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/angry_after" />
@@ -225,7 +225,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/flirty_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/flirty" />
@@ -256,7 +256,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/sleepy_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/sleepy" />
@@ -286,7 +286,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:layout_weight="3"
                 android:id="@+id/relax_emotion_icon"
                 android:scaleType="centerInside"
@@ -318,7 +318,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/sick_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/sick" />
@@ -349,7 +349,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/bored_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/bored_after" />
@@ -380,7 +380,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/heartbroken_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/heartbroken" />
@@ -411,7 +411,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/optimistic_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/optimistic" />
@@ -442,7 +442,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:id="@+id/blessed_emotion_icon"
                 android:scaleType="centerInside"
                 android:src="@drawable/blessed" />

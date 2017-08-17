@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -59,6 +61,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
     TextView txtError;
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
+    PullRefreshLayout layout;
     View view;
 
     public DiscoverFeaturedFragment() {
@@ -93,8 +96,8 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
         no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
 
-        /*
-        layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
+
+        layout = (PullRefreshLayout) view.findViewById(R.id.discover_trending_swipeRefreshLayout);
         layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
@@ -105,7 +108,6 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
                         layout.setRefreshing(false);
                         currentPage = PAGE_START;
                         try {
-                            loadPopularPost();
                             loadFirstPage();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -114,7 +116,7 @@ public class DiscoverFeaturedFragment extends BaseFragment implements WasLoggedI
                 }, 2000);
             }
         });
-        */
+
 
         try {
             initUiView(view);

@@ -564,6 +564,24 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 });
     }
 
+    protected void removePopularPost(final VoicemeApplication application, String post_id) {
+
+        application.getWebService()
+                .deletePopularPost(post_id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3,2000))
+                .subscribe(new BaseSubscriber<SuccessResponse>() {
+                    @Override
+                    public void onNext(SuccessResponse response) {
+                        Toast.makeText(itemView.getContext(), "Successfully removed Post Popular", Toast.LENGTH_SHORT).show();
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                          Timber.d("Message from server" + response);
+                    }
+                });
+    }
+
     public void setLikeCounter(int likeCounter) {
         this.likeCounter = likeCounter;
     }

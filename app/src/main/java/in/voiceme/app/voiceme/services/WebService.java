@@ -151,6 +151,10 @@ public interface WebService {
                                         @Field("post_text") String post_text);
 
     @FormUrlEncoded
+    @POST("delete_popular_post.php")
+    Observable<SuccessResponse> deletePopularPost(@Field("post_id") String post_id);
+
+    @FormUrlEncoded
     @POST("aboutme.php")
     Observable<ProfileAboutMe> LoginUserName(@Field("user_id") String userId,
                                              @Field("username") String username,

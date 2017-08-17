@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -61,6 +63,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     private List<String> popularDiscoverPage;
     TextView no_post_textview;
     private LatestListAdapter latestListAdapter;
+    PullRefreshLayout layout;
     View view;
 
     public DiscoverLatestFragment() {
@@ -84,17 +87,6 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            initUiView(view);
-            loadFirstPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -106,6 +98,26 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         no_post_layout = (LinearLayout) view.findViewById(R.id.no_post_layout);
         no_post_textview = (TextView) view.findViewById(R.id.no_post_textview);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
+
+        layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                        currentPage = PAGE_START;
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 4000);
+            }
+        });
 
         /*
         layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);
@@ -347,6 +359,8 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
         latestListAdapter = new LatestListAdapter(myList, getActivity());
         recyclerView.setAdapter(latestListAdapter);
     }
+
+
 
     @Override
     public boolean processLoggedState(View viewPrm) {

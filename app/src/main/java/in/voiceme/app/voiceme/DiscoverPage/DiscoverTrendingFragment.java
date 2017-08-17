@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -55,6 +57,7 @@ public class DiscoverTrendingFragment extends BaseFragment implements WasLoggedI
     private int TOTAL_PAGES = 500;
     private int currentPage = PAGE_START;
     private View progressFrame;
+    PullRefreshLayout layout;
 
     ProgressBar progressBar;
     Button error_btn_retry;
@@ -87,17 +90,6 @@ public class DiscoverTrendingFragment extends BaseFragment implements WasLoggedI
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            initUiView(view);
-            loadFirstPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -107,6 +99,26 @@ public class DiscoverTrendingFragment extends BaseFragment implements WasLoggedI
         progressBar = (ProgressBar) view.findViewById(R.id.main_progress);
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         txtError = (TextView) view.findViewById(R.id.error_txt_cause);
+
+        layout = (PullRefreshLayout) view.findViewById(R.id.discover_trending_swipeRefreshLayout02);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                        currentPage = PAGE_START;
+                        try {
+                            loadFirstPage();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 4000);
+            }
+        });
 
         /*
         layout = (PullRefreshLayout) view.findViewById(R.id.discover_latest_swipeRefreshLayout);

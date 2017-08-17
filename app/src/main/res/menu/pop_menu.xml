@@ -26,6 +26,14 @@
                     android:title="Make Popular" />
         </group>
 
+        <group
+            android:id="@+id/main_menu_remove_popular_group">
+                <item
+                    android:id="@+id/remove_make_popular"
+                    app:showAsAction="never"
+                    android:title="Make Popular" />
+        </group>
+
 
 
 

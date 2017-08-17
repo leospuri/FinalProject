@@ -90,7 +90,7 @@ public class StepSample1 extends AbstractStep implements AdapterView.OnItemSelec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_step_sample1Intro, container, false);
+        View v = inflater.inflate(R.layout.fragment_step_sample_ntro, container, false);
 
         sad_emotion_back = (LinearLayout) v.findViewById(R.id.sad_emotion_back_intro);
         happy_emotion_back = (LinearLayout) v.findViewById(R.id.happy_emotion_back_intro);

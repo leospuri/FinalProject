@@ -35,6 +35,7 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
     FloatingActionButton textStatus;
     FloatingActionButton audioStatus;
     FloatingActionsMenu rightLabels;
+
     private final String share_url = "https://play.google.com/store/apps/details?id=in.voiceme.app.voiceme";
     private final Uri share_image = Uri.parse("https://s3-us-west-2.amazonaws.com/voice-me-images/Untitled-3.jpg");
 
@@ -167,6 +168,8 @@ public class DiscoverActivity extends BaseActivity implements GoogleApiClient.On
 
         p.setComponentEnabledSetting(cN, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
+
+
 
   /*  private void scheduleTokenRefresh() {
 

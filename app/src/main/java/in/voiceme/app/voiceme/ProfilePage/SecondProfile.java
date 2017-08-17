@@ -249,6 +249,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                         removeFollower(profileUserId, Constants.REMOVE);
                    //     sendUnFollowNotification();
                         followMe.setText("Follow");
+                        followMe.setBackgroundColor(getResources().getColor(R.color.white));
+                        followMe.setTextColor(getResources().getColor(R.color.black));
                         currentFollowing = false;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -261,6 +263,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
 
                       //  sendFollowNotification();
                         followMe.setText("Following");
+                        followMe.setBackgroundColor(getResources().getColor(R.color.new_toolbar_color));
+                        followMe.setTextColor(getResources().getColor(R.color.white));
                         currentFollowing = true;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -574,8 +578,12 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         gender.setText(response.getData().getGender());
         if (response.getFollower()){
             followMe.setText("Following");
+            followMe.setBackgroundColor(getResources().getColor(R.color.new_toolbar_color));
+            followMe.setTextColor(getResources().getColor(R.color.white));
         } else {
             followMe.setText("Follow");
+            followMe.setBackgroundColor(getResources().getColor(R.color.white));
+            followMe.setTextColor(getResources().getColor(R.color.black));
         }
         image.setImageURI(response.getData().getAvatarPics());
 

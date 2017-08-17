@@ -149,6 +149,8 @@ public class StepSample6 extends AbstractStep implements View.OnClickListener {
     }
 
 
+
+
     @Override
     public String name() {
         return "Tab " + getArguments().getInt("position", 0);

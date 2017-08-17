@@ -64,6 +64,44 @@ public class ActivityUtils {
         return false;
     }
 
+    public static boolean deleteAudioFile(Activity activity) {
+
+        if (isWritePermissionGranted(activity)) {
+
+            return true;
+        } else {
+            ActivityCompat.requestPermissions(activity,
+                    WRITE_PERM,
+                    INT_DELETE_PICTURE_PERM);
+        }
+
+        return false;
+    }
+
+    private static boolean isWritePermissionGranted(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (activity.checkSelfPermission(WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Timber.d("Permission is granted");
+                return true;
+            } else {
+
+                Timber.d("Permission is revoked");
+                ActivityCompat.requestPermissions(activity,
+                        WRITE_PERM,
+                        INT_DELETE_PICTURE_PERM);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Timber.d("Permission is granted");
+            return true;
+        }
+    }
+
+
+
+
+
 
 
     public static boolean cameraPermissionGranted(Context activity) {
