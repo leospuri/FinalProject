@@ -113,10 +113,6 @@
             android:resource="@drawable/ic_notify_new"
             tools:ignore="ManifestResource" />
 
-        <service
-            android:name=".chat.ChatService"
-            android:enabled="true"
-            android:exported="false" />
         <service android:name=".chat.ConstantOnlineRepeatService" />
         <service
             android:name=".NotificationsPage.ChatNotificationService"

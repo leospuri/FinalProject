@@ -50,7 +50,6 @@ import in.voiceme.app.voiceme.DTO.PostUserCommentModel;
 import in.voiceme.app.voiceme.DTO.PostsModel;
 import in.voiceme.app.voiceme.DTO.SuccessResponse;
 import in.voiceme.app.voiceme.DTO.UserResponse;
-import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
 import in.voiceme.app.voiceme.NotificationsPage.SimpleDividerItemDecoration;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
@@ -283,7 +282,14 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
           //      if (processLoggedState(view)) {
          //           return;
          //       } else {
-                checkUserBlockText();
+                if (!mMessageEditText.getText().toString().isEmpty()){
+                    checkUserBlockText(mMessageEditText.getText().toString());
+                    enterTextInPostDetails();
+                } else {
+                    Toast.makeText(PostsDetailsActivity.this, "Empty comment", Toast.LENGTH_SHORT).show();
+                }
+
+
          //       }
                 break;
             case R.id.detail_list_item_like_button:
@@ -746,57 +752,20 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    void sendMessage() {
+    void enterTextInPostDetails() {
         String message = mMessageEditText.getText().toString();
-        String currentUser = MySharedPreferences.getUserId(preferences);
-
-        if (!mMessageEditText.getText().toString().isEmpty()) {
             // Todo post comment on server
 
             commentCount = mMessageEditText.getText().toString().length();
             if (commentCount > 500){
                 Toast.makeText(this, "Please enter short messages", Toast.LENGTH_SHORT).show();
             } else {
-                try {
-                    postComment(message);
-                    if (idusername.equals(currentUser)){
-                        Timber.e("same user");
-                    } else {
-                        String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-                                idusername + "_postId@" + postId  + "_click@" + "5";
-                        sendLikeNotification(application, sendLike);
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
                 mMessageAdapter.addMessage(new PostUserCommentModel(message,
                         MySharedPreferences.getImageUrl(preferences),
                         MySharedPreferences.getUsername(preferences), String.valueOf(System.currentTimeMillis()/1000), 0, "1"));
             }
 
             mMessageEditText.setText("");
-        } else {
-            Toast.makeText(this, "You have not entered anything", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (postId != null){
-            try {
-                getData(postId);
-             //   getComments(postId);
-                getComments(postId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            startActivity(new Intent(this, DiscoverActivity.class));
-        }
     }
 
     private void getComments(String postId) throws Exception {
@@ -1007,12 +976,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-
-
-
-
-
-
     private void getData(String postId) throws Exception {
         application.getWebService()
                 .getSinglePost(postId, MySharedPreferences.getUserId(preferences))
@@ -1192,7 +1155,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void checkUserBlockText(){
+    private void checkUserBlockText(String message){
 
         application.getWebService()
                 .block_user_check(idusername, MySharedPreferences.getUserId(preferences))
@@ -1206,7 +1169,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                         if (response.getSuccess()){
                             Toast.makeText(PostsDetailsActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
                         } else {
-                            sendMessage();
+                            sendMessage(message);
                         }
                     }
                     @Override
@@ -1217,6 +1180,23 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
 
                 });
+    }
+
+    private void sendMessage(String message){
+        try {
+            postComment(message);
+            if (idusername.equals(MySharedPreferences.getUserId(preferences))){
+                Timber.e("same user");
+            } else {
+                String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
+                        idusername + "_postId@" + postId  + "_click@" + "5";
+                sendLikeNotification(application, sendLike);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void checkUserBlockReply(Account.sendCommentReply sendReply){

@@ -44,6 +44,10 @@ public class MessagePojo implements IMessage, MessageContentType.Image {
 
         private String url;
 
+        public String getUrl() {
+            return url;
+        }
+
         public Image(String url) {
             this.url = url;
         }

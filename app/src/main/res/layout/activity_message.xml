@@ -52,8 +52,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp">
+                android:paddingRight="5dp">
 
                 <com.vanniktech.emoji.EmojiEditText
                     android:id="@+id/messageEmojiEdittext"
@@ -82,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="2dp"
                 android:id="@+id/chat_message_below_button"
                 android:orientation="horizontal">
 

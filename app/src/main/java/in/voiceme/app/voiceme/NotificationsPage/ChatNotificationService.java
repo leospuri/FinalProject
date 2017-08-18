@@ -4,16 +4,16 @@ import android.app.IntentService;
 import android.content.Intent;
 
 import com.squareup.otto.Bus;
-import com.squareup.otto.ThreadEnforcer;
 
 import in.voiceme.app.voiceme.infrastructure.Account;
 import in.voiceme.app.voiceme.infrastructure.Constants;
+import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 
 /**
  * Created by harishpc on 6/18/2017.
  */
 public class ChatNotificationService extends IntentService {
-    static final Bus bus=new Bus(ThreadEnforcer.ANY);
+    private Bus bus;
    // private Bus bus;
 
     public ChatNotificationService() {
@@ -30,6 +30,8 @@ public class ChatNotificationService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        bus = ((VoicemeApplication)getApplication()).getBus();
 
         bus.register(this);
     }

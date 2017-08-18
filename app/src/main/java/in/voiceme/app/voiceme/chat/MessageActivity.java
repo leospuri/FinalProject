@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.chat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -40,9 +40,6 @@ import com.vanniktech.emoji.listeners.OnSoftKeyboardOpenListener;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.model.AspectRatio;
 import com.yalantis.ucrop.view.CropImageView;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -84,8 +81,6 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
     private ImageButton emojiButton;
     private ImageButton chat_image;
     private ImageButton sendButton;
-    private int messageCount;
-    private List<MessagePojo> messages;
     private String messageCopied;
 
     static final String USER_ID_SECOND = "USER_ID_SECOND";
@@ -98,10 +93,8 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
     public static MessageActivity mThis = null;
     private Menu menu;
     public static String messageActivityuserId;
-    private DateTime currentTime = new DateTime(DateTimeZone.UTC);
     private String base64String;
     private String username;
-    private LinearLayout chat_message_below_button;
     private MessagePojo.Image image_Url = null;
     private File tempOutputFile;
     // List<MessagePojo> messages;
@@ -112,9 +105,6 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
         setContentView(R.layout.activity_message);
         progressFrame = findViewById(R.id.chat_details);
         rootView = (ViewGroup) findViewById(R.id.message_rootview);
-
-        chat_message_below_button = (LinearLayout) findViewById(R.id.chat_message_below_button);
-
 
         Intent intent = getIntent();
         messageActivityuserId = intent.getStringExtra(Constants.YES);
@@ -182,37 +172,18 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
         chat_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkUserBlock();
+                changeProfileRequest();
+
             }
         });
 
 
-
-        //  input = (MessageInput) findViewById(R.id.input);
-        if (MySharedPreferences.getUserId(preferences) == null){
-            Toast.makeText(this, "Please Login to interact  with the app", Toast.LENGTH_SHORT).show();
-        } else {
 
             emojiButton.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(final View v) {
                     emojiPopup.toggle();
                 }
             });
-
-        /*    input.setInputListener(new MessageInput.InputListener() {
-                @Override
-                public boolean onSubmit(CharSequence input) {
-
-
-                    sendMessage(input.toString());
-                    adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), input.toString(), new UserPojo(MySharedPreferences.getUserId(preferences),
-                            "harish", "", String.valueOf(true))), true);
-
-                    //         adapter.addToStart(new MessagePojo(input.toString()), true);
-                    return true;
-                }
-            }); */
-        }
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,15 +193,11 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                     Toast.makeText(MessageActivity.this, "Please enter some message", Toast.LENGTH_SHORT).show();
                 } else {
                     checkUserBlockText();
+                    sendTextMessage();
                 }
             }
         });
 
-        if (MySharedPreferences.getUserId(preferences) == null){
-            Timber.e("Not Logged In");
-            progressFrame.setVisibility(View.GONE);
-
-        } else {
             if (isNetworkConnected()){
                 try {
                     chatMessages();
@@ -241,7 +208,6 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                 //        startActivity(new Intent(this, OfflineActivity.class));
                 Toast.makeText(this, "You are not connected to internet", Toast.LENGTH_SHORT).show();
             }
-        }
 
         setUpEmojiPopup();
 
@@ -256,11 +222,9 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
             e.printStackTrace();
         }
         base64String = Base64.encodeToString(data, Base64.DEFAULT);
-        messageCount = base64String.length();
-        if (messageCount > 800){
+        if (base64String.length() > 800){
             Toast.makeText(MessageActivity.this, "Please enter short messages", Toast.LENGTH_SHORT).show();
         } else {
-            sendMessage(base64String);
             if (isNetworkConnected()){
                 adapter.addToStart(new MessagePojo(MySharedPreferences.getUserId(preferences), base64String, new UserPojo(MySharedPreferences.getUserId(preferences),
                         "harish", "", true)), true);
@@ -351,7 +315,18 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
     private void changeProfileRequest() {
         //  ActivityUtils.openGallery(this);
         ActivityUtils.cameraPermissionGranted(this);
-        changeAvatar();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == 1340) {
+                changeAvatar();
+            }
+        }
     }
 
     private void changeAvatar() {
@@ -502,17 +477,6 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
 
         }
 
-
-      /*  adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                // Todo Load more method network request
-                if (totalItemsCount < 50) {
-                    adapter.addToEnd(response, true);
-                }
-            }
-        }); */
-
         messagesList.setAdapter(adapter);
     }
 
@@ -597,7 +561,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                         if (response.getSuccess()){
                             Toast.makeText(MessageActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
                         } else {
-                            changeProfileRequest();
+                            sendImageOnline();
                         }
                     }
                     @Override
@@ -608,6 +572,10 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                     }
 
                 });
+    }
+
+    private void sendImageOnline(){
+        sendImageMessage(image_Url.getUrl());
     }
 
     private void checkUserBlockText(){
@@ -624,7 +592,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                         if (response.getSuccess()){
                             Toast.makeText(MessageActivity.this, "This user has blocked You", Toast.LENGTH_LONG).show();
                         } else {
-                            sendTextMessage();
+                            sendTextOnline();
                         }
                     }
                     @Override
@@ -635,6 +603,10 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                     }
 
                 });
+    }
+
+    private void sendTextOnline(){
+        sendMessage(base64String);
     }
 
 
@@ -687,6 +659,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
                         public void onNext(String response) {
                             Timber.d("file url " + response);
                             chatMessage(response);
+                            setImageFileUrl(response);
                          //   setImageFileUrl(response);
                         //    MySharedPreferences.registerImageUrl(preferences, response);
 
@@ -733,7 +706,7 @@ public class  MessageActivity extends BaseActivity implements MessagesListAdapte
 
         messagePojo.setImage(new MessagePojo.Image(url));
         adapter.addToStart(messagePojo, true);
-        sendImageMessage(url);
+        checkUserBlock();
       //  return messagePojo;
     }
 

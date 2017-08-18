@@ -196,17 +196,15 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()){
                         case R.id.commentDelete:
+                            remove(position);
+                            notifyItemRemoved(position);
 
                             try {
                                 deleteChat(view, mMessageList.get(mPosition).getCommentId());
-
-
                                 //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            remove(position);
-                            notifyItemRemoved(position);
 
                             return true;
 
@@ -430,7 +428,7 @@ public class CommentReplyAdapter extends RecyclerView.Adapter<CommentReplyAdapte
                     @Override
                     public void onNext(UserResponse response) {
 
-                        //   Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
+                           Toast.makeText(view.getContext(), "Comment was successfully deleted", Toast.LENGTH_LONG).show();
                         //          Toast.makeText(MessageActivity.this, response.get(0).getId(), Toast.LENGTH_SHORT).show();
                         //       String text = response.get(0).getText();
                         //    MessagePojo pojo = response.get(0).getMessage();

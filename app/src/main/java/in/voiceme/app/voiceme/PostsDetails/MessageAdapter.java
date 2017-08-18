@@ -210,8 +210,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
                             try {
                                 deleteChat(view, mMessageList.get(mPosition).getCommentId());
-
-
                                 //      Toast.makeText(view.getContext(), "comment ID: " + mMessageList.get(position).getCommentId(), Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -241,9 +239,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             user_comment = messageItem;
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
-            if (messageItem.getPost_comment_like_true().equals("true")){
-                comment_likes_true = true;
+            if (messageItem.getPost_comment_like_true()!= null){
+                if (messageItem.getPost_comment_like_true().equals("true")){
+                    comment_likes_true = true;
+                } else {
+                    comment_likes_true = false;
+                }
             }
+
 
             comment_likes = messageItem.getComment_likes();
 
@@ -404,9 +407,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             });
             AlertDialog b = dialogBuilder.create();
             b.show();
-
-
-
         }
 
         public int getBoundPosition() {
